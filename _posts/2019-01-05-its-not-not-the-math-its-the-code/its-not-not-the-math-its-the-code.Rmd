@@ -1,0 +1,162 @@
+---
+title: "it's not the maths, it's the code"
+description: |
+  how testing has changed my workflow
+author:
+  - name: Charles T. Gray
+    url: {}
+date: 01-14-2019
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_float: true
+categories:
+  - error handling
+  - testing
+bibliography: ../../biblio.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## debugging, bane of my existence
+
+As a student of mathematical science, I've worked on projects in various disciplines, from ecology to medicine. I've clocked up about five years of R use. Although the projects have been varied, one constant has been that debugging has disproportionately dominated my time. 
+
+I find this frustrating, as I would rather work on mathematics. I'm not a computer scientist, and I don't feel like debugging plays to my strengths. Over the last three years, I've become an evangelistic devotee of the `tidyverse::`[@wickham_tidyverse:_2017] because it saves me so much time in terms of data wrangling. Surely there are similar tools for debugging?
+
+But of course there are. I'm now convinced that the time I spend learning these tools is time gained in efficiency. Indeed, apparently I am following a well-worn path.
+
+> [I started using automated tests because I discovered I was spending too much time re-fixing bugs that I’d already fixed before.](http://r-pkgs.had.co.nz/tests.html)(Hadley Wickham[@wickham_r_2015])  
+
+I was looking into debugging and I came across this. 
+
+> [If your existing test coverage is low, take the opportunity to add some nearby tests to ensure that existing good behaviour is preserved. This reduces the chances of creating a new bug.](http://adv-r.had.co.nz/Exceptions-Debugging.html)(Again, Hadley Wickham[@wickham_advanced_2015]. Should put out a line of fortune cookies.)
+
+I can see the benefit of tests[^1] for developing the work. I often reuse functions and rework analyses, so having an automated system of checking that functions do what you think they'll do makes sense. Seems like a two birds one stone thing, I can increase testing coverage of my package while debugging  the problem I have. It's also the answer to, where to start with testing? 
+
+I am trying to finish an analysis at the moment which has some estimators I've coded. I'm trying to write simulations using these estimators. As usual, I run into problems with my simulations, but I struggle to understand where the problems are. Is it in the structure of the simulation, or in the mathematics, or in the mathematical assumptions? 
+
+Testing via `testthat::` enables me to keep track of what I've checked, and rechecks it automatically for me. I've even become a tentative `testthat::auto_test` (sotto robot voce) convert. 
+
+<p><a href="https://en.wikipedia.org/wiki/File:Bender_Rodriguez.png#/media/File:Bender_Rodriguez.png"><img src="https://upload.wikimedia.org/wikipedia/en/a/a6/Bender_Rodriguez.png" alt="Bender Rodriguez.png"></a><br>By Source, <a href="//en.wikipedia.org/wiki/File:Bender_Rodriguez.png" title="Fair use of copyrighted material in the context of Bender (Futurama)">Fair use</a>, <a href="https://en.wikipedia.org/w/index.php?curid=18172404">Link</a></p>
+
+Here's my big revelation so far. Sometimes it's the _code_, not the mathematics. Testing has shown me I should spend as much time worrying about whether my code works structurally as I should about the mathematics. For example, does this function always produce a data.frame? 
+
+Oftimes it's my code that's the problem, not the maths. And sometimes, after all, it's the maths[^2]. Anyway, testing helps with both, at least to some extent. 
+
+I was really surprised how useful it was to simply test out that the function returns the expected type of result. I build these algorithms that feel like Rube Goldberg machines by the time I've done with them, and I'm usually not convinced I've not put in several steps for which there was a better shortcut. The things that keep us up at night[^3]. 
+
+I think working testing into my workflow is a lot like learning to ` %>% `. It's arguably harder to learn when a workflow has already been locked in place. I think this is a struggle for R users of all sorts of levels. However, I think testing is a worthy skill in terms of time benefits, just as learning to ` %>% ` saved me so much in debugging. And then some. The ` %>% ` changed my workflow and the structure of my code. I'm surprised to find I can use testing as I build the analysis itself. *I've started using testing all the time.* 
+
+But I don't think the benefits of testing are immediately apparent for mathematical scientists. They weren't for me.   
+
+Simply testing each argument in turn is a great place to start, I discovered. Then you can consider all possible inputs for that. And that felt overwhelming. 
+
+## the dark days
+
+So, how do I check functions usually? Well, I was writing functions into .Rmd files. Then I'd have an `eval=FALSE` chunk in there, for these testing parameters.
+
+```{r eval=FALSE, echo=TRUE}
+
+# test parameters
+sample_size = 3
+par_1 = 3
+par_2 = NULL
+rs_fn = rexp
+
+```
+
+These would be my testing parameters. I'd set them up in a chunk, so that I could play around with different values. 
+
+The problem with this is it's not reproducible. Most importantly, _by me_. I find it really hard to remember from day to day what I've tested ad hoc, and find myself repeating checks compulsively. 
+
+## and now, with testing, less murky 
+
+Let's say these parameters went into a function which outputs a numeric results. Even having an expectation like
+
+```{r eval=FALSE, echo=TRUE}
+expect_is(<my_function>(3, 3, NULL, rexp), "numeric")
+```
+
+is really useful. I can also check for multiple inputs at once. 
+
+Especially as I often have functions that rely on other functions. So changing one can break others really easily if I'm not careful. 
+
+## `auto_test` workflow junkie
+
+`testthat::` has this lovely function `auto_test`. From the documentation,
+
+> The idea behind ‘auto_test()’ is that you just leave it running
+     while you develop your code.  Everytime you save a file it will be
+     automatically tested and you can easily see if your changes have
+     caused any test failures[@wickham_testthat:_2011]. 
+
+A key feature of `testthat::auto_test` is that the console becomes inaccessible, and all tests run automatically. It was a bit terrifying at first, but I started to write all my code with this function running. 
+
+For the last week or so, I've been experimenting with developing my analysis this way. Here's what's changed so far:
+
+### console work _is_ testing
+
+I discovered that much of what I do at the console could be written as an [*expectation*](http://r-pkgs.had.co.nz/tests.html). For example, when I run this function, does it return a dataframe? is the kind of question I frequently ask at the console of a function.   
+
+### analyses as functions
+
+I began to write _all_ my code as functions. Not just the bits I want to repeat. I started writing my analyses as functions that have tests associated. 
+
+Previously, I'd followed the rule that if I would need to copy and paste it more than twice, I'd make it a function. 
+
+I'd work from a .Rmd file and run chunks, try bits out. 
+
+The problem with this was I'd feel like I was starting at the start each day, trying to find the issues in the code. 
+
+### honesty is hard
+
+I found I had to not infrequently fight the compulsion to stop `auto_test`, and thus free up the console. But I made it a rule that I had to switch back if what I found myself doing could be phrased as an expectation. I was forced to switch back after a couple of minutes each time. 
+
+Here's the thing. Much of what I do at the console is answer these questions,
+
+- does it run? (or, in the case of data, is it a non-empty thing of `<type>`?)
+- if I put this is in, does it run? 
+- is this in it its output? 
+- is this a number? 
+- a positive number? 
+- a big number? (say, bigger than 1?)
+
+And all of these can be written as expectations. 
+
+For example, here's a commented example from a few days ago. In the past I would have checked these things as I wrote the code, but I've have no record of checking those things. 
+
+
+```{r eval=FALSE, echo=TRUE}
+test_that("simulation parameter set up", {
+  expect_is(meta_df(), "data.frame") # does fn output a dataframe?
+  expect_is(meta_df() %>% pluck("rdist"), "character") # is this variable a string?
+  expect_is(meta_df() %>% pluck("n"), "list") # is this variable a list?
+   # is <column name> a column name in the output of this?
+  expect_true("median_ratio" %in% colnames(meta_df()))
+  expect_true("true_median" %in% colnames(meta_df()))
+  
+  # does changing the value of the argument prop affect the running of the function?
+  expect_is(meta_df(prop = 0.4), "data.frame")
+  expect_is(meta_df(prop = prop), "data.frame")
+})
+```
+
+### workflow changer
+
+By writing tests, I both solve my problem, and keep of log of what I've tried and what works. I find this is especially useful for sanity checks. And that I need a lot more sanity checks (i.e, does this function throw an error?) than I thought I did.  
+
+I'm genuinely startled by how much this has influenced my workflow. I thought I would employ these tools specifically for debugging, troubleshooting a specific error, not for development. 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XtTL0A5nhfk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+When my husband asks me what I've been doing at work, I can't help but answer by dancing the robot.
+
+
+
+[^1]: R Packages has a great section on [testing](http://r-pkgs.had.co.nz/tests.html), which I myself must study more. 
+[^2]: Is it peculiarly Australian to say _maths_? 
+[^3]: Incidentally, I realised yesterday that because I've been stop-starting this analysis for two years, I wasn't coding it tidy, because _that's the way I'd always done it_. A supervisor asked me about it a few weeks ago, and now I've been turning it over in my head. For no better reason. It's interesting to see what I'm blind to as I learn. Sometimes it would take years of practicing every day for what a piano teacher had said to me to sink in. This was especially true for the technique of slurring. 

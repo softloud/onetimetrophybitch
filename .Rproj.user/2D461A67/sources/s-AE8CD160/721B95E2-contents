@@ -1,0 +1,12 @@
+name: "trophybitch"
+title: "measured."
+description: |
+  measured.
+output_dir: "docs"
+navbar:
+  right:
+    - text: "measured."
+      href: index.html
+    - text: "trophybitch"
+      href: about.html
+output: distill::distill_article

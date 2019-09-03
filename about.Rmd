@@ -1,0 +1,22 @@
+---
+title: "trophybitch"
+description: |
+  a one-time tropy bitch screams into the void
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## code like a girl tour
+
+- check out [twitter reel](https://twitter.com/i/moments/1027200380600348673) from the tour
+- and the [event](https://codelikeagirl.org/states/act/2018/september/data-storytelling-with-charles-gray-launch-event/)
+
+![](figs/code-like-a-girl.jpg)
+
+
+## mathbassador gray
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/o0Rqz8Hgacc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
