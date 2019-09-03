@@ -1,0 +1,425 @@
+---
+title: "`codeproof` | prepare for all weather conditions"
+author: "Charles T. Gray"
+date: "Wednesday 24 July 2019 <br>Research School on Statistics and Data Science <br>La Trobe University"
+bibliography: references.bib
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Get set up during the introduction
+
+<div class = "notes">
+
+Indicate 
+
+</div>
+
+[Happy Git with R](https://happygitwithr.com/install-intro.html
+) [@bryan_happy_2019]
+
+### I Installation
+
+### II Connect
+
+
+# Trial by computational fire
+
+## *The Trial* 1925 | Franz Kafka (1883-1924)
+
+
+```{r fig.align='right'}
+
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/en/f/f9/TrialKafka.jpg")
+
+```
+
+
+
+# `==` $\ \equiv\ =$ ? 
+
+If we're to draw proof-like conclusions from our code, oughtn't we *codeproof* the implentation of our algorithm?
+
+<div class = "notes">
+Does `equals` equal equals? 
+
+Or, to be more precise, is `=` *equivalent* to $=$?
+
+What do I mean by this?
+</div>
+
+## does equals equal equals?
+
+<div class = "notes">
+
+Given the dominance of regression, much science is interpreting $y \approx bx$ where the output is a linear combination of traits.
+
+Explain what's on the slide.
+
+
+The variables might represent a single value, categorical, matrices or vectors. They may be functions of other variables.
+
+What does this mean in a proof?
+
+What does this mean when answering a mathematical question computationally?
+
+
+</div>
+
+### closed-form solution | poster
+
+$$
+y = bx
+$$
+
+### approximation, estimation, approximation of estimation
+
+$$
+y \approx bx
+$$
+
+where
+
+- $y$ is an observed measure of interest
+- $x$ are traits we know about $y$
+- and $b$ is some measure of association between the traits and the measure 
+
+## `codeproof` | a computational approximation of proof
+
+If we're to derive proof-like conclusions from our code, oughtn't we ensure the implementation of the algorithm is as robust as the algorithm itself?
+
+**
+
+If cannot achieve proof, can we aim for a measure of `codeproof`, a *good enough* effort to proof our code for all weather conditions?
+
+## `codeproof` | research compendia with unit tests
+
+```{r out.width="100%"}
+knitr::include_graphics("../../figures/spectrum-tests.png")
+
+```
+
+See complementary theoretical discussion of the connection between between proof and reproducible computation, *Truth, Proof, and Reproducibility: There's no counter-attack for the codeless* [@gray_truth_2019].
+
+# research software engineers 
+
+## `proof::`
+
+<div class = "notes">
+Ben and I have worked together without speaking with our voices or meeting in person. 
+
+How? Via
+
+- GitHub
+- binder::
+</div>
+
+[`binder::` demonstration](https://github.com/softloud/proof)
+
+
+
+## the Kafkaesque dystopia of devops
+
+<div class = "notes">
+
+</div>
+
+<iframe src="https://giphy.com/embed/bQuWU3T26xBFC" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/bQuWU3T26xBFC">via GIPHY</a></p>
+
+
+
+## rses and metaresearch | research software engineers are often metaresearchers 
+
+```{r out.width="460px", fig.align='center'}
+
+knitr::include_graphics("https://danielskatzblog.files.wordpress.com/2019/07/screen-shot-2019-07-12-at-7.09.31-am.png?w=960")
+
+```
+
+image: [Super RSEs](https://danielskatzblog.wordpress.com/2019/07/12/super-rses-combining-research-and-service-in-three-dimensions-of-research-software-engineering/) [@katz_super_2019]
+
+## *toolchain survey* | to ameliorate the Kafkaesque dystopia of analysis devops 
+
+We describe software as *opinionated* [@parker_opinionated_2017] when it guides the user towards *good enough* [@wilson_good_2017] or *best*  [@wilson_best_2014] practice. 
+
+A *toolchain survey* is an opinionated documentation of a scientific computational workflow.  
+
+## *toolchain survey*
+
+A *toolchain survey* is an *opinionated* documentation of a scientific computational workflow.  
+
+### Objectives of a toolchain survey
+
+- To document interlocking contemporaneous computational tools for a research problem to ameliorate the Kafkaesque dystopia of analysis devops for the next researcher. 
+- To represent a *good enough* [@wilson_good_2017] effort to meet a minimum standard of scientific computing.
+- Provide end-user feedback for the package creators of the type that is potentially missed but easily found when vignettes are followed by a new user.   
+ 
+
+# burn it down | and throw the book at it 
+
+## burn it down | some shell commands
+
+<div class = "notes">
+Wax lyrical about the necessity for burning it down.
+</div>
+
+<div class="columns-2">
+```{r xkcd, out.width="80%"}
+knitr::include_graphics("https://imgs.xkcd.com/comics/git.png")
+
+```
+```{zsh, eval=FALSE, echo=TRUE}
+# test comment
+. # here
+.. # up one 
+ls -a # list files in .
+cp file toplace # copy 
+mv file toplace # move
+rm -rf folder # remove
+locate partoffilename # find
+mkdir foldername # make 
+
+```
+
+image: [xkcd](https://imgs.xkcd.com/comics/git.png)
+
+</div>
+
+## throw the book at it | rses memorise where to look up how to do it
+
+<div class = "notes">
+
+Open books and manuals every
+day.
+
+Print cheat sheets and keybinding lists every day. 
+
+Pick an integrated set of tools and explore *as required*
+</div>
+
+
+```{r strings, fig.align='center', out.width="80%"}
+
+# knitr::include_graphics("../../figures/strings.png", dpi = 190)
+
+knitr::include_graphics("https://www.rstudio.com/wp-content/uploads/2018/08/strings-600x464.png")
+
+```
+
+# `rrtools::`
+
+## `rrtools::` | Tools for Writing Reproducible Research in R
+
+> The goal of `rrtools::` is to provide instructions, templates, and functions for making a basic compendium suitable for writing a reproducible journal article or report with R.  [@marwick_rrtools_2018]
+
+### `usethis::` | Automate Package and Project Setup 
+
+[@wickham_usethis_2019]
+
+### `testthat::` | An R package to make testing fun 
+
+[@wickham_testthat_2011]
+
+### `covr::` | Test coverage reports for R
+
+[@hester_covr_2018]
+
+## compendiumise
+
+<div class = "notes">
+Tell the story about creating the compendium at the root level.
+
+The return for `getwd` was not the same file path as the terminal.
+</div>
+
+### before | *learn from my pain*
+
+1. Open RStudio
+2. Close project
+3. Set working dirctory
+
+```{r eval=FALSE, echo=TRUE}
+> setwd("Documents/repos/")
+> getwd()
+[1] "/home/charles/Documents/repos"
+```
+
+### key command
+
+`rrtools::use_compendium("pkgname")`
+
+### after
+
+Edit DESCRIPTION.
+
+## attach licence
+
+### key command
+
+`usethis::use_mit_license(name = "My Name")`
+
+
+### questions 
+
+Why is MIT preferred?
+
+Do you have opinions about licences?
+
+Why is it important to licence?
+
+
+
+
+## implement version control
+
+### before | [Happy Git with R](https://happygitwithr.com/install-intro.html
+) [@bryan_happy_2019]
+
+#### I Installation
+
+#### II Connect
+
+
+### key commands
+
+### initialise git folder
+
+`usethis::use_git()` 
+
+### sync with github
+
+```{r eval=FALSE, echo=TRUE}
+usethis::use_github(
+  credentials = git2r::cred_ssh_key(), 
+  auth_token = "xxxx", 
+  protocol = "https", 
+  private = FALSE)
+```
+
+## readme
+
+### examples ordered by informative readmes
+
+- [`lambda::`](https://github.com/softloud/lambda/)
+- [`metasim::`](https://github.com/softloud/metasim)
+- [`rrtools::`](https://github.com/benmarwick/rrtools)
+
+### keycommand
+
+`rrtools::use_readme_rmd()`
+
+## analysis 
+
+<div class = "notes">
+Discuss each section.
+
+Especially data. 
+
+Exporting figures useful for TeX.
+</div>
+
+`rrtools::use_analysis()`
+
+```
+analysis/
+|
+├── paper/
+│   ├── paper.Rmd       # this is the main document to edit
+│   └── references.bib  # this contains the reference list information
+├── figures/            # location of the figures produced by the Rmd
+|
+├── data/
+│   ├── raw_data/       # data obtained from elsewhere
+│   └── derived_data/   # data generated during the analysis
+|
+└── templates
+    ├── journal-of-archaeological-science.csl
+    |                   # this sets the style of citations & reference list
+    ├── template.docx   # used to style the output of the paper.Rmd
+    └── template.Rmd
+```
+
+## ethics in data warehouing
+
+- location sharing & dinosaurs
+- personal metrics & medicinef
+- corporate data
+
+## optional
+
+- Dockerise with `rrtools::use_dockerfile()`
+- Travisise with `rrtools::use_travis()`
+- Use tests with `usethis::use_testthat()` and `usethis::use_test()`
+
+# `testthat` makes testing fun! 
+
+## what is a test?
+
+- **tests** are collections of **expectations**, checks to see if a function returns what is expected
+- tests are grouped contextually in files
+
+```{r eval=FALSE,echo=TRUE}
+
+test_that("basically principles of equality hold",
+          {
+            expect_success(expect_equal(1, 1))
+            expect_failure(expect_equal(1, 2))
+          }
+          
+```
+
+
+## quack, quack! said the duck.
+
+```{r eval=FALSE,echo=TRUE}
+#' Quack quack, said the duck
+#'
+#' A simple function to test on. No arguments.
+#'
+#' @export
+
+quack_quack <- function(){"quack, quack!"}
+
+```
+
+## testing the duck
+
+```{r eval=FALSE,echo=TRUE}
+context("check the duck quacks")
+
+test_that("quack quack function returns something", {
+  expect_type(quack_quack(), "character")
+  expect_length(quack_quack(), 1)
+  expect_equal(quack_quack(), "quack, quack!")
+})
+
+```
+
+### `metasim::`
+
+Many [failed attempts](https://github.com/softloud/metasim/tree/master/tests/testthat) at debugging.
+
+# codeproof
+
+## codeproof
+
+<div class = "notes">
+Perhaps think of proofing our code like we waterproof our boots. 
+
+Perhaps we can aim to proof our code like we'd waterproof our boots; if we step in a deep enough puddle, we'll still get wet.
+
+</div>
+
+If we're to derive proof-like conclusions from our code, oughtn't we ensure the implementation of the algorithm is as robust as possible?
+
+
+```{r out.width="100%", fig.cap="Is a research compendium sufficient `codeproof` of our algorithm?"}
+knitr::include_graphics("../../figures/spectrum-tests.png")
+```
+
+# resources
+
+## references

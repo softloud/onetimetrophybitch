@@ -1,0 +1,241 @@
+---
+title: "miranda"
+description: |
+  don't be a reaver: the ubiquitous languange of violence 
+author:
+  - name: Charles T. Gray
+    url: https://twitter.com/cantabile
+date: 08-15-2019
+bibliography: biblio.bib
+output:
+  distill::distill_article:
+    self_contained: false
+categories:
+  - grrr...
+---
+
+```{r setup, include=FALSE}
+ knitr::opts_chunk$set(echo = FALSE)
+```
+
+Last week, I had a *miranda* moment about [allyship](http://www.guidetoallyship.com/) [@noauthor_guide_nodate] in our community.  
+
+Allyship is not a badge to be discarded when inconvenient; it is about recognising that survivors have no such choice. The most important part of allyship, for me, is **trying to not be a reaver**, not how much time you devote to women's lib.
+
+When we [harmfully communicate](http://www.shakesville.com/2011/12/harmful-communication-part-one-intent.html) [@mcewan_harmful_2011] to a survivor expressing triggered hurt that we do not accept their hurt because those who hurt them didn't *mean* it and are *nice people*, we are **reaving**. When we assume their hurt is irrational and trivialise, we are **reaving**. This is hard to accept, because, as always, "We meant it for the best". 
+
+## miranda
+
+In the 2005 space-western *Serenity* [@whedon_serenity_2005], a terrible secret, that the population of the planet Miranda had been eradicated by the inteplanetary Alliance, is hidden in the traumatised mind of a gifted young woman. 
+
+```{r miranda, out.width = "85%", fig.align='center'}
+
+knitr::include_graphics("../../figs/miranda.gif")
+
+```
+
+The crew of a small smuggling ship eventually uncover the secret. Overpowering the Alliance Operative, the captain broadwaves a signal about the genocide. 
+
+> "I know the secret now. The truth that burned up River Tam's brain and set you after her. And the rest of the 'verse is gonna know it too. 'Cause they need too." - Captain Malcolm Reynolds
+
+But it wasn't just genocide. 
+
+## we meant it for the best
+
+The G-23 Paxilon Hydrochlorate the Alliance added to the air processors to pacify the population caused almost all people to "just lay down" and die. However, there were exceptions.  
+
+> I have to be quick! About a tenth of a percent of the population had the opposite reaction to the Pax. Their aggressor response increased beyond madness. They have become...
+
+### reavers
+
+<iframe width="400" height="300" src="https://www.youtube.com/embed/U-NVs68X_S4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+No matter how much the Alliance "meant it for the best", it does not mitigate how horrific the outcome was. And what makes it most horrific is that the thirty million victims were afforded no agency; they never even knew. 
+
+
+## demeaning everyday language
+
+Everyday interactions are frequently dehumanising for me. Here's a really innocuous example; the kind I brush off all the time. Similar diplomacy is required when answering the question, *Where do you really come from?*
+
+**Me**: Hi, I'm Charles. I am taking undergrad maths, supporting myself by teaching piano, and I'm thirty-* years old.
+
+**Person**: Ah! So you're going to be a school teacher! 
+
+They would argue there is no pejorative associated with school teaching. And there isn't. My husband is a gifted high school teacher and has a doctorate in literature; his work is important, challenging, and fulfilling. 
+
+But. 
+
+**Me** (to self): *Why is it **always** school teaching?*[^1][^2]
+
+```{r fig.cap="Also me, to self."}
+
+knitr::include_graphics("../../figs/code-like-a-girl.jpg")
+
+```
+
+[^1]: Sidenote, I was a [careers mathbassador](https://www.youtube.com/watch?v=o0Rqz8Hgacc&feature=youtu.be&ab_channel=AMSITubn) (yeah, that's a link to my *movie*) for the Australian Mathematical Sciences Institute, and I'm here to tell you there are manifold opportunities for those in mathematical science. Opportunities in disciplines from ecology, psychology, to archaeology, in, you know,*any scientific discipline*. And that's in addition to industry opportunities in technology and finance. 
+[^2]: Sadly, it should be noted, as a daughter and wife of school teachers, this profession is not valued in Australian society. Teachers are frequently pilloried in the press as greedy, when in fact they are monstrously over encumbered by ostensibly automated administration tasks.  
+
+## perceived as inferior
+
+Being a diminutive, brown, punk, middle-aged woman of little means with a foul mouth and too many opinions, I get to see a side of people they don't realise they are showing. 
+
+Imagine the interaction above with a doctoral student in mathematics who is twenty-five and telling you about their professorial aspirations. Imagine you are at a conference and wish to make friends with similar research interests. Implied is that *they* are capable of this, but that I should limit myself. The why of which I am left to uncomfortably contemplate.
+
+People often reveal *far* more than they realise through innocuous interactions with me. Language is laced with assumptions that I have limited capacity, that I will irrationally overreact; most importantly, that I am perceived by them as inferior by some, but usually many, measures. 
+
+These are the knives I walk on. 
+
+## a hill to die on
+
+And sometimes these people are your friends. And sometimes, far more importantly, sometimes these are colleagues. It's easy to infer that because I find something they find easy hard, I will find all things hard. And it's an everlasting challenge to my patience and empathy to find ways to work productively with people who make that assumption.
+
+To illustrate the case where it's genuinely worth addressing the problem, we consider an example from Melissa McEwan's excellent post on [Harmful Communication](http://www.shakesville.com/2011/12/harmful-communication-part-one-intent.html).
+
+####  An example from Harmful Communication
+
+ > Alex has a PhD in Subjectology. Jamie knows that Alex has a PhD in Subjectology, yet, during a discussion of Subject, Jamie, who has an interest in and is reasonably knowledgeable about Subject, condescendingly explains basics of Subject to Alex without regard for Alex's demonstrable proficiency. Alex expresses that Jamie's insistence on explaining basics makes Alex feel as though Jamie does not respect Alex's competency or intellectual capacity. Jamie, whose intent was actually to impress Alex, insists that hir intent was not to make Alex feel that way. Alex makes a valiant attempt to explain why Jamie behaving as though Alex doesn't know the basics of Alex's professional field is disrespectful, at which point Jamie gets miffed, reiterates that the intent was not to make Alex feel bad, accuses Alex of looking for things to get mad about, and misrepresents Alex's good faith attempt to address demeaning language as a personal attack on Jamie.
+ 
+> Thus, what had started out as an inadvertent slight becomes a harmful exchange, as Jamie refuses to acknowledge that the effect of the action irrespective of its intent was hurtful to Alex, and deflects accountability by casting Alex as unreasonable. ([Harmful Communication](http://www.shakesville.com/2011/12/harmful-communication-part-one-intent.html))
+
+
+## reaving
+
+You will hurt and offend survivors, without knowing it. You will reave them. And no matter how hard you try, you will do it again. I think the least we all can do is *try* not to, and do our very best to be gracious when we inevitably reave. 
+
+> If you decide to become an ally, but refuse to acknowledge that your words and actions are laced with oppression, you’re setting up yourself to fail. [Guide to Allyship](http://www.guidetoallyship.com/)
+
+But to assume that intent innoculates the recipient of the offense from hurt is illogical. You apologise when you accidentally step on someone's foot, don't you?
+
+> It is not merely unfair (although it is that, too) to deflect accountability by casting someone to whom you've done wrong as unreasonable, oversensitive, or alleging malice ("How could you think I intended to hurt you?!"), when they are being or doing no such thing. It is abusive.
+
+> And it is abusive because it is emotionally manipulative.
+
+> That's a difficult notion to accept for most of us, because most of us have engaged in this type of harmful communication at some point in our lives, even if it's not a regular habit. Even being presented with the idea that common defensiveness can be abusive is likely to elicit, in some readers, a magical intent response: I don't intend to abuse or manipulate people, so there's no way I'm doing it! ([Harmful Communication](http://www.shakesville.com/2011/12/harmful-communication-part-one-intent.html))
+
+> But that's why this conversation is so important—because a lack of intent to harm doesn't guarantee that one will never harm.
+
+And here's why it's *reaving* for survivors. Imagine now being someone who has been through countless interactions like the one above, but the offense under discussion was rape or physical violence. 
+
+### another example
+
+When I was fifteen, the state of Australia's welfare system was such that those who have lived through it are known as [Forgotten Australians](https://forgottenaustralians.org.au/). The safest place was the streets or couch surfing.
+
+My friend's boyfriend invited me to stay with his uncle. We shared his uncle's bed, and he slept on the couch, which, was really generous of him. 
+
+One night, we kissed. We shouldn't've. But we did. We betrayed my friend. We never kissed again, I felt terrible.
+
+But from then on, in our shared bed, he would touch me at night. Paralysed, terrified I would be sleeping on the cold winter streets again, I lay very still, not reciprocating, hoping he would think I was asleep and stop. Eventually he would give up and go to sleep. 
+
+Was he at fault? Or was he a teenage boy who was trying, ineptly, to seduce me? *It doesn't matter*. 
+
+It doesn't change what it felt like for me. The powerlessness. The feeling the stakes are so high when it's so cold outside.  
+
+There's no one to blame. There is no closure. 
+
+Eventually I told my friend. I confessed to the kissing but said I didn't know how to get him to stop touching me. I tried to defend him.
+
+She broke up with him. He stole what meagre possessions we had, CDs, etc., and sold them to people we thought we our best friends at school. Everyone turned on us, and we were still homeless. 
+
+
+## we're all reavers
+
+I don't understand everyone's lived experience. For example, as someone who has been treated with repugnance over my name, I cannot fathom how it would feel to have that repugnance transferred to my body.
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">And now that I&#39;m flashing back to those people and the repugnance with which they treated me for changing my name, <a href="https://twitter.com/djnavarro?ref_src=twsrc%5Etfw">\@djnavarro</a>. All I can think is how unimaginably awful it must be for you. 💜<br><br>Grrlfriend, you&#39;re a superhero. Please don&#39;t ever lose your strut. <a href="https://t.co/itdNIsDqpF">pic.twitter.com/itdNIsDqpF</a></p>&mdash; Charles T. Gray (\@cantabile) <a href="https://twitter.com/cantabile/status/1161887159843880961?ref_src=twsrc%5Etfw">August 15, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+I assume I've already unwittingly said something reavy to Dani, as we've exchanged many words. But what she has lived through means there will be wells and chasms of doubt and anxiety that are specific to her own experience, that I won't necessarily anticipate. The least I can do is try to anticipate and avoid them. Most importantly, I aspire to be gracious and empathetic when I do inevitably fuck up and reave. 
+
+### the little mermaid
+
+I live as Anderson's [*The Little Mermaid*](https://en.wikipedia.org/wiki/The_Little_Mermaid). Not the Disney one with a happy ending. The original, where she trades her voice for legs and accepts that walking on her new feet will feel like walking on knives forever. That's what it's like to live with [trauma](https://en.wikipedia.org/wiki/Complex_post-traumatic_stress_disorder).  
+
+<center>
+<div style="width:500px; height:240px;">
+![](https://media.giphy.com/media/rfk84JOt3jc3u/source.gif(1 MB)
+https://media.giphy.com/media/rfk84JOt3jc3u/source.gif
+)
+</div>
+</center>
+
+When we're demeaned and triggered, we're stabbed in the gut, in *addition* to the knives we walk on daily. 
+
+Real allyship is about recognising that survivors walk on knives **every day**, and doing what little you can not to make the pain worse. My childhood was sad; it's enough to say that, over twenty years ago, I felt it was time to make a *real* attempt and kicked the chair out from under me. But, as I hung there swinging, the rope tightening about my neck, I decided **I would live**, even if it meant walking on knives forever. 
+
+
+### allyship
+
+Allyship, for me, means accepting we can reave others, and *trying* and failing and *trying* again not to. Those who intentionally hurt are **not worth** expecting anything from, and not worth my energy, I simply remove myself at the first opportunity. If I am trying to communicate my hurt to you, it is a mark of respect, an implicit message to accompany the ever-present, but rarely acknowledged, explicit message that I understand you meant no harm but I am still hurt and confused. It is rarely taken as a sign of respect, despite my painstakingly patient efforts.
+
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">There is nothing more excoriating than the &quot;ally&quot; who pressures you to debrief their quasi-acknowledged wrongdoing so that they can ostensibly learn, then doubles down on character assassinations. A shot at The Don&#39;ts (<a href="https://t.co/BcGKzXTS0I">https://t.co/BcGKzXTS0I</a>) bingo. <br><br>Then ghosts you. <a href="https://t.co/dypWkmM4lz">pic.twitter.com/dypWkmM4lz</a></p>&mdash; Charles T. Gray (\
+@cantabile) <a href="https://twitter.com/cantabile/status/1160671444730179584?ref_src=twsrc%5Etfw">August 11, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+### CoCs are not preventing reaving
+
+If we're true allies, then we recognise that the majority of work should be on supporting those who have *already* experienced trauma. We are so many. 
+
+Code of Conducts do not innoculate us from harm; and explicitly what I feel they fail in is supporting those who are suffering the trauma of experiences with others. Others from within and without. 
+
+But CoCs invite survivors to present themselves in distress. When almost all reaving is unintentional, if the survivor must **prove ill intent** then she is doomed to failure. 
+
+And a much smaller CD collection. 
+
+Worse still, the ubiquity of what Melissa McEwan describes as *Magical Intent* will mean she will relive precisely the type of accountability-deflecting [harmful language](http://www.shakesville.com/2011/12/harmful-communication-part-one-intent.html) she experienced with respect to her trauma. 
+
+The truth that, for the last year, burned up Charles T. Gray's brain is that people genuinely believe it's *enough* to merely proclaim allyship, no matter how they treat me. And that I am not permitted to be hurt because they are Good People. No matter how objectively offensive the behaviour is, and words are, nor how many times it happened. That does not make me feel safe from reaving. But I'm pretty tough, and I've got through things before. What truly concerns me about the arrogance of this ignorance is how the next person experiencing reaving is treated.
+
+I am hurt. I give myself permission and I will not accept I need others'. I will try to [encode my behaviour with kindess](https://softloud.github.io/trophybitch/posts/2019-04-06-coding-of-kindness/). Because kindness should be at the heart of [allyship](http://www.guidetoallyship.com/). 
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">&#39;Imagine your privilege is a heavy boot that keeps you from feeling when you’re stepping on someone’s feet or they’re stepping on yours, while oppressed people have only sandals. “Ouch! You’re stepping on my toes!” How do you react?&#39;<a href="https://t.co/BcGKzXTS0I">https://t.co/BcGKzXTS0I</a> <a href="https://t.co/KROIWgGp1M">pic.twitter.com/KROIWgGp1M</a></p>&mdash; Charles T. Gray (\@cantabile) <a href="https://twitter.com/cantabile/status/1160657825330188288?ref_src=twsrc%5Etfw">August 11, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+
+
+
+
+## we are all kings, we are all queens
+
+People can surprise you. I surprise people all the time. 
+
+<iframe width="400" height="300" src="https://www.youtube.com/embed/AjZNbIQtWvw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+### stop hitting yourself | comfort in, dump out
+
+```{r stophittingyourself,  fig.align='center'}
+
+knitr::include_graphics("../../figs/stophittingyourself.gif")
+
+```
+
+The problem with the cognitive dissonance of denial is that it brings trauma for the instigator.
+
+An important issue to note here, is that however painstakingly patient the attempts to communicate the hurt are, they are received **traumatically** by someone who is in denial.
+
+When an instigator of the initial offense is unable to admit wrongdoing, this prompts a spirited attempt on the offended party why they are hurt. And this is received as an irrational attack, it is received traumatically by the instigator. *I don't need this shit.* 
+
+No matter how hard this is on the instigator, this doesn't mitigate the outcome for the survivor. And that is *really* hard to accept.
+
+You *do* become the victim in the story, because the response is so extreme. *I don't have to take responsibility for what happened to you*. You *should* ask for support and help, **from others**. But you should not ask the survivor to take responsibility for your defensiveness, nor vilify them for making you uncomfortable with what life has made them. 
+
+Give yourself permission for finding it *hard* to empathise. Give yourself permission to be hurt, and seek *others* with whom you can seek comfort. You will need it. Allyship is hard work.
+
+
+> Here are the basic tenets paraphrased from Silk and Goodman’s article:
+
+>1. Draw a circle. In this circle, write the name of the person at the center of the crisis.
+2. Now draw a larger circle around the first one. In this ring, put the name of the person next closest to the crisis.
+3. In each larger ring, put the next closest people. As Silk and Goodman state, “Parents and children before more distant relatives. Intimate friends in smaller rings, less intimate friends in larger ones.” [@sandler_ring_2019]
+
+
+```{r fig.align='center', fig.cap="From Ring Theory, [@sandler_ring_2019]"}
+
+knitr::include_graphics("../../figs/ring_of_grief.jpg")
+
+```
+
+
+And, for what it's worth, I get it. I feel it. And I *really* empathise. But survivors need **you** to *dump out*, not require us to give far more empathy and kindness than afforded us. 
+
+Allyship is rewarding work. I know I challenge you, and I get it. But asking me to shoulder how hard it is for you, when it is already so hard for me, well, that's something you should share the load with. Because I can't carry this for all of you.
+
