@@ -19,366 +19,39 @@
  <!--/radix_placeholder_import_source-->
 
   <!--radix_placeholder_meta_tags-->
-  <title>measured.</title>
+  <title>here's how it happens</title>
+  
+  <meta property="description" itemprop="description" content="women with drinking problems are particularly vulnerable to sexual assault"/>
   
   
-  
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2018-11-17"/>
+  <meta property="article:created" itemprop="dateCreated" content="2018-11-17"/>
+  <meta name="article:author" content="Charles T. Gray"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="measured."/>
+  <meta property="og:title" content="here&#39;s how it happens"/>
   <meta property="og:type" content="article"/>
+  <meta property="og:description" content="women with drinking problems are particularly vulnerable to sexual assault"/>
   <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="measured."/>
   
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="measured."/>
+  <meta property="twitter:title" content="here&#39;s how it happens"/>
+  <meta property="twitter:description" content="women with drinking problems are particularly vulnerable to sexual assault"/>
   
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site","listing"]}},"value":[{"type":"character","attributes":{},"value":["measured."]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"character","attributes":{},"value":["posts"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","draft","categories"]}},"value":[{"type":"character","attributes":{},"value":["here's how it happens"]},{"type":"character","attributes":{},"value":["women with drinking problems are particularly vulnerable to sexual assault\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Charles T. Gray"]}]}]},{"type":"character","attributes":{},"value":["11-17-2018"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["grrr..."]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
-  <!--radix_placeholder_navigation_in_header-->
   
-  <script type="application/javascript">
-  
-    window.headroom_prevent_pin = false;
-  
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-  
-      // initialize headroom for banner
-      var header = $('header').get(0);
-      var headerHeight = header.offsetHeight;
-      var headroom = new Headroom(header, {
-        onPin : function() {
-          if (window.headroom_prevent_pin) {
-            window.headroom_prevent_pin = false;
-            headroom.unpin();
-          }
-        }
-      });
-      headroom.init();
-      if(window.location.hash)
-        headroom.unpin();
-      $(header).addClass('headroom--transition');
-  
-      // offset scroll location for banner on hash change
-      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
-      window.addEventListener("hashchange", function(event) {
-        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
-      });
-  
-      // responsive menu
-      $('.distill-site-header').each(function(i, val) {
-        var topnav = $(this);
-        var toggle = topnav.find('.nav-toggle');
-        toggle.on('click', function() {
-          topnav.toggleClass('responsive');
-        });
-      });
-  
-      // nav dropdowns
-      $('.nav-dropbtn').click(function(e) {
-        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
-        $(this).parent().siblings('.nav-dropdown')
-           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $("body").click(function(e){
-        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $(".nav-dropdown").click(function(e){
-        e.stopPropagation();
-      });
-    });
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["heres-how-it-happens_files/bowser-1.9.3/bowser.min.js","heres-how-it-happens_files/distill-2.2.21/template.v2.js","heres-how-it-happens_files/jquery-1.11.3/jquery.min.js","heres-how-it-happens_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
-  
-  <style type="text/css">
-  
-  /* Theme (user-documented overrideables for nav appearance) */
-  
-  .distill-site-nav {
-    color: rgba(255, 255, 255, 0.8);
-    background-color: #455a64;
-    font-size: 15px;
-    font-weight: 300;
-  }
-  
-  .distill-site-nav a {
-    color: inherit;
-    text-decoration: none;
-  }
-  
-  .distill-site-nav a:hover {
-    color: white;
-  }
-  
-  @media print {
-    .distill-site-nav {
-      display: none;
-    }
-  }
-  
-  .distill-site-header {
-  
-  }
-  
-  .distill-site-footer {
-  
-  }
-  
-  
-  /* Site Header */
-  
-  .distill-site-header {
-    width: 100%;
-    box-sizing: border-box;
-    z-index: 3;
-  }
-  
-  .distill-site-header .nav-left {
-    display: inline-block;
-    margin-left: 8px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header .nav-left {
-      margin-left: 0;
-    }
-  }
-  
-  
-  .distill-site-header .nav-right {
-    float: right;
-    margin-right: 8px;
-  }
-  
-  .distill-site-header a,
-  .distill-site-header .title {
-    display: inline-block;
-    text-align: center;
-    padding: 14px 10px 14px 10px;
-  }
-  
-  .distill-site-header .title {
-    font-size: 18px;
-  }
-  
-  .distill-site-header .logo {
-    padding: 0;
-  }
-  
-  .distill-site-header .logo img {
-    display: none;
-    max-height: 20px;
-    width: auto;
-    margin-bottom: -4px;
-  }
-  
-  .distill-site-header .nav-image img {
-    max-height: 18px;
-    width: auto;
-    display: inline-block;
-    margin-bottom: -3px;
-  }
-  
-  
-  
-  @media screen and (min-width: 1000px) {
-    .distill-site-header .logo img {
-      display: inline-block;
-    }
-    .distill-site-header .nav-left {
-      margin-left: 20px;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 20px;
-    }
-    .distill-site-header .title {
-      padding-left: 12px;
-    }
-  }
-  
-  
-  .distill-site-header .nav-toggle {
-    display: none;
-  }
-  
-  .nav-dropdown {
-    display: inline-block;
-    position: relative;
-  }
-  
-  .nav-dropdown .nav-dropbtn {
-    border: none;
-    outline: none;
-    color: rgba(255, 255, 255, 0.8);
-    padding: 16px 10px;
-    background-color: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    margin: 0;
-    margin-top: 1px;
-    z-index: 2;
-  }
-  
-  .nav-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 200px;
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 4px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1;
-    margin-top: 2px;
-    white-space: nowrap;
-    padding-top: 4px;
-    padding-bottom: 4px;
-  }
-  
-  .nav-dropdown-content hr {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .nav-dropdown-active {
-    display: block;
-  }
-  
-  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
-    color: black;
-    padding: 6px 24px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
-  
-  .nav-dropdown-content .nav-dropdown-header {
-    display: block;
-    padding: 5px 24px;
-    padding-bottom: 0;
-    text-transform: uppercase;
-    font-size: 14px;
-    color: #999999;
-    white-space: nowrap;
-  }
-  
-  .nav-dropdown:hover .nav-dropbtn {
-    color: white;
-  }
-  
-  .nav-dropdown-content a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  
-  .nav-right .nav-dropdown-content {
-    margin-left: -45%;
-    right: 0;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
-    .distill-site-header a.nav-toggle {
-      float: right;
-      display: block;
-    }
-    .distill-site-header .title {
-      margin-left: 0;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 0;
-    }
-    .distill-site-header {
-      overflow: hidden;
-    }
-    .nav-right .nav-dropdown-content {
-      margin-left: 0;
-    }
-  }
-  
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header.responsive {position: relative;}
-    .distill-site-header.responsive a.nav-toggle {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    .distill-site-header.responsive a,
-    .distill-site-header.responsive .nav-dropdown {
-      display: block;
-      text-align: left;
-    }
-    .distill-site-header.responsive .nav-left,
-    .distill-site-header.responsive .nav-right {
-      width: 100%;
-    }
-    .distill-site-header.responsive .nav-dropdown {float: none;}
-    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
-    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
-      display: block;
-      width: 100%;
-      text-align: left;
-    }
-  }
-  
-  /* Site Footer */
-  
-  .distill-site-footer {
-    width: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-    z-index: 3;
-    margin-top: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    text-align: center;
-  }
-  
-  /* Headroom */
-  
-  d-title {
-    padding-top: 6rem;
-  }
-  
-  @media print {
-    d-title {
-      padding-top: 4rem;
-    }
-  }
-  
-  .headroom {
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  .headroom--transition {
-    transition: all .4s ease-in-out;
-  }
-  
-  .headroom--unpinned {
-    top: -100px;
-  }
-  
-  .headroom--pinned {
-    top: 0;
-  }
-  
-  </style>
-  
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
-  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+  <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
   
@@ -1254,597 +927,126 @@
   </script>
   
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
-  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
-  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <script src="heres-how-it-happens_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="heres-how-it-happens_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="heres-how-it-happens_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="heres-how-it-happens_files/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
   <!--/radix_placeholder_site_in_header-->
 
 
 </head>
 
-<body class="layout-listing">
+<body>
 
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"measured.","authors":[]}
+{"title":"here's how it happens","description":"women with drinking problems are particularly vulnerable to sexual assault","authors":[{"author":"Charles T. Gray","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2018-11-17T00:00:00.000+11:00","citationText":"Gray, 2018"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
 <!--radix_placeholder_navigation_before_body-->
-<header class="header header--fixed" role="banner">
-<nav class="distill-site-nav distill-site-header">
-<div class="nav-left">
-<a href="index.html" class="title">measured.</a>
-</div>
-<div class="nav-right">
-<a href="index.html">measured.</a>
-<a href="about.html">trophybitch</a>
-<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
-</div>
-</nav>
-</header>
 <!--/radix_placeholder_navigation_before_body-->
 <!--radix_placeholder_site_before_body-->
 <!--/radix_placeholder_site_before_body-->
-<!--radix_placeholder_article_listing-->
-
-<style type="text/css">
-
-/* Styles for listing layout (hide title) */
-.layout-listing d-title, .layout-listing .d-title {
-  display: none;
-}
-
-/* Styles for posts lists (not auto-injected) */
-
-
-.posts-with-sidebar {
-  padding-left: 45px;
-  padding-right: 45px;
-}
-
-.posts-list .description h2,
-.posts-list .description p {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-}
-
-.posts-list .description h2 {
-  font-weight: 700;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.posts-list h2.post-tag {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding-bottom: 12px;
-}
-.posts-list {
-  margin-top: 60px;
-  margin-bottom: 24px;
-}
-
-.posts-list .post-preview {
-  text-decoration: none;
-  overflow: hidden;
-  display: block;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 24px 0;
-}
-
-.post-preview-last {
-  border-bottom: none !important;
-}
-
-.posts-list .posts-list-caption {
-  grid-column: screen;
-  font-weight: 400;
-}
-
-.posts-list .post-preview h2 {
-  margin: 0 0 6px 0;
-  line-height: 1.2em;
-  font-style: normal;
-  font-size: 24px;
-}
-
-.posts-list .post-preview p {
-  margin: 0 0 12px 0;
-  line-height: 1.4em;
-  font-size: 16px;
-}
-
-.posts-list .post-preview .thumbnail {
-  box-sizing: border-box;
-  margin-bottom: 24px;
-  position: relative;
-  max-width: 500px;
-}
-.posts-list .post-preview img {
-  width: 100%;
-  display: block;
-}
-
-.posts-list .metadata {
-  font-size: 12px;
-  line-height: 1.4em;
-  margin-bottom: 18px;
-}
-
-.posts-list .metadata > * {
-  display: inline-block;
-}
-
-.posts-list .metadata .publishedDate {
-  margin-right: 1em;
-}
-
-.posts-list .metadata .tags {
-  margin-top: 1em;
-}
-
-.posts-list .tags .tag {
-  color: rgba(0,0,0,0.67);
-  padding: 0.3em 0.5em;
-  margin: 0;
-  font-size: 80%;
-  border: 1px solid rgba(0,0,0,0.4);
-  border-radius: 3px;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-.posts-list img {
-  opacity: 1;
-}
-
-.posts-list img[data-src] {
-  opacity: 0;
-}
-
-.posts-more {
-  clear: both;
-}
-
-
-.posts-sidebar {
-  font-size: 16px;
-}
-
-.posts-sidebar h3 {
-  font-size: 16px;
-  margin-top: 0;
-  margin-bottom: 0.5em;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
-.sidebar-section {
-  margin-bottom: 30px;
-}
-
-.categories ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.categories li {
-  color: rgba(0, 0, 0, 0.8);
-  margin-bottom: 0;
-}
-
-.categories li>a {
-  border-bottom: none;
-}
-
-.categories li>a:hover {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-}
-
-.categories .active {
-  font-weight: 600;
-}
-
-.categories .category-count {
-  color: rgba(0, 0, 0, 0.4);
-}
-
-
-@media(min-width: 768px) {
-  .posts-list .post-preview h2 {
-    font-size: 26px;
-  }
-  .posts-list .post-preview .thumbnail {
-    float: right;
-    width: 35%;
-    margin-bottom: 0;
-  }
-  .posts-list .post-preview .description {
-    float: left;
-    width: 45%;
-  }
-  .posts-list .post-preview .metadata {
-    float: left;
-    width: 15%;
-    margin-top: 8px;
-  }
-  .posts-list .post-preview p {
-    margin: 0 0 12px 0;
-    line-height: 1.5em;
-    font-size: 16px;
-  }
-  .posts-with-sidebar .posts-list {
-    float: left;
-    width: 72%;
-  }
-  .posts-with-sidebar .posts-sidebar {
-    float: right;
-    width: 20%;
-    margin-top: 60px;
-    padding-top: 24px;
-    padding-bottom: 24px;
-  }
-}
-
-.downlevel .posts-list .post-preview {
-  color: inherit;
-}
-
-</style>
-
-<script type="application/javascript">
-
-function init_posts_list() {
-
-  function load_image(img) {
-    var src = $(img).attr('data-src');
-    if (src) {
-      $(img).attr('src', src);
-      $(img).load(function() {
-        img.removeAttribute('data-src');
-      });
-    }
-  }
-
-  function set_posts_visible(posts, visible) {
-    if (visible) {
-
-      // show bottom border by default
-      $(posts).removeClass('post-preview-last');
-
-      // apply limits if need be
-      var max_posts = 25;
-      var apply_limits = $('.posts-container').hasClass('posts-apply-limit');
-      if (apply_limits && posts.length > max_posts) {
-        posts = $(posts).slice(0, max_posts);
-      } else {
-        $('.posts-more a').addClass('hidden');
-      }
-
-      // apply last style
-      $(posts.slice(-1)[0]).addClass('post-preview-last');
-
-      $(posts).removeClass('hidden');
-      $(posts).find('img[data-src]').each(function(i, img) {
-        load_image(img);
-      });
-    } else {
-      $(posts).addClass('hidden');
-    }
-  }
-
-  function apply_hash_filter() {
-
-    // clear active state
-    $('.categories .active').removeClass('active');
-
-    // mark all posts invisible to start
-    set_posts_visible($('.posts-list').children('a'), false);
-
-    // if we have a hash filter
-    if (window.location.hash) {
-
-      // mark posts that match the category visible
-      var page_category = window.location.hash.replace("#", "");
-      var posts = $('.post-metadata').map(function(idx, script) {
-        var metadata = $.parseJSON($(script).html());
-        var post = null;
-        $.each(metadata.categories, function(idx, category) {
-          category = category.replace(/ /g,"_");
-          if (category == page_category) {
-            post = $(script).parent().get();
-            return false;
-          }
-        });
-        return post;
-      });
-      set_posts_visible(posts, true);
-
-      // mark the hash active
-      $('.categories li>a[href="' + window.location.hash + '"]').addClass('active');
-
-    } else {
-
-      // no hash filter, make all posts visible (subject to max display)
-      set_posts_visible($('.posts-list').children(), true);
-
-    }
-  }
-
-  // more articles
-  function apply_post_limits(apply) {
-    if (apply) {
-      $('.posts-container').addClass('posts-apply-limit');
-      $('.posts-more a').removeClass('hidden');
-    } else {
-      $('.posts-container').removeClass('posts-apply-limit');
-      $('.posts-more a').addClass('hidden');
-    }
-  }
-
-  // hash filter handling
-  apply_hash_filter();
-  $(window).on('hashchange',function() {
-    apply_post_limits(true);
-    apply_hash_filter();
-  });
-
-  // more articles link
-  $('.posts-more a').click(function(e) {
-    e.preventDefault();
-    apply_post_limits(false);
-    apply_hash_filter();
-    return false;
-  });
-
-}
-
-</script>
-
-
-
-<div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
-<div class="posts-list">
-<h1 class="posts-list-caption">measured.</h1>
-<a href="posts/2019-08-23-age-of-tidyverse/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Aug. 23, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>[wip] the age of tidyverse</h2>
-<p>what we can learn from music and literature about social politics in open science communities</p>
-</div>
-</a>
-<a href="posts/2019-08-15-miranda/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Aug. 15, 2019</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/2019-08-15-miranda/../../figs/miranda.gif"/>
-</div>
-<div class="description">
-<h2>miranda</h2>
-<p>don't be a reaver: the ubiquitous languange of violence</p>
-</div>
-</a>
-<a href="posts/2019-04-06-coding-of-kindness/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">April 6, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>a coding of kindness</h2>
-<p>Perhaps we should opt for a Coding of Kindness, rather than a Code of Conduct.</p>
-</div>
-</a>
-<a href="posts/2019-03-30-batpigday/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["batpigday","debugging","dev"]}</script>
-<div class="metadata">
-<div class="publishedDate">March 30, 2019</div>
-</div>
-<div class="thumbnail">
-<img data-src="https://images.gr-assets.com/hostedimages/1496299559ra/22898103.gif"/>
-</div>
-<div class="description">
-<h2>batpigday</h2>
-<p>a batpigday is the coding equivalent of  groundhogday</p>
-</div>
-</a>
-<a href="posts/2019-03-28-quack-quack-said-the-duck/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["dev"]}</script>
-<div class="metadata">
-<div class="publishedDate">March 28, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>quack! quack! said the duck</h2>
-<p>making sense of methods in R</p>
-</div>
-</a>
-<a href="posts/2019-02-19-wrangling-errors/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["wrangling","error handling","debugging"]}</script>
-<div class="metadata">
-<div class="publishedDate">Feb. 19, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>wrangling errors</h2>
-<p>filtering a list by type</p>
-</div>
-</a>
-<a href="posts/2019-02-11-the-letter-theres-no-point-sending/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Feb. 11, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>the letter there's no point sending</h2>
-<p>I don't have the time for people who think that expressing distress at bullying and tenancy eviction means I am mentally deficient and cannot make decisions for myself.</p>
-</div>
-</a>
-<a href="posts/2019-02-03-fuzz-testing/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["testing"]}</script>
-<div class="metadata">
-<div class="publishedDate">Feb. 3, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>fuzz testing</h2>
-<p>a neat testing concept</p>
-</div>
-</a>
-<a href="posts/2019-01-05-its-not-not-the-math-its-the-code/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["error handling","testing"]}</script>
-<div class="metadata">
-<div class="publishedDate">Jan. 14, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>it's not the maths, it's the code</h2>
-<p>how testing has changed my workflow</p>
-</div>
-</a>
-<a href="posts/2019-01-13-curiousity-science-letter/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["community"]}</script>
-<div class="metadata">
-<div class="publishedDate">Jan. 13, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>curiousity science letter</h2>
-<p>Curiosity Science asked me to write a letter</p>
-</div>
-</a>
-<a href="posts/2018-11-27-scientific-lit-review/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
-<div class="metadata">
-<div class="publishedDate">Nov. 27, 2018</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>writing a scientific literature review</h2>
-<p>What makes a _good enough_ literature review?</p>
-</div>
-</a>
-<a href="posts/2018-11-17-heres-how-it-happens/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Nov. 17, 2018</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>here's how it happens</h2>
-<p>women with drinking problems are particularly vulnerable to sexual assault</p>
-</div>
-</a>
-<a href="posts/2018-11-12-if-were-really-committed-to-diversity-we-should-privilege-agency/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["community","grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Sept. 26, 2018</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>if we're really committed to diversity, we should privilege agency</h2>
-<p>Only a fool thinks they know what's good for another person. It never helps to make decisions on behalf of another person.</p>
-</div>
-</a>
-<a href="posts/2018-11-12-testing-as-debugging/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["testing","debugging"]}</script>
-<div class="metadata">
-<div class="publishedDate">July 1, 2018</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>testing as debugging</h2>
-<p>Thoughts on writing my first tests.</p>
-</div>
-</a>
-</div>
-<div class="posts-sidebar">
-<div class="sidebar-section categories">
-<h3>Categories</h3>
-<ul>
-<li>
-<a href="#batpigday">batpigday</a>
-<span class="category-count">(1)</span>
-</li>
-<li>
-<a href="#community">community</a>
-<span class="category-count">(2)</span>
-</li>
-<li>
-<a href="#debugging">debugging</a>
-<span class="category-count">(3)</span>
-</li>
-<li>
-<a href="#dev">dev</a>
-<span class="category-count">(2)</span>
-</li>
-<li>
-<a href="#error_handling">error handling</a>
-<span class="category-count">(2)</span>
-</li>
-<li>
-<a href="#grrr...">grrr...</a>
-<span class="category-count">(6)</span>
-</li>
-<li>
-<a href="#testing">testing</a>
-<span class="category-count">(3)</span>
-</li>
-<li>
-<a href="#wrangling">wrangling</a>
-<span class="category-count">(1)</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="posts-more">
-<a href="#">More articles &raquo;</a>
-</div>
-</div>
-<!--/radix_placeholder_article_listing-->
 
 <div class="d-title">
-<h1>measured.</h1>
-
+<h1>here’s how it happens</h1>
+<p>women with drinking problems are particularly vulnerable to sexual assault</p>
 </div>
 
+<div class="d-byline">
+  Charles T. Gray  
+  
+<br/>11-17-2018
+</div>
 
 <div class="d-article">
-
+<p>I remember the penny-drop moment for the limit of the <a href="https://en.wikipedia.org/wiki/Difference_quotient"><em>difference quotient</em></a>,</p>
+<p><span class="math display">\[
+\lim_{h \to 0}\ m = \lim_{h \to 0}\ \frac{f(a + h) - f(a)}{(a + h) - a}, 
+\]</span> which gives the rise over run of a curve at a given point along the curve.</p>
+<p>I was studying in the room I slept in, Melbourne 1997. I was sixteen.</p>
+<p>I’d bought spray paint with my girlfriend and we’d painted optimistic daisies on the grimly mouldy walls of the front room of the <a href="https://en.wikipedia.org/wiki/Terraced_houses_in_Australia">terrace house</a> squat. Rather defiantly positioned off a prominent street in North Fitzroy, my strange<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> roommate would entertain us by firetwirling in the narrow street. We’d watch from the grimy couch on the verandah, and, on a good night, all share a bag of cask wine together.</p>
+<p>In my experience, people don’t end up on the streets <em>because</em> of their substance abuse problems, but take up a substance abuse problem once there to self-medicate the existensial crisis that is their lived reality. Our lived reality included pooping in the backyard like animals because the skinheads who’d had the house before had somehow managed to block the toilet with human shit.</p>
+<p>I was always considered the softcore one. The speed dealer couple who had the back room were way more intense, they were always beating each other up, but at least they left us out of it. I’ve never touched a needle, and at that point I was even still a virgin. But I learnt to drink heavily.</p>
+<p>Drinking too much was not only mandatory, it was considered the minimum social norm to fit in. And it was the only way to experience any sense of community as a streetie.</p>
+<p>As I tranisitioned into the bohemian days of nineties sharehousing in Fitzroy, it was still normal to drink to excess. I’d pop into pubs on the way home from visiting the pianos at the practice block.</p>
+<p>And so it was, from fifteen to twenty-five, it was normalised to binge drink. After that was a long decade of working too much to have had much of a social life.</p>
+<p>And so I find myself now, in my late thirties struggling to learn to socialise without abusing alcohol. After being raped this week, I am aware that it is imperative that I get a grip on my drinking problem, for my own protection.</p>
+<p>I may have a drinking problem, but I don’t deserve to be raped.</p>
+<h2 id="heres-how-it-happens">here’s how it happens</h2>
+<p>I’m writing this down because <em>this</em> is how it happens. And I believe it happens all the time. In fact, I believe it’s so normalised that I’m not even angry at my rapist. But rapist I believe him to be.</p>
+<p>Most rapes are messy, and it is very easy to interpret a woman making choices that render herself vulnerable as making her culpable for rape. But there really shouldn’t be any culpability for victims of rape. If she didn’t consent, it is rape, regardless of how much alcohol she has imbibed.</p>
+<p>Rape is rarely a violent stranger, as was the case in the lightning rod case of <a href="https://en.wikipedia.org/wiki/Murder_of_Jill_Meagher">Jill Meagher</a>. Despite this, Jill’s husband is heroically able to recognise that this <a href="https://whiteribbonblog.com/2014/04/17/the-danger-of-the-monster-myth/">monster myth</a> is by far the exception than the rule when it comes to rape.</p>
+<p>What happened to me the other night happens to women every single night. It’s happening right now somewhere. <strong>This is how it happens.</strong> This is the most common situation. There is usaully some drinking and flirting involved. But we <em>must</em> dispell the myth that any of this makes a woman more culpable for her rape.</p>
+<p>It really is and should be simple. If she did not consent, it is assault.</p>
+<h3 id="heres-what-i-know">here’s what I know</h3>
+<h4 id="that-night">that night</h4>
+<ul>
+<li>Stumbling past a bar after the conference reception, and thinking I’d have one more drink for the evening.</li>
+<li>I bought a drink and struck up a conversation with the barflies.</li>
+<li>A fleeting moment of consciousness, I was on my stomach, naked on a bed, and a man was inserting his penis into me from behind. Then blackness.</li>
+</ul>
+<h4 id="in-the-morning">in the morning</h4>
+<ul>
+<li>Waking in the morning to find myself in a strange place, with a strange man.</li>
+<li>He laughed as he told me that I was so wasted I didn’t know who he was or where I was.</li>
+<li>He laughed, and chided me, about how I’d thrown up all over his car.</li>
+<li>He told me he slowed down after having six or seven drinks, as he had to drive.</li>
+<li>He told me how he’d taken me inside and put me in the shower. I have no memory of any of these events.</li>
+<li>He told me with great pride that he was able to control himself long enough to put on a condom.</li>
+<li>I can’t consent if I’m so drunk I don’t remember anything, I don’t know where I am, or who I’m with.</li>
+<li>I don’t usually black out for 12 hours straight. Sometimes the night before is blurry, but not <em>missing data</em>.</li>
+<li>I am certain that most would find this story somehow less sympathetic because I had already drunk too much alocohol.</li>
+</ul>
+<h3 id="heres-what-i-think">here’s what I think</h3>
+<p>Doesn’t make it not rape.</p>
+<p>I think my rapist is a product of his culture. I think that he was cruising for drunk chicks that he could ply with further alcohol and drugs so that he could have sex with them. I don’t think he understands that this is wrong.</p>
+<p>I think he saw me, drunk and alone, late at night. I think he then bought me drinks as he sobered up. And, given the unusual length of my blackouts that night, I suspect he even thought it was okay to slip me a rufie to loosen me up some. I think he saw it as helping me have a good time. I don’t believe he understood he was taking advantage of me<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<h3 id="heres-where-i-am">here’s where I am</h3>
+<p>I don’t want to give up the academic opportunities I’ve worked really hard for. I may have a drinking problem to deal with, but I will not let a rape define the next year of my life, the year I hope to finish my doctorate.</p>
+<p>So, I am going to make strategies to assist me in not drinking a priority. And I’m going to try to work, because the only thing that’s going to bring me any peace right now is mathematical science<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<p>I’m leaving for France tomorrow. And if I was asked to dream up the perfect respite after something this traumatic, I could not think of something better than a research retreat trip to Europe.</p>
+<p>All I can do is try.</p>
+<h4 id="one-week-later">one week later</h4>
+<p>Spent hours doing mathematics with the woman I now refer to as my codewife and we ended with hugging eachother and declaring it was the funnest of times.</p>
+<blockquote class="twitter-tweet" data-lang="en">
+<p lang="en" dir="ltr">
+In the middle of two weeks at <a href="https://twitter.com/_CIRM?ref_src=twsrc%5Etfw"><span class="citation" data-cites="_CIRM">@_CIRM</span></a> with my codewife, <a href="https://twitter.com/thejholloway?ref_src=twsrc%5Etfw"><span class="citation" data-cites="thejholloway">@thejholloway</span></a>. Operation 🔥🐦 is in full swing. <br><br>Can't think of anything more R-Ladies than this <a href="https://twitter.com/RLadiesGlobal?ref_src=twsrc%5Etfw"><span class="citation" data-cites="RLadiesGlobal">@RLadiesGlobal</span></a> <a href="https://twitter.com/RLadiesRemote?ref_src=twsrc%5Etfw"><span class="citation" data-cites="RLadiesRemote">@RLadiesRemote</span></a>. 🥐 <a href="https://t.co/4NB0fbXt72">pic.twitter.com/4NB0fbXt72</a>
+</p>
+— Charles T. Gray (<span class="citation" data-cites="cantabile">@cantabile</span>) <a href="https://twitter.com/cantabile/status/1067698193209716737?ref_src=twsrc%5Etfw">November 28, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>I couldn’t think of any good that would be brought by telling anyone in France what had happened, but I have been open about not drinking.</p>
+<p>I arranged to check in with a friend every day on slack with how I’m going, and it makes a difference have someone care. Nothing like a rape to <em>really</em> turn one off one’s drinking, I remarked to her. We agreed, bitter rape jokes are one of the only ways to cope with these things.</p>
+<p>But is a piano here and stealing a hour with it each day, as well as a walk in the grounds, helps. More than anything else, the work is wonderful fun. To be around so many people that I share a passion for social good in addition to mathematics and scientific programming is unadulterated joy.</p>
+<blockquote class="twitter-tweet" data-lang="en">
+<p lang="en" dir="ltr">
+Stole an inexpert moment with Chopin at <a href="https://twitter.com/_CIRM?ref_src=twsrc%5Etfw"><span class="citation" data-cites="_CIRM">@_CIRM</span></a> <a href="https://t.co/0sX1eM1gFz">pic.twitter.com/0sX1eM1gFz</a>
+</p>
+— Charles T. Gray (<span class="citation" data-cites="cantabile">@cantabile</span>) <a href="https://twitter.com/cantabile/status/1067412790816768000?ref_src=twsrc%5Etfw">November 27, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>I believe that those who have had traumatic lives are susceptible to proclivities that render them more vulnerable, such as my case with alcohol. And thus, the sad reality is that survivors are particularly vulnerable to further trauma. But they do not need to be defined entirely by their trauma.</p>
+<p>I will not let rape or alcohol fully define me; but I will not deny that struggling with being a survivor still shapes parts of my life. However, I love my work; and I believe I am still capable of doing it. I believe that my work brings me peace and respite from my trauma. Why can’t work be therapeutic?</p>
+<p>Now, excuse me as I have to write unit tests for all my estimators, finish the literature review, wrap this package, prepare my seminar for next week in the UK, get ready for the miniunconf in Sweden, rerun <code>purrr</code> simulations and recreate <code>ggplot</code> figures, and bask in the fact that I was invited to Germany for a nextgen mathematical scientists thing next year and funding was confirmed this morning.</p>
+<blockquote class="twitter-tweet" data-lang="en">
+<p lang="en" dir="ltr">
+Eat your heart out, Leo - <em>I'm</em> the king of the world, at Les Calanques. Merci, <a href="https://twitter.com/PreDocDom?ref_src=twsrc%5Etfw"><span class="citation" data-cites="PreDocDom">@PreDocDom</span></a> for capturing the moment. 🥐 <a href="https://t.co/ZkxecfPSVi">pic.twitter.com/ZkxecfPSVi</a>
+</p>
+— Charles T. Gray (<span class="citation" data-cites="cantabile">@cantabile</span>) <a href="https://twitter.com/cantabile/status/1067697402788921344?ref_src=twsrc%5Etfw">November 28, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>He was maybe eighteen. He’d run away from his evangelical parents and was trying to walk away from his faith, but would wake me in the night distraught he was going to hell.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>I’m not sure if I’ll ever change this post from draft mode.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>And, of course, my <span class="math inline">\(3c^2\)</span> gang. Dr X has been the most wonderful and supportive partner through this. We have bee<a href="#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -1852,6 +1054,15 @@ function init_posts_list() {
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

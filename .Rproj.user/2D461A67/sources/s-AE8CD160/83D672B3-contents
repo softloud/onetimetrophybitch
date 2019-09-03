@@ -1,0 +1,10 @@
+library(tidyverse)
+
+
+dirs <- list.dirs("_posts")
+
+dirs
+
+
+
+list.files(dirs[[2]]) 

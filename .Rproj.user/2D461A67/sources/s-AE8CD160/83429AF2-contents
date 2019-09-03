@@ -1,0 +1,116 @@
+---
+title: "good enough testing coverage"
+description: |
+  What defines good testing coverage in an R analysis? 
+author:
+  - name: Charles T. Gray
+    url: {}
+date: 12-30-2018
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: ../../biblio.bib
+categories: 
+  - testing
+tags: 
+  - asssertr
+  - validate
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r packages}
+# packages
+library(varameta) # work in progress
+library(validate)
+library(tidyverse)
+```
+
+I've previously written about [how cool I think testing is](https://ropensci.org/blog/2018/03/13/ode-to-testing/), as well as [debugging](http://cantabile.rbind.io/posts/2018-11-12-testing-as-debugging/). It feels natural to next ask, when is one done? When has one achieved testing _coverage_? What does `covr`[@hester_covr:_2018] measure? What does the literature say about testing? My ultimate question, pedant as I am, what is _good enough_[@wilson_good_2017] testing?
+
+I want to test a function, `g_lnorm` from a package I'm working from.  
+
+## what to test
+
+Each function has a number of arguments. Each argument will have either a finite or infinite valid inputs, but will unlikely have infinite valid input data structures. 
+
+In addition to data types, there is also the question of dimensionality. Some arguments must be length 1, and so forth.
+
+So, we need to check that the function behaves as it should. 
+
+We also need to check that the function _misbehaves_ as it should when passed something that it shouldn't.
+
+But what exactly is _behave_ as it should? 
+
+Well, we need to consider every possible valid input and combination thereof. This sounds overwhelming, however. So, what is a minimum testing standard. Where to start? 
+
+### what to test 
+
+The function `g_norm` takes arguments with specified defaults and some without. 
+
+#### check equivalence classes
+
+Numerics are a bit tricky, because we need to consider a few cases.
+
+argument type | equivalence classes
+- | - 
+logical | `TRUE | FALSE`
+numeric | $[-\infty, -1], (-1, 0), [0,0], (0,1), [1, \infty]$
+character | context dependent
+function | runs, and$\dots$?
+
+Checking each equivalence class produces an output of the type expected seems like an excellent way to begin. 
+
+Often I check and check the mathematics, only to find it was the code that was broken. I believe there's much that statisticians can learn from. Often simply checking in turn that the function runs for an arbitrary choice for each argument. 
+
+I like drawing a sample at the start to represent each of the equivalence classes, if it's not too unwieldy. That way my test is taking an arbitrary representative of each equivalence class; and I'm explicit about what I'm testing. It doesn't cover all possible cases, if I don't set up my equivalence classes correctly, but it's a start. It's enough to see if the code is running as I go. 
+
+## more tools for testing
+
+In Parker's rumination on _opinionated_ analysis, `assertr` and `validate` are noted as tools that can help with testing[@parker_opinionated_nodate]. How? 
+
+### assertr
+
+I'm unclear how to integrate `assertr::`[@fischetti_assertr:_2018] into `testthat::` and not sure I'm meant to. But it does seem like it could help me _assert_ that my assumptions about my pipe are correct.
+
+> If any of these assertions were violated, an error would have been raised and the pipeline would have been terminated early[@fischetti_assertr:_2018].
+
+I'm always doing this type of testing in the console; truncating my ` %>% ` and adding `dim` or `nrow` or something to the end. From my understanding of `assert`s I can build these tests into my pipes and functionally they act as the identify _if_ it passes the check. 
+
+```{r}
+# a generic example
+iris %>% assertr::verify(nrow(.) %% 3 == 0) %>% head()
+
+# an example from what I'm working on at the moment. 
+
+# check the number of rows is divisible by the number of unique sample sizes. 
+varameta::sim_par %>% assertr::verify(nrow(.) %% length(unique(.$sample_size)) == 0) %>% head()
+
+```
+
+### validate 
+
+In the readme for [`validate::`](https://github.com/data-cleaning/validate), we have this description:
+
+> The validate R-package makes it super-easy to check whether data lives up to expectations you have based on domain knowledge. It works by allowing you to define data validation rules independent of the code or data set.
+
+What does _define data validation rules_ mean? 
+
+> The validate package is intended to make checking your data easy, maintainable and reproducible[@loo_validate:_2018].
+
+Still not entirely sure what _defining_ validation rules are, but this seems very neat. You can check the data is what you want it to be.  
+
+For example, I require all true medians to be positive, as I'll take $\log$. 
+
+```{r}
+varameta::sim_par %>% validate::check_that(true_median > 0) %>% summary()
+
+```
+
+Well now, isn't that handy? 
+
+## collecting my thoughts on this
+
+So, I've been working on tests in earnest to solve a problem on this package recently. And I find myself persevering rather doggedly with `testthat::auto_test`. It really does help me debug more efficiently. This is a workflow changer for me. 
