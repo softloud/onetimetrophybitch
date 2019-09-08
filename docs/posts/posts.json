@@ -1,5 +1,20 @@
 [
   {
+    "path": "posts/2019-09-09-dickhead/",
+    "title": "I'd rather do good science",
+    "description": "The world seems to be divided between those who want to be recognised for being good, and people who want to do good. I'm aiming for the latter.",
+    "author": [
+      {
+        "name": "Charles T. Gray",
+        "url": "https://twitter.com/cantabile"
+      }
+    ],
+    "date": "2019-09-09",
+    "categories": [],
+    "preview": "posts/2019-09-09-dickhead/../../figs/lambda.png",
+    "last_modified": "2019-09-09T03:51:00+10:00"
+  },
+  {
     "path": "posts/2019-08-23-age-of-tidyverse/",
     "title": "[wip] the age of tidyverse",
     "description": "what we can learn from music and literature about social politics in open science communities",
