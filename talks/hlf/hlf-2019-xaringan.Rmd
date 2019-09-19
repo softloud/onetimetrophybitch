@@ -1,6 +1,6 @@
 ---
 title: "Tessellations from Eppalock to Heidelberg"
-subtitle: "the composing of an original algorithmic piano work for <br/>Heidelberg Laureate Forum 2019"
+subtitle: "the composing of an original algorithmic piano work created for the opening ceremony of the 2019 <br/>Heidelberg Laureate Forum"
 author: "Charles T. Gray"
 institute: "Heidelberg, Germany"
 date: "Sonntag, September 22, 2019"
