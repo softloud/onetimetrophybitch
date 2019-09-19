@@ -9,4 +9,8 @@ navbar:
       href: index.html
     - text: "trophybitch"
       href: about.html
+    - text: "presentations"
+      menu:
+      - text: "hlf"
+        href: talks/hlf/hlf-2019-xaringan.html
 output: distill::distill_article
