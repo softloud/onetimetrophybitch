@@ -12,7 +12,7 @@
 class: center, middle, inverse, title-slide
 
 # Tessellations from Eppalock to Heidelberg
-## the composing of an original algorithmic piano work created for the opening ceremony of the 2019 <br/>Heidelberg Laureate Forum
+## the tessellating of an original algorithmic piano work composed for the opening ceremony of the 2019<br/>Heidelberg Laureate Forum
 ### Charles T. Gray
 ### Heidelberg, Germany
 ### Sonntag, September 22, 2019
@@ -20,9 +20,9 @@ class: center, middle, inverse, title-slide
 ---
 
 
-class: center, middle
+&lt;!-- class: center, middle --&gt;
 
-# "You type so fast it's scary." 
+# "You type so fast it's scary."
 
 ---
 class: right, middle
@@ -45,24 +45,111 @@ class: middle, center, inverse
 # `\(\leqslant\)`
 
 
+
+---
+## `\(\leqslant\)` in music
+
+![](figs/less_than_notes.png)
+
+The first note is a *perfect fifth* **below** the second note.
+
+
 ---
 # Define `\(\leqslant\)`
 
 
-Let `\(P\)` be a set. 
+Let `\(P\)` be a set.
 
-An *order* on `\(P\)` is a binary relation `\(\leqslant\)` on `\(P\)` such that, 
+An *order* on `\(P\)` is a binary relation `\(\leqslant\)` on `\(P\)` such that,
 ***
 
-for all `\(x, y, z\)` in `\(P\)`, we have 
+for all `\(x, y, z\)` in `\(P\)`, we have
 
-- `\(x \leqslant x\)`; 
-- `\(x \leqslant y\)` and `\(y \leqslant x\)` imply `\(x = y\)`;  
-- `\(x \leqslant y\)` and `\(y \leqslant z\)` imply `\(x \leqslant z\)`. 
+- `\(x \leqslant x\)`;
+- `\(x \leqslant y\)` and `\(y \leqslant x\)` imply `\(x = y\)`;
+- `\(x \leqslant y\)` and `\(y \leqslant z\)` imply `\(x \leqslant z\)`.
 
 ***
 
 We then say `\(\leqslant\)` is *reflexive*, *antisymmetric*, and *transitive*, for each of these properties, respectively.
+
+
+
+
+---
+class: inverse, middle, center
+# ostinati and homomorphisms
+
+---
+## homomorphism
+
+A *homomorphism* is a structure-preserving map between two algebraic structures of the same type.
+
+***
+
+For a map `\(f: A \to B\)` between sets `\(A\)` and `\(B\)`, we say `\(f\)` preserves an `\(n\)`-ary operation `\(\mu_A\)`, if, for all `\(a_1, \dots, a_n\)` in `\(A\)`, we have 
+
+$$
+f(\mu_A(a_1, \dots, a_n)) = \mu_B(f(a_1), 
+\dots, f(a_n)).
+$$
+
+
+---
+class: right
+## order-preserving homomorphism
+
+![](figs/hom-preserving.png)
+
+---
+class: right
+## order-preserving homomorphism
+
+&lt;center&gt;
+
+&lt;img src="figs/motif.png" style="max-width:80%;"&gt;
+
+&lt;img src="figs/sequence.png" style="max-width:80%;"&gt;
+
+&lt;/center&gt;
+
+---
+## order-reversing homomorphism
+
+![](figs/hom-reversing.png)
+
+---
+class: right
+## order-reversing homomorphism
+
+
+&lt;center&gt;
+
+&lt;img src="figs/motif.png" style="max-width:80%;"&gt;
+
+&lt;img src="figs/inversion.png" style="max-width:80%;"&gt;
+
+&lt;/center&gt;
+
+---
+## Tessellating homomorphisms
+
+&lt;center&gt;
+&lt;img src="figs/penrose-tiling-wikipedi.png" style="max-width:60%;"&gt;
+&lt;/center&gt;
+
+Image source: A penrose tiling from wikipedia.
+
+---
+class: inverse
+
+# Shall we do some musical algebra together? 
+
+*Tessellations from Eppalock to Heidelberg* 
+
+by Charles T. Gray
+
+An algorithmic piano work tessellated for the opening of the 2019 Heidelerg Laureate Forum.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
