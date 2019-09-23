@@ -154,4 +154,4 @@ class: inverse
 
 by Charles T. Gray
 
-An algorithmic piano work tessellated for the opening of the 2019 Heidelerg Laureate Forum.
+An algorithmic piano work of musical homomorphisms tessellated for the opening of the 2019 Heidelberg Laureate Forum.
