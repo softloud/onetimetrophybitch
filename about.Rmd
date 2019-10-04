@@ -8,6 +8,17 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## heidelberg laureate forum 
+
+It was a delight to participate in the opening of the [Heidelberg Laureate Forum](https://www.heidelberg-laureate-forum.org/), where the laureates of mathematics and computer science meet the next generation. 
+
+I've cued this video to my presentation on the algebra of composition.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lJtdOsjy59A?start=2119" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+There's no Nobel prize in mathematics and computer science. Instead, there is the Turing award, the Fields medal, and the Abel prize. 
+
+Slides for the presentation can be found [here](https://softloud.github.io/onetimetrophybitch/talks/hlf/hlf-2019-xaringan.html#1).
 
 ## code like a girl tour
 
