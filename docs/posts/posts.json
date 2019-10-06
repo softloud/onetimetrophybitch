@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2019-10-06-consent/",
+    "title": "|harm| >> |help|",
+    "description": "the cardinality of harm is greater than that of help: the infinite loop of harmful help",
+    "author": [
+      {
+        "name": "Charles T. Gray",
+        "url": "https://twitter.com/cantabile"
+      }
+    ],
+    "date": "2019-10-06",
+    "categories": [
+      "grrr..."
+    ],
+    "preview": {},
+    "last_modified": "2019-10-06T16:22:47+11:00"
+  },
+  {
     "path": "posts/2019-09-09-dickhead/",
     "title": "I'd rather do good science",
     "description": "The world seems to be divided between those who want to be recognised for being good, and people who want to do good. I'm aiming for the latter.",

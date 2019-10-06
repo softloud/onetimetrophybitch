@@ -19,366 +19,41 @@
  <!--/radix_placeholder_import_source-->
 
   <!--radix_placeholder_meta_tags-->
-  <title>measured.</title>
+  <title>|harm| &gt;&gt; |help|</title>
+  
+  <meta property="description" itemprop="description" content="the cardinality of harm is greater than that of help: the infinite loop of harmful help"/>
   
   
-  
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2019-10-06"/>
+  <meta property="article:created" itemprop="dateCreated" content="2019-10-06"/>
+  <meta name="article:author" content="Charles T. Gray"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="measured."/>
+  <meta property="og:title" content="|harm| &gt;&gt; |help|"/>
   <meta property="og:type" content="article"/>
+  <meta property="og:description" content="the cardinality of harm is greater than that of help: the infinite loop of harmful help"/>
   <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="measured."/>
   
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="measured."/>
+  <meta property="twitter:title" content="|harm| &gt;&gt; |help|"/>
+  <meta property="twitter:description" content="the cardinality of harm is greater than that of help: the infinite loop of harmful help"/>
   
   <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Harmful communication, part one: Intent is magic;citation_publication_date=2011;citation_author=Melissa McEwan"/>
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site","listing"]}},"value":[{"type":"character","attributes":{},"value":["measured."]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"character","attributes":{},"value":["posts"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories","bibliography"]}},"value":[{"type":"character","attributes":{},"value":["|harm| >> |help|"]},{"type":"character","attributes":{},"value":["the cardinality of harm is greater than that of help: the infinite loop of harmful help \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Charles T. Gray"]},{"type":"character","attributes":{},"value":["https://twitter.com/cantabile"]}]}]},{"type":"character","attributes":{},"value":["10-06-2019"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["grrr..."]},{"type":"character","attributes":{},"value":["biblio.bib"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
-  <!--radix_placeholder_navigation_in_header-->
   
-  <script type="application/javascript">
-  
-    window.headroom_prevent_pin = false;
-  
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-  
-      // initialize headroom for banner
-      var header = $('header').get(0);
-      var headerHeight = header.offsetHeight;
-      var headroom = new Headroom(header, {
-        onPin : function() {
-          if (window.headroom_prevent_pin) {
-            window.headroom_prevent_pin = false;
-            headroom.unpin();
-          }
-        }
-      });
-      headroom.init();
-      if(window.location.hash)
-        headroom.unpin();
-      $(header).addClass('headroom--transition');
-  
-      // offset scroll location for banner on hash change
-      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
-      window.addEventListener("hashchange", function(event) {
-        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
-      });
-  
-      // responsive menu
-      $('.distill-site-header').each(function(i, val) {
-        var topnav = $(this);
-        var toggle = topnav.find('.nav-toggle');
-        toggle.on('click', function() {
-          topnav.toggleClass('responsive');
-        });
-      });
-  
-      // nav dropdowns
-      $('.nav-dropbtn').click(function(e) {
-        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
-        $(this).parent().siblings('.nav-dropdown')
-           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $("body").click(function(e){
-        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $(".nav-dropdown").click(function(e){
-        e.stopPropagation();
-      });
-    });
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["biblio.bib","consent_files/bowser-1.9.3/bowser.min.js","consent_files/distill-2.2.21/template.v2.js","consent_files/jquery-1.11.3/jquery.min.js","consent_files/webcomponents-2.0.0/webcomponents.js","river-noahsark.mp4","river-sarcasm.mp4","river-sense.gif"]}
   </script>
-  
-  <style type="text/css">
-  
-  /* Theme (user-documented overrideables for nav appearance) */
-  
-  .distill-site-nav {
-    color: rgba(255, 255, 255, 0.8);
-    background-color: #455a64;
-    font-size: 15px;
-    font-weight: 300;
-  }
-  
-  .distill-site-nav a {
-    color: inherit;
-    text-decoration: none;
-  }
-  
-  .distill-site-nav a:hover {
-    color: white;
-  }
-  
-  @media print {
-    .distill-site-nav {
-      display: none;
-    }
-  }
-  
-  .distill-site-header {
-  
-  }
-  
-  .distill-site-footer {
-  
-  }
-  
-  
-  /* Site Header */
-  
-  .distill-site-header {
-    width: 100%;
-    box-sizing: border-box;
-    z-index: 3;
-  }
-  
-  .distill-site-header .nav-left {
-    display: inline-block;
-    margin-left: 8px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header .nav-left {
-      margin-left: 0;
-    }
-  }
-  
-  
-  .distill-site-header .nav-right {
-    float: right;
-    margin-right: 8px;
-  }
-  
-  .distill-site-header a,
-  .distill-site-header .title {
-    display: inline-block;
-    text-align: center;
-    padding: 14px 10px 14px 10px;
-  }
-  
-  .distill-site-header .title {
-    font-size: 18px;
-  }
-  
-  .distill-site-header .logo {
-    padding: 0;
-  }
-  
-  .distill-site-header .logo img {
-    display: none;
-    max-height: 20px;
-    width: auto;
-    margin-bottom: -4px;
-  }
-  
-  .distill-site-header .nav-image img {
-    max-height: 18px;
-    width: auto;
-    display: inline-block;
-    margin-bottom: -3px;
-  }
-  
-  
-  
-  @media screen and (min-width: 1000px) {
-    .distill-site-header .logo img {
-      display: inline-block;
-    }
-    .distill-site-header .nav-left {
-      margin-left: 20px;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 20px;
-    }
-    .distill-site-header .title {
-      padding-left: 12px;
-    }
-  }
-  
-  
-  .distill-site-header .nav-toggle {
-    display: none;
-  }
-  
-  .nav-dropdown {
-    display: inline-block;
-    position: relative;
-  }
-  
-  .nav-dropdown .nav-dropbtn {
-    border: none;
-    outline: none;
-    color: rgba(255, 255, 255, 0.8);
-    padding: 16px 10px;
-    background-color: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    margin: 0;
-    margin-top: 1px;
-    z-index: 2;
-  }
-  
-  .nav-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 200px;
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 4px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1;
-    margin-top: 2px;
-    white-space: nowrap;
-    padding-top: 4px;
-    padding-bottom: 4px;
-  }
-  
-  .nav-dropdown-content hr {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .nav-dropdown-active {
-    display: block;
-  }
-  
-  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
-    color: black;
-    padding: 6px 24px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
-  
-  .nav-dropdown-content .nav-dropdown-header {
-    display: block;
-    padding: 5px 24px;
-    padding-bottom: 0;
-    text-transform: uppercase;
-    font-size: 14px;
-    color: #999999;
-    white-space: nowrap;
-  }
-  
-  .nav-dropdown:hover .nav-dropbtn {
-    color: white;
-  }
-  
-  .nav-dropdown-content a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  
-  .nav-right .nav-dropdown-content {
-    margin-left: -45%;
-    right: 0;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
-    .distill-site-header a.nav-toggle {
-      float: right;
-      display: block;
-    }
-    .distill-site-header .title {
-      margin-left: 0;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 0;
-    }
-    .distill-site-header {
-      overflow: hidden;
-    }
-    .nav-right .nav-dropdown-content {
-      margin-left: 0;
-    }
-  }
-  
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header.responsive {position: relative;}
-    .distill-site-header.responsive a.nav-toggle {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    .distill-site-header.responsive a,
-    .distill-site-header.responsive .nav-dropdown {
-      display: block;
-      text-align: left;
-    }
-    .distill-site-header.responsive .nav-left,
-    .distill-site-header.responsive .nav-right {
-      width: 100%;
-    }
-    .distill-site-header.responsive .nav-dropdown {float: none;}
-    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
-    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
-      display: block;
-      width: 100%;
-      text-align: left;
-    }
-  }
-  
-  /* Site Footer */
-  
-  .distill-site-footer {
-    width: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-    z-index: 3;
-    margin-top: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    text-align: center;
-  }
-  
-  /* Headroom */
-  
-  d-title {
-    padding-top: 6rem;
-  }
-  
-  @media print {
-    d-title {
-      padding-top: 4rem;
-    }
-  }
-  
-  .headroom {
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  .headroom--transition {
-    transition: all .4s ease-in-out;
-  }
-  
-  .headroom--unpinned {
-    top: -100px;
-  }
-  
-  .headroom--pinned {
-    top: 0;
-  }
-  
-  </style>
-  
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
-  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+  <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
   
@@ -1254,633 +929,129 @@
   </script>
   
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
-  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
-  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <script src="consent_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="consent_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="consent_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="consent_files/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
   <!--/radix_placeholder_site_in_header-->
 
 
 </head>
 
-<body class="layout-listing">
+<body>
 
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"measured.","authors":[]}
+{"title":"|harm| >> |help|","description":"the cardinality of harm is greater than that of help: the infinite loop of harmful help","authors":[{"author":"Charles T. Gray","authorURL":"https://twitter.com/cantabile","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2019-10-06T00:00:00.000+10:00","citationText":"Gray, 2019"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
 <!--radix_placeholder_navigation_before_body-->
-<header class="header header--fixed" role="banner">
-<nav class="distill-site-nav distill-site-header">
-<div class="nav-left">
-<a href="index.html" class="title">measured.</a>
-</div>
-<div class="nav-right">
-<a href="index.html">measured.</a>
-<a href="about.html">trophybitch</a>
-<div class="nav-dropdown">
-<button class="nav-dropbtn">
-presentations
- 
-<span class="down-arrow">&#x25BE;</span>
-</button>
-<div class="nav-dropdown-content">
-<a href="talks/hlf/hlf-2019-xaringan.html">hlf</a>
-</div>
-</div>
-<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
-</div>
-</nav>
-</header>
 <!--/radix_placeholder_navigation_before_body-->
 <!--radix_placeholder_site_before_body-->
 <!--/radix_placeholder_site_before_body-->
-<!--radix_placeholder_article_listing-->
-
-<style type="text/css">
-
-/* Styles for listing layout (hide title) */
-.layout-listing d-title, .layout-listing .d-title {
-  display: none;
-}
-
-/* Styles for posts lists (not auto-injected) */
-
-
-.posts-with-sidebar {
-  padding-left: 45px;
-  padding-right: 45px;
-}
-
-.posts-list .description h2,
-.posts-list .description p {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-}
-
-.posts-list .description h2 {
-  font-weight: 700;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.posts-list h2.post-tag {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding-bottom: 12px;
-}
-.posts-list {
-  margin-top: 60px;
-  margin-bottom: 24px;
-}
-
-.posts-list .post-preview {
-  text-decoration: none;
-  overflow: hidden;
-  display: block;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 24px 0;
-}
-
-.post-preview-last {
-  border-bottom: none !important;
-}
-
-.posts-list .posts-list-caption {
-  grid-column: screen;
-  font-weight: 400;
-}
-
-.posts-list .post-preview h2 {
-  margin: 0 0 6px 0;
-  line-height: 1.2em;
-  font-style: normal;
-  font-size: 24px;
-}
-
-.posts-list .post-preview p {
-  margin: 0 0 12px 0;
-  line-height: 1.4em;
-  font-size: 16px;
-}
-
-.posts-list .post-preview .thumbnail {
-  box-sizing: border-box;
-  margin-bottom: 24px;
-  position: relative;
-  max-width: 500px;
-}
-.posts-list .post-preview img {
-  width: 100%;
-  display: block;
-}
-
-.posts-list .metadata {
-  font-size: 12px;
-  line-height: 1.4em;
-  margin-bottom: 18px;
-}
-
-.posts-list .metadata > * {
-  display: inline-block;
-}
-
-.posts-list .metadata .publishedDate {
-  margin-right: 1em;
-}
-
-.posts-list .metadata .tags {
-  margin-top: 1em;
-}
-
-.posts-list .tags .tag {
-  color: rgba(0,0,0,0.67);
-  padding: 0.3em 0.5em;
-  margin: 0;
-  font-size: 80%;
-  border: 1px solid rgba(0,0,0,0.4);
-  border-radius: 3px;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-.posts-list img {
-  opacity: 1;
-}
-
-.posts-list img[data-src] {
-  opacity: 0;
-}
-
-.posts-more {
-  clear: both;
-}
-
-
-.posts-sidebar {
-  font-size: 16px;
-}
-
-.posts-sidebar h3 {
-  font-size: 16px;
-  margin-top: 0;
-  margin-bottom: 0.5em;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
-.sidebar-section {
-  margin-bottom: 30px;
-}
-
-.categories ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.categories li {
-  color: rgba(0, 0, 0, 0.8);
-  margin-bottom: 0;
-}
-
-.categories li>a {
-  border-bottom: none;
-}
-
-.categories li>a:hover {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-}
-
-.categories .active {
-  font-weight: 600;
-}
-
-.categories .category-count {
-  color: rgba(0, 0, 0, 0.4);
-}
-
-
-@media(min-width: 768px) {
-  .posts-list .post-preview h2 {
-    font-size: 26px;
-  }
-  .posts-list .post-preview .thumbnail {
-    float: right;
-    width: 35%;
-    margin-bottom: 0;
-  }
-  .posts-list .post-preview .description {
-    float: left;
-    width: 45%;
-  }
-  .posts-list .post-preview .metadata {
-    float: left;
-    width: 15%;
-    margin-top: 8px;
-  }
-  .posts-list .post-preview p {
-    margin: 0 0 12px 0;
-    line-height: 1.5em;
-    font-size: 16px;
-  }
-  .posts-with-sidebar .posts-list {
-    float: left;
-    width: 72%;
-  }
-  .posts-with-sidebar .posts-sidebar {
-    float: right;
-    width: 20%;
-    margin-top: 60px;
-    padding-top: 24px;
-    padding-bottom: 24px;
-  }
-}
-
-.downlevel .posts-list .post-preview {
-  color: inherit;
-}
-
-</style>
-
-<script type="application/javascript">
-
-function init_posts_list() {
-
-  function load_image(img) {
-    var src = $(img).attr('data-src');
-    if (src) {
-      $(img).attr('src', src);
-      $(img).load(function() {
-        img.removeAttribute('data-src');
-      });
-    }
-  }
-
-  function set_posts_visible(posts, visible) {
-    if (visible) {
-
-      // show bottom border by default
-      $(posts).removeClass('post-preview-last');
-
-      // apply limits if need be
-      var max_posts = 25;
-      var apply_limits = $('.posts-container').hasClass('posts-apply-limit');
-      if (apply_limits && posts.length > max_posts) {
-        posts = $(posts).slice(0, max_posts);
-      } else {
-        $('.posts-more a').addClass('hidden');
-      }
-
-      // apply last style
-      $(posts.slice(-1)[0]).addClass('post-preview-last');
-
-      $(posts).removeClass('hidden');
-      $(posts).find('img[data-src]').each(function(i, img) {
-        load_image(img);
-      });
-    } else {
-      $(posts).addClass('hidden');
-    }
-  }
-
-  function apply_hash_filter() {
-
-    // clear active state
-    $('.categories .active').removeClass('active');
-
-    // mark all posts invisible to start
-    set_posts_visible($('.posts-list').children('a'), false);
-
-    // if we have a hash filter
-    if (window.location.hash) {
-
-      // mark posts that match the category visible
-      var page_category = window.location.hash.replace("#", "");
-      var posts = $('.post-metadata').map(function(idx, script) {
-        var metadata = $.parseJSON($(script).html());
-        var post = null;
-        $.each(metadata.categories, function(idx, category) {
-          category = category.replace(/ /g,"_");
-          if (category == page_category) {
-            post = $(script).parent().get();
-            return false;
-          }
-        });
-        return post;
-      });
-      set_posts_visible(posts, true);
-
-      // mark the hash active
-      $('.categories li>a[href="' + window.location.hash + '"]').addClass('active');
-
-    } else {
-
-      // no hash filter, make all posts visible (subject to max display)
-      set_posts_visible($('.posts-list').children(), true);
-
-    }
-  }
-
-  // more articles
-  function apply_post_limits(apply) {
-    if (apply) {
-      $('.posts-container').addClass('posts-apply-limit');
-      $('.posts-more a').removeClass('hidden');
-    } else {
-      $('.posts-container').removeClass('posts-apply-limit');
-      $('.posts-more a').addClass('hidden');
-    }
-  }
-
-  // hash filter handling
-  apply_hash_filter();
-  $(window).on('hashchange',function() {
-    apply_post_limits(true);
-    apply_hash_filter();
-  });
-
-  // more articles link
-  $('.posts-more a').click(function(e) {
-    e.preventDefault();
-    apply_post_limits(false);
-    apply_hash_filter();
-    return false;
-  });
-
-}
-
-</script>
-
-
-
-<div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
-<div class="posts-list">
-<h1 class="posts-list-caption">measured.</h1>
-<a href="posts/2019-10-06-consent/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Oct. 6, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>|harm| &gt;&gt; |help|</h2>
-<p>the cardinality of harm is greater than that of help: the infinite loop of harmful help</p>
-</div>
-</a>
-<a href="posts/2019-09-09-dickhead/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
-<div class="metadata">
-<div class="publishedDate">Sept. 9, 2019</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/2019-09-09-dickhead/../../figs/lambda.png"/>
-</div>
-<div class="description">
-<h2>I'd rather do good science</h2>
-<p>The world seems to be divided between those who want to be recognised for being good, and people who want to do good. I'm aiming for the latter.</p>
-</div>
-</a>
-<a href="posts/2019-08-23-age-of-tidyverse/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Aug. 23, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>[wip] the age of tidyverse</h2>
-<p>what we can learn from music and literature about social politics in open science communities</p>
-</div>
-</a>
-<a href="posts/2019-08-15-miranda/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Aug. 15, 2019</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/2019-08-15-miranda/../../figs/miranda.gif"/>
-</div>
-<div class="description">
-<h2>miranda</h2>
-<p>don't be a reaver: the ubiquitous languange of violence</p>
-</div>
-</a>
-<a href="posts/2019-04-06-coding-of-kindness/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">April 6, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>a coding of kindness</h2>
-<p>Perhaps we should opt for a Coding of Kindness, rather than a Code of Conduct.</p>
-</div>
-</a>
-<a href="posts/2019-03-30-batpigday/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["batpigday","debugging","dev"]}</script>
-<div class="metadata">
-<div class="publishedDate">March 30, 2019</div>
-</div>
-<div class="thumbnail">
-<img data-src="https://images.gr-assets.com/hostedimages/1496299559ra/22898103.gif"/>
-</div>
-<div class="description">
-<h2>batpigday</h2>
-<p>a batpigday is the coding equivalent of  groundhogday</p>
-</div>
-</a>
-<a href="posts/2019-03-28-quack-quack-said-the-duck/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["dev"]}</script>
-<div class="metadata">
-<div class="publishedDate">March 28, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>quack! quack! said the duck</h2>
-<p>making sense of methods in R</p>
-</div>
-</a>
-<a href="posts/2019-02-19-wrangling-errors/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["wrangling","error handling","debugging"]}</script>
-<div class="metadata">
-<div class="publishedDate">Feb. 19, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>wrangling errors</h2>
-<p>filtering a list by type</p>
-</div>
-</a>
-<a href="posts/2019-02-11-the-letter-theres-no-point-sending/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Feb. 11, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>the letter there's no point sending</h2>
-<p>I don't have the time for people who think that expressing distress at bullying and tenancy eviction means I am mentally deficient and cannot make decisions for myself.</p>
-</div>
-</a>
-<a href="posts/2019-02-03-fuzz-testing/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["testing"]}</script>
-<div class="metadata">
-<div class="publishedDate">Feb. 3, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>fuzz testing</h2>
-<p>a neat testing concept</p>
-</div>
-</a>
-<a href="posts/2019-01-05-its-not-not-the-math-its-the-code/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["error handling","testing"]}</script>
-<div class="metadata">
-<div class="publishedDate">Jan. 14, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>it's not the maths, it's the code</h2>
-<p>how testing has changed my workflow</p>
-</div>
-</a>
-<a href="posts/2019-01-13-curiousity-science-letter/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["community"]}</script>
-<div class="metadata">
-<div class="publishedDate">Jan. 13, 2019</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>curiousity science letter</h2>
-<p>Curiosity Science asked me to write a letter</p>
-</div>
-</a>
-<a href="posts/2018-11-27-scientific-lit-review/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
-<div class="metadata">
-<div class="publishedDate">Nov. 27, 2018</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>writing a scientific literature review</h2>
-<p>What makes a _good enough_ literature review?</p>
-</div>
-</a>
-<a href="posts/2018-11-17-heres-how-it-happens/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Nov. 17, 2018</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>here's how it happens</h2>
-<p>women with drinking problems are particularly vulnerable to sexual assault</p>
-</div>
-</a>
-<a href="posts/2018-11-12-if-were-really-committed-to-diversity-we-should-privilege-agency/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["community","grrr..."]}</script>
-<div class="metadata">
-<div class="publishedDate">Sept. 26, 2018</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>if we're really committed to diversity, we should privilege agency</h2>
-<p>Only a fool thinks they know what's good for another person. It never helps to make decisions on behalf of another person.</p>
-</div>
-</a>
-<a href="posts/2018-11-12-testing-as-debugging/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["testing","debugging"]}</script>
-<div class="metadata">
-<div class="publishedDate">July 1, 2018</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>testing as debugging</h2>
-<p>Thoughts on writing my first tests.</p>
-</div>
-</a>
-</div>
-<div class="posts-sidebar">
-<div class="sidebar-section categories">
-<h3>Categories</h3>
-<ul>
-<li>
-<a href="#batpigday">batpigday</a>
-<span class="category-count">(1)</span>
-</li>
-<li>
-<a href="#community">community</a>
-<span class="category-count">(2)</span>
-</li>
-<li>
-<a href="#debugging">debugging</a>
-<span class="category-count">(3)</span>
-</li>
-<li>
-<a href="#dev">dev</a>
-<span class="category-count">(2)</span>
-</li>
-<li>
-<a href="#error_handling">error handling</a>
-<span class="category-count">(2)</span>
-</li>
-<li>
-<a href="#grrr...">grrr...</a>
-<span class="category-count">(7)</span>
-</li>
-<li>
-<a href="#testing">testing</a>
-<span class="category-count">(3)</span>
-</li>
-<li>
-<a href="#wrangling">wrangling</a>
-<span class="category-count">(1)</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="posts-more">
-<a href="#">More articles &raquo;</a>
-</div>
-</div>
-<!--/radix_placeholder_article_listing-->
 
 <div class="d-title">
-<h1>measured.</h1>
-
+<h1>|harm| &gt;&gt; |help|</h1>
+<p>the cardinality of harm is greater than that of help: the infinite loop of harmful help</p>
 </div>
 
+<div class="d-byline">
+  Charles T. Gray <a href="https://twitter.com/cantabile" class="uri">https://twitter.com/cantabile</a> 
+  
+<br/>10-06-2019
+</div>
 
 <div class="d-article">
-
+<h2 id="anger-is-an-unpalatable-disability">anger is an unpalatable disability</h2>
+<p>If only we lived in a perfect world. Where everyone had a happy childhood. Where everyone had enough to eat, a roof over their heads, and warmth in all respects.</p>
+<p>For those of us who didn’t have those things, controlling emotions can be extremely difficult. That’s love <em>and</em> anger. I’m a raw nerve. For me, it’s also creativity and productivity; tempered with depression and sedentism. Would that I were otherwise, I experience emotions in extremes.</p>
+<p>Think of it like a mental aberration. It’s as much an advantage as it’s a disability.</p>
+<p>I think expecting me to have to full control of my emotions <strong>no matter how much time and energy I lose explaining that having my wishes disregarded in favour of harmful and condescending <em>help</em> is more harmful than no help at all</strong> is holding me to some pretty stark double standards, but this not for me to decide. It is for me to accept; knowing I cannot achieve this level of perfection, as always I must choose exile.</p>
+<h2 id="no-unsolicited-help-solid">no unsolicited help, solid</h2>
+<p>I ask for help, I do. All the time. I have to, for research. I can’t do a whole doctorate in mathematical science on my own.</p>
+<p>It’s usually explicit. <em>How do I randomly generate data that mimic sample sizes in meta-analyses?</em> Not everyone has the expertise to answer my questions, and an early lesson was recognising those who didn’t know how to say they didn’t know.</p>
+<p>I have a really good grip on my triggers. I find these can now be completely avoided when the person I interact with is relatively considerate; and I endeavour to be a pleasure to work with, myself.</p>
+<p>When the person I approach listens to what I need, provides that, and doesn’t presume to intervene in other ways, I believe it’s gone swimmingly. I have made many friends this way, many of whom come to me for help in return.</p>
+<h2 id="unsolicited-help-not-solid">unsolicited help, not solid</h2>
+<p>But where, I believe, the wheels come off the wagon, for me, is when people take it upon themselves to manage me, often disingenuously, to do something they argue will be more beneficial for me.</p>
+<p>This is not cleverly managing me; it’s just pissing me off.</p>
+<p>Honestly, I think it pisses everyone off; but they don’t have as much trouble handling their emotions as I do.</p>
+<p>Often the help that is provided is in direct contradiction to the help I requested. And is frequently in line with what I’ve described as harmful.</p>
+<p>Almost all unsolicited help and advice has been on a spectrum of not useful to offensive.</p>
+<h2 id="exasperating">exasperating</h2>
+<p>At this point I meet the usual suspects:</p>
+<ul>
+<li>it’s a hard time for them</li>
+<li>“things get missed”, “it slipped through the cracks”</li>
+<li>it wouldn’t be beneficial anyway, for me, but what they were trying to do would be</li>
+<li>they didn’t think it would upset me</li>
+<li>it wouldn’t upset them</li>
+<li>they are a good person!</li>
+<li>they meant well</li>
+</ul>
+<p>And the crowning beauty:</p>
+<ul>
+<li>was trying to teach you <code>life_lesson</code></li>
+</ul>
+<p>I have an excellent memory; I remember they said they understood the difference between harm and help. That they could accommodate my wishes. At this point, I begin to question if anything I said was heard; they do not seem to understand I have already explained this behaviour is harmful.</p>
+<p>And they are now indignant I am not more grateful for their help. How would you feel? Wouldn’t you feel a bit exasperated?</p>
+<h2 id="the-infinite-loop-of-harmful-help">the infinite loop of harmful help</h2>
+<p>My ability to control my emotions is inversely proportionate to the number repetitions of this pattern I am experiencing:</p>
+<ol type="1">
+<li>Someone offers to help.</li>
+<li>I define what would help and what would harm.</li>
+<li>Crucially, they tell me they understand; I trust them.</li>
+<li>They do the harm I describe, and claim it is for my benefit. Sometimes they replace help with this harm, sometimes it’s both.</li>
+<li>They argue I am irrational when I bring up the definition of harm. <em>I’m irrational?</em></li>
+<li>They choose a subset of the justifications from the usual suspects listed above. <em>I’m irrational?</em></li>
+<li>I am forced to explain again how harmful this is.</li>
+<li>Repeat from step 3. <em>I’m irrational?</em></li>
+</ol>
+<p><img src="https://images.app.goo.gl/YE23WenuUU8LbmJr6" /></p>
+<p>This is an infinite loop of harmful help, driven by the principle of magical intent <span class="citation" data-cites="mcewan_harmful_2011">(McEwan <a href="#ref-mcewan_harmful_2011">2011</a>)</span>, whereby the person believes good intentions mitigates all harm. If accidentally run over your cat, doesn’t make it not dead, and doesn’t reduce your grief.</p>
+<p>Once I have invited help, if the other person assumes they know better and can disregard my wishes, it seems the only way to kill the loop is to withdraw from that person entirely.</p>
+<h2 id="harm-is-proportionate-to-time-and-energy-expended">harm is proportionate to time and energy expended</h2>
+<p>The more repetitions of the loop I endure, the more my ability to control my emotions begins to fray. Returning back to what feels like the start each time. <em>I was just trying to help.</em></p>
+<p><strong>Harm is worse than no help</strong>. Because if you harm me repeatedly, ignore my requests, I may not be able to control my emotions, and that’s <strong>not safe for you</strong>.</p>
+<p>I’ve had decades of therapy, I learnt to articulate myself well. But you can’t cure the life I’ve lived, my complex post-traumatic stress disorder, by finding it unpalatable.</p>
+<p>I know what will trigger the hell out of me and warn people well in advance. And I know what I need for myself. I’m an experienced teacher. Usually what I need is reassurance, and sometimes some academic guidance. Also, company, because it’s nice to turn ideas over with intellectuals.</p>
+<h1 id="its-not-a-disability-its-difference">it’s not a disability, it’s difference</h1>
+<p>I have made a <a href="https://lifes-work.netlify.com/">life’s work</a> out of balancing my creativity with the time I require to recharge. Mathematical science provides me with both. It also provides me with a calm from the emotional storm the world brings me.</p>
+<h1 id="when-it-becomes-exploitation">when it becomes exploitation</h1>
+<p>Explaining to someone how they’re hurting me doesn’t benefit me; it doesn’t mitigate the harm already done. And it doesn’t return the time or energy I’ve expended, nor how that expenditure affects my research.</p>
+<p>Indeed, the explanation itself is demeaning, harmful, and emotionally exhausting for me.</p>
+<p>When someone recoils from me for losing my temper after subjecting me to the infinite loop of harmful help, I end up surveying the help that was given and thinking:</p>
+<ul>
+<li>This person doesn’t appear to have ever liked me</li>
+<li>The amount of time and energy I expended on explaining how they were hurting me vastly outweigh the paucity of friendship offered</li>
+<li>I would have been better off never accepting help from this person</li>
+<li>This person doesn’t listen to me.</li>
+<li>This person thinks it’s okay to be disingenuous with me</li>
+<li>This person is not considering my well being</li>
+<li>This person is not prioritising the help requested, but their own, unspecified, agenda.</li>
+</ul>
+<h2 id="heres-what-im-going-to-do">here’s what I’m going to do</h2>
+<p>I’m going to flag I experience extreme emotions more explicitly moving forward; and that it includes anger. And I’m going to flag unsolicited help as a clear trigger. I will be far more explicit about this.</p>
+<p>But I can’t promise I can hold it together when subjected to the infinite loop of harmful help. Any community that requires that is not a safe space for me or them. I will disengage from people with those values. I’m not trying to pick a fight; I simply live in reality, I am not perfect.</p>
+<p>And I, for one, think others are lesser for it. Because the insight and empathy this life has gifted me is, I think, useful for science.</p>
+<p>I think it diminishes you to see this as diminishing me, rather than my principal components of personality, flaws included, have <a href="https://softloud.github.io/onetimetrophybitch/about.html">a different basis set</a> than yours do.</p>
+<p>Anyone perpetuating the infinite loop of harmful help has, after all, some things to work on themselves.</p>
+<h2 id="dos-and-donts">dos and don’ts</h2>
+<p>Don’t help anyone unsolicited. It is unlikely you know better than anyone else what is of benefit for them. And rightly so, you know what’s best for you. Don’t impose your values on others.</p>
+<p>Be honest with yourself if someone asks you to accommodate something. Especially something trivial; something that wouldn’t bother you. Especially something they say is important. If you can’t accommodate it, simply say so.</p>
+<p>Apologise and take responsibility, no matter how good your intentions are. Everyone’s intentions are always good.</p>
+<p>Above all, do not perpetuate the infinite loop of harmful help. Sometimes doing nothing is better. The cardinality of potential harm is far greater than that of any help that might be provided. Harm is worse than no help. If you cannot avoid the loop, don’t help.</p>
+<hr />
+<p><strong>PSA Don’t pull the infinite loop of harmful help on me. At this point, it has happened too many times in quick succession and I cannot control my negative reactions.</strong></p>
+<p>I would really like to see what kind of person I could be with financial and housing security, and not trapped in infinite loops of harmful help. Who knows? She might not have trouble controlling her anger at all.</p>
+<div id="refs" class="references">
+<div id="ref-mcewan_harmful_2011">
+<p>McEwan, Melissa. 2011. “Harmful Communication, Part One: Intent Is Magic.” January 12, 2011. <a href="http://www.shakesville.com/2011/12/harmful-communication-part-one-intent.html">http://www.shakesville.com/2011/12/harmful-communication-part-one-intent.html</a>.</p>
+</div>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -1893,6 +1064,19 @@ function init_posts_list() {
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
 <div class="appendix-bottom"></div>
+<script id="distill-bibliography" type="text/bibtex">
+
+@online{mcewan_harmful_2011,
+	title = {Harmful Communication, Part One: Intent Is Magic},
+	url = {http://www.shakesville.com/2011/12/harmful-communication-part-one-intent.html},
+	shorttitle = {Harmful Communication, Part One},
+	abstract = {[Trigger warning for harmful language, emotional manipulation, rape culture.]   This is the first post in a series about language.  Specific...},
+	author = {{McEwan}, Melissa},
+	urldate = {2019-08-16},
+	date = {2011-01-12},
+	file = {Snapshot:/home/charles/Zotero/storage/ABKBWKBK/harmful-communication-part-one-intent.html:text/html}
+}
+</script>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

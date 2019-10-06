@@ -1,0 +1,121 @@
+---
+title: "|harm| >> |help|"
+description: |
+  the cardinality of harm is greater than that of help 
+author:
+  - name: Charles T. Gray
+    url: https://twitter.com/cantabile
+date: 10-06-2019
+output:
+  distill::distill_article:
+    self_contained: false
+category:
+  - grrr...
+bibliography: biblio.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## anger is an unpalatable disability
+
+If only we lived in a perfect world. Where everyone had a happy childhood. Where everyone had enough to eat, a roof over their heads, and above warmth in all respects. 
+
+For those of us who didn’t have those things, controlling emotions can be extremely difficult. That’s love _and_ anger. I'm a raw nerve. For me, it’s also creativity and productivity; tempered with depression and sedentism. Would that I were otherwise, I experience emotions in extremes.  
+
+Think of it like a mental aberration. It’s as much an advantage as it’s a disability. 
+
+I think expecting me to have to full control of my emotions **no matter how much time and energy I lose explaining that having my wishes disregarded in favour of harmful and condescending *help* is more harmful than no help at all** is holding me to some pretty stark double standards, but this not for me to decide. It is for me to accept; knowing I cannot achieve this level of perfection, as always I must choose exile. 
+
+## no unsolicited help, solid
+
+I ask for help, I do. All the time. I have to, for research. I can't do a whole doctorate in mathematical science on my own. 
+
+It's usually explicit. *How do I randomly generate data that mimic sample sizes in meta-analysis datasets?* Not everyone has the expertise to answer my questions, and an early lesson was recognising those who didn't know how to say they didn't know.
+
+I have a really good grip on my triggers. I find these can now be completely avoided when the person I interact with is relatively considerate; and I endeavour to be a pleasure to work with, myself. 
+
+When the person I approach listens to what I need, provides that, and doesn't presume to intervene in other ways, I believe it's gone swimmingly. I have made many friends this way, many of whom come to me for help in return.
+
+## unsolicited help, not solid
+
+But where, I believe, the wheels come off the wagon for me, is when people take it upon themselves to manage me, often disingenuously, to do something they think will be more beneficial for me. This is not cleverly managing me; it's just pissing me off. Honestly, I think it pisses everyone off; but they don't have as much trouble handling their emotions as I do. 
+
+Often the help that provided is a direct contradiction to the help I requested from them. And is frequently in line with what I've described as harmful. 
+
+Almost all unsolicited help and advice has been on a spectrum of not useful to offensive. 
+
+## exasperating
+
+At this point I meet the usual suspects:
+
+- it's a hard time for them
+- "things get missed", "it slipped through the cracks"
+- it wouldn't be beneficial anyway, for me, but what they were trying to do would be 
+- they didn't think it would upset me
+- it wouldn't upset them
+- they are a good person! 
+- they meant well
+
+And the crowning beauty:
+
+- was trying to teach you `life_lesson`
+
+I have an excellent memory; I remember how when I explained things they said they understood. That they could accommodate my wishes. But I am starting to get the impression this person didn't listen to a word I said; they do not understand I have already explained their behaviour is harmful. 
+
+And they are now indignant I am not more grateful for their help. How would you feel? Wouldn't you feel a bit exasperated? 
+
+## the infinite loop of harmful help 
+
+I definitely won’t be able to control my emotions if I continue to be subjected to this pattern as frequently as I have: 
+
+1. Someone offers to help. 
+2. I define what would help and what would harm.
+3. Crucially, they tell me they understand; I trust them.
+4. They do the harm I describe, and claim it is for my benefit. 
+5. They argue I am irrational when I bring up the definition of harm. *I'm irrational?*
+6. They choose a subset of the justifications from the usual suspects listed above. *I'm irrational?*
+7. I am forced to explain again how harmful this is. 
+8. Repeat from step 3. *I'm irrational?*
+
+This is an infinite loop of harmful help, driven by the principle of magical intent . 
+
+Once I have invited help, if the other persons adopts a paternalistic attitude, it seems the only way to disengage is to withdraw from that person entirely.
+
+## harm is proportionate to the time and energy expended
+
+The more repetitions of the loop I endure, the more my ability to control my emotions begins to fray. Returning back to what feels like the start each time. *I was just trying to help.*
+
+Harm is worse than no help. Because if you harm me repeatedly, ignore my requests, I may not be able to control my emotions, and that’s **not safe for you**. 
+
+I’ve had decades of therapy, I learnt to articulate myself well. I know what will trigger the hell out of me and warn people well in advance. And I know what I need for myself. I’m an experienced teacher. Usually what I need is reassurance, sometimes some academic guidance. And some company, because it’s nice to turn ideas over with intellectuals.
+ 
+# a good thing
+
+I have made a [life’s work](https://lifes-work.netlify.com/) out of balancing my creativity with the time I require to recharge. Mathematical science provides me with both. It also provides me with a calm from the emotional storm the world brings me. 
+
+# when it becomes exploitation
+
+Explaining to someone how they’re hurting me doesn’t benefit me doesn't mitigate the harm already done. 
+
+Indeed, the explanation itself is demeaning, harmful, and emotionally exhausting for me. 
+
+When someone ghosts me for losing my temper after subjecting me to the infinite loop of harmful help, I end up surveying the help that was given, and realising:
+
+- This person doesn't appear to have ever liked me
+- The amount of time and energy I expended on explaining how they were hurting me vastly outweigh the paucity of friendship offered
+- I would have been better off never accepting help from this person
+
+## here's what I'm going to do
+
+I'm going to flag I experience extreme emotions more explicitly moving forward. 
+
+And I'm going to flag unsolicited help as a clear trigger. 
+
+But I can't promise I can hold it together when subjected to the infinite loop of harmful help. 
+
+People are holding me to a standard I simply cannot meet, while asking me to accept an astoanishing amount of "oops" from other people. I can't meet this standard. I wish to not be held to it; I will leave any community that requires this of me. 
+
+<!--chapter:end:consent.Rmd-->
+
