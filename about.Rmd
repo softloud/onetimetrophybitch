@@ -2,7 +2,6 @@
 title: "trophybitch"
 description: |
   a one-time tropy bitch screams into the void
-toc: true
 bibliography: references.bib
 ---
 
@@ -22,9 +21,9 @@ knitr::opts_chunk$set(echo = FALSE)
 - wrote a Coding of Kindness[@gray_coding_2019], a rephrasing of the Code of Conduct, which did not win over the people I was trying to communicate with, but did mean that other survivors reached out, and that was quite lovely
 
 
-# videos 
+# some other cool shit i did 
 
-## heidelberg laureate forum 
+### heidelberg laureate forum 
 
 It was a delight to participate in the opening of the [Heidelberg Laureate Forum](https://www.heidelberg-laureate-forum.org/), where the laureates of mathematics and computer science meet the next generation. 
 
@@ -36,7 +35,7 @@ There's no Nobel prize in mathematics and computer science. Instead, there is th
 
 Slides for the presentation can be found [here](https://softloud.github.io/onetimetrophybitch/talks/hlf/hlf-2019-xaringan.html#1).
 
-## code like a girl tour
+### code like a girl tour
 
 - check out [twitter reel](https://twitter.com/i/moments/1027200380600348673) from the tour
 - and the [event](https://codelikeagirl.org/states/act/2018/september/data-storytelling-with-charles-gray-launch-event/)
@@ -44,6 +43,6 @@ Slides for the presentation can be found [here](https://softloud.github.io/oneti
 ![](figs/code-like-a-girl.jpg)
 
 
-## mathbassador gray
+### mathbassador gray
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/o0Rqz8Hgacc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
