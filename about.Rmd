@@ -14,13 +14,15 @@ knitr::opts_chunk$set(echo = FALSE)
 # publications
 
 - pending, second paper from thesis: `code::proof`: Prepare for *most* weather conditions 
-- first paper from current thesis has been accepted into springer computer proceedings something something, metamathematics[@gray_truth_2019][@gray_truth_2019]
-- abstract algebra: This was my honours (masters-level) thesis in abstract algebra. Authorship is alphabetical and equal in mathematics. Brian and Jane did a great deal of work on the final paper, I think. But in my thesis, the proofs were all (but two small introductory proofs Brian wrote for completeness) my own. [@davey_homomorphism_2018]
+- first paper from current thesis has been accepted into springer computer proceedings something something, metamathematics[@gray_truth_2019]
+- my honours (masters-level) thesis in abstract algebra. Authorship is alphabetical and equal in mathematics. Brian and Jane did a great deal of work on the final paper, I think. But in my thesis, the proofs were all (but two small introductory proofs Brian wrote for completeness) my own. [@davey_homomorphism_2018]
 - oddly enough, an award-winning consumer behaviour paper, best in the "busines ethics track"[@harrison_ethical_2010; @harrison_profiling_2012]
 - wrote one paragraph and contributed to discussion on this ecology project[@haddaway_eviatlas_2019]
 - spent two deep-dive days conjuring a package out of an equation for the Misinformation Lab, and two co-authored papers are submitted
+- wrote a Coding of Kindness[@gray_coding_2019], a rephrasing of the Code of Conduct, which did not win over the people I was trying to communicate with, but did mean that other survivors reached out, and that was quite lovely
 
-# videos
+
+# videos 
 
 ## heidelberg laureate forum 
 
