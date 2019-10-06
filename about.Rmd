@@ -42,6 +42,10 @@ Slides for the presentation can be found [here](https://softloud.github.io/oneti
 
 ![](figs/code-like-a-girl.jpg)
 
+### useR! workshop
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/AmqxVDlfKQY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ### mathbassador gray
 
