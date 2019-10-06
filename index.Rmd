@@ -3,3 +3,14 @@ title: "measured."
 site: distill::distill_website
 listing: posts
 ---
+
+
+```{echo=FALSE, eval=FALSE}
+
+# link for googlesheet
+
+# https://docs.google.com/spreadsheets/d/e/2PACX-1vRHVN7gtL-qh8JR-VkDNoOrQljL2cO4BOHL5c0RL5nwlGaTMv7R2DZpOed5E-rmiXnDpCbekgh28CpZ/pubhtml
+
+
+```
+

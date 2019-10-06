@@ -14,7 +14,7 @@ output:
 categories:
   - error handling
   - testing
-bibliography: ../../biblio.bib
+bibliography: ../../references.bib
 ---
 
 ```{r setup, include=FALSE}
