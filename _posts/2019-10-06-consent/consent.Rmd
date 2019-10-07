@@ -97,7 +97,7 @@ This is an infinite loop of harmful help, driven by the principle of magical int
 
 I don't require you to determine what is to my benefit; and will not appreciate it being up for debate. Indeed, I will likely find it offensive and harmful.
 
-```{r  fig.align="center", out.width="20%", fig.cap="Being cast as the [noble savage](https://www.wikiwand.com/en/Noble_savage) or the [mad woman in the attic](https://www.wikiwand.com/en/The_Madwoman_in_the_Attic) is getting old. [Image source.](https://psmag.com/.image/t_share/MTMzMTAxMjY3ODk0NDQyNDYy/pocahontasjpg.jpg)."}
+```{r  fig.align="center", out.width="20%", fig.cap="Being cast as the [noble savage](https://www.wikiwand.com/en/Noble_savage) and then the [mad woman in the attic](https://www.wikiwand.com/en/The_Madwoman_in_the_Attic) is getting old. [Image source.](https://psmag.com/.image/t_share/MTMzMTAxMjY3ODk0NDQyNDYy/pocahontasjpg.jpg)."}
 
 knitr::include_graphics("pocahontas.jpg")
 
