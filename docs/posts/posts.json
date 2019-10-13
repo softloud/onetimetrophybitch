@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2019-10-13-dont-do/",
+    "title": "don't do what sucks to do",
+    "description": "first conversation about working towards freedom in life and science",
+    "author": [
+      {
+        "name": "Charles T. Gray",
+        "url": "https://twitter.com/cantabile"
+      }
+    ],
+    "date": "2019-10-13",
+    "categories": [
+      "grrr..."
+    ],
+    "preview": {},
+    "last_modified": "2019-10-13T18:46:38+11:00"
+  },
+  {
     "path": "posts/2019-10-06-consent/",
     "title": "|harm| >> |help|",
     "description": "the cardinality of harm is greater than that of help: the infinite loop of harmful help",

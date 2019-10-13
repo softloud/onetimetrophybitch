@@ -1,0 +1,39 @@
+---
+title: "don't do what sucks to do"
+description: |
+  first conversation about working towards freedom in life and science
+author:
+  - name: Charles T. Gray
+    url: https://twitter.com/cantabile
+date: 10-13-2019
+output:
+  distill::distill_article:
+    self_contained: false
+categories:
+  - grrr...
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Today I had my first conversation with a woman who wrote a book about trauma with a Turing awardee. She had a deep understanding of the personality types, and the obstacles I face. 
+
+The burning question, bluntly, was how to manage the ignorant blundering of well-intentioned folk in my life. Especially when it becomes time consuming and distracts me from my work. 
+
+I do find myself wondering if simply being understood will help more than anything. 
+
+My homework is to consider, as the week progresses, if I am doing anything I do not wish to do. 
+
+*What will help me not do what I don't want to do?* 
+
+I got to thinking about this scene in Dangerous Liaisons. In the face of this endless silliness, must I become a virtuouso of deceit?
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/o2XB_Wp4_2c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+But I don't think so. I think I may need to adopt this in the meantime, as I learn to diminish my expectations of others emotional intelligence. Ultimately, it's possible to achieve a sense of calm so deep I can simply roll with the silliness. 
+
+"I'm so glad you've chosen to pursue freedom." 
+
+Me, too. 
+
