@@ -1,0 +1,110 @@
+---
+title: "incorrigible tidy::vert"
+description: |
+  a song with %>% references 
+author:
+  - name: Charles T. Gray
+    url: https://twitter.com/cantabile
+date: 10-24-2019
+bibliography: references.bib
+output:
+  distill::distill_article:
+    self_contained: false
+categories:
+  - music
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## incorrigible tidy::vert  `%>%  exegesis()`
+
+> This post will be adapted for inclusion in a joint publication of mathematically-informed artworks engaging with Magritte's pipe, an icon of surrealism. This forthcoming publication is from a working group of researchers who met at the 2019 [Heidelberg Laureate Forum](https://www.heidelberg-laureate-forum.org/).
+
+In the painting, _The Treachery of Images_, Magritte's declares  _Ceci n'est pas une pipe_ (_This is not a pipe_). In so doing, he highlights this is but an _image_, a representation, of a pipe, not truly a pipe itself. 
+
+
+<center>
+
+![_The Treachery of Images_,  [Image source: wikipedia.](https://upload.wikimedia.org/wikipedia/en/b/b9/MagrittePipe.jpg)](magritte-pipe.jpg){width=50%}
+
+</center>
+
+I recently wrote a song with lots of references to R and the `tidyverse::` metapackage. [@grolemund_r_2017]  
+
+```
+I didn't mean to %>% your bubble
+I'm just an incorrigible tidy::vert
+```
+
+In this post, I'll unpack the statistical computing terminology used, and, in particular, the [_pipe_](https://magrittr.tidyverse.org/) operator, ` %>% `, that features throughout the lyrics. 
+
+
+## the ` %>% ` operator in the R language
+
+```{r fig.cap="[Image source: `magritrr::` GitHub repository.](https://github.com/tidyverse/magrittr/blob/master/man/figures/logo.png?raw=true)", fig.align='center'}
+
+knitr::include_graphics("pipe-logo.png")
+
+```
+
+The ` %>% ` pipe operator is the first major concept introduced in the programming section, following exploratory data analysis and data wrangling, of Wickham's _R for Data Science_ [@grolemund_r_2017]. The operator is provided in the `magrittr::` package.
+
+
+
+
+## incorrigible tidy::vert  `%>%  lyrics()`
+
+```
+Caught the train to Leipzig, snow is falling
+But I am not nearly done
+Rube Goldberging this algorithm
+But the sampling is off.
+
+I didn't mean to %>% your bubble
+I'm just an incorrible tidy::vert
+
+And I'm here to tell ya
+There's some rhyme and reason
+But there's a whole lot that can get fucked up
+
+And I'm here to tell ya
+There's scarce rhyme and reason
+So let's brace for the shitstorm
+
+Don't think I'll unravel
+The mysteries of the beta distribution
+On the the train Leipzig with snow falling
+And my %>%s are getting too long
+
+But I didn't mean to %>% your bubble
+I'm just an incorrible tidy::vert
+
+And I'm here to tell ya
+There's some rhyme and reason
+But there's a whole lot that can get fucked up
+
+And I'm here to tell ya
+There's scarce rhyme and reason
+So let's brace for the CRANstorm
+
+And I didn't mean to %>% your bubble
+Let your flame war flame itself out
+And I didn't mean to %>% your bubble
+Excuse Me, Do You Have a Moment to Talk About Version Control?
+
+And I didn't mean to %>% your bubble
+I'm just an incorrible tidy::vert
+And I didn't mean to %>% your bubble
+I'm just an incorrible tidy::vert
+
+
+```
+
+## iphone balanced on music stand quality recording
+
+Don't say I didn't warn you about the sound quality.
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dDRBrmth2YI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

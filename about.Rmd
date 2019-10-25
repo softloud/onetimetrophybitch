@@ -14,13 +14,15 @@ knitr::opts_chunk$set(echo = FALSE)
 
 See [references](#references) at bottom of this page for citation details.
 
-- pending, second paper from thesis: `code::proof`: Prepare for *most* weather conditions, accepted to springer computer science proceedings something something, metaprogramming 
-- first paper from current thesis has been accepted into springer computer proceedings something something, metamathematics[@gray_truth_2019]
-- my honours (masters-level) thesis in abstract algebra. Authorship is alphabetical and equal in mathematics. Brian and Jane did a great deal of work on the final paper, I think. But in my thesis, the proofs were all (but two small introductory proofs Brian wrote for completeness) my own. [@davey_homomorphism_2018]
-- oddly enough, an award-winning consumer behaviour paper, best in the business ethics track [@harrison_ethical_2010; @harrison_profiling_2012]
-- wrote one paragraph and contributed to discussion on this ecology project[@haddaway_eviatlas_2019]
-- spent two deep-dive days conjuring a package out of an equation for the Misinformation Lab, and two co-authored papers are submitted
-- wrote a Coding of Kindness[@gray_coding_2019], a rephrasing of the Code of Conduct, which did not win over the people I was trying to communicate with, but did mean that other survivors reached out, and that was quite lovely
+title | discipline | description
+--|-|----
+[`code::proof`: Prepare for *most* weather conditions](https://arxiv.org/abs/1910.06964)[@gray2019textttcodeproof] | metaprogramming | second paper from thesis,  accepted to springer computer science proceedings something something, metaprogramming 
+[Truth, Proof, and Reproducibility: There's no counter-attack for the codeless](https://arxiv.org/abs/1907.05947) | metamathematics | first paper from current thesis has been accepted into springer computer proceedings something something, metamathematics[@gray_truth_2019]
+[The Homomorphism Lattice Induced by a Finite Algebra](https://link.springer.com/epdf/10.1007/s11083-017-9426-3?author_access_token=Tx3I0PNwg5dFrahH71DncPe4RwlQNchNByi7wbcMAY5xivQFAeypeZYbpkYiIm56ubi44Xeb3jQJh6Y2LL8MDMMBjFNWvxCIzyDBkmDI7ZtY6XFcn9qUBg5X3MB3WdDpzOfXDt4InQo_9PdfLHknPw==) | abstract algebra | The publication of my honours (masters-level) thesis in abstract algebra. Authorship is alphabetical and equal in mathematics. Brian and Jane did a great deal of work on the final paper. But in my thesis, the proofs were all (but two small introductory proofs Brian wrote for completeness) my own. [@davey_homomorphism_2018]
+Profiling for Profit | marketing | oddly enough, an award-winning consumer behaviour paper, best in the business ethics track [@harrison_ethical_2010; @harrison_profiling_2012]
+`eviatlas::` | ecology | wrote one paragraph and contributed to discussion on this ecology project[@haddaway_eviatlas_2019]
+todo:look up | psychology | spent two deep-dive days conjuring a package out of an equation for the Misinformation Lab, and two co-authored papers are submitted
+[Coding of Kindness](https://softloud.github.io/codingofkindness/)[@gray_coding_2019] | open science | a rephrasing of the Code of Conduct, which did not win over the people I was trying to communicate with, but did mean that other survivors reached out, and that was quite lovely
 
 
 # some other cool shit i did 

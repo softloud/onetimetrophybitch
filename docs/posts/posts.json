@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2019-10-24-incorrigible-tidyvert/",
+    "title": "incorrigible tidy::vert",
+    "description": "a song with %>% references",
+    "author": [
+      {
+        "name": "Charles T. Gray",
+        "url": "https://twitter.com/cantabile"
+      }
+    ],
+    "date": "2019-10-24",
+    "categories": [
+      "music"
+    ],
+    "preview": "posts/2019-10-24-incorrigible-tidyvert/pipe-logo.png",
+    "last_modified": "2019-10-25T18:28:06+11:00"
+  },
+  {
     "path": "posts/2019-10-13-dont-do/",
     "title": "don't do what sucks to do",
     "description": "first conversation about working towards freedom in life and science",
