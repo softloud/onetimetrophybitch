@@ -77,9 +77,9 @@ round(3.1)
 
 We often forget that operators are, themselves, functions. 
 
-Brian A. Davey's MAT4GA _General Algebra_ coursebook provides this definition.
+Brian A. Davey's MAT4GA _General Algebra_ coursebook (what I have on hand) provides this definition.
 
-For $n \ in \mathbb N_0 := \mathbb N \cub \{ 0\}$, a map $f : A^n \to A$ is called an **_n_-ary operation on _A_**. 
+For $n \in \mathbb N_0 := \mathbb N \cub \{ 0\}$, a map $f : A^n \to A$ is called an **_n_-ary operation on _A_**. 
 
 
 
@@ -92,6 +92,9 @@ For those with formal mathematical trianing, multiple uses of the ` %>% ` operat
 Let $f$ and $g$ be real functions. 
 
 The _composite_ of $f$ with $g$ is the real function $g \circ f$ given by the formula $(g \circ f)(x) := g(f(x))$.
+
+And just to break our brains a little, algebraically, the composite operator _is_ a function, so we have $g \circ f = \circ (f, g)$! 
+
 
 The _pipe_, ` %>% `, operator is the R-language equivalent to the composite $\circ$ operator on real functions.
 
