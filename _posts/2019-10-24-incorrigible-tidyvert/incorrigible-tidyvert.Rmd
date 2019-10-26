@@ -87,6 +87,9 @@ Let $f$ and $g$ be real functions.
 
 The _composite_ of $f$ with $g$ is the real function $g \circ f$ given by the formula $(g \circ f)(x) := g(f(x))$.
 
+The _pipe_, ` %>% `, operator is the R-language equivalent to the composite $\circ$ operator on real functions.
+
+
 ## Why do I love to `%>%`?
 
 Here is an example of three functions: $(h \circ g \circ f)(x) := h(g(f(x))).$
