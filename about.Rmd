@@ -1,7 +1,7 @@
 ---
 title: "trophybitch"
 description: |
-  a one-time tropy bitch screams into the void
+  a one-time trophy bitch screams into the void
 bibliography: references.bib
 ---
 
