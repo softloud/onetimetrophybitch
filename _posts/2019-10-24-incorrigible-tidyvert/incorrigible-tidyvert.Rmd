@@ -79,7 +79,7 @@ We often forget that operators are, themselves, functions.
 
 Brian A. Davey's MAT4GA _General Algebra_ coursebook (what I have on hand) provides this definition.
 
-For $n \in \mathbb N_0 := \mathbb N \cub \{ 0\}$, a map $f : A^n \to A$ is called an **_n_-ary operation on _A_**. 
+For $n \in \mathbb N_0 := \mathbb N \cup \{ 0\}$, a map $f : A^n \to A$ is called an **_n_-ary operation on _A_**. 
 
 
 
