@@ -79,9 +79,11 @@ We often forget that operators are, themselves, functions.
 
 Brian A. Davey's MAT4GA _General Algebra_ coursebook (what I have on hand) provides this definition.
 
+***
+
 For $n \in \mathbb N_0 := \mathbb N \cup \{ 0\}$, a map $f : A^n \to A$ is called an **_n_-ary operation on _A_**. 
 
-
+***
 
 For example, $+$ is a function that takes _two_ arguments, numbers, and returns a _single_ number. Algebraically, 3 + 2 = 5 is shorthand for +(3, 2) = 5. 
 
@@ -89,9 +91,13 @@ For those with formal mathematical trianing, multiple uses of the ` %>% ` operat
 
 ### What is a composite?
 
+***
+
 Let $f$ and $g$ be real functions. 
 
 The _composite_ of $f$ with $g$ is the real function $g \circ f$ given by the formula $(g \circ f)(x) := g(f(x))$.
+
+***
 
 And just to break our brains a little, algebraically, the composite operator _is_ a function, so we have $g \circ f = \circ (f, g)$! 
 
