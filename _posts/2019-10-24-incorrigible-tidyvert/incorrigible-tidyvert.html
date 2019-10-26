@@ -1033,13 +1033,11 @@ round(3.1)</code></pre>
 <p>Here is an example of three functions: <span class="math inline">\((h \circ g \circ f)(x) := h(g(f(x))).\)</span></p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-# a (nonsense) composite of R functions 
-
 set.seed(39)
 
 # get a random sample size between 20 &amp; 100
 sample(seq(20, 100), 1) %&gt;% 
-  # generate sample from normal distribution
+  # generate sample from normal distribution with mean 50 &amp; sd 0.5
 rnorm(., 50, 0.5) %&gt;%
   # calculate mean of that sample
   mean() </code></pre>
