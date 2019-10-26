@@ -58,12 +58,15 @@ The ` %>% ` pipe operator is the first major concept introduced in the programmi
 With Stefan Milton Bache's  `magrittr::`[@bache_magrittr_2014] package, 
 
 ```{r, echo=TRUE}
-# f(x) is equivalent to x %>% f()
+
+# f(x) is equivalent to x %>% f() with magrittr::
+
 library(magrittr)
 
+# f(x)
 round(3.1)
 
-# is equivalent to
+# is equivalent to x %>% f()
 
 3.1 %>% round()
 

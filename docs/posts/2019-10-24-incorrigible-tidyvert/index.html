@@ -1368,14 +1368,16 @@ Figure 1: <a href="https://github.com/tidyverse/magrittr/blob/master/man/figures
 <p>With Stefan Milton Bache’s <code>magrittr::</code><span class="citation" data-cites="bache_magrittr_2014">(Bache and Wickham <a href="#ref-bache_magrittr_2014">2014</a>)</span> package,</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-# f(x) is equivalent to x %&gt;% f()
+# f(x) is equivalent to x %&gt;% f() with magrittr::
+
 library(magrittr)
 
+# f(x)
 round(3.1)</code></pre>
 <pre><code>
 [1] 3</code></pre>
 <pre class="r"><code>
-# is equivalent to
+# is equivalent to x %&gt;% f()
 
 3.1 %&gt;% round()</code></pre>
 <pre><code>
