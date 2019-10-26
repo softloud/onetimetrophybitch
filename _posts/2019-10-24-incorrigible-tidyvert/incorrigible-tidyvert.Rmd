@@ -107,7 +107,7 @@ The _pipe_, ` %>% `, operator is the R-language equivalent to the composite $\ci
 
 ## Why do I love to `%>%`?
 
-Here is an example of three functions: $(h \circ g \circ f)(x) := h(g(f(x))).$
+Here is an example with three functions: $(h \circ g \circ f)(x) := h(g(f(x))).$
 
 
 ```{r }
