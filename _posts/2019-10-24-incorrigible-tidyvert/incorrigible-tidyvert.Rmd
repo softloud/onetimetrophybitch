@@ -97,9 +97,11 @@ For those with formal mathematical trianing, multiple uses of the ` %>% ` operat
 
 Let $f$ and $g$ be real functions. 
 
-The _composite_ of $f$ with $g$ is the real function $g \circ f$ given by the formula $(g \circ f)(x) := g(f(x))$.
+The _composite_ of $f$ with $g$ is the real function $g \circ f$ given by the formula $(g \circ f)(x) := g(f(x))$. 
 
 ***
+
+For reasons that only made sense to me once I reached graduate-level mathematics, we read a composite of functions from **right to left**.
 
 And just to break our brains a little, algebraically, the composite operator _is_ a function, so we have $g \circ f = \circ (f, g)$! 
 
@@ -117,20 +119,23 @@ Here is an example with three functions: $(h \circ g \circ f)(x) := h(g(f(x))).$
 set.seed(39)
 
 # get a random sample size between 20 & 100
-sample(seq(20, 100), 1) %>% 
-  # generate sample from normal distribution with mean 50 & sd 0.5
-rnorm(., 50, 0.5) %>%
+sample(seq(20, 100), 1) %>% # this f(x) goes into
+  # generate sample from normal distribution with 
+  # mean 50 & sd 0.5
+rnorm(., 50, 0.5) %>% # g, so, now g(f(x), which goes into
   # calculate mean of that sample
-  mean() 
+  mean() # h, so h(g(f(x)))
 
 ```
 
-To see how this is the $(h \circ g \circ f)(x)$ instantiation, we take a look at the $h(g(f(x)))$ instantiation of the same code. 
+To see how this is the $(h \circ g \circ f)(x)$ instantiation, reading from right to left, we take a look at the $h(g(f(x)))$ instantiation of the same code. 
 
 
 ```{r }
 
-# this line of code is equivalent 
+# this line of code is equivalent to above
+# h(g(f(x))) iss less text
+# but the algorithm is harder to ascertain 
 mean(rnorm(sample(seq(20, 100), 1), 50, 0.5))
 
 
@@ -195,7 +200,8 @@ So let's brace for the CRANstorm
 And I didn't mean to %>% your bubble
 Let your flame war flame itself out
 And I didn't mean to %>% your bubble
-Excuse Me, Do You Have a Moment to Talk About Version Control?
+Excuse Me, Do You Have a Moment 
+ to Talk About Version Control?
 
 And I didn't mean to %>% your bubble
 I'm just an incorrible tidy::vert

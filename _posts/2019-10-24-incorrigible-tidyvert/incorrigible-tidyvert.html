@@ -1040,6 +1040,7 @@ round(3.1)</code></pre>
 <p>Let <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> be real functions.</p>
 <p>The <em>composite</em> of <span class="math inline">\(f\)</span> with <span class="math inline">\(g\)</span> is the real function <span class="math inline">\(g \circ f\)</span> given by the formula <span class="math inline">\((g \circ f)(x) := g(f(x))\)</span>.</p>
 <hr />
+<p>For reasons that only made sense to me once I reached graduate-level mathematics, we read a composite of functions from <strong>right to left</strong>.</p>
 <p>And just to break our brains a little, algebraically, the composite operator <em>is</em> a function, so we have <span class="math inline">\(g \circ f = \circ (f, g)\)</span>!</p>
 <p>The <em>pipe</em>, <code>%&gt;%</code>, operator is the R-language equivalent to the composite <span class="math inline">\(\circ\)</span> operator on real functions.</p>
 <h2 id="why-do-i-love-to">Why do I love to <code>%&gt;%</code>?</h2>
@@ -1049,18 +1050,21 @@ round(3.1)</code></pre>
 set.seed(39)
 
 # get a random sample size between 20 &amp; 100
-sample(seq(20, 100), 1) %&gt;% 
-  # generate sample from normal distribution with mean 50 &amp; sd 0.5
-rnorm(., 50, 0.5) %&gt;%
+sample(seq(20, 100), 1) %&gt;% # this f(x) goes into
+  # generate sample from normal distribution with 
+  # mean 50 &amp; sd 0.5
+rnorm(., 50, 0.5) %&gt;% # g, so, now g(f(x), which goes into
   # calculate mean of that sample
-  mean() </code></pre>
+  mean() # h, so h(g(f(x)))</code></pre>
 <pre><code>
 [1] 49.94228</code></pre>
 </div>
-<p>To see how this is the <span class="math inline">\((h \circ g \circ f)(x)\)</span> instantiation, we take a look at the <span class="math inline">\(h(g(f(x)))\)</span> instantiation of the same code.</p>
+<p>To see how this is the <span class="math inline">\((h \circ g \circ f)(x)\)</span> instantiation, reading from right to left, we take a look at the <span class="math inline">\(h(g(f(x)))\)</span> instantiation of the same code.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-# this line of code is equivalent 
+# this line of code is equivalent to above
+# h(g(f(x))) iss less text
+# but the algorithm is harder to ascertain 
 mean(rnorm(sample(seq(20, 100), 1), 50, 0.5))</code></pre>
 <pre><code>
 [1] 49.98828</code></pre>
@@ -1114,7 +1118,8 @@ So let&#39;s brace for the CRANstorm
 And I didn&#39;t mean to %&gt;% your bubble
 Let your flame war flame itself out
 And I didn&#39;t mean to %&gt;% your bubble
-Excuse Me, Do You Have a Moment to Talk About Version Control?
+Excuse Me, Do You Have a Moment 
+ to Talk About Version Control?
 
 And I didn&#39;t mean to %&gt;% your bubble
 I&#39;m just an incorrible tidy::vert
