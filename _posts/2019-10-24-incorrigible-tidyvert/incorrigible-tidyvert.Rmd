@@ -89,7 +89,7 @@ For $n \in \mathbb N_0 := \mathbb N \cup \{ 0\}$, a map $f : A^n \to A$ is calle
 
 For example, $+$ is a function that takes _two_ arguments, numbers, and returns a _single_ number. Algebraically, 3 + 2 = 5 is shorthand for +(3, 2) = 5. 
 
-For those with formal mathematical trianing, multiple uses of the ` %>% ` operator in a single line of code can be thought of in terms of a coding instantiation of a _composite of functions_.
+For those with formal mathematical training, multiple uses of the ` %>% ` operator in a single line of code can be thought of in terms of a coding instantiation of a _composite of functions_.
 
 ### What is a composite?
 
