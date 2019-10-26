@@ -33,7 +33,7 @@ In his 1929 surrealist painting, _The Treachery of Images_, René Magritte decla
 
 </center>
 
-I recently wrote a song with lots of references to R and the `tidyverse::` metapackage. [@grolemund_r_2017]  
+I recently wrote a song with lots of references to R and the `tidyverse::` metapackage[@wickham_tidyverse_2017].   
 
 
 ```{}
