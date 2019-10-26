@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 > This post will be adapted for inclusion in a joint publication of mathematically-informed artworks engaging with Magritte's pipe, an icon of surrealism. This forthcoming publication is from a working group of researchers who met at the 2019 [Heidelberg Laureate Forum](https://www.heidelberg-laureate-forum.org/).
 
-> Special thinks to [Laura Ación](https://twitter.com/_lacion_), [Hao Ye](https://twitter.com/Hao_and_Y), and [James Goldie](https://twitter.com/rensa_co) for checking the maths, and for the reflections on how they understand `%>%` in their own work. 
+> Thank you, [Laura Ación](https://twitter.com/_lacion_), [Hao Ye](https://twitter.com/Hao_and_Y), and [James Goldie](https://twitter.com/rensa_co) for checking the maths, and for the reflections on `%>%`. 
 
 In his 1929 surrealist painting, _The Treachery of Images_, René Magritte declares  _Ceci n'est pas une pipe_ (_This is not a pipe_). In so doing, he highlights this is but an _image_, a representation, of a pipe, not truly a pipe itself. 
 
