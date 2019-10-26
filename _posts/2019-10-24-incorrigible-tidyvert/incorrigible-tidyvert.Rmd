@@ -130,6 +130,13 @@ And my %>%s are getting too long
 
 ## incorrigible tidy::vert  `%>%  lyrics()`
 
+```{r echo=FALSE}
+ 
+knitr::include_graphics("lyrics-handwritten.jpeg")
+
+```
+
+
 ```
 Caught the train to Leipzig, snow is falling
 But I am not nearly done
