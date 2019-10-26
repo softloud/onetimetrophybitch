@@ -43,10 +43,11 @@
   <!--/radix_placeholder_meta_tags-->
   
   <meta name="citation_reference" content="citation_title=R for Data Science;citation_publication_date=2017;citation_author=Garrett Grolemund;citation_author=Hadley Wickham"/>
+  <meta name="citation_reference" content="citation_title=Magrittr: A forward-pipe operator for R;citation_publication_date=2014;citation_author=Stefan Milton Bache;citation_author=Hadley Wickham"/>
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","bibliography","output","categories"]}},"value":[{"type":"character","attributes":{},"value":["incorrigible tidy::vert"]},{"type":"character","attributes":{},"value":["a song with %>% references \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Charles T. Gray"]},{"type":"character","attributes":{},"value":["https://twitter.com/cantabile"]}]}]},{"type":"character","attributes":{},"value":["10-24-2019"]},{"type":"character","attributes":{},"value":["references.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["music"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","bibliography","output","categories"]}},"value":[{"type":"character","attributes":{},"value":["incorrigible tidy::vert"]},{"type":"character","attributes":{},"value":["a song with %>% references \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Charles T. Gray"]},{"type":"character","attributes":{},"value":["https://twitter.com/cantabile"]}]}]},{"type":"character","attributes":{},"value":["10-24-2019"]},{"type":"character","attributes":{},"value":["references.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["music"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -965,21 +966,34 @@
 </div>
 
 <div class="d-article">
+<h3 class="d-toc-header">Table of Contents</h3>
+<nav class="d-toc" id="TOC">
+<ul>
+<li><a href="#incorrigible-tidyvert-exegesis">incorrigible tidy::vert <code>%&gt;%  exegesis()</code></a></li>
+<li><a href="#the-operator-in-the-r-language">the <code>%&gt;%</code> operator in the R language</a><ul>
+<li><a href="#what-is-an-operator">What is an operator?</a></li>
+<li><a href="#what-is-a-composite">What is a composite?</a></li>
+</ul></li>
+<li><a href="#incorrigible-tidyvert-lyrics">incorrigible tidy::vert <code>%&gt;%  lyrics()</code></a></li>
+<li><a href="#iphone-balanced-on-music-stand-quality-recording">iphone balanced on music stand quality recording</a></li>
+</ul>
+</nav>
+<hr class="d-toc-separator"/>
 <h2 id="incorrigible-tidyvert-exegesis">incorrigible tidy::vert <code>%&gt;%  exegesis()</code></h2>
 <blockquote>
 <p>This post will be adapted for inclusion in a joint publication of mathematically-informed artworks engaging with Magritte’s pipe, an icon of surrealism. This forthcoming publication is from a working group of researchers who met at the 2019 <a href="https://www.heidelberg-laureate-forum.org/">Heidelberg Laureate Forum</a>.</p>
 </blockquote>
-<p>In the painting, <em>The Treachery of Images</em>, Magritte’s declares <em>Ceci n’est pas une pipe</em> (<em>This is not a pipe</em>). In so doing, he highlights this is but an <em>image</em>, a representation, of a pipe, not truly a pipe itself.</p>
+<p>In his 1929 surrealist painting, <em>The Treachery of Images</em>, René Magritte declares <em>Ceci n’est pas une pipe</em> (<em>This is not a pipe</em>). In so doing, he highlights this is but an <em>image</em>, a representation, of a pipe, not truly a pipe itself.</p>
 <center>
 <figure>
-<img src="magritte-pipe.jpg" alt="The Treachery of Images, Image source: wikipedia." style="width:50.0%" /><figcaption><em>The Treachery of Images</em>, <a href="https://upload.wikimedia.org/wikipedia/en/b/b9/MagrittePipe.jpg">Image source: wikipedia.</a></figcaption>
+<img src="magritte-pipe.jpg" alt="The Treachery of Images, René Magritte, 1929. Image source: wikipedia." style="width:50.0%" /><figcaption><em>The Treachery of Images</em>, René Magritte, 1929. <a href="https://upload.wikimedia.org/wikipedia/en/b/b9/MagrittePipe.jpg">Image source: wikipedia.</a></figcaption>
 </figure>
 </center>
 <p>I recently wrote a song with lots of references to R and the <code>tidyverse::</code> metapackage. <span class="citation" data-cites="grolemund_r_2017">(Grolemund and Wickham <a href="#ref-grolemund_r_2017">2017</a>)</span></p>
 <pre><code>
 I didn&#39;t mean to %&gt;% your bubble
 I&#39;m just an incorrigible tidy::vert</code></pre>
-<p>In this post, I’ll unpack the statistical computing terminology used, and, in particular, the <a href="https://magrittr.tidyverse.org/"><em>pipe</em></a> operator, <code>%&gt;%</code>, that features throughout the lyrics.</p>
+<p>In this post, I’ll unpack the <a href="https://magrittr.tidyverse.org/"><em>pipe</em></a> operator, <code>%&gt;%</code>, that features throughout the lyrics.</p>
 <h2 id="the-operator-in-the-r-language">the <code>%&gt;%</code> operator in the R language</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
@@ -989,7 +1003,63 @@ Figure 1: <a href="https://github.com/tidyverse/magrittr/blob/master/man/figures
 </p>
 </div>
 </div>
-<p>The <code>%&gt;%</code> pipe operator is the first major concept introduced in the programming section, following exploratory data analysis and data wrangling, of Wickham’s <em>R for Data Science</em> <span class="citation" data-cites="grolemund_r_2017">(Grolemund and Wickham <a href="#ref-grolemund_r_2017">2017</a>)</span>. The operator is provided in the <code>magrittr::</code> package.</p>
+<p>The <code>%&gt;%</code> pipe operator is the first major concept introduced in the programming section, following exploratory data analysis and data wrangling, of Wickham’s <em>R for Data Science</em> <span class="citation" data-cites="grolemund_r_2017">(Grolemund and Wickham <a href="#ref-grolemund_r_2017">2017</a>)</span>.</p>
+<p>With Stefan Milton Bache’s <code>magrittr::</code><span class="citation" data-cites="bache_magrittr_2014">(Bache and Wickham <a href="#ref-bache_magrittr_2014">2014</a>)</span> package,</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+# f(x) is equivalent to x %&gt;% f()
+library(magrittr)
+
+round(3.1)</code></pre>
+<pre><code>
+[1] 3</code></pre>
+<pre class="r"><code>
+# is equivalent to
+
+3.1 %&gt;% round()</code></pre>
+<pre><code>
+[1] 3</code></pre>
+</div>
+<h3 id="what-is-an-operator">What is an operator?</h3>
+<p>We often forget that operators are, themselves, functions.</p>
+<p>For example, <span class="math inline">\(+\)</span> is a function that takes <em>two</em> arguments, numbers, and returns a <em>single</em> number. Algebraically, 3 + 2 = 5 is shorthand for +(3, 2) = 5.</p>
+<p>For those with formal mathematical trianing, multiple uses of the <code>%&gt;%</code> operator in a single line of code can be thought of in terms of a coding instantiation of a <em>composite of functions</em>.</p>
+<h3 id="what-is-a-composite">What is a composite?</h3>
+<p>Let <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> be real functions.</p>
+<p>The <em>composite</em> of <span class="math inline">\(f\)</span> with <span class="math inline">\(g\)</span> is the real function <span class="math inline">\(g \circ f\)</span> given by the formula <span class="math inline">\((g \circ f)(x) := g(f(x))\)</span>.</p>
+<p>Here is an example of three functions: <span class="math inline">\((h \circ g \circ f)(x) := h(g(f(x))).\)</span></p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+# a (nonsense) composite of R functions 
+
+set.seed(39)
+
+# get a random sample size between 20 &amp; 100
+sample(seq(20, 100), 1) %&gt;% 
+  # generate sample from normal distribution
+rnorm(., 50, 0.5) %&gt;%
+  # calculate mean of that sample
+  mean() </code></pre>
+<pre><code>
+[1] 49.94228</code></pre>
+</div>
+<p>To see how this is the <span class="math inline">\((h \circ g \circ f)(x)\)</span> instantiation, we take a look at the <span class="math inline">\(h(g(f(x)))\)</span> instantiation of the same code.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+# this line of code is equivalent 
+mean(rnorm(sample(seq(20, 100), 1), 50, 0.5))</code></pre>
+<pre><code>
+[1] 49.98828</code></pre>
+</div>
+<p>It is harder to read the symbols so close together, in this <span class="math inline">\(h(g(f(x)))\)</span> instantiation. Also, arguably more importantly, one does not have the ability to comment each component of the algorithm.</p>
+<p>There is a downside to the <code>%&gt;%</code>, however. The longer a composite becomes, the more difficult it is to identify errors.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="eval"><code>
+ 
+On the the train Leipzig with snow falling
+And my %&gt;%s are getting too long
+</code></pre>
+</div>
 <h2 id="incorrigible-tidyvert-lyrics">incorrigible tidy::vert <code>%&gt;%  lyrics()</code></h2>
 <pre><code>
 Caught the train to Leipzig, snow is falling
@@ -1040,6 +1110,9 @@ I&#39;m just an incorrible tidy::vert
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dDRBrmth2YI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
 <div id="refs" class="references">
+<div id="ref-bache_magrittr_2014">
+<p>Bache, Stefan Milton, and Hadley Wickham. 2014. “Magrittr: A Forward-Pipe Operator for R.”</p>
+</div>
 <div id="ref-grolemund_r_2017">
 <p>Grolemund, Garrett, and Hadley Wickham. 2017. <em>R for Data Science</em>.</p>
 </div>
@@ -1051,6 +1124,15 @@ I&#39;m just an incorrible tidy::vert
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
@@ -1064,6 +1146,15 @@ I&#39;m just an incorrible tidy::vert
   year = {2017},
   file = {/home/charles/Zotero/storage/CT4TJGDP/r4ds.had.co.nz.html},
 }
+
+@misc{bache_magrittr_2014,
+  title = {Magrittr: {{A}} Forward-Pipe Operator for {{R}}},
+  author = {Bache, Stefan Milton and Wickham, Hadley},
+  year = {2014},
+  note = {R package version 1.5}
+}
+
+
 </script>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
