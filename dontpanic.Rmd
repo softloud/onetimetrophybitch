@@ -1,0 +1,38 @@
+---
+title: "donpanic"
+description: |
+  quick ref of frequently desired keybindings 
+author:
+  - name: Nora Jones 
+    url: https://example.com/norajones
+    affiliation: Spacely Sprockets
+    affiliation_url: https://example.com/spacelysprokets
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r get data}
+library(googlesheets)
+library(magrittr)
+library(readr)
+
+dontpanic_gs <- gs_key("1FBzrWdlRX0IjiQSoamwx6-Ib22FUMEUmxvaSwfIj0Gg")
+
+dontpanic_data <- gs_read(dontpanic_gs, ws = 1)
+
+```
+
+
+```{r}
+dontpanic_data %>% 
+  kableExtra::kable() %>% 
+  kableExtra::kable_styling()
+
+
+```
+

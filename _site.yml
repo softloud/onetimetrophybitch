@@ -9,6 +9,8 @@ navbar:
       href: index.html
     - text: "trophybitch"
       href: about.html
+    - text: "dontpanic"
+      href: dontpanic.html
     - text: "presentations"
       menu:
       - text: "hlf"
