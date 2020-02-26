@@ -17,7 +17,7 @@ categories:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-<div class="tenor-gif-embed" data-postid="10227362" data-share-method="host" data-width="100%" data-aspect-ratio="1.7913669064748199"><a href="https://tenor.com/view/smoking-cigarette-drag-smoke-cig-gif-10227362">Smoking Cigarette GIF</a> from <a href="https://tenor.com/search/smoking-gifs">Smoking GIFs</a></div><script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+<div class="tenor-gif-embed" data-postid="10227362" data-share-method="host" data-width="50%" data-aspect-ratio="1.7913669064748199"><a href="https://tenor.com/view/smoking-cigarette-drag-smoke-cig-gif-10227362">Smoking Cigarette GIF</a> from <a href="https://tenor.com/search/smoking-gifs">Smoking GIFs</a></div><script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
 ***
 
@@ -26,15 +26,16 @@ hundredth thousandth try to stop. But rationally, I know, the defining feature
 of the final time is that it really will be final.
 
 Smoking has become the last vestige of my destructive behaviours; a device to 
-fill the void left in me when I left my parents house at fifteen, and hit the
+fill the void left in me when I left my parents' house at fifteen, and hit the
 streets. The trauma of the compromises one makes, leading to a loss of 
 sense of self, are hard to describe to others, it is too intersectional. But 
 the consequences are lifelong. My husband read in the paper the other day
 that only one per cent of children in taken into state care attend university.
 Complex post-traumatic stress is why. 
 
-To find myself I have played concert halls and performing arts centres. I have 
-researched culture, music, film, mathemathics, science, and computation. 
+To find myself, I have played concert halls and performing arts centres. I have 
+researched culture, music, film, mathemathics, science, and computation. I have 
+backpacked, and read literary canon.
 
 I have composed, I have been composed, I have been *decidedly* not composed. 
 
@@ -127,12 +128,13 @@ it does.
 ***
 
 I gathered all the butts, papers, and accoutrements in a plastic bag, tied 
-a definite knot. 
+a definitive knot. 
 
-And somehow, that disgusting bag of butts and ash represents the 
+And somehow, in that disgusting bag of butts and ash feels so much 
 emotional trauma I've associated with that. 
 
-I aim to be okay this time, knowing it's sitting there, a filthy plastic bag
+I aim to be okay this time, knowing it's sitting there in the bin, 
+a filthy plastic bag
 of headache inducing, foul smelling ash. Soon enough rubbish
 collection will come take it away, and all that will remain will be a fading
 memory of something that used to bother me but just doesn't, now.
