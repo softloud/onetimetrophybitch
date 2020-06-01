@@ -1,22 +1,5 @@
 [
   {
-    "path": "posts/2020-02-27-door/",
-    "title": "the door is right in front of me, all i need do is walk through it",
-    "description": "A rumination on stopping smoking.",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": "https://github.com/softloud/onetimetrophybitch"
-      }
-    ],
-    "date": "2020-02-27",
-    "categories": [
-      "grrr..."
-    ],
-    "preview": {},
-    "last_modified": "2020-02-27T10:59:36+11:00"
-  },
-  {
     "path": "posts/2020-01-12-git-huh/",
     "title": "git, huh?",
     "description": "Feature branch development.",
@@ -46,106 +29,6 @@
       "music"
     ],
     "preview": "posts/2019-10-24-incorrigible-tidyvert/pipe-logo.png",
-    "last_modified": "2020-01-12T14:43:04+11:00"
-  },
-  {
-    "path": "posts/2019-10-13-dont-do/",
-    "title": "don't do what sucks to do",
-    "description": "first conversation about working towards freedom in life and science",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": "https://twitter.com/cantabile"
-      }
-    ],
-    "date": "2019-10-13",
-    "categories": [
-      "grrr..."
-    ],
-    "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
-  },
-  {
-    "path": "posts/2019-10-06-consent/",
-    "title": "|harm| >> |help|",
-    "description": "the cardinality of harm is greater than that of help: the infinite loop of harmful help",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": "https://twitter.com/cantabile"
-      }
-    ],
-    "date": "2019-10-06",
-    "categories": [
-      "grrr..."
-    ],
-    "preview": "posts/2019-10-06-consent/river-sense.gif",
-    "last_modified": "2020-01-12T14:43:04+11:00"
-  },
-  {
-    "path": "posts/2019-09-09-dickhead/",
-    "title": "I'd rather do good science",
-    "description": "The world seems to be divided between those who want to be recognised for being good, and people who want to do good. I'm aiming for the latter.",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": "https://twitter.com/cantabile"
-      }
-    ],
-    "date": "2019-09-09",
-    "categories": [],
-    "preview": "posts/2019-09-09-dickhead/../../figs/lambda.png",
-    "last_modified": "2020-01-12T14:43:04+11:00"
-  },
-  {
-    "path": "posts/2019-08-23-age-of-tidyverse/",
-    "title": "[wip] the age of tidyverse",
-    "description": "what we can learn from music and literature about social politics in open science communities",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": "https://twitter.com/cantabile"
-      }
-    ],
-    "date": "2019-08-23",
-    "categories": [
-      "grrr..."
-    ],
-    "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
-  },
-  {
-    "path": "posts/2019-08-15-miranda/",
-    "title": "miranda",
-    "description": "don't be a reaver: the ubiquitous languange of violence",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": "https://twitter.com/cantabile"
-      }
-    ],
-    "date": "2019-08-15",
-    "categories": [
-      "grrr..."
-    ],
-    "preview": "posts/2019-08-15-miranda/../../figs/miranda.gif",
-    "last_modified": "2020-01-12T14:43:04+11:00"
-  },
-  {
-    "path": "posts/2019-04-06-coding-of-kindness/",
-    "title": "a coding of kindness",
-    "description": "Perhaps we should opt for a Coding of Kindness, rather than a Code of Conduct.",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": "https://twitter.com/cantabile"
-      }
-    ],
-    "date": "2019-04-06",
-    "categories": [
-      "grrr..."
-    ],
-    "preview": {},
     "last_modified": "2020-01-12T14:43:04+11:00"
   },
   {
@@ -199,23 +82,6 @@
       "wrangling",
       "error handling",
       "debugging"
-    ],
-    "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
-  },
-  {
-    "path": "posts/2019-02-11-the-letter-theres-no-point-sending/",
-    "title": "the letter there's no point sending",
-    "description": "I don't have the time for people who think that expressing distress at bullying and tenancy eviction means I am mentally deficient and cannot make decisions for myself.",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": "https://twitter.com/cantabile"
-      }
-    ],
-    "date": "2019-02-11",
-    "categories": [
-      "grrr..."
     ],
     "preview": {},
     "last_modified": "2020-01-12T14:43:04+11:00"
@@ -284,41 +150,6 @@
     ],
     "date": "2018-11-27",
     "categories": [],
-    "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
-  },
-  {
-    "path": "posts/2018-11-17-heres-how-it-happens/",
-    "title": "here's how it happens",
-    "description": "women with drinking problems are particularly vulnerable to sexual assault",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": {}
-      }
-    ],
-    "date": "2018-11-17",
-    "categories": [
-      "grrr..."
-    ],
-    "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
-  },
-  {
-    "path": "posts/2018-11-12-if-were-really-committed-to-diversity-we-should-privilege-agency/",
-    "title": "if we're really committed to diversity, we should privilege agency",
-    "description": "Only a fool thinks they know what's good for another person. It never helps to make decisions on behalf of another person.",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": "https://twitter.com/cantabile"
-      }
-    ],
-    "date": "2018-09-26",
-    "categories": [
-      "community",
-      "grrr..."
-    ],
     "preview": {},
     "last_modified": "2020-01-12T14:43:04+11:00"
   },
