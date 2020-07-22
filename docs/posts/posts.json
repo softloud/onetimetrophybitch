@@ -1,5 +1,23 @@
 [
   {
+    "path": "posts/2020-07-22-trashing/",
+    "title": "it ain't just you, grrl",
+    "description": "The dark side of open science.",
+    "author": [
+      {
+        "name": "Charles T. Gray",
+        "url": "https://github.com/softloud/onetimetrophybitch"
+      }
+    ],
+    "date": "2020-07-22",
+    "categories": [
+      "grrr..."
+    ],
+    "preview": {},
+    "last_modified": "2020-07-22T16:39:25+10:00",
+    "input_file": "trashing.utf8.md"
+  },
+  {
     "path": "posts/2020-01-12-git-huh/",
     "title": "git, huh?",
     "description": "Feature branch development.",
@@ -12,7 +30,8 @@
     "date": "2020-01-12",
     "categories": [],
     "preview": {},
-    "last_modified": "2020-01-12T18:37:31+11:00"
+    "last_modified": "2020-01-12T18:37:31+11:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-10-24-incorrigible-tidyvert/",
@@ -29,7 +48,8 @@
       "music"
     ],
     "preview": "posts/2019-10-24-incorrigible-tidyvert/pipe-logo.png",
-    "last_modified": "2020-01-12T14:43:04+11:00"
+    "last_modified": "2020-01-12T14:43:04+11:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-03-30-batpigday/",
@@ -48,7 +68,8 @@
       "dev"
     ],
     "preview": "https://images.gr-assets.com/hostedimages/1496299559ra/22898103.gif",
-    "last_modified": "2020-01-12T14:43:04+11:00"
+    "last_modified": "2020-01-12T14:43:04+11:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-03-28-quack-quack-said-the-duck/",
@@ -65,7 +86,8 @@
       "dev"
     ],
     "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
+    "last_modified": "2020-01-12T14:43:04+11:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-02-19-wrangling-errors/",
@@ -84,7 +106,8 @@
       "debugging"
     ],
     "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
+    "last_modified": "2020-01-12T14:43:04+11:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-02-03-fuzz-testing/",
@@ -101,7 +124,8 @@
       "testing"
     ],
     "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
+    "last_modified": "2020-01-12T14:43:04+11:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-01-05-its-not-not-the-math-its-the-code/",
@@ -119,7 +143,8 @@
       "testing"
     ],
     "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
+    "last_modified": "2020-01-12T14:43:04+11:00",
+    "input_file": {}
   },
   {
     "path": "posts/2019-01-13-curiousity-science-letter/",
@@ -136,7 +161,8 @@
       "community"
     ],
     "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
+    "last_modified": "2020-01-12T14:43:04+11:00",
+    "input_file": {}
   },
   {
     "path": "posts/2018-11-27-scientific-lit-review/",
@@ -151,7 +177,8 @@
     "date": "2018-11-27",
     "categories": [],
     "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
+    "last_modified": "2020-01-12T14:43:04+11:00",
+    "input_file": {}
   },
   {
     "path": "posts/2018-11-12-testing-as-debugging/",
@@ -169,6 +196,7 @@
       "debugging"
     ],
     "preview": {},
-    "last_modified": "2020-01-12T14:43:04+11:00"
+    "last_modified": "2020-01-12T14:43:04+11:00",
+    "input_file": {}
   }
 ]
