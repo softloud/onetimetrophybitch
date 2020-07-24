@@ -1,23 +1,5 @@
 [
   {
-    "path": "posts/2020-07-22-trashing/",
-    "title": "it ain't just you, grrl",
-    "description": "The dark side of open science.",
-    "author": [
-      {
-        "name": "Charles T. Gray",
-        "url": "https://github.com/softloud/onetimetrophybitch"
-      }
-    ],
-    "date": "2020-07-22",
-    "categories": [
-      "grrr..."
-    ],
-    "preview": {},
-    "last_modified": "2020-07-22T21:23:57+10:00",
-    "input_file": "trashing.utf8.md"
-  },
-  {
     "path": "posts/2020-01-12-git-huh/",
     "title": "git, huh?",
     "description": "Feature branch development.",
