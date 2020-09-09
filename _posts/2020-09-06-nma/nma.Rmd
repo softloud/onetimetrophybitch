@@ -1,0 +1,233 @@
+---
+title: "nma"
+description: |
+  A short description of the post.
+author:
+  - name: Charles T. Gray
+    url: https://github.com/softloud/onetimetrophybitch
+date: 09-06-2020
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  cache = TRUE,
+  echo = TRUE)
+```
+
+```{r message=FALSE}
+# packages used in this blogpost
+library(tidyverse)
+library(multinma)
+library(kableExtra)
+library(skimr)
+
+```
+
+
+# introduction
+
+Network meta-analysis is method proposed for providing more informed decision making for a target population, given particular covariates, from multiple studies. 
+
+There are several vignettes provided by the package `multinma::`, prompting questions. What different techniques do the vignettes demonstrate? How to perform an nma? And what is the underlying theory?
+
+## meta-analysis
+
+> Attempting to make sense of the theory.
+
+A meta-analysis is a special type of linear regression, wherein the response may be thought of as a [linear combination](https://en.wikipedia.org/wiki/Linear_combination) (a construction from set of terms multiplying each term by a constant and adding the results).  
+
+In a simple case of linear regression, we assume the response of interest, $y$, may be thought of in terms of grand mean $\beta_0$ and a covariate $x$ with coeffecicient $\beta_1$, 
+$$
+y = \beta_0 + \beta_1 x.
+$$
+and that observations $y_i$ differ slightly from this overall response effect by some sampling error, $\varepsilon \sim N(0, \sigma^2)$, so that, for the $i$th observation, we have  
+$$
+y_i = B_0 + B_1 x + \varepsilon_i.
+$$
+Where multiple covariates are to be considered, this construction is generalised to the matrix formula,
+$$
+\mathbf y = \mathbf {X\beta} + \mathbf{\varepsilon}.
+$$
+In a random effects model, instead of a coeffecient, a random effect is a term added to the equation that carries its own distribution, similar to the sampling error $\varepsilon$.
+
+The simplest case of meta-analysis, without covariates we wish to control the repsonse by, we consider $k = 1, ..., K$ studies' obesrvations in terms of a grand mean across studies, $\mu$ (taking the role of $\beta_0$ above), with a study-specific adjustment, $\theta_k \sim N(0, \tau^2)$, so that the observation for the $k$th study we have
+$$
+y_k = \mu + \theta_k + \varepsilon_k,
+$$
+with sampling error $\varepsilon_k \sim N(0, \sigma_k^2)$. 
+
+Note the error, $\varepsilon_k$, for the $k$th study is attributed an associated study-specific variance, $\sigma_k^2$, whereas $\tau^2$, the variance of $\theta_k$ is an aggregate measure of variation across all studies. 
+
+Meta-analysis model can be extended to meta-regression, with the addition of covariates, as with standard linear regression,
+$$
+y_k = \mu + \theta_k + \mathbf {B_k X} + \epsilon_k
+$$
+
+> Is this correct, are the regression coefficients $\mathbf{\beta_k}$ indexed by study $k$?
+
+To further complicate matters, a meta-analysis is often a **pairwise comparison** between two groups, a control and and intervention group, with the central question, what is the difference in effect between the two groups across all studies? In this case, the response $y_k$, the aggregated effect $\mu$, and the random effect for variation of this study, $\theta_k$, all measure a pairwise comparison. The pairwise comparison chosen depends on the context of the response variable in question, such as a standardised mean difference (Cohen's $d$), or a bias-adjusted $d$ (Hedge's $g$), for continuous response variables. Similarly, for binary data, an appropriate measure of risk or odds ratios may be chosen [@borenstein2008introduction].   
+
+## network meta-analysis
+
+
+# bcg vaccine vignette
+
+The vignette opens with this unfamiliar command.
+
+```{r}
+options(mc.cores = parallel::detectCores())
+```
+<aside>
+My limited understanding is that R was developed for single-core usage. So, I presume this option creates a way some functions can make use of multicore processing. Does this option apply to all functions, or only specific ones that recognise this option has been set?
+</aside>
+
+## BCG vaccine for tuberculosis data
+
+The BCG vaccine for tuberculosis vignette analyses the `bcg_vaccine` dataset provided by `multinma::`.
+
+```{r}
+# first few rows of data set 
+bcg_vaccine %>% 
+    head() %>% 
+    kable()
+
+```
+
+From an overview of the data, we see we have 6 columns, 26 rows, 5 numeric variables (columns) and 1 character column, `trtc` which identifies the group as unvaccinated or vaccinated, for a given study.  
+
+```{r}
+# get an overview of the data
+bcg_vaccine %>% 
+    skim()
+
+```
+
+From `bcg_vaccine`'s documentation, we learn that `r` is the number diagnosed with tuberculosis in the follow up period from a sample size of `n`. The latitude of the study is also provided, so comparisons can be made on the basis of the study's relative position within the global south and north.
+
+
+> The numbers of individuals diagnosed with TB in each arm during the study follow-up period are recorded. 
+
+## set up the network
+
+Before modelling as a network meta-analysis, we convert the data to a `nma_data` object with `set_agd_arm`.  
+
+```{r}
+bcg_net <- set_agd_arm(
+    bcg_vaccine,
+    study = "studyn", # which col has study
+    trt = trtc, # which col indicates arm
+    # these columns are specified bc it is a count outcome
+    # i.e., binomial data
+    r = r, # col w binomial "success" trials
+    n = n, # col w binomial total trials
+    trt_ref = "Unvaccinated" # set default level of trt
+) 
+
+# what do we get
+bcg_net
+
+# what is in this?
+stuff_in_net <- bcg_net %>% objects()
+stuff_in_net
+
+```
+
+Conventionally, in mathematical statistics, binomially distributed data is described in terms of "successful trials". However, in this case, perhaps it's more informative to think of this as the number of observed tuberculosis cases, out of the patients in a treatment group in a given study. 
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">What&#39;s another word for &quot;success&quot; in binomial trials? <br><br>In this case, it&#39;s number of people who have tuberculosis after treatment. There&#39;s nothing successful about that. <br><br>r = r, # col w binomial &quot;success&quot; trials<br> n = n, # col w binomial total trials</p>&mdash; Charles T. Gray ⚔ (@cantabile) <a href="https://twitter.com/cantabile/status/1301015558863745027?ref_src=twsrc%5Etfw">September 2, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+Most of these objects are empty. The first item is an updated version of the original data, and extractions of the studies and treatments are also provided. Classes, ipd, and contrast do not appear to relevant to this network. 
+
+```{r}
+
+# output everything contained in nma_data class bcg_net object
+stuff_in_net %>% 
+    map(.f = function(thing){bcg_net %>% pluck(thing)}) %>% 
+    set_names(stuff_in_net)
+
+```
+<aside>
+But what does the network look like? Is there an easy way to plot the underlying graph?
+</aside>
+
+## meta-analysis with no covariates
+
+One question we might ask of the data is given the results of all these studies, what proportion of treated patients still have tuberculosis?
+
+We fit a network meta-analysis model with a fit function. 
+
+```{r}
+bcg_nma <- nma(
+    bcg_net,
+    trt_effects = "random", # specify fixed or random effects model
+    prior_intercept = normal(scale = 100),
+    prior_trt = normal(scale = 100),
+    prior_het = half_normal(scale = 5)
+)
+
+
+```
+
+In order to interpret the results, we describe the model. 
+
+Let $y_k$ denote the pairwise comparison between the unvaccinated and vaccinated groups, for the $k$th study. Then, we assume $y_k$ may be thought of in terms of the overall pairwise comparison, $\mu$, with an adjustment $\theta_k$. To this we add sampling error, $\varepsilon_k$, and, assume $\gamma_k$ denotes the $k$th treatment effect, a component of $\theta_k$.This provides the following system of assumptions.
+
+\[
+\begin{array}{rcl}
+y_k & = & \mu + \theta_k + \varepsilon_k\\
+\varepsilon_k &\sim& \text{normal}(0, \sigma_k^2)\\
+\theta_k &\sim& \text{normal}(0, \tau^2)\\
+\tau^2 &\sim& \textrm{halfnormal}(0, 5^2)\\
+\mu &\sim& \text{normal}(0, 100^2)\\
+\gamma_k &\sim& \text{normal}(0, 100^2)
+\end{array}
+\]
+
+> What is the standard pairwise comparison for a binomial measure? 
+
+> What is the prior on treatment? How to represent this in terms of model nomenclature?
+
+Now we can use the model nomeclature to interpret the results.
+
+```{r}
+# take a look at the raw results
+bcg_nma
+
+```
+
+There is a handy function for comparison of the prior and posterior distributions. The prior distributions are displayed as lines, and posterior distributions as histograms. 
+
+```{r}
+plot_prior_posterior(bcg_nma, prior = c("trt", "het"))
+```
+
+The straight lines make sense when we see the full density.
+
+```{r}
+
+
+
+```
+
+
+Recall our densities of interest were 
+
+
+## comparison with standard random effects model
+
+## meta-regression with latitude covariate
+
+# threshold analysis
+
+# another vignette
+
+
+
+
+# references
+

@@ -1,0 +1,62 @@
+---
+title: "pivot"
+description: |
+  Understanding pivoting minimalistic examples.
+author:
+  - name: Charles T. Gray
+    url: https://github.com/softloud/onetimetrophybitch
+date: 08-10-2020
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    draft: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# objective
+
+# longer
+
+## string data in column names
+
+## numeric data in column names
+
+## many variables in column names
+
+## multiple observations per row
+
+## duplicated column names
+
+# wider
+
+## capture-recapture data
+
+## aggregation
+
+## generate column name from multiple variables
+
+## tidy census
+
+## contact list
+
+# longer, then wider
+
+## world bank
+
+## multi-choice
+
+# manuel specs
+
+## longer
+
+## wider
+
+## by hand
+
+## theory
+
+

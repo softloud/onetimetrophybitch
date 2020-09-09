@@ -1,19 +1,19 @@
 [
   {
-    "path": "posts/2020-01-12-git-huh/",
-    "title": "git, huh?",
-    "description": "Feature branch development.",
+    "path": "posts/2020-09-06-nma/",
+    "title": "nma",
+    "description": "A short description of the post.",
     "author": [
       {
         "name": "Charles T. Gray",
         "url": "https://github.com/softloud/onetimetrophybitch"
       }
     ],
-    "date": "2020-01-12",
+    "date": "2020-09-06",
     "categories": [],
-    "preview": {},
-    "last_modified": "2020-01-12T18:37:31+11:00",
-    "input_file": {}
+    "preview": "posts/2020-09-06-nma/nma_files/figure-html5/unnamed-chunk-9-1.png",
+    "last_modified": "2020-09-09T18:21:56+10:00",
+    "input_file": "nma.utf8.md"
   },
   {
     "path": "posts/2019-10-24-incorrigible-tidyvert/",
