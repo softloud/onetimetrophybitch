@@ -51,7 +51,7 @@
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["nma_files/bowser-1.9.3/bowser.min.js","nma_files/distill-2.2.21/template.v2.js","nma_files/figure-html5/unnamed-chunk-8-1.png","nma_files/figure-html5/unnamed-chunk-9-1.png","nma_files/header-attrs-2.3/header-attrs.js","nma_files/jquery-1.11.3/jquery.min.js","nma_files/webcomponents-2.0.0/webcomponents.js","references.bib"]}
+  {"type":"character","attributes":{},"value":["nma_files/bowser-1.9.3/bowser.min.js","nma_files/distill-2.2.21/template.v2.js","nma_files/figure-html/unnamed-chunk-10-1.png","nma_files/figure-html/unnamed-chunk-11-1.png","nma_files/figure-html/unnamed-chunk-12-1.png","nma_files/figure-html/unnamed-chunk-9-1.png","nma_files/figure-html5/unnamed-chunk-10-1.png","nma_files/figure-html5/unnamed-chunk-11-1.png","nma_files/figure-html5/unnamed-chunk-12-1.png","nma_files/figure-html5/unnamed-chunk-12-2.png","nma_files/figure-html5/unnamed-chunk-8-1.png","nma_files/figure-html5/unnamed-chunk-9-1.png","nma_files/header-attrs-2.3/header-attrs.js","nma_files/jquery-1.11.3/jquery.min.js","nma_files/webcomponents-2.0.0/webcomponents.js","references.bib"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 
@@ -1338,79 +1338,78 @@ presentations
 <h3 class="d-toc-header">Table of Contents</h3>
 <nav class="d-toc" id="TOC">
 <ul>
-<li><a href="#introduction">introduction</a>
+<li><a href="#introduction">introduction</a></li>
+<li><a href="#thinking-through-the-theory">thinking through the theory</a>
 <ul>
 <li><a href="#meta-analysis">meta-analysis</a></li>
 <li><a href="#network-meta-analysis">network meta-analysis</a></li>
 </ul></li>
-<li><a href="#bcg-vaccine-vignette">bcg vaccine vignette</a>
+<li><a href="#bcg-vaccine-example">bcg vaccine example</a>
 <ul>
-<li><a href="#bcg-vaccine-for-tuberculosis-data">BCG vaccine for tuberculosis data</a></li>
+<li><a href="#bcg-vaccine-for-tuberculosis-example-data">BCG vaccine for tuberculosis example data</a></li>
 <li><a href="#set-up-the-network">set up the network</a></li>
 <li><a href="#meta-analysis-with-no-covariates">meta-analysis with no covariates</a></li>
+<li><a href="#threshold-analysis">threshold analysis</a></li>
 <li><a href="#comparison-with-standard-random-effects-model">comparison with standard random effects model</a></li>
 <li><a href="#meta-regression-with-latitude-covariate">meta-regression with latitude covariate</a></li>
 </ul></li>
-<li><a href="#threshold-analysis">threshold analysis</a></li>
 <li><a href="#another-vignette">another vignette</a></li>
 <li><a href="#references">references</a></li>
 </ul>
 </nav>
 <hr class="d-toc-separator"/>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# packages used in this blogpost
-library(tidyverse)
-library(multinma)
-library(kableExtra)
-library(skimr)</code></pre>
+
 </div>
 <h1 id="introduction">introduction</h1>
-<p>Network meta-analysis is method proposed for providing more informed decision making for a target population, given particular covariates, from multiple studies.</p>
-<p>There are several vignettes provided by the package <code>multinma::</code>, prompting questions. What different techniques do the vignettes demonstrate? How to perform an nma? And what is the underlying theory?</p>
+<p>Network meta-analysis is a method proposed for providing more informed decision making for a target population, given particular covariates, from multiple studies. It is a statistical method for comparing multiple interventions on a response of interest; for example, treatments for a particular medical condition.</p>
+<p>There are several vignettes provided by the package <code>multinma::</code>, prompting many questions. What different techniques do the vignettes demonstrate? How to perform an nma? And what is the underlying theory?</p>
+<p>However, as this is a first deep dive into network meta-analysis, I will restrict myself to the goals:</p>
+<ol type="1">
+<li>Provide an opinionated toolchain walkthrough of network meta-analysis.</li>
+<li>Interpret the results using threshold analysis.</li>
+</ol>
+<h1 id="thinking-through-the-theory">thinking through the theory</h1>
+<p>In order to interpret the results produced by the algorithms provided by the packages investigated in this post, I need to ensure I have the conceptual understanding of the computational output.</p>
+<p>Meta-analysis is a ultimately a form of regression, finding a line of best fit through the data. How this equation is solved is not the focus here, but, instead, unpacking the equational structure of a network meta-analysis, starting from linear regression.</p>
 <h2 id="meta-analysis">meta-analysis</h2>
-<blockquote>
-<p>Attempting to make sense of the theory.</p>
-</blockquote>
 <p>A meta-analysis is a special type of linear regression, wherein the response may be thought of as a <a href="https://en.wikipedia.org/wiki/Linear_combination">linear combination</a> (a construction from set of terms multiplying each term by a constant and adding the results).</p>
-<p>In a simple case of linear regression, we assume the response of interest, <span class="math inline">\(y\)</span>, may be thought of in terms of grand mean <span class="math inline">\(\beta_0\)</span> and a covariate <span class="math inline">\(x\)</span> with coeffecicient <span class="math inline">\(\beta_1\)</span>, <span class="math display">\[
+<p>In a simple case of linear regression, we assume the response of interest, <span class="math inline">\(y\)</span>, may be thought of in terms of grand mean <span class="math inline">\(\beta_0\)</span> and a covariate <span class="math inline">\(x\)</span> with coeffecicient <span class="math inline">\(\beta_1\)</span>,</p>
+<p><span class="math display">\[
 y = \beta_0 + \beta_1 x.
-\]</span> and that observations <span class="math inline">\(y_i\)</span> differ slightly from this overall response effect by some sampling error, <span class="math inline">\(\varepsilon \sim N(0, \sigma^2)\)</span>, so that, for the <span class="math inline">\(i\)</span>th observation, we have<br />
+\]</span></p>
+<p>and that observations <span class="math inline">\(y_i\)</span> differ slightly from this overall response effect by some sampling error, <span class="math inline">\(\varepsilon \sim N(0, \sigma^2)\)</span>, so that, for the <span class="math inline">\(i\)</span>th observation, we have<br />
 <span class="math display">\[
 y_i = B_0 + B_1 x + \varepsilon_i.
 \]</span> Where multiple covariates are to be considered, this construction is generalised to the matrix formula, <span class="math display">\[
 \mathbf y = \mathbf {X\beta} + \mathbf{\varepsilon}.
 \]</span> In a random effects model, instead of a coeffecient, a random effect is a term added to the equation that carries its own distribution, similar to the sampling error <span class="math inline">\(\varepsilon\)</span>.</p>
-<p>The simplest case of meta-analysis, without covariates we wish to control the repsonse by, we consider <span class="math inline">\(k = 1, ..., K\)</span> studies’ obesrvations in terms of a grand mean across studies, <span class="math inline">\(\mu\)</span> (taking the role of <span class="math inline">\(\beta_0\)</span> above), with a study-specific adjustment, <span class="math inline">\(\theta_k \sim N(0, \tau^2)\)</span>, so that the observation for the <span class="math inline">\(k\)</span>th study we have <span class="math display">\[
+<p>A simplest case of a random-effects meta-analysis, without covariates we wish to control the response by, we consider <span class="math inline">\(k = 1, ..., K\)</span> studies’ obesrvations in terms of a grand mean across studies, <span class="math inline">\(\mu\)</span> (taking the role of <span class="math inline">\(\beta_0\)</span> above), with a study-specific adjustment, <span class="math inline">\(\theta_k \sim N(0, \tau^2)\)</span>, so that the observation for the <span class="math inline">\(k\)</span>th study we have <span class="math display">\[
 y_k = \mu + \theta_k + \varepsilon_k,
 \]</span> with sampling error <span class="math inline">\(\varepsilon_k \sim N(0, \sigma_k^2)\)</span>.</p>
 <p>Note the error, <span class="math inline">\(\varepsilon_k\)</span>, for the <span class="math inline">\(k\)</span>th study is attributed an associated study-specific variance, <span class="math inline">\(\sigma_k^2\)</span>, whereas <span class="math inline">\(\tau^2\)</span>, the variance of <span class="math inline">\(\theta_k\)</span> is an aggregate measure of variation across all studies.</p>
 <p>Meta-analysis model can be extended to meta-regression, with the addition of covariates, as with standard linear regression, <span class="math display">\[
-y_k = \mu + \theta_k + \mathbf {B_k X} + \epsilon_k
+y_k = \mu + \theta_k + \mathbf {\beta_k X} + \epsilon_k.
 \]</span></p>
-<blockquote>
-<p>Is this correct, are the regression coefficients <span class="math inline">\(\mathbf{\beta_k}\)</span> indexed by study <span class="math inline">\(k\)</span>?</p>
-</blockquote>
-<p>To further complicate matters, a meta-analysis is often a <strong>pairwise comparison</strong> between two groups, a control and and intervention group, with the central question, what is the difference in effect between the two groups across all studies? In this case, the response <span class="math inline">\(y_k\)</span>, the aggregated effect <span class="math inline">\(\mu\)</span>, and the random effect for variation of this study, <span class="math inline">\(\theta_k\)</span>, all measure a pairwise comparison. The pairwise comparison chosen depends on the context of the response variable in question, such as a standardised mean difference (Cohen’s <span class="math inline">\(d\)</span>), or a bias-adjusted <span class="math inline">\(d\)</span> (Hedge’s <span class="math inline">\(g\)</span>), for continuous response variables. Similarly, for binary data, an appropriate measure of risk or odds ratios may be chosen <span class="citation" data-cites="borenstein2008introduction">(<span class="citeproc-not-found" data-reference-id="borenstein2008introduction"><strong>???</strong></span>)</span>.</p>
+<p>To further complicate matters, a meta-analysis is often a <strong>pairwise comparison</strong> between two groups, a control and and intervention group, with the central question, what is the difference in effect between the two groups across all studies? In this case, the response <span class="math inline">\(y_k\)</span>, the aggregated effect <span class="math inline">\(\mu\)</span>, and the random effect for variation of this study, <span class="math inline">\(\theta_k\)</span>, all measure a pairwise comparison. The pairwise comparison chosen depends on the context of the response variable in question, such as a standardised mean difference (Cohen’s <span class="math inline">\(d\)</span>), or a bias-adjusted <span class="math inline">\(d\)</span> (Hedge’s <span class="math inline">\(g\)</span>), for continuous response variables. Similarly, for binary data, an appropriate measure of risk or odds ratios may be chosen <span class="citation" data-cites="borenstein_introductionmetaanalysis_2011">(Borenstein et al. <a href="#ref-borenstein_introductionmetaanalysis_2011" role="doc-biblioref">2011</a>)</span>.</p>
+<p>In the interests of brevity, I’m not labouring the distinction between fixed and random covariates, but I’m sure my understanding could be clearer. This, however, seems a sufficient point from which to further my understanding of network meta-analysis.</p>
 <h2 id="network-meta-analysis">network meta-analysis</h2>
-<h1 id="bcg-vaccine-vignette">bcg vaccine vignette</h1>
-<p>The vignette opens with this unfamiliar command.</p>
+<h1 id="bcg-vaccine-example">bcg vaccine example</h1>
+<p>The vignette</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-options(mc.cores = parallel::detectCores())</code></pre>
+
+</div>
+<p>opens with this unfamiliar command.</p>
+<div class="layout-chunk" data-layout="l-body">
+
 </div>
 <aside>
 My limited understanding is that R was developed for single-core usage. So, I presume this option creates a way some functions can make use of multicore processing. Does this option apply to all functions, or only specific ones that recognise this option has been set?
 </aside>
-<h2 id="bcg-vaccine-for-tuberculosis-data">BCG vaccine for tuberculosis data</h2>
+<p>With the library loaded, we can meta-analyse example datasets.</p>
+<h2 id="bcg-vaccine-for-tuberculosis-example-data">BCG vaccine for tuberculosis example data</h2>
 <p>The BCG vaccine for tuberculosis vignette analyses the <code>bcg_vaccine</code> dataset provided by <code>multinma::</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
-
-<pre class="r"><code>
-# first few rows of data set 
-bcg_vaccine %&gt;% 
-    head() %&gt;% 
-    kable()</code></pre>
 <table>
 <thead>
 <tr>
@@ -1561,14 +1560,10 @@ Vaccinated
 <p>From an overview of the data, we see we have 6 columns, 26 rows, 5 numeric variables (columns) and 1 character column, <code>trtc</code> which identifies the group as unvaccinated or vaccinated, for a given study.</p>
 <div class="layout-chunk" data-layout="l-body">
 
-<pre class="r"><code>
-# get an overview of the data
-bcg_vaccine %&gt;% 
-    skim()</code></pre>
 <table style='width: auto;'
         class='table table-condensed'>
 <caption>
-<span id="tab:unnamed-chunk-4">Table 1: </span>Data summary
+<span id="tab:unnamed-chunk-5">Table 1: </span>Data summary
 </caption>
 <thead>
 <tr>
@@ -1931,23 +1926,16 @@ n
 <blockquote>
 <p>The numbers of individuals diagnosed with TB in each arm during the study follow-up period are recorded.</p>
 </blockquote>
+<p>We can confirm there are two nodes in this network, that is, two interventions of interest, vaccinated and unvaccinated, for each study.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>
+          trtc  n
+1 Unvaccinated 13
+2   Vaccinated 13</code></pre>
+</div>
 <h2 id="set-up-the-network">set up the network</h2>
 <p>Before modelling as a network meta-analysis, we convert the data to a <code>nma_data</code> object with <code>set_agd_arm</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-bcg_net &lt;- set_agd_arm(
-    bcg_vaccine,
-    study = &quot;studyn&quot;, # which col has study
-    trt = trtc, # which col indicates arm
-    # these columns are specified bc it is a count outcome
-    # i.e., binomial data
-    r = r, # col w binomial &quot;success&quot; trials
-    n = n, # col w binomial total trials
-    trt_ref = &quot;Unvaccinated&quot; # set default level of trt
-) 
-
-# what do we get
-bcg_net</code></pre>
 <pre><code>
 A network with 13 AgD studies (arm-based).
 
@@ -1971,10 +1959,6 @@ Total number of treatments: 2
 Total number of studies: 13
 Reference treatment is: Unvaccinated
 Network is connected</code></pre>
-<pre class="r"><code>
-# what is in this?
-stuff_in_net &lt;- bcg_net %&gt;% objects()
-stuff_in_net</code></pre>
 <pre><code>
 [1] &quot;agd_arm&quot;      &quot;agd_contrast&quot; &quot;classes&quot;      &quot;ipd&quot;         
 [5] &quot;outcome&quot;      &quot;studies&quot;      &quot;treatments&quot;  </code></pre>
@@ -1989,11 +1973,6 @@ What's another word for “success” in binomial trials? <br><br>In this case, 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <p>Most of these objects are empty. The first item is an updated version of the original data, and extractions of the studies and treatments are also provided. Classes, ipd, and contrast do not appear to relevant to this network.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# output everything contained in nma_data class bcg_net object
-stuff_in_net %&gt;% 
-    map(.f = function(thing){bcg_net %&gt;% pluck(thing)}) %&gt;% 
-    set_names(stuff_in_net)</code></pre>
 <pre><code>
 $agd_arm
 # A tibble: 26 x 9
@@ -2046,14 +2025,7 @@ But what does the network look like? Is there an easy way to plot the underlying
 <p>One question we might ask of the data is given the results of all these studies, what proportion of treated patients still have tuberculosis?</p>
 <p>We fit a network meta-analysis model with a fit function.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-bcg_nma &lt;- nma(
-    bcg_net,
-    trt_effects = &quot;random&quot;, # specify fixed or random effects model
-    prior_intercept = normal(scale = 100),
-    prior_trt = normal(scale = 100),
-    prior_het = half_normal(scale = 5)
-)</code></pre>
+
 </div>
 <p>In order to interpret the results, we describe the model.</p>
 <p>Let <span class="math inline">\(y_k\)</span> denote the pairwise comparison between the unvaccinated and vaccinated groups, for the <span class="math inline">\(k\)</span>th study. Then, we assume <span class="math inline">\(y_k\)</span> may be thought of in terms of the overall pairwise comparison, <span class="math inline">\(\mu\)</span>, with an adjustment <span class="math inline">\(\theta_k\)</span>. To this we add sampling error, <span class="math inline">\(\varepsilon_k\)</span>, and, assume <span class="math inline">\(\gamma_k\)</span> denotes the <span class="math inline">\(k\)</span>th treatment effect, a component of <span class="math inline">\(\theta_k\)</span>.This provides the following system of assumptions.</p>
@@ -2075,9 +2047,6 @@ y_k &amp; = &amp; \mu + \theta_k + \varepsilon_k\\
 </blockquote>
 <p>Now we can use the model nomeclature to interpret the results.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# take a look at the raw results
-bcg_nma</code></pre>
 <pre><code>
 A random effects NMA with a binomial likelihood (logit link).
 Inference for Stan model: binomial_1par.
@@ -2085,35 +2054,38 @@ Inference for Stan model: binomial_1par.
 post-warmup draws per chain=1000, total post-warmup draws=4000.
 
                    mean se_mean   sd      2.5%       25%       50%
-d[Vaccinated]     -0.76    0.01 0.22     -1.19     -0.90     -0.76
-lp__          -13454.03    0.15 4.51 -13463.65 -13456.83 -13453.71
-tau                0.68    0.01 0.21      0.38      0.54      0.65
+d[Vaccinated]     -0.76    0.01 0.21     -1.19     -0.89     -0.76
+lp__          -13453.82    0.14 4.41 -13463.11 -13456.66 -13453.45
+tau                0.68    0.01 0.20      0.39      0.54      0.65
                     75%     97.5% n_eff Rhat
-d[Vaccinated]     -0.63     -0.32  1191    1
-lp__          -13450.92 -13446.11   910    1
-tau                0.79      1.17  1182    1
+d[Vaccinated]     -0.63     -0.33  1257    1
+lp__          -13450.62 -13445.98   995    1
+tau                0.78      1.15  1156    1
 
-Samples were drawn using NUTS(diag_e) at Wed Sep  9 09:14:15 2020.
+Samples were drawn using NUTS(diag_e) at Sun Sep 13 18:17:55 2020.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
 </div>
 <p>There is a handy function for comparison of the prior and posterior distributions. The prior distributions are displayed as lines, and posterior distributions as histograms.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-plot_prior_posterior(bcg_nma, prior = c(&quot;trt&quot;, &quot;het&quot;))</code></pre>
-<p><img src="nma_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
+<p><img src="nma_files/figure-html5/unnamed-chunk-11-1.png" width="624" /></p>
 </div>
 <p>The straight lines make sense when we see the full density.</p>
 <div class="layout-chunk" data-layout="l-body">
-
+<p><img src="nma_files/figure-html5/unnamed-chunk-12-1.png" width="624" /><img src="nma_files/figure-html5/unnamed-chunk-12-2.png" width="624" /></p>
 </div>
 <p>Recall our densities of interest were</p>
+<h2 id="threshold-analysis">threshold analysis</h2>
 <h2 id="comparison-with-standard-random-effects-model">comparison with standard random effects model</h2>
 <h2 id="meta-regression-with-latitude-covariate">meta-regression with latitude covariate</h2>
-<h1 id="threshold-analysis">threshold analysis</h1>
 <h1 id="another-vignette">another vignette</h1>
-<h1 id="references">references</h1>
+<h1 class="unnumbered" id="references" class="unnumbered">references</h1>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
+<div id="ref-borenstein_introductionmetaanalysis_2011">
+<p>Borenstein, Michael, Larry V. Hedges, Julian P. T. Higgins, and Hannah R. Rothstein. 2011. <em>Introduction to Meta-Analysis</em>. John Wiley &amp; Sons. <a href="http://books.google.com?id=JQg9jdrq26wC">http://books.google.com?id=JQg9jdrq26wC</a>.</p>
+</div>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
