@@ -7,14 +7,14 @@ author:
     url: https://github.com/softloud/onetimetrophybitch
 date: 09-06-2020
 output:
-  # distill::distill_article:
-  #   self_contained: false
-  #   toc: true
-  html_document:
-    number_sections: true
+  distill::distill_article:
+    self_contained: false
     toc: true
-    toc_float: true
-    code_folding: show
+  # html_document:
+  #   number_sections: true
+  #   toc: true
+  #   toc_float: true
+  #   code_folding: show
 bibliography: references.bib
 ---
 
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 # packages used in this blogpost
 
 # general purpose
-library(tidyverse)
+library(tidyverse) 
 library(kableExtra) # tables
 library(skimr) # summary
 library(patchwork) # vis + vis
@@ -47,9 +47,9 @@ set.seed(40)
 
 ```
 
-# introduction
+# Introduction
 
-Network meta-analysis is a method proposed for providing more informed decision making for a target population, given particular covariates, from multiple studies. It is a statistical method for comparing multiple interventions on a response of interest; for example, treatments for a particular medical condition. In particular, network meta-analysis is a technique for identifying _which_ treatments are more effective than others, rather than _whether_ a treatment is effective [@harrer_doingmetaanalysis_2019]. 
+Network meta-analysis is a statistical method for aggregating multiple pairwise comparisons on a response of interest. For example, perhaps three studies propose different treatments for a particular medical condition, network meta-analysis enables us to indirectly compare the treatments' effect. Network meta-analysis is a technique for identifying _which_ treatments are more effective than others, rather than _whether_ a treatment is effective [@harrer_doingmetaanalysis_2019]. 
 
 There are several vignettes provided by the package `multinma::` [@phillippo_multilevelnetworkmetaregression_2020], prompting many questions. What different techniques do the vignettes demonstrate? How to perform an nma? And what is the underlying theory?
 
@@ -58,7 +58,7 @@ However, as this is a first deep dive into network meta-analysis, I will restric
 1. Provide an opinionated toolchain walkthrough of network meta-analysis.
 2. Interpret the results using threshold analysis.
 
-# thinking through the theory
+# Thinking through the theory
 
 In order to interpret the results produced by the algorithms provided by the packages investigated in this post, I need to ensure I have the conceptual understanding of the computational output. 
 
@@ -101,9 +101,40 @@ To further complicate matters, a meta-analysis is often a **pairwise comparison*
 
 In the interests of brevity, I'm not labouring the distinction between fixed and random covariates, but I'm sure my understanding could be clearer. This, however, seems a sufficient point from which to further my understanding of network meta-analysis. 
 
+I find this statistical nomenclature confusing. The random effect for the study, $\theta_k$, _is_ a coefficient, as it is indexed by $k$. This is a coefficient for a dummy variable $z_k$ that indicates the study,
+$$
+z_k = \begin{cases}
+1 & \text{if } k = k\\
+0 & \text{if } k \neq k
+\end{cases}
+$$
+
+So, we always have $y$ in terms of linear combination of $z$ and $x$ where we care about one variable $z$, and wish to control for the others $x$.
+$$
+y_k = \mu + \gamma_k z + \beta_k x + \varepsilon_k
+$$
+
+
+
 ## network meta-analysis
 
-# bcg vaccine example
+Now, in network meta-analysis we have more than one treatment. The general idea is that we combine pairwise direct comparisons to form an indirect comparison. 
+
+Lumley suggests one way to think of this is with treatments A, B, and C [@lumley_networkmetaanalysisindirect_2002]. We denote $\delta_{XY}$ as the comparison between X and Y, with a positive value of $\delta$ indicating a higher outcome for Y than X, and a negative value of $\delta$ indicates a lower outcome for Y than X. If we have direct comparisons $\delta_{AC}$ and $\delta_{CB}$, we can construct an indirect comparison of differences.
+$$
+\delta_{AB} = \delta_{AC} + \delta_{CB}
+$$
+Continuing along with Lumley, we let $i$ and $j$ denote treatments compared by $Y_{ij}$. Since $i$ and $j$ have average true effects $\mu_i$ and $\mu_j$, we have $\delta_{ij} = \mu_i - \mu_j$. Where there was one random effect for the heterogeneity of treatment effect in a standard meta-analysis, there are now two random effects, $\eta_{ik}$ and $\eta_{jk}$ with variance $\tau^2$, for the difference betwteen the average effects of treatments $i$ and $j$ in this study. Another random effect $\zeta_{ij}$ is added to capture 'the inconsistency of this pair of treatments with the rest of the evidence'. The *incoherence* of the network is $\omega = \text{var}(\zeta)$. With these we have the formal model.
+
+\[
+\begin{array}{rcl}
+Y_{ijk} &\sim& \text{N}(\mu_i - \mu_j + \eta_{ik} + \eta_{jk} + \zeta_{ij}, \sigma^2_{ijk})\\
+\eta_{ij} &\sim& N(0, \tau^2)\\
+\zeta_{ij} &\sim& N(0, \omega)
+\end{array}
+\]
+
+# Example: BCG vaccine
 
 The vignette 
 
@@ -160,7 +191,7 @@ bcg_vaccine %>%
 
 
 
-## set up the network
+## Set up the network
 
 Before modelling as a network meta-analysis, we convert the data to a `nma_data` object with `set_agd_arm`.  
 
@@ -205,7 +236,7 @@ But what does the network look like? Is there an easy way to plot the underlying
 Also, it's interesting from a research software engineering perspective to see how data can be prepared for a modelling function. Model components are extracted, such as `count` for response type, and levels of the treatment variable, in this case, 2 levels. The data are updated with variables that, presumably, the model function recognises. I assume these are the new variables of the form `.*`.
 </aside>
 
-## meta-analysis with no covariates
+## Meta-analysis with no covariates
 
 One question we might ask of the data is given the results of all these studies, what proportion of treated patients still have tuberculosis?
 
@@ -237,6 +268,7 @@ y_k & = & \mu + \theta_k + \varepsilon_k\\
 \gamma_k &\sim& \text{normal}(0, 100^2)
 \end{array}
 \]
+
 
 > What is the standard pairwise comparison for a binomial measure? 
 
@@ -322,7 +354,7 @@ In order to interpret these results
 
 
 
-## comparison with standard random effects model
+## Comparison with standard random effects model
 
 How do these results compare with a standard random effects model? 
 
@@ -332,14 +364,67 @@ How do these results compare with a standard random effects model?
 ```
 
 
-## threshold analysis
+## Threshold analysis
 
-## meta-regression with latitude covariate
+In this section, we explore threshold analysis with the `nmathresh::` packkage. 
 
-# another vignette
+### Toolchain walkthrough 
+
+The general syntax for a threshold analysis
+
+```{r eval=FALSE}
+nma_thresh(mean.dk= d,lhood= V.data, post = V.est, X = X)
+```
+
+where `d` is a vector of the estimates for each treatment compared with the control. Likelihood is provided as a covariance matrix for the observed data. 
 
 
 
+### General idea
 
-# references
+## Meta-regression with latitude covariate
+
+The above analysis leaves out a piece of information, the latitude covariate.
+
+```{r}
+bcg_vaccine %>% 
+  str()
+
+```
+
+We can regress, updating the random effects model with a coefficient $\beta$ for latitude, by assuming
+$$
+y_k = \mu + \theta_k + \beta x_{\text{latitude}} + \varepsilon_k. 
+$$
+where $y_k$ denotes the 
+
+> todo binomial 
+
+
+# Example: Mean off-time reduction in Parkinson’s disease
+
+```{r eval=FALSE}
+vignette("example_parkinsons", "multinma")
+
+```
+
+## Parkisons dataset
+
+```{r}
+# take a look at the data
+parkinsons %>% head()
+
+parkinsons %>% str()
+
+```
+
+Checking `?parkinsons` documentation, have a study variable `studyn`, a treatment variable `trtn`, a measure of effect `y`, and standard error of the effect, `se`, sample size `n`.
+
+There is also the mean difference of the treatment in the reference arm `diff`, and the standard error of the mean difference `se_diff`. This provides two ways of meta-analysing the data.
+
+> This dataset may be analysed using either an arm-based likelihood using y and se, or a contrast-based likelihood using diff and se_diff (or a combination of the two across different studies) [@phillippo_multilevelnetworkmetaregression_2020].
+
+
+
+# References
 
