@@ -96,6 +96,16 @@ Meta-analysis model can be extended to meta-regression, with the addition of cov
 $$
 y_k = \mu + \theta_k + \mathbf {\beta_k X} + \epsilon_k.
 $$
+That is, 
+
+\[
+\begin{array}{rcl}
+Y_k &\sim& N(\mu + \theta_k + \beta_kX, \sigma_k^2)\\
+\theta_k &\sim& N(0, \tau^2)
+\end{array}
+\]
+
+And, if $\beta_k$ are random, these, too, would have distributions.
 
 To further complicate matters, a meta-analysis is often a **pairwise comparison** between two groups, a control and and intervention group, with the central question, what is the difference in effect between the two groups across all studies? In this case, the response $y_k$, the aggregated effect $\mu$, and the random effect for variation of this study, $\theta_k$, all measure a pairwise comparison. The pairwise comparison chosen depends on the context of the response variable in question, such as a standardised mean difference (Cohen's $d$), or a bias-adjusted $d$ (Hedge's $g$), for continuous response variables. Similarly, for binary data, an appropriate measure of risk or odds ratios may be chosen [@borenstein_introductionmetaanalysis_2011].   
 
