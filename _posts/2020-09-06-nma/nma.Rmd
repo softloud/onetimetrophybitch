@@ -7,14 +7,14 @@ author:
     url: https://github.com/softloud/onetimetrophybitch
 date: 09-06-2020
 output:
-  distill::distill_article:
-    self_contained: false
-    toc: true
-  # html_document:
-  #   number_sections: true
+  # distill::distill_article:
+  #   self_contained: false
   #   toc: true
-  #   toc_float: true
-  #   code_folding: show
+  html_document:
+    number_sections: true
+    toc: true
+    toc_float: true
+    code_folding: show
 bibliography: references.bib
 ---
 
@@ -36,6 +36,7 @@ library(patchwork) # vis + vis
 # toolchain walkthrough
 library(multinma) # network meta-analysis
 library(nmathresh) # threshold analysis
+library(metafor) # for (non network) meta-analysis
 
 # special purpose
 library(fdrtool) # for halfnormal distribution
@@ -130,7 +131,7 @@ $$
 
 Now, in network meta-analysis we have more than one treatment. The general idea is that we combine pairwise direct comparisons to form an indirect comparison. 
 
-Lumley suggests one way to think of this is with treatments A, B, and C [@lumley_networkmetaanalysisindirect_2002]. We denote $\delta_{XY}$ as the comparison between X and Y, with a positive value of $\delta$ indicating a higher outcome for Y than X, and a negative value of $\delta$ indicates a lower outcome for Y than X. If we have direct comparisons $\delta_{AC}$ and $\delta_{CB}$, we can construct an indirect comparison of differences.
+Starting with the simplest case of combining two pairwise comparisons, a think of this is with treatments A, B, and C [@lumley_networkmetaanalysisindirect_2002]. We denote $\delta_{XY}$ as the comparison between X and Y, with a positive value of $\delta$ indicating a higher outcome for Y than X, and a negative value of $\delta$ indicates a lower outcome for Y than X. If we have direct comparisons $\delta_{AC}$ and $\delta_{CB}$, we can construct an indirect comparison of differences.
 $$
 \delta_{AB} = \delta_{AC} + \delta_{CB}
 $$
@@ -143,6 +144,8 @@ Y_{ijk} &\sim& \text{N}(\mu_i - \mu_j + \eta_{ik} + \eta_{jk} + \zeta_{ij}, \sig
 \zeta_{ij} &\sim& N(0, \omega)
 \end{array}
 \]
+
+Now, this is for an indirect comparison between two treatments, $i$ and $j$. So, what about 
 
 # Example: BCG vaccine
 
@@ -366,17 +369,35 @@ In order to interpret these results
 
 ## Comparison with standard random effects model
 
-How do these results compare with a standard random effects model? 
+An immediate question with this dataset of only two treatments, thus no indirect comparison, is to compare the results of the network meta-analysis with those of a standard meta-analysis. 
 
 ```{r}
 # how to rma on binomial count data 
+# set measure = "OR" for log odds ratio
+rma_dat <- 
+bcg_vaccine %>% 
+  select(-trtn) %>% 
+  pivot_wider(id_cols = studyn, 
+              names_from = trtc,
+              names_glue ="{trtc}_{.value}", 
+              values_from = c(latitude, r, n))
+
 
 ```
 
 
+```{r}
+rma_dat %>% 
+  escalc(x1i = Unvaccinated_r, x2i = Vaccinated_r, n1i = Unvaccinated_n, n2i = Vaccinated_n, measure = "OR", data = ., slab = studyn)
+
+
+```
+
+
+
 ## Threshold analysis
 
-In this section, we explore threshold analysis with the `nmathresh::` packkage. 
+Threshold analysis is a technique proposed for the interpretation of meta-analytic results. In this section, we explore threshold analysis with the `nmathresh::` package. 
 
 ### Toolchain walkthrough 
 
@@ -413,12 +434,27 @@ where $y_k$ denotes the
 
 # Example: Mean off-time reduction in Parkinson’s disease
 
+Now, for an example of a dataset that has network with at least three nodes.
+
 ```{r eval=FALSE}
 vignette("example_parkinsons", "multinma")
 
 ```
 
+Find out how many nodes are in this network.
+
+```{r}
+parkinsons %>%
+  # extract treatment variable
+  pull(trtn) %>% 
+  # count distinct treatment types
+  n_distinct()
+```
+
+
 ## Parkisons dataset
+
+This vignette uses the `parkinsons` dataset.
 
 ```{r}
 # take a look at the data
@@ -433,6 +469,42 @@ Checking `?parkinsons` documentation, have a study variable `studyn`, a treatmen
 There is also the mean difference of the treatment in the reference arm `diff`, and the standard error of the mean difference `se_diff`. This provides two ways of meta-analysing the data.
 
 > This dataset may be analysed using either an arm-based likelihood using y and se, or a contrast-based likelihood using diff and se_diff (or a combination of the two across different studies) [@phillippo_multilevelnetworkmetaregression_2020].
+
+In this case, we have a continuous response variable.
+
+## Network meta-analysis model
+
+In this section, we will create an arm-based network meta-analysis. We set up the model. 
+
+```{r}
+arm_net <-
+  set_agd_arm(
+    parkinsons,
+    study = studyn,
+    trt = trtn,
+    y = y,
+    se = se,
+    sample_size = n
+  )
+
+# this is a network object
+class(arm_net)
+
+```
+
+Now that we have a network object, we can 
+
+```{r}
+
+```
+
+
+
+
+
+## Threshold analysis
+
+
 
 
 
