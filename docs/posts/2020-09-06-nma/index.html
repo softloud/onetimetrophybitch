@@ -52,7 +52,7 @@
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["nma_files/bowser-1.9.3/bowser.min.js","nma_files/distill-2.2.21/template.v2.js","nma_files/figure-html/norm plots-1.png","nma_files/figure-html/prior plots-1.png","nma_files/figure-html/prior plots-2.png","nma_files/figure-html/priorpost-1.png","nma_files/figure-html/unnamed-chunk-10-1.png","nma_files/figure-html/unnamed-chunk-11-1.png","nma_files/figure-html/unnamed-chunk-12-1.png","nma_files/figure-html/unnamed-chunk-12-2.png","nma_files/figure-html/unnamed-chunk-9-1.png","nma_files/figure-html5/norm plots-1.png","nma_files/figure-html5/priorpost-1.png","nma_files/figure-html5/unnamed-chunk-10-1.png","nma_files/figure-html5/unnamed-chunk-11-1.png","nma_files/figure-html5/unnamed-chunk-12-1.png","nma_files/figure-html5/unnamed-chunk-12-2.png","nma_files/figure-html5/unnamed-chunk-8-1.png","nma_files/figure-html5/unnamed-chunk-9-1.png","nma_files/header-attrs-2.3/header-attrs.js","nma_files/jquery-1.11.3/jquery.min.js","nma_files/webcomponents-2.0.0/webcomponents.js","references.bib"]}
+  {"type":"character","attributes":{},"value":["nma_files/bowser-1.9.3/bowser.min.js","nma_files/distill-2.2.21/template.v2.js","nma_files/figure-html/norm plots-1.png","nma_files/figure-html/prior plots-1.png","nma_files/figure-html/prior plots-2.png","nma_files/figure-html/priorpost-1.png","nma_files/figure-html/unnamed-chunk-10-1.png","nma_files/figure-html/unnamed-chunk-11-1.png","nma_files/figure-html/unnamed-chunk-12-1.png","nma_files/figure-html/unnamed-chunk-12-2.png","nma_files/figure-html/unnamed-chunk-6-1.png","nma_files/figure-html/unnamed-chunk-9-1.png","nma_files/figure-html5/norm plots-1.png","nma_files/figure-html5/priorpost-1.png","nma_files/figure-html5/unnamed-chunk-10-1.png","nma_files/figure-html5/unnamed-chunk-11-1.png","nma_files/figure-html5/unnamed-chunk-12-1.png","nma_files/figure-html5/unnamed-chunk-12-2.png","nma_files/figure-html5/unnamed-chunk-6-1.png","nma_files/figure-html5/unnamed-chunk-8-1.png","nma_files/figure-html5/unnamed-chunk-9-1.png","nma_files/header-attrs-2.3/header-attrs.js","nma_files/jquery-1.11.3/jquery.min.js","nma_files/webcomponents-2.0.0/webcomponents.js","references.bib"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 
@@ -1342,26 +1342,16 @@ presentations
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#thinking-through-the-theory">Thinking through the theory</a>
 <ul>
-<li><a href="#meta-analysis">meta-analysis</a></li>
-<li><a href="#network-meta-analysis">network meta-analysis</a></li>
+<li><a href="#meta-analysis">Meta-analysis</a></li>
+<li><a href="#network-meta-analysis">Network meta-analysis</a></li>
+<li><a href="#bayesian-network-meta-analysis">Bayesian network meta-analysis</a></li>
 </ul></li>
-<li><a href="#example-bcg-vaccine">Example: BCG vaccine</a>
-<ul>
-<li><a href="#bcg-vaccine-for-tuberculosis-example-data">BCG vaccine for tuberculosis example data</a></li>
-<li><a href="#set-up-the-network">Set up the network</a></li>
-<li><a href="#meta-analysis-with-no-covariates">Meta-analysis with no covariates</a></li>
-<li><a href="#comparison-with-standard-random-effects-model">Comparison with standard random effects model</a></li>
-<li><a href="#threshold-analysis">Threshold analysis</a>
-<ul>
-<li><a href="#toolchain-walkthrough">Toolchain walkthrough</a></li>
-<li><a href="#general-idea">General idea</a></li>
-</ul></li>
-<li><a href="#meta-regression-with-latitude-covariate">Meta-regression with latitude covariate</a></li>
-</ul></li>
-<li><a href="#example-mean-off-time-reduction-in-parkinsons-disease">Example: Mean off-time reduction in Parkinson’s disease</a>
-<ul>
+<li><a href="#example-mean-off-time-reduction-in-parkinsons-disease">Example: Mean off-time reduction in Parkinson’s disease</a></li>
 <li><a href="#parkisons-dataset">Parkisons dataset</a></li>
-</ul></li>
+<li><a href="#network-meta-analysis-model-on-parkinsons-data">Network meta-analysis model on Parkinsons data</a></li>
+<li><a href="#understanding-the-parkinsons-model">Understanding the Parkinsons model</a></li>
+<li><a href="#computing-the-model">Computing the model</a></li>
+<li><a href="#threshold-analysis-of-network-model">Threshold analysis of network model</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </nav>
@@ -1379,6 +1369,7 @@ library(patchwork) # vis + vis
 # toolchain walkthrough
 library(multinma) # network meta-analysis
 library(nmathresh) # threshold analysis
+library(metafor) # for (non network) meta-analysis
 
 # special purpose
 library(fdrtool) # for halfnormal distribution
@@ -1397,41 +1388,20 @@ set.seed(40)</code></pre>
 <li>Interpret the results using threshold analysis.</li>
 </ol>
 <h1 id="thinking-through-the-theory">Thinking through the theory</h1>
-<p>In order to interpret the results produced by the algorithms provided by the packages investigated in this post, I need to ensure I have the conceptual understanding of the computational output.</p>
+<p>In order to interpret the results produced by the algorithms provided by the packages investigated in this post, I need to ensure I have the conceptual understanding of the computational output. In particular, <code>multinma::</code> uses a Bayesian network meta-analysis approach, so I need to understand the structure of the model before I interpret my results.</p>
+<h2 id="meta-analysis">Meta-analysis</h2>
 <p>Meta-analysis is a ultimately a form of regression, finding a line of best fit through the data. How this equation is solved is not the focus here, but, instead, unpacking the equational structure of a network meta-analysis, starting from linear regression.</p>
-<h2 id="meta-analysis">meta-analysis</h2>
-<p>A meta-analysis is a special type of linear regression, wherein the response may be thought of as a <a href="https://en.wikipedia.org/wiki/Linear_combination">linear combination</a> (a construction from set of terms multiplying each term by a constant and adding the results).</p>
-<p>In a simple case of linear regression, we assume the response of interest, <span class="math inline">\(y\)</span>, may be thought of in terms of grand mean <span class="math inline">\(\beta_0\)</span> and a covariate <span class="math inline">\(x\)</span> with coeffecicient <span class="math inline">\(\beta_1\)</span>,</p>
-<p><span class="math display">\[
-y = \beta_0 + \beta_1 x.
-\]</span></p>
-<p>and that observations <span class="math inline">\(y_i\)</span> differ slightly from this overall response effect by some sampling error, <span class="math inline">\(\varepsilon \sim N(0, \sigma^2)\)</span>, so that, for the <span class="math inline">\(i\)</span>th observation, we have<br />
-<span class="math display">\[
-y_i = B_0 + B_1 x + \varepsilon_i.
-\]</span> Where multiple covariates are to be considered, this construction is generalised to the matrix formula, <span class="math display">\[
-\mathbf y = \mathbf {X\beta} + \mathbf{\varepsilon}.
-\]</span> In a random effects model, instead of a coeffecient, a random effect is a term added to the equation that carries its own distribution, similar to the sampling error <span class="math inline">\(\varepsilon\)</span>.</p>
-<p>A simplest case of a random-effects meta-analysis, without covariates we wish to control the response by, we consider <span class="math inline">\(k = 1, ..., K\)</span> studies’ obesrvations in terms of a grand mean across studies, <span class="math inline">\(\mu\)</span> (taking the role of <span class="math inline">\(\beta_0\)</span> above), with a study-specific adjustment, <span class="math inline">\(\theta_k \sim N(0, \tau^2)\)</span>, so that the observation for the <span class="math inline">\(k\)</span>th study we have <span class="math display">\[
-y_k = \mu + \theta_k + \varepsilon_k,
-\]</span> with sampling error <span class="math inline">\(\varepsilon_k \sim N(0, \sigma_k^2)\)</span>.</p>
-<p>Note the error, <span class="math inline">\(\varepsilon_k\)</span>, for the <span class="math inline">\(k\)</span>th study is attributed an associated study-specific variance, <span class="math inline">\(\sigma_k^2\)</span>, whereas <span class="math inline">\(\tau^2\)</span>, the variance of <span class="math inline">\(\theta_k\)</span> is an aggregate measure of variation across all studies.</p>
-<p>Meta-analysis model can be extended to meta-regression, with the addition of covariates, as with standard linear regression, <span class="math display">\[
-y_k = \mu + \theta_k + \mathbf {\beta_k X} + \epsilon_k.
-\]</span></p>
-<p>To further complicate matters, a meta-analysis is often a <strong>pairwise comparison</strong> between two groups, a control and and intervention group, with the central question, what is the difference in effect between the two groups across all studies? In this case, the response <span class="math inline">\(y_k\)</span>, the aggregated effect <span class="math inline">\(\mu\)</span>, and the random effect for variation of this study, <span class="math inline">\(\theta_k\)</span>, all measure a pairwise comparison. The pairwise comparison chosen depends on the context of the response variable in question, such as a standardised mean difference (Cohen’s <span class="math inline">\(d\)</span>), or a bias-adjusted <span class="math inline">\(d\)</span> (Hedge’s <span class="math inline">\(g\)</span>), for continuous response variables. Similarly, for binary data, an appropriate measure of risk or odds ratios may be chosen <span class="citation" data-cites="borenstein_introductionmetaanalysis_2011">(Borenstein et al. <a href="#ref-borenstein_introductionmetaanalysis_2011" role="doc-biblioref">2011</a>)</span>.</p>
-<p>In the interests of brevity, I’m not labouring the distinction between fixed and random covariates, but I’m sure my understanding could be clearer. This, however, seems a sufficient point from which to further my understanding of network meta-analysis.</p>
-<p>I find this statistical nomenclature confusing. The random effect for the study, <span class="math inline">\(\theta_k\)</span>, <em>is</em> a coefficient, as it is indexed by <span class="math inline">\(k\)</span>. This is a coefficient for a dummy variable <span class="math inline">\(z_k\)</span> that indicates the study, <span class="math display">\[
-z_k = \begin{cases}
-1 &amp; \text{if } k = k\\
-0 &amp; \text{if } k \neq k
-\end{cases}
-\]</span></p>
-<p>So, we always have <span class="math inline">\(y\)</span> in terms of linear combination of <span class="math inline">\(z\)</span> and <span class="math inline">\(x\)</span> where we care about one variable <span class="math inline">\(z\)</span>, and wish to control for the others <span class="math inline">\(x\)</span>. <span class="math display">\[
-y_k = \mu + \gamma_k z + \beta_k x + \varepsilon_k
-\]</span></p>
-<h2 id="network-meta-analysis">network meta-analysis</h2>
+<p>We assume we are solving some set of equations <span class="math display">\[
+\boldsymbol Y = \boldsymbol {\beta X} + \boldsymbol\varepsilon 
+\]</span> where <span class="math inline">\(\varepsilon \sim N(0, \sigma^2)\)</span>, that is, we assume the following model form. <span class="math display">\[
+\boldsymbol Y \sim N(\boldsymbol{\beta X}, \sigma)
+\]</span> In a random effects meta-analysis, we are interested in a specific effect <span class="math inline">\(\mu\)</span> and the magnitude of random variation <span class="math inline">\(\gamma_k\)</span> attributed to the <span class="math inline">\(k\)</span>th study’s deviance from <span class="math inline">\(\mu\)</span>, as well as any number of covariates, <span class="math inline">\(\boldsymbol{\beta X}\)</span>. So that <span class="math display">\[
+y_k \sim N(\mu + \gamma_k + \beta X, \sigma)\\
+\gamma_k \sim N(0, \tau^2)
+\]</span> where <span class="math inline">\(\tau^2\)</span> is the variability of the studies’ deviance from <span class="math inline">\(\mu\)</span>.</p>
+<h2 id="network-meta-analysis">Network meta-analysis</h2>
 <p>Now, in network meta-analysis we have more than one treatment. The general idea is that we combine pairwise direct comparisons to form an indirect comparison.</p>
-<p>Lumley suggests one way to think of this is with treatments A, B, and C <span class="citation" data-cites="lumley_networkmetaanalysisindirect_2002">(Lumley <a href="#ref-lumley_networkmetaanalysisindirect_2002" role="doc-biblioref">2002</a>)</span>. We denote <span class="math inline">\(\delta_{XY}\)</span> as the comparison between X and Y, with a positive value of <span class="math inline">\(\delta\)</span> indicating a higher outcome for Y than X, and a negative value of <span class="math inline">\(\delta\)</span> indicates a lower outcome for Y than X. If we have direct comparisons <span class="math inline">\(\delta_{AC}\)</span> and <span class="math inline">\(\delta_{CB}\)</span>, we can construct an indirect comparison of differences. <span class="math display">\[
+<p>Starting with the simplest case of combining two pairwise comparisons, a think of this is with treatments A, B, and C <span class="citation" data-cites="lumley_networkmetaanalysisindirect_2002">(Lumley <a href="#ref-lumley_networkmetaanalysisindirect_2002" role="doc-biblioref">2002</a>)</span>. We denote <span class="math inline">\(\delta_{XY}\)</span> as the comparison between X and Y, with a positive value of <span class="math inline">\(\delta\)</span> indicating a higher outcome for Y than X, and a negative value of <span class="math inline">\(\delta\)</span> indicates a lower outcome for Y than X. If we have direct comparisons <span class="math inline">\(\delta_{AC}\)</span> and <span class="math inline">\(\delta_{CB}\)</span>, we can construct an indirect comparison of differences. <span class="math display">\[
 \delta_{AB} = \delta_{AC} + \delta_{CB}
 \]</span> Continuing along with Lumley, we let <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> denote treatments compared by <span class="math inline">\(Y_{ij}\)</span>. Since <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> have average true effects <span class="math inline">\(\mu_i\)</span> and <span class="math inline">\(\mu_j\)</span>, we have <span class="math inline">\(\delta_{ij} = \mu_i - \mu_j\)</span>. Where there was one random effect for the heterogeneity of treatment effect in a standard meta-analysis, there are now two random effects, <span class="math inline">\(\eta_{ik}\)</span> and <span class="math inline">\(\eta_{jk}\)</span> with variance <span class="math inline">\(\tau^2\)</span>, for the difference betwteen the average effects of treatments <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> in this study. Another random effect <span class="math inline">\(\zeta_{ij}\)</span> is added to capture ‘the inconsistency of this pair of treatments with the rest of the evidence’. The <em>incoherence</em> of the network is <span class="math inline">\(\omega = \text{var}(\zeta)\)</span>. With these we have the formal model.</p>
 <p><span class="math display">\[
@@ -1441,832 +1411,45 @@ Y_{ijk} &amp;\sim&amp; \text{N}(\mu_i - \mu_j + \eta_{ik} + \eta_{jk} + \zeta_{i
 \zeta_{ij} &amp;\sim&amp; N(0, \omega)
 \end{array}
 \]</span></p>
-<h1 id="example-bcg-vaccine">Example: BCG vaccine</h1>
-<p>The vignette</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# launch vignette in Viewer Pane
-vignette(&quot;example_bcg_vaccine&quot;, &quot;multinma&quot;)</code></pre>
-</div>
-<p>opens with this unfamiliar command.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-options(mc.cores = parallel::detectCores())</code></pre>
-</div>
-<aside>
-My limited understanding is that R was developed for single-core usage. So, I presume this option creates a way some functions can make use of multicore processing. Does this option apply to all functions, or only specific ones that recognise this option has been set?
-</aside>
-<p>With the library loaded, we can meta-analyse example datasets.</p>
-<h2 id="bcg-vaccine-for-tuberculosis-example-data">BCG vaccine for tuberculosis example data</h2>
-<p>The BCG vaccine for tuberculosis vignette analyses the <code>bcg_vaccine</code> dataset provided by <code>multinma::</code>.</p>
-<div class="layout-chunk" data-layout="l-body">
-
-<pre class="r"><code>
-# first few rows of data set 
-bcg_vaccine %&gt;% 
-    head() %&gt;% 
-    kable()</code></pre>
-<table>
-<thead>
-<tr>
-<th style="text-align:right;">
-studyn
-</th>
-<th style="text-align:right;">
-trtn
-</th>
-<th style="text-align:left;">
-trtc
-</th>
-<th style="text-align:right;">
-latitude
-</th>
-<th style="text-align:right;">
-r
-</th>
-<th style="text-align:right;">
-n
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-Unvaccinated
-</td>
-<td style="text-align:right;">
-44
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-139
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-Vaccinated
-</td>
-<td style="text-align:right;">
-44
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-123
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-Unvaccinated
-</td>
-<td style="text-align:right;">
-55
-</td>
-<td style="text-align:right;">
-29
-</td>
-<td style="text-align:right;">
-303
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-Vaccinated
-</td>
-<td style="text-align:right;">
-55
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-306
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-Unvaccinated
-</td>
-<td style="text-align:right;">
-42
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-220
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-Vaccinated
-</td>
-<td style="text-align:right;">
-42
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-231
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>From an overview of the data, we see we have 6 columns, 26 rows, 5 numeric variables (columns) and 1 character column, <code>trtc</code> which identifies the group as unvaccinated or vaccinated, for a given study.</p>
-<div class="layout-chunk" data-layout="l-body">
-
-<pre class="r"><code>
-# get an overview of the data
-bcg_vaccine %&gt;% 
-    skim()</code></pre>
-<table style='width: auto;'
-        class='table table-condensed'>
-<caption>
-<span id="tab:unnamed-chunk-5">Table 1: </span>Data summary
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Name
-</td>
-<td style="text-align:left;">
-Piped data
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Number of rows
-</td>
-<td style="text-align:left;">
-26
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Number of columns
-</td>
-<td style="text-align:left;">
-6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-_______________________
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Column type frequency:
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-character
-</td>
-<td style="text-align:left;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-numeric
-</td>
-<td style="text-align:left;">
-5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-________________________
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Group variables
-</td>
-<td style="text-align:left;">
-None
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: character</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-skim_variable
-</th>
-<th style="text-align:right;">
-n_missing
-</th>
-<th style="text-align:right;">
-complete_rate
-</th>
-<th style="text-align:right;">
-min
-</th>
-<th style="text-align:right;">
-max
-</th>
-<th style="text-align:right;">
-empty
-</th>
-<th style="text-align:right;">
-n_unique
-</th>
-<th style="text-align:right;">
-whitespace
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-trtc
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: numeric</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-skim_variable
-</th>
-<th style="text-align:right;">
-n_missing
-</th>
-<th style="text-align:right;">
-complete_rate
-</th>
-<th style="text-align:right;">
-mean
-</th>
-<th style="text-align:right;">
-sd
-</th>
-<th style="text-align:right;">
-p0
-</th>
-<th style="text-align:right;">
-p25
-</th>
-<th style="text-align:right;">
-p50
-</th>
-<th style="text-align:right;">
-p75
-</th>
-<th style="text-align:right;">
-p100
-</th>
-<th style="text-align:left;">
-hist
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-studyn
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-7.00
-</td>
-<td style="text-align:right;">
-3.82
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4.00
-</td>
-<td style="text-align:right;">
-7.0
-</td>
-<td style="text-align:right;">
-10.00
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:left;">
-▇▅▇▅▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-trtn
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1.50
-</td>
-<td style="text-align:right;">
-0.51
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.5
-</td>
-<td style="text-align:right;">
-2.00
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-▇▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-latitude
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-33.46
-</td>
-<td style="text-align:right;">
-14.15
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-19.00
-</td>
-<td style="text-align:right;">
-33.0
-</td>
-<td style="text-align:right;">
-44.00
-</td>
-<td style="text-align:right;">
-55
-</td>
-<td style="text-align:left;">
-▇▂▃▇▃
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-r
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-99.04
-</td>
-<td style="text-align:right;">
-148.75
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-10.25
-</td>
-<td style="text-align:right;">
-29.0
-</td>
-<td style="text-align:right;">
-122.00
-</td>
-<td style="text-align:right;">
-505
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-n
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-13744.12
-</td>
-<td style="text-align:right;">
-24640.37
-</td>
-<td style="text-align:right;">
-123
-</td>
-<td style="text-align:right;">
-834.50
-</td>
-<td style="text-align:right;">
-2521.5
-</td>
-<td style="text-align:right;">
-13415.25
-</td>
-<td style="text-align:right;">
-88391
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>From <code>bcg_vaccine</code>’s documentation, we learn that <code>r</code> is the number diagnosed with tuberculosis in the follow up period from a sample size of <code>n</code>. The latitude of the study is also provided, so comparisons can be made on the basis of the study’s relative position within the global south and north.</p>
-<blockquote>
-<p>The numbers of individuals diagnosed with TB in each arm during the study follow-up period are recorded <span class="citation" data-cites="phillippo_multilevelnetworkmetaregression_2020">(Phillippo et al. <a href="#ref-phillippo_multilevelnetworkmetaregression_2020" role="doc-biblioref">2020</a>)</span>.</p>
-</blockquote>
-<p>We can confirm there are two nodes in this network, that is, two interventions of interest, vaccinated and unvaccinated, for each study.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-bcg_vaccine %&gt;% 
-  count(trtc)</code></pre>
-<pre><code>
-          trtc  n
-1 Unvaccinated 13
-2   Vaccinated 13</code></pre>
-</div>
-<h2 id="set-up-the-network">Set up the network</h2>
-<p>Before modelling as a network meta-analysis, we convert the data to a <code>nma_data</code> object with <code>set_agd_arm</code>.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-bcg_net &lt;- set_agd_arm(
-    bcg_vaccine,
-    study = &quot;studyn&quot;, # which col has study
-    trt = trtc, # which col indicates arm
-    # these columns are specified bc it is a count outcome
-    # i.e., binomial data
-    r = r, # col w binomial &quot;success&quot; trials
-    n = n, # col w binomial total trials
-    trt_ref = &quot;Unvaccinated&quot; # set default level of trt
-) 
-
-# what do we get
-bcg_net</code></pre>
-<pre><code>
-A network with 13 AgD studies (arm-based).
-
---------------------------------------------- AgD studies (arm-based) ---- 
- Study Treatments                  
- 1     2: Unvaccinated | Vaccinated
- 2     2: Unvaccinated | Vaccinated
- 3     2: Unvaccinated | Vaccinated
- 4     2: Unvaccinated | Vaccinated
- 5     2: Unvaccinated | Vaccinated
- 6     2: Unvaccinated | Vaccinated
- 7     2: Unvaccinated | Vaccinated
- 8     2: Unvaccinated | Vaccinated
- 9     2: Unvaccinated | Vaccinated
- 10    2: Unvaccinated | Vaccinated
- ... plus 3 more studies
-
- Outcome type: count
---------------------------------------------------------------------------
-Total number of treatments: 2
-Total number of studies: 13
-Reference treatment is: Unvaccinated
-Network is connected</code></pre>
-<pre class="r"><code>
-# what is in this?
-stuff_in_net &lt;- bcg_net %&gt;% objects()
-stuff_in_net</code></pre>
-<pre><code>
-[1] &quot;agd_arm&quot;      &quot;agd_contrast&quot; &quot;classes&quot;      &quot;ipd&quot;         
-[5] &quot;outcome&quot;      &quot;studies&quot;      &quot;treatments&quot;  </code></pre>
-</div>
-<p>Conventionally, in mathematical statistics, binomially distributed data is described in terms of “successful trials”. However, in this case, perhaps it’s more informative to think of this as the number of observed tuberculosis cases, out of the patients in a treatment group in a given study.</p>
-<blockquote class="twitter-tweet">
-<p lang="en" dir="ltr">
-What's another word for “success” in binomial trials? <br><br>In this case, it's number of people who have tuberculosis after treatment. There's nothing successful about that. <br><br>r = r, # col w binomial “success” trials<br> n = n, # col w binomial total trials
-</p>
-— Charles T. Gray ⚔ (<span class="citation" data-cites="cantabile">(<span class="citeproc-not-found" data-reference-id="cantabile"><strong>???</strong></span>)</span>) <a href="https://twitter.com/cantabile/status/1301015558863745027?ref_src=twsrc%5Etfw">September 2, 2020</a>
-</blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<p>Most of these objects are empty. The first item is an updated version of the original data, and extractions of the studies and treatments are also provided. Classes, ipd, and contrast do not appear to relevant to this network.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# output everything contained in nma_data class bcg_net object
-stuff_in_net %&gt;% 
-    map(.f = function(thing){bcg_net %&gt;% pluck(thing)}) %&gt;% 
-    set_names(stuff_in_net)</code></pre>
-<pre><code>
-$agd_arm
-# A tibble: 26 x 9
-   .study .trt        .r    .n .sample_size  trtn latitude     r     n
-   &lt;fct&gt;  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 1      Unvacci…    11   139          139     1       44    11   139
- 2 1      Vaccina…     4   123          123     2       44     4   123
- 3 2      Unvacci…    29   303          303     1       55    29   303
- 4 2      Vaccina…     6   306          306     2       55     6   306
- 5 3      Unvacci…    11   220          220     1       42    11   220
- 6 3      Vaccina…     3   231          231     2       42     3   231
- 7 4      Unvacci…   248 12867        12867     1       52   248 12867
- 8 4      Vaccina…    62 13598        13598     2       52    62 13598
- 9 5      Unvacci…    47  5808         5808     1       13    47  5808
-10 5      Vaccina…    33  5069         5069     2       13    33  5069
-# … with 16 more rows
-
-$agd_contrast
-NULL
-
-$classes
-NULL
-
-$ipd
-NULL
-
-$outcome
-$outcome$agd_arm
-[1] &quot;count&quot;
-
-$outcome$agd_contrast
-[1] NA
-
-$outcome$ipd
-[1] NA
-
-
-$studies
- [1] 1  2  3  4  5  6  7  8  9  10 11 12 13
-Levels: 1 2 3 4 5 6 7 8 9 10 11 12 13
-
-$treatments
-[1] Unvaccinated Vaccinated  
-Levels: Unvaccinated Vaccinated</code></pre>
-</div>
-<aside>
-<p>But what does the network look like? Is there an easy way to plot the underlying graph?</p>
-Also, it’s interesting from a research software engineering perspective to see how data can be prepared for a modelling function. Model components are extracted, such as <code>count</code> for response type, and levels of the treatment variable, in this case, 2 levels. The data are updated with variables that, presumably, the model function recognises. I assume these are the new variables of the form <code>.*</code>.
-</aside>
-<h2 id="meta-analysis-with-no-covariates">Meta-analysis with no covariates</h2>
-<p>One question we might ask of the data is given the results of all these studies, what proportion of treated patients still have tuberculosis?</p>
-<p>We fit a network meta-analysis model with a fit function.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-bcg_nma &lt;- nma(
-    bcg_net,
-    trt_effects = &quot;random&quot;, # specify fixed or random effects model
-    prior_intercept = normal(scale = 100),
-    prior_trt = normal(scale = 100),
-    prior_het = half_normal(scale = 5)
-)</code></pre>
-</div>
-<p>In order to interpret the results, we describe the model.</p>
-<p>Let <span class="math inline">\(y_k\)</span> denote the pairwise comparison between the unvaccinated and vaccinated groups, for the <span class="math inline">\(k\)</span>th study. Then, we assume <span class="math inline">\(y_k\)</span> may be thought of in terms of the overall pairwise comparison, <span class="math inline">\(\mu\)</span>, with an adjustment <span class="math inline">\(\theta_k\)</span>. To this we add sampling error, <span class="math inline">\(\varepsilon_k\)</span>, and, assume <span class="math inline">\(\gamma\)</span> denotes the treatment effect, a component of <span class="math inline">\(\mu\)</span>.This provides the following system of assumptions.</p>
-<p><span class="math display">\[
-\begin{array}{rcl}
-y_k &amp; = &amp; \mu + \theta_k + \varepsilon_k\\
-\varepsilon_k &amp;\sim&amp; \text{normal}(0, \sigma_k^2)\\
-\theta_k &amp;\sim&amp; \text{normal}(0, \tau^2)\\
-\tau^2 &amp;\sim&amp; \textrm{halfnormal}(0, 5^2)\\
-\mu &amp;\sim&amp; \text{normal}(0, 100^2)\\
-\gamma_k &amp;\sim&amp; \text{normal}(0, 100^2)
-\end{array}
+<p>Now, this is for an indirect comparison between two treatments, <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>. It doesn’t seem a great leap to infer that for <span class="math inline">\(n\)</span> treatments, there would be <span class="math inline">\(n-1\)</span> measures of difference <span class="math inline">\(\mu\)</span>, and random effects associated with each of the pairwise components <span class="math inline">\(\eta\)</span>, as will as a measure of inconsistency of this pair of treatments with <span class="math inline">\(\zeta\)</span> with the rest of the evidence. Certainly we have that the results is interpretated as a linear combination of treatment effects<span class="citation" data-cites="harrer_doingmetaanalysis_2019">(Harrer et al. <a href="#ref-harrer_doingmetaanalysis_2019" role="doc-biblioref">2019</a>)</span>.</p>
+<h2 id="bayesian-network-meta-analysis">Bayesian network meta-analysis</h2>
+<p>Since <code>multinma::</code> provides tools for Bayesian network meta-analysis <span class="citation" data-cites="phillippo_multilevelnetworkmetaregression_2020">(Phillippo et al. <a href="#ref-phillippo_multilevelnetworkmetaregression_2020" role="doc-biblioref">2020</a>)</span>, we have the following model structure <span class="math display">\[
+\boldsymbol y_{\cdot jk} = \pi_\text{Agg}(\boldsymbol\theta_{\cdot jk}),\\
+g(\boldsymbol\theta_{\cdot jk}) = \boldsymbol\mu_j + \boldsymbol\delta_{jk}
 \]</span></p>
-<blockquote>
-<p>What is the standard pairwise comparison for a binomial measure?</p>
-</blockquote>
-<blockquote>
-<p>What is the prior on treatment? How to represent this in terms of model nomenclature?</p>
-</blockquote>
-<p>Now we can use the model nomenclature to interpret the results.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# take a look at the raw results
-bcg_nma</code></pre>
-<pre><code>
-A random effects NMA with a binomial likelihood (logit link).
-Inference for Stan model: binomial_1par.
-4 chains, each with iter=2000; warmup=1000; thin=1; 
-post-warmup draws per chain=1000, total post-warmup draws=4000.
-
-                   mean se_mean   sd      2.5%       25%       50%
-d[Vaccinated]     -0.76    0.01 0.21     -1.19     -0.89     -0.76
-lp__          -13453.82    0.14 4.41 -13463.11 -13456.66 -13453.45
-tau                0.68    0.01 0.20      0.39      0.54      0.65
-                    75%     97.5% n_eff Rhat
-d[Vaccinated]     -0.63     -0.33  1257    1
-lp__          -13450.62 -13445.98   995    1
-tau                0.78      1.15  1156    1
-
-Samples were drawn using NUTS(diag_e) at Mon Sep 14 17:19:59 2020.
-For each parameter, n_eff is a crude measure of effective sample size,
-and Rhat is the potential scale reduction factor on split chains (at 
-convergence, Rhat=1).</code></pre>
-</div>
-<p>There is a handy function for comparison of the prior and posterior distributions. The prior distributions are displayed as lines, and posterior distributions as histograms.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-plot_prior_posterior(bcg_nma, prior = c(&quot;trt&quot;, &quot;het&quot;))</code></pre>
-<p><img src="nma_files/figure-html5/priorpost-1.png" width="624" /></p>
-</div>
-<p>The straight lines make sense when we see the full density.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# visualisation function that takes a domain and a density with parameters  
-
-prior_plot &lt;- 
-  function(y_max, 
-           density, 
-           pars,
-           x_min = -2,
-           x_max = 2) {
-  
-    density_fn &lt;- sprintf(&quot;d%s&quot;, density) %&gt;% get()
-    
-  tibble::tibble(
-    x = c(x_min, x_max)
-  ) %&gt;%
-    ggplot(aes(x = x)) +
-    stat_function(fun = density_fn, args = pars) +
-   ylim(0, y_max) +
-      labs(
-        title = sprintf(
-          &quot;%s(%s)&quot;,
-          dist_name(density),
-          paste0(pars, collapse = &quot;, &quot;)
-        ),
-        subtitle = sprintf(
-          &quot;domain(%s, %s) &amp; codomain(0, %g)&quot;,
-          x_min,
-          x_max,
-          y_max
-        ),
-        y = NULL,
-        x = NULL
-        )
-        
-      
-}</code></pre>
-</div>
-<p>If we plot <span class="math inline">\(N(0, 100^2)\)</span>, left, on a wide domain, we see our expected shape of the normal distribution. On the right, we constrain the domain and codomain of the plot by those of the prior posterior plots, we see this is, indeed, same distribution.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-prior_plot(0.005, &quot;norm&quot;, list(0, 100), -500, 500) + 
-  prior_plot(2, &quot;norm&quot;, list(0, 100))</code></pre>
-<p><img src="nma_files/figure-html5/norm%20plots-1.png" width="624" /></p>
-</div>
-<p>The halfnormal distribution, however, does not match the prior/posterior figure generated by <code>multinma::</code>, and I’m not sure why.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-prior_plot(4, &quot;halfnorm&quot;, list(5)) +
-  prior_plot(2, &quot;halfnorm&quot;, list(5))</code></pre>
-<p><img src="nma_files/figure-html5/unnamed-chunk-11-1.png" width="624" /></p>
-</div>
-<p>In order to interpret these results</p>
-<h2 id="comparison-with-standard-random-effects-model">Comparison with standard random effects model</h2>
-<p>How do these results compare with a standard random effects model?</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# how to rma on binomial count data </code></pre>
-</div>
-<h2 id="threshold-analysis">Threshold analysis</h2>
-<p>In this section, we explore threshold analysis with the <code>nmathresh::</code> packkage.</p>
-<h3 id="toolchain-walkthrough">Toolchain walkthrough</h3>
-<p>The general syntax for a threshold analysis</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-nma_thresh(mean.dk= d,lhood= V.data, post = V.est, X = X)</code></pre>
-</div>
-<p>where <code>d</code> is a vector of the estimates for each treatment compared with the control. Likelihood is provided as a covariance matrix for the observed data.</p>
-<h3 id="general-idea">General idea</h3>
-<h2 id="meta-regression-with-latitude-covariate">Meta-regression with latitude covariate</h2>
-<p>The above analysis leaves out a piece of information, the latitude covariate.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-bcg_vaccine %&gt;% 
-  str()</code></pre>
-<pre><code>
-&#39;data.frame&#39;:   26 obs. of  6 variables:
- $ studyn  : int  1 1 2 2 3 3 4 4 5 5 ...
- $ trtn    : num  1 2 1 2 1 2 1 2 1 2 ...
- $ trtc    : chr  &quot;Unvaccinated&quot; &quot;Vaccinated&quot; &quot;Unvaccinated&quot; &quot;Vaccinated&quot; ...
- $ latitude: num  44 44 55 55 42 42 52 52 13 13 ...
- $ r       : num  11 4 29 6 11 3 248 62 47 33 ...
- $ n       : num  139 123 303 306 220 ...</code></pre>
-</div>
-<p>We can regress, updating the random effects model with a coefficient <span class="math inline">\(\beta\)</span> for latitude, by assuming <span class="math display">\[
-y_k = \mu + \theta_k + \beta x_{\text{latitude}} + \varepsilon_k. 
-\]</span> where <span class="math inline">\(y_k\)</span> denotes the</p>
-<blockquote>
-<p>todo binomial</p>
-</blockquote>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(k\)</span> denotes treatment, and <span class="math inline">\(j\)</span> denotes study</li>
+<li>The subscript ‘<span class="math inline">\(\cdot\)</span>’ denotes an aggregate-level value.</li>
+<li><span class="math inline">\(\boldsymbol y_{\cdot j k}\)</span> denotes the summary outcomes</li>
+<li><span class="math inline">\(\pi_\text{Agg}(\theta_{\cdot jk})\)</span> denotes “suitable” likelhood for aggregate value <span class="math inline">\(\theta_{\cdot jk}\)</span></li>
+<li><span class="math inline">\(\theta_{\cdot jk}\)</span> is the expected summary outcome of treatment <span class="math inline">\(k\)</span> in the study <span class="math inline">\(k\)</span></li>
+<li>the expected summary is linear transformed by the link function <span class="math inline">\(g(\cdot)\)</span></li>
+<li><span class="math inline">\(\boldsymbol \mu_j\)</span> represent the study-specific intercepts</li>
+<li><span class="math inline">\(\delta_{jk}\)</span> is the study-specific relative effect of treatment <span class="math inline">\(k\)</span> versus treatment 1, for the <span class="math inline">\(j\)</span>th study.</li>
+</ul>
+<p>Turning to Rethinking <span class="citation" data-cites="statrethinkingbook">(McElreath <a href="#ref-statrethinkingbook" role="doc-biblioref">2016</a>)</span>, we note that for parameter of interest <span class="math inline">\(\theta\)</span> observed for data observed <span class="math inline">\(x\)</span>, we have the expected value of the posterior in terms of the likelihood and the prior, standardised by the expected value of <span class="math inline">\(P(x|\theta)\)</span>, the probability of observing the data, given a value for the parameter <span class="math inline">\(\theta\)</span> <span class="math display">\[
+P(\theta) = E[P(x|\theta)] = \int P(x|\theta)P(\theta)dp
+\]</span></p>
 <h1 id="example-mean-off-time-reduction-in-parkinsons-disease">Example: Mean off-time reduction in Parkinson’s disease</h1>
+<p>Now, for an example of a dataset that has network with at least three nodes.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 vignette(&quot;example_parkinsons&quot;, &quot;multinma&quot;)</code></pre>
 </div>
-<h2 id="parkisons-dataset">Parkisons dataset</h2>
+<p>Find out how many nodes are in this network.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+parkinsons %&gt;%
+  # extract treatment variable
+  pull(trtn) %&gt;% 
+  # count distinct treatment types
+  n_distinct()</code></pre>
+<pre><code>
+[1] 5</code></pre>
+</div>
+<h1 id="parkisons-dataset">Parkisons dataset</h1>
+<p>This vignette uses the <code>parkinsons</code> dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 # take a look at the data
@@ -2280,6 +1463,7 @@ parkinsons %&gt;% head()</code></pre>
 5      3    1 -0.30 0.505  76    NA   0.505
 6      3    2 -2.60 0.510  71 -2.30   0.718</code></pre>
 <pre class="r"><code>
+# summary of the variables provided by these data
 parkinsons %&gt;% str()</code></pre>
 <pre><code>
 &#39;data.frame&#39;:   15 obs. of  7 variables:
@@ -2291,21 +1475,221 @@ parkinsons %&gt;% str()</code></pre>
  $ diff   : num  NA -0.31 NA -1.7 NA -2.3 -0.9 NA -0.35 NA ...
  $ se_diff: num  0.504 0.668 0.282 0.382 0.505 0.718 0.695 0.265 0.442 0.335 ...</code></pre>
 </div>
-<p>Checking <code>?parkinsons</code> documentation, have a study variable <code>studyn</code>, a treatment variable <code>trtn</code>, a measure of effect <code>y</code>, and standard error of the effect, <code>se</code>, sample size <code>n</code>.</p>
-<p>There is also the mean difference of the treatment in the reference arm <code>diff</code>, and the standard error of the mean difference <code>se_diff</code>. This provides two ways of meta-analysing the data.</p>
+<p>From <code>?parkinsons</code> documentation, we know we have a study variable <code>studyn</code>, a treatment variable <code>trtn</code>, a measure of effect <code>y</code>, and standard error of the effect, <code>se</code>, sample size <code>n</code>.</p>
+<p>There is also the mean difference of the treatment in the reference arm <code>diff</code>, and the standard error of the mean difference <code>se_diff</code>. This provides three ways of meta-analysing the data.</p>
 <blockquote>
 <p>This dataset may be analysed using either an arm-based likelihood using y and se, or a contrast-based likelihood using diff and se_diff (or a combination of the two across different studies) <span class="citation" data-cites="phillippo_multilevelnetworkmetaregression_2020">(Phillippo et al. <a href="#ref-phillippo_multilevelnetworkmetaregression_2020" role="doc-biblioref">2020</a>)</span>.</p>
 </blockquote>
+<h1 id="network-meta-analysis-model-on-parkinsons-data">Network meta-analysis model on Parkinsons data</h1>
+<p>We have seven studies’ results for pairwise comparisons of five treatments of interest for our continuous response measure,</p>
+<blockquote>
+<p>the mean off-time reduction in patients given dopamine agonists as adjunct therapy in Parkinson’s disease from 7 trials comparing four active drugs and placebo <span class="citation" data-cites="phillippo_multilevelnetworkmetaregression_2020 dias2011nice">(<code>?parkinsons</code> documentation; Phillippo et al. <a href="#ref-phillippo_multilevelnetworkmetaregression_2020" role="doc-biblioref">2020</a>; data source Dias et al. <a href="#ref-dias2011nice" role="doc-biblioref">2011</a>)</span>.</p>
+</blockquote>
+<h1 id="understanding-the-parkinsons-model">Understanding the Parkinsons model</h1>
+<p>Since our response variable in this case is continuous, the link function <span class="math inline">\(g(\theta_{\cdot jk})\)</span> is simply the identity. So we have <span class="math display">\[
+g(\theta_{\cdot jk}) = \mu_j + \delta_{jk} = \theta_{\cdot jk}
+\]</span> with the response expected to follow a normally distributed outcome, then <span class="math display">\[
+y_{\cdot jk} \sim \text{normal}(\mu_j + \delta_{jk}, \sigma^2)\\
+\mu_j \sim \text{normal}(0, 100^2)\\
+\delta_{jk} \sim \text{normal}(0, \tau^2)\\
+\tau \sim \text{halfnormal}(5)
+\]</span></p>
+<h1 id="computing-the-model">Computing the model</h1>
+<p>For an arm-based network meta-analysis, begin by converting the raw data to a network object.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+arm_net &lt;-
+  set_agd_arm(
+    parkinsons,
+    study = studyn,
+    trt = trtn,
+    y = y,
+    se = se,
+    sample_size = n
+  )
+
+# this is a network object
+class(arm_net)</code></pre>
+<pre><code>
+[1] &quot;nma_data&quot;</code></pre>
+<pre class="r"><code>
+# take a look
+arm_net</code></pre>
+<pre><code>
+A network with 7 AgD studies (arm-based).
+
+--------------------------------------------- AgD studies (arm-based) ---- 
+ Study Treatments  
+ 1     2: 1 | 3    
+ 2     2: 1 | 2    
+ 3     3: 1 | 2 | 4
+ 4     2: 3 | 4    
+ 5     2: 3 | 4    
+ 6     2: 4 | 5    
+ 7     2: 4 | 5    
+
+ Outcome type: continuous
+--------------------------------------------------------------------------
+Total number of treatments: 5
+Total number of studies: 7
+Reference treatment is: 4
+Network is connected</code></pre>
+</div>
+<p>Now that we have a network object, we can inspect the relationships between the treatments where studies provide comparisons. Here we see there are pairwise comparisons between many of the treatments. In particular, treatment 3 and treatment 5 have not been compared directly, nor have treatment 2 and treatment 3.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+plot(arm_net)</code></pre>
+<p><img src="nma_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+</div>
+<blockquote>
+<p>The number of studies measure must be relational. But what does it mean, inspect the documentation.</p>
+</blockquote>
+<p>We fit a random effects model with assumptions <span class="math inline">\(\textrm{normal}(0, 100^2)\)</span> prior distributions for the treatment effect <span class="math inline">\(d_k\)</span> and study-specific intercepts <span class="math inline">\(\mu_j\)</span>, we use <span class="math inline">\(\textrm{halfnormal(5^2)}\)</span>. The ranges of these prior distributions can be examined.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+summary(normal(scale = 100))</code></pre>
+<pre><code>
+A Normal prior distribution: location = 0, scale = 100.
+50% of the prior density lies between -67.45 and 67.45.
+95% of the prior density lies between -196 and 196.</code></pre>
+<pre class="r"><code>
+summary(half_normal(scale = 5))</code></pre>
+<pre><code>
+A half-Normal prior distribution: location = 0, scale = 5.
+50% of the prior density lies between 0 and 3.37.
+95% of the prior density lies between 0 and 9.8.</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+# now to fit the racchendom-effects model
+arm_fit_RE &lt;- nma(arm_net, 
+                  seed = 379394727,
+                  trt_effects = &quot;random&quot;,
+                  prior_intercept = normal(scale = 100),
+                  prior_trt = normal(scale = 100),
+                  prior_het = half_normal(scale = 5),
+                  adapt_delta = 0.99)</code></pre>
+<pre><code>
+SAMPLING FOR MODEL &#39;normal&#39; NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 3.9e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.39 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 0.756232 seconds (Warm-up)
+Chain 1:                0.788362 seconds (Sampling)
+Chain 1:                1.54459 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL &#39;normal&#39; NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 1.5e-05 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.15 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 0.767323 seconds (Warm-up)
+Chain 2:                0.525132 seconds (Sampling)
+Chain 2:                1.29245 seconds (Total)
+Chain 2: 
+
+SAMPLING FOR MODEL &#39;normal&#39; NOW (CHAIN 3).
+Chain 3: 
+Chain 3: Gradient evaluation took 1.3e-05 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.13 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 0.714943 seconds (Warm-up)
+Chain 3:                0.629105 seconds (Sampling)
+Chain 3:                1.34405 seconds (Total)
+Chain 3: 
+
+SAMPLING FOR MODEL &#39;normal&#39; NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 4.5e-05 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.45 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 0.923916 seconds (Warm-up)
+Chain 4:                1.16821 seconds (Sampling)
+Chain 4:                2.09213 seconds (Total)
+Chain 4: </code></pre>
+</div>
+<p>A warning is generated, prompting us to</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+pairs(arm_fit_RE, pars = c(&quot;mu[4]&quot;, &quot;d[3]&quot;, &quot;delta[4: 3]&quot;, &quot;tau&quot;))</code></pre>
+<p><img src="nma_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
+</div>
+<h1 id="threshold-analysis-of-network-model">Threshold analysis of network model</h1>
 <h1 class="unnumbered" id="references" class="unnumbered">References</h1>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
-<div id="ref-borenstein_introductionmetaanalysis_2011">
-<p>Borenstein, Michael, Larry V. Hedges, Julian P. T. Higgins, and Hannah R. Rothstein. 2011. <em>Introduction to Meta-Analysis</em>. John Wiley &amp; Sons. <a href="http://books.google.com?id=JQg9jdrq26wC">http://books.google.com?id=JQg9jdrq26wC</a>.</p>
+<div id="ref-dias2011nice">
+<p>Dias, Sofia, Nicky J Welton, Alex J Sutton, and AE Ades. 2011. “NICE Dsu Technical Support Document 2: A Generalised Linear Modelling Framework for Pairwise and Network Meta-Analysis of Randomised Controlled Trials.”</p>
 </div>
 <div id="ref-harrer_doingmetaanalysis_2019">
 <p>Harrer, Mathias, Prof Dr Pim Cuijpers², Prof Dr Toshi A. Furukawa³, and Assoc Prof Dr David D. Ebert². 2019. <em>Doing Meta-Analysis in R</em>. <a href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/">https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/</a>.</p>
 </div>
 <div id="ref-lumley_networkmetaanalysisindirect_2002">
 <p>Lumley, Thomas. 2002. “Network Meta-Analysis for Indirect Treatment Comparisons.” <em>Statistics in Medicine</em> 21 (16): 2313–24. <a href="https://doi.org/10.1002/sim.1201">https://doi.org/10.1002/sim.1201</a>.</p>
+</div>
+<div id="ref-statrethinkingbook">
+<p>McElreath, Richard. 2016. <em>Statistical Rethinking: A Bayesian Course with Examples in R and Stan</em>. CRC Press. <a href="http://xcelab.net/rm/statistical-rethinking/">http://xcelab.net/rm/statistical-rethinking/</a>.</p>
 </div>
 <div id="ref-phillippo_multilevelnetworkmetaregression_2020">
 <p>Phillippo, David M., Sofia Dias, A. E. Ades, Mark Belger, Alan Brnabic, Alexander Schacht, Daniel Saure, Zbigniew Kadziola, and Nicky J. Welton. 2020. “Multilevel Network Meta-Regression for Population-Adjusted Treatment Comparisons.” <em>Journal of the Royal Statistical Society: Series A (Statistics in Society)</em> 183 (3): 1189–1210. <a href="https://doi.org/10.1111/rssa.12579">https://doi.org/10.1111/rssa.12579</a>.</p>
@@ -2401,6 +1785,21 @@ parkinsons %&gt;% str()</code></pre>
   keywords = {controlled trial,meta-analysis,mixed model,random effects model},
   langid = {english},
   number = {16}
+}
+
+@book{statrethinkingbook,
+  title = {Statistical Rethinking: {{A}} Bayesian Course with Examples in {{R}} and Stan},
+  author = {McElreath, Richard},
+  date = {2016},
+  publisher = {{CRC Press}},
+  url = {http://xcelab.net/rm/statistical-rethinking/}
+}
+
+@article{dias2011nice,
+  title={NICE DSU technical support document 2: a generalised linear modelling framework for pairwise and network meta-analysis of randomised controlled trials},
+  author={Dias, Sofia and Welton, Nicky J and Sutton, Alex J and Ades, AE},
+  year={2011},
+  publisher={National Institute for Health and Clinical Excellence}
 }
 </script>
 <!--/radix_placeholder_appendices-->

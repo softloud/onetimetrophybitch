@@ -7,14 +7,14 @@ author:
     url: https://github.com/softloud/onetimetrophybitch
 date: 09-06-2020
 output:
-  # distill::distill_article:
-  #   self_contained: false
-  #   toc: true
-  html_document:
-    number_sections: true
+  distill::distill_article:
+    self_contained: false
     toc: true
-    toc_float: true
-    code_folding: show
+  # html_document:
+  #   number_sections: true
+  #   toc: true
+  #   toc_float: true
+  #   code_folding: show
 bibliography: references.bib
 ---
 
@@ -62,73 +62,29 @@ However, as this is a first deep dive into network meta-analysis, I will restric
 
 # Thinking through the theory
 
-In order to interpret the results produced by the algorithms provided by the packages investigated in this post, I need to ensure I have the conceptual understanding of the computational output. 
+
+In order to interpret the results produced by the algorithms provided by the packages investigated in this post, I need to ensure I have the conceptual understanding of the computational output. In particular, `multinma::` uses a Bayesian network meta-analysis approach, so I need to understand the structure of the model before I interpret my results. 
+
+## Meta-analysis
 
 Meta-analysis is a ultimately a form of regression, finding a line of best fit through the data. How this equation is solved is not the focus here, but, instead, unpacking the equational structure of a network meta-analysis, starting from linear regression. 
 
-## meta-analysis
-
-A meta-analysis is a special type of linear regression, wherein the response may be thought of as a [linear combination](https://en.wikipedia.org/wiki/Linear_combination) (a construction from set of terms multiplying each term by a constant and adding the results).  
-
-In a simple case of linear regression, we assume the response of interest, $y$, may be thought of in terms of grand mean $\beta_0$ and a covariate $x$ with coeffecicient $\beta_1$, 
-
+We assume we are solving some set of equations
 $$
-y = \beta_0 + \beta_1 x.
+\boldsymbol Y = \boldsymbol {\beta X} + \boldsymbol\varepsilon 
 $$
-
-and that observations $y_i$ differ slightly from this overall response effect by some sampling error, $\varepsilon \sim N(0, \sigma^2)$, so that, for the $i$th observation, we have  
+where $\varepsilon \sim N(0, \sigma^2)$, that is, we assume the following model form.
 $$
-y_i = B_0 + B_1 x + \varepsilon_i.
+\boldsymbol Y \sim N(\boldsymbol{\beta X}, \sigma)
 $$
-Where multiple covariates are to be considered, this construction is generalised to the matrix formula,
+In a random effects meta-analysis, we are interested in a specific effect $\mu$ and the magnitude of random variation $\gamma_k$ attributed to the $k$th study's deviance from $\mu$, as well as any number of covariates, $\boldsymbol{\beta X}$. So that
 $$
-\mathbf y = \mathbf {X\beta} + \mathbf{\varepsilon}.
+y_k \sim N(\mu + \gamma_k + \beta X, \sigma)\\
+\gamma_k \sim N(0, \tau^2)
 $$
-In a random effects model, instead of a coeffecient, a random effect is a term added to the equation that carries its own distribution, similar to the sampling error $\varepsilon$.
+where $\tau^2$ is the variability of the studies' deviance from $\mu$.
 
-A simplest case of a random-effects meta-analysis, without covariates we wish to control the response by, we consider $k = 1, ..., K$ studies' obesrvations in terms of a grand mean across studies, $\mu$ (taking the role of $\beta_0$ above), with a study-specific adjustment, $\theta_k \sim N(0, \tau^2)$, so that the observation for the $k$th study we have
-$$
-y_k = \mu + \theta_k + \varepsilon_k,
-$$
-with sampling error $\varepsilon_k \sim N(0, \sigma_k^2)$. 
-
-Note the error, $\varepsilon_k$, for the $k$th study is attributed an associated study-specific variance, $\sigma_k^2$, whereas $\tau^2$, the variance of $\theta_k$ is an aggregate measure of variation across all studies. 
-
-Meta-analysis model can be extended to meta-regression, with the addition of covariates, as with standard linear regression,
-$$
-y_k = \mu + \theta_k + \mathbf {\beta_k X} + \epsilon_k.
-$$
-That is, 
-
-\[
-\begin{array}{rcl}
-Y_k &\sim& N(\mu + \theta_k + \beta_kX, \sigma_k^2)\\
-\theta_k &\sim& N(0, \tau^2)
-\end{array}
-\]
-
-And, if $\beta_k$ are random, these, too, would have distributions.
-
-To further complicate matters, a meta-analysis is often a **pairwise comparison** between two groups, a control and and intervention group, with the central question, what is the difference in effect between the two groups across all studies? In this case, the response $y_k$, the aggregated effect $\mu$, and the random effect for variation of this study, $\theta_k$, all measure a pairwise comparison. The pairwise comparison chosen depends on the context of the response variable in question, such as a standardised mean difference (Cohen's $d$), or a bias-adjusted $d$ (Hedge's $g$), for continuous response variables. Similarly, for binary data, an appropriate measure of risk or odds ratios may be chosen [@borenstein_introductionmetaanalysis_2011].   
-
-In the interests of brevity, I'm not labouring the distinction between fixed and random covariates, but I'm sure my understanding could be clearer. This, however, seems a sufficient point from which to further my understanding of network meta-analysis. 
-
-I find this statistical nomenclature confusing. The random effect for the study, $\theta_k$, _is_ a coefficient, as it is indexed by $k$. This is a coefficient for a dummy variable $z_k$ that indicates the study,
-$$
-z_k = \begin{cases}
-1 & \text{if } k = k\\
-0 & \text{if } k \neq k
-\end{cases}
-$$
-
-So, we always have $y$ in terms of linear combination of $z$ and $x$ where we care about one variable $z$, and wish to control for the others $x$.
-$$
-y_k = \mu + \gamma_k z + \beta_k x + \varepsilon_k
-$$
-
-
-
-## network meta-analysis
+## Network meta-analysis
 
 Now, in network meta-analysis we have more than one treatment. The general idea is that we combine pairwise direct comparisons to form an indirect comparison. 
 
@@ -146,291 +102,31 @@ Y_{ijk} &\sim& \text{N}(\mu_i - \mu_j + \eta_{ik} + \eta_{jk} + \zeta_{ij}, \sig
 \end{array}
 \]
 
-Now, this is for an indirect comparison between two treatments, $i$ and $j$. So, what about 
-
-<!-- # Example: BCG vaccine -->
-
-<!-- The vignette  -->
-
-<!-- ```{r eval=FALSE} -->
-<!-- # launch vignette in Viewer Pane -->
-<!-- vignette("example_bcg_vaccine", "multinma") -->
-
-<!-- ``` -->
-
-<!-- opens with this unfamiliar command. -->
-
-<!-- ```{r} -->
-<!-- options(mc.cores = parallel::detectCores()) -->
-<!-- ``` -->
-<!-- <aside> -->
-<!-- My limited understanding is that R was developed for single-core usage. So, I presume this option creates a way some functions can make use of multicore processing. Does this option apply to all functions, or only specific ones that recognise this option has been set? -->
-<!-- </aside> -->
-
-<!-- With the library loaded, we can meta-analyse example datasets. -->
-
-<!-- ## BCG vaccine for tuberculosis example data -->
-
-<!-- The BCG vaccine for tuberculosis vignette analyses the `bcg_vaccine` dataset provided by `multinma::`. -->
-
-<!-- ```{r} -->
-<!-- # first few rows of data set  -->
-<!-- bcg_vaccine %>%  -->
-<!--     head() %>%  -->
-<!--     kable() -->
-
-<!-- ``` -->
-
-<!-- From an overview of the data, we see we have 6 columns, 26 rows, 5 numeric variables (columns) and 1 character column, `trtc` which identifies the group as unvaccinated or vaccinated, for a given study.   -->
-
-<!-- ```{r} -->
-<!-- # get an overview of the data -->
-<!-- bcg_vaccine %>%  -->
-<!--     skim() -->
-
-<!-- ``` -->
-
-<!-- From `bcg_vaccine`'s documentation, we learn that `r` is the number diagnosed with tuberculosis in the follow up period from a sample size of `n`. The latitude of the study is also provided, so comparisons can be made on the basis of the study's relative position within the global south and north. -->
-
-
-<!-- > The numbers of individuals diagnosed with TB in each arm during the study follow-up period are recorded [@phillippo_multilevelnetworkmetaregression_2020].  -->
-
-<!-- We can confirm there are two nodes in this network, that is, two interventions of interest, vaccinated and unvaccinated, for each study.  -->
-
-<!-- ```{r} -->
-<!-- bcg_vaccine %>%  -->
-<!--   count(trtc) -->
-
-<!-- ``` -->
-
-
-
-<!-- ## Set up the network -->
-
-<!-- Before modelling as a network meta-analysis, we convert the data to a `nma_data` object with `set_agd_arm`.   -->
-
-<!-- ```{r} -->
-<!-- bcg_net <- set_agd_arm( -->
-<!--     bcg_vaccine, -->
-<!--     study = "studyn", # which col has study -->
-<!--     trt = trtc, # which col indicates arm -->
-<!--     # these columns are specified bc it is a count outcome -->
-<!--     # i.e., binomial data -->
-<!--     r = r, # col w binomial "success" trials -->
-<!--     n = n, # col w binomial total trials -->
-<!--     trt_ref = "Unvaccinated" # set default level of trt -->
-<!-- )  -->
-
-<!-- # what do we get -->
-<!-- bcg_net -->
-
-<!-- # what is in this? -->
-<!-- stuff_in_net <- bcg_net %>% objects() -->
-<!-- stuff_in_net -->
-
-<!-- ``` -->
-
-<!-- Conventionally, in mathematical statistics, binomially distributed data is described in terms of "successful trials". However, in this case, perhaps it's more informative to think of this as the number of observed tuberculosis cases, out of the patients in a treatment group in a given study.  -->
-
-<!-- <blockquote class="twitter-tweet"><p lang="en" dir="ltr">What&#39;s another word for &quot;success&quot; in binomial trials? <br><br>In this case, it&#39;s number of people who have tuberculosis after treatment. There&#39;s nothing successful about that. <br><br>r = r, # col w binomial &quot;success&quot; trials<br> n = n, # col w binomial total trials</p>&mdash; Charles T. Gray ⚔ (@cantabile) <a href="https://twitter.com/cantabile/status/1301015558863745027?ref_src=twsrc%5Etfw">September 2, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>  -->
-
-<!-- Most of these objects are empty. The first item is an updated version of the original data, and extractions of the studies and treatments are also provided. Classes, ipd, and contrast do not appear to relevant to this network.  -->
-
-<!-- ```{r} -->
-
-<!-- # output everything contained in nma_data class bcg_net object -->
-<!-- stuff_in_net %>%  -->
-<!--     map(.f = function(thing){bcg_net %>% pluck(thing)}) %>%  -->
-<!--     set_names(stuff_in_net) -->
-
-<!-- ``` -->
-<!-- <aside> -->
-<!-- But what does the network look like? Is there an easy way to plot the underlying graph? -->
-
-<!-- Also, it's interesting from a research software engineering perspective to see how data can be prepared for a modelling function. Model components are extracted, such as `count` for response type, and levels of the treatment variable, in this case, 2 levels. The data are updated with variables that, presumably, the model function recognises. I assume these are the new variables of the form `.*`. -->
-<!-- </aside> -->
-
-<!-- ## Meta-analysis with no covariates -->
-
-<!-- One question we might ask of the data is given the results of all these studies, what proportion of treated patients still have tuberculosis? -->
-
-<!-- We fit a network meta-analysis model with a fit function.  -->
-
-<!-- ```{r} -->
-<!-- bcg_nma <- nma( -->
-<!--     bcg_net, -->
-<!--     trt_effects = "random", # specify fixed or random effects model -->
-<!--     prior_intercept = normal(scale = 100), -->
-<!--     prior_trt = normal(scale = 100), -->
-<!--     prior_het = half_normal(scale = 5) -->
-<!-- ) -->
-
-
-<!-- ``` -->
-
-<!-- In order to interpret the results, we describe the model.  -->
-
-<!-- Let $y_k$ denote the pairwise comparison between the unvaccinated and vaccinated groups, for the $k$th study. Then, we assume $y_k$ may be thought of in terms of the overall pairwise comparison, $\mu$, with an adjustment $\theta_k$. To this we add sampling error, $\varepsilon_k$, and, assume $\gamma$ denotes the treatment effect, a component of $\mu$.This provides the following system of assumptions. -->
-
-<!-- \[ -->
-<!-- \begin{array}{rcl} -->
-<!-- y_k & = & \mu + \theta_k + \varepsilon_k\\ -->
-<!-- \varepsilon_k &\sim& \text{normal}(0, \sigma_k^2)\\ -->
-<!-- \theta_k &\sim& \text{normal}(0, \tau^2)\\ -->
-<!-- \tau^2 &\sim& \textrm{halfnormal}(0, 5^2)\\ -->
-<!-- \mu &\sim& \text{normal}(0, 100^2)\\ -->
-<!-- \gamma_k &\sim& \text{normal}(0, 100^2) -->
-<!-- \end{array} -->
-<!-- \] -->
-
-
-<!-- > What is the standard pairwise comparison for a binomial measure?  -->
-
-<!-- > What is the prior on treatment? How to represent this in terms of model nomenclature? -->
-
-<!-- Now we can use the model nomenclature to interpret the results. -->
-
-<!-- ```{r} -->
-<!-- # take a look at the raw results -->
-<!-- bcg_nma -->
-
-<!-- ``` -->
-
-<!-- There is a handy function for comparison of the prior and posterior distributions. The prior distributions are displayed as lines, and posterior distributions as histograms.  -->
-
-<!-- ```{r priorpost} -->
-<!-- plot_prior_posterior(bcg_nma, prior = c("trt", "het")) -->
-<!-- ``` -->
-
-<!-- The straight lines make sense when we see the full density. -->
-
-<!-- ```{r prior plots} -->
-
-<!-- # visualisation function that takes a domain and a density with parameters   -->
-
-<!-- prior_plot <-  -->
-<!--   function(y_max,  -->
-<!--            density,  -->
-<!--            pars, -->
-<!--            x_min = -2, -->
-<!--            x_max = 2) { -->
-
-<!--     density_fn <- sprintf("d%s", density) %>% get() -->
-
-<!--   tibble::tibble( -->
-<!--     x = c(x_min, x_max) -->
-<!--   ) %>% -->
-<!--     ggplot(aes(x = x)) + -->
-<!--     stat_function(fun = density_fn, args = pars) + -->
-<!--    ylim(0, y_max) + -->
-<!--       labs( -->
-<!--         title = sprintf( -->
-<!--           "%s(%s)", -->
-<!--           dist_name(density), -->
-<!--           paste0(pars, collapse = ", ") -->
-<!--         ), -->
-<!--         subtitle = sprintf( -->
-<!--           "domain(%s, %s) & codomain(0, %g)", -->
-<!--           x_min, -->
-<!--           x_max, -->
-<!--           y_max -->
-<!--         ), -->
-<!--         y = NULL, -->
-<!--         x = NULL -->
-<!--         ) -->
-
-
-<!-- } -->
-
-
-<!-- ``` -->
-
-<!-- If we plot $N(0, 100^2)$, left, on a wide domain, we see our expected shape of the normal distribution. On the right, we constrain the domain and codomain of the plot by those of the prior posterior plots, we see this is, indeed, same distribution.  -->
-
-<!-- ```{r norm plots} -->
-
-<!-- prior_plot(0.005, "norm", list(0, 100), -500, 500) +  -->
-<!--   prior_plot(2, "norm", list(0, 100)) -->
-
-<!-- ``` -->
-
-<!-- The halfnormal distribution, however, does not match the prior/posterior figure generated by `multinma::`, and I'm not sure why. -->
-
-<!-- ```{r} -->
-
-<!-- prior_plot(4, "halfnorm", list(5)) + -->
-<!--   prior_plot(2, "halfnorm", list(5)) -->
-
-
-<!-- ``` -->
-
-<!-- In order to interpret these results -->
-
-
-
-<!-- ## Comparison with standard random effects model -->
-
-<!-- An immediate question with this dataset of only two treatments, thus no indirect comparison, is to compare the results of the network meta-analysis with those of a standard meta-analysis.  -->
-
-<!-- ```{r} -->
-<!-- # how to rma on binomial count data  -->
-<!-- # set measure = "OR" for log odds ratio -->
-<!-- rma_dat <-  -->
-<!-- bcg_vaccine %>%  -->
-<!--   select(-trtn) %>%  -->
-<!--   pivot_wider(id_cols = studyn,  -->
-<!--               names_from = trtc, -->
-<!--               names_glue ="{trtc}_{.value}",  -->
-<!--               values_from = c(latitude, r, n)) -->
-
-
-<!-- ``` -->
-
-
-<!-- ```{r} -->
-<!-- rma_dat %>%  -->
-<!--   escalc(x1i = Unvaccinated_r, x2i = Vaccinated_r, n1i = Unvaccinated_n, n2i = Vaccinated_n, measure = "OR", data = ., slab = studyn) -->
-
-
-<!-- ``` -->
-
-
-
-<!-- ## Threshold analysis -->
-
-<!-- Threshold analysis is a technique proposed for the interpretation of meta-analytic results. In this section, we explore threshold analysis with the `nmathresh::` package.  -->
-
-<!-- ### Toolchain walkthrough  -->
-
-<!-- The general syntax for a threshold analysis -->
-
-<!-- ```{r eval=FALSE} -->
-<!-- nma_thresh(mean.dk= d,lhood= V.data, post = V.est, X = X) -->
-<!-- ``` -->
-
-<!-- where `d` is a vector of the estimates for each treatment compared with the control. Likelihood is provided as a covariance matrix for the observed data.  -->
-
-
-
-<!-- ### General idea -->
-
-<!-- ## Meta-regression with latitude covariate -->
-
-<!-- The above analysis leaves out a piece of information, the latitude covariate. -->
-
-<!-- ```{r} -->
-<!-- bcg_vaccine %>%  -->
-<!--   str() -->
-
-<!-- ``` -->
-
-<!-- We can regress, updating the random effects model with a coefficient $\beta$ for latitude, by assuming -->
-<!-- $$ -->
-<!-- y_k = \mu + \theta_k + \beta x_{\text{latitude}} + \varepsilon_k.  -->
-<!-- $$ -->
-<!-- where $y_k$ denotes the  -->
-
-<!-- > todo binomial  -->
+Now, this is for an indirect comparison between two treatments, $i$ and $j$. It doesn't seem a great leap to infer that for $n$ treatments, there would be $n-1$ measures of difference $\mu$, and random effects associated with each of the pairwise components $\eta$, as will as a measure of inconsistency of this pair of treatments with $\zeta$ with the rest of the evidence. Certainly we have that the results is interpretated as a linear combination of treatment effects[@harrer_doingmetaanalysis_2019].
+
+## Bayesian network meta-analysis
+
+Since `multinma::` provides tools for Bayesian network meta-analysis [@phillippo_multilevelnetworkmetaregression_2020], we have the following model structure
+$$
+\boldsymbol y_{\cdot jk} = \pi_\text{Agg}(\boldsymbol\theta_{\cdot jk}),\\
+g(\boldsymbol\theta_{\cdot jk}) = \boldsymbol\mu_j + \boldsymbol\delta_{jk}
+$$
+
+where
+
+- $k$ denotes treatment, and $j$ denotes study
+- The subscript '$\cdot$' denotes an aggregate-level value.
+- $\boldsymbol y_{\cdot j k}$ denotes the summary outcomes
+- $\pi_\text{Agg}(\theta_{\cdot jk})$ denotes "suitable" likelhood for aggregate value $\theta_{\cdot jk}$
+- $\theta_{\cdot jk}$ is the expected summary outcome of treatment $k$ in the study $k$
+- the expected summary is linear transformed by the link function $g(\cdot)$
+- $\boldsymbol \mu_j$ represent the study-specific intercepts 
+- $\delta_{jk}$ is the study-specific relative effect of treatment $k$ versus treatment 1, for the $j$th study.
+
+Turning to Rethinking [@statrethinkingbook], we note that for parameter of interest $\theta$ observed for data observed $x$, we have the expected value of the posterior in terms of the likelihood and the prior, standardised by the expected value of $P(x|\theta)$, the probability of observing the data, given a value for the parameter $\theta$
+$$
+P(\theta) = E[P(x|\theta)] = \int P(x|\theta)P(\theta)dp
+$$
 
 
 # Example: Mean off-time reduction in Parkinson’s disease
@@ -453,7 +149,7 @@ parkinsons %>%
 ```
 
 
-## Parkisons dataset
+# Parkisons dataset
 
 This vignette uses the `parkinsons` dataset.
 
@@ -461,45 +157,42 @@ This vignette uses the `parkinsons` dataset.
 # take a look at the data
 parkinsons %>% head()
 
+# summary of the variables provided by these data
 parkinsons %>% str()
 
 ```
 
-Checking `?parkinsons` documentation, have a study variable `studyn`, a treatment variable `trtn`, a measure of effect `y`, and standard error of the effect, `se`, sample size `n`.
+From `?parkinsons` documentation, we know we have a study variable `studyn`, a treatment variable `trtn`, a measure of effect `y`, and standard error of the effect, `se`, sample size `n`.
 
 There is also the mean difference of the treatment in the reference arm `diff`, and the standard error of the mean difference `se_diff`. This provides three ways of meta-analysing the data.
 
 > This dataset may be analysed using either an arm-based likelihood using y and se, or a contrast-based likelihood using diff and se_diff (or a combination of the two across different studies) [@phillippo_multilevelnetworkmetaregression_2020].
 
-In this case, we have a continuous response variable.
+# Network meta-analysis model on Parkinsons data
 
-## Network meta-analysis model
+We have seven studies' results for pairwise comparisons of five treatments of interest for our continuous response measure, 
 
-We have five treatments of interest for our response measure, 
+> the mean off-time reduction in patients given dopamine agonists as adjunct therapy in Parkinson's disease from 7 trials comparing four active drugs and placebo [`?parkinsons` documentation; @phillippo_multilevelnetworkmetaregression_2020; data source @dias2011nice].
 
-> the mean off-time reduction in patients given dopamine agonists as adjunct therapy in Parkinson's disease from 7 trials comparing four active drugs and placebo [`?parkinsons` documentation, @phillippo_multilevelnetworkmetaregression_2020, todo Dias citation].
+# Understanding the Parkinsons model
 
-Since `multinma::` provides tools for Bayesian network meta-analysis, we have the following model structure
+Since our response variable in this case is continuous, the link function $g(\theta_{\cdot jk})$ is simply the identity. So we have 
 $$
-\boldsymbol y_{.jk} = \pi_\text{Agg}(\boldsymbol\theta_{.jk}),\\
-g(\boldsymbol\theta_{.jk}) = \boldsymbol\mu_j + \boldsymbol\delta_{jk}
+g(\theta_{\cdot jk}) = \mu_j + \delta_{jk} = \theta_{\cdot jk}
+$$
+with the response expected to follow a normally distributed outcome, then
+$$
+y_{\cdot jk} \sim \text{normal}(\mu_j + \delta_{jk}, \sigma^2)\\
+\mu_j \sim \text{normal}(0, 100^2)\\
+\delta_{jk} \sim \text{normal}(0, \tau^2)\\
+\tau \sim \text{halfnormal}(5)
 $$
 
-where
 
-- The subscript '$\cdot$' denotes an aggregate-level value.
-- $\pi_\text{Agg}(\theta_{.jk})$ denotes "suitable" likelhood for aggregate value $\theta_{.jk}$
-- $\theta_{.jk}$ is the expected summary outcome of treatment $k$ in the study $k$
-- the expected summary is transformed by the link function $g(\cdot)$
-- $\boldsymbol \mu$
-- 
 
-Now to apply this structure to the data we have in `parkinsons`.
+# Computing the model
 
 For an arm-based network meta-analysis, begin by converting the raw data to a network object. 
-
-Turning to Rethinking 
-
 
 ```{r}
 arm_net <-
@@ -515,6 +208,9 @@ arm_net <-
 # this is a network object
 class(arm_net)
 
+# take a look
+arm_net
+
 ```
 
 Now that we have a network object, we can inspect the relationships between the treatments where studies provide comparisons. Here we see there are pairwise comparisons between many of the treatments. In particular, treatment 3 and treatment 5 have not been compared directly, nor have treatment 2 and treatment 3. 
@@ -525,11 +221,41 @@ plot(arm_net)
 
 ```
 
-The number of studies measure must be relational. 
+> The number of studies measure must be relational. But what does it mean, inspect the documentation. 
+
+We fit a random effects model with assumptions $\textrm{normal}(0, 100^2)$ prior distributions for the treatment effect $d_k$ and study-specific intercepts $\mu_j$, we use $\textrm{halfnormal(5^2)}$. The ranges of these prior distributions can be examined.
+
+```{r}
+summary(normal(scale = 100))
+summary(half_normal(scale = 5))
+
+```
 
 
 
-## Threshold analysis
+
+```{r message=FALSE}
+# now to fit the racchendom-effects model
+arm_fit_RE <- nma(arm_net, 
+                  seed = 379394727,
+                  trt_effects = "random",
+                  prior_intercept = normal(scale = 100),
+                  prior_trt = normal(scale = 100),
+                  prior_het = half_normal(scale = 5),
+                  adapt_delta = 0.99)
+
+```
+
+A warning is generated, prompting us to 
+
+
+```{r}
+pairs(arm_fit_RE, pars = c("mu[4]", "d[3]", "delta[4: 3]", "tau"))
+```
+
+
+
+# Threshold analysis of network model
 
 
 
