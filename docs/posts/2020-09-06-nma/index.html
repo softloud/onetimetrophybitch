@@ -1458,7 +1458,7 @@ plot(arm_net, weight_edges = FALSE)</code></pre>
 </div>
 <p>We can see the model will be creating indirect comparisons between treatments such 2 and 3, using the direct evidence in studies that compare 1 and 3, as well as 1 and 2.</p>
 <h1 id="network-meta-analysis-1">network meta-analysis</h1>
-<p>The code to fit the</p>
+<p>We run the following code to fit a random-effects network meta-analysis model.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 arm_fit_re &lt;- nma(arm_net, 

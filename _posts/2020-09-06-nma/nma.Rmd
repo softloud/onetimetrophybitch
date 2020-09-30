@@ -137,7 +137,7 @@ We can see the model will be creating indirect comparisons between treatments su
 
 # network meta-analysis
 
-The code to fit the 
+We run the following code to fit a random-effects network meta-analysis model. 
 
 ```{r eval=FALSE}
 arm_fit_re <- nma(arm_net, 
