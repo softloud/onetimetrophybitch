@@ -1,0 +1,342 @@
+%>% %>% %>% %>% %>% ---
+title: "nma"
+description: |
+  Work in progress.
+author:
+  - name: Charles T. Gray
+    url: https://github.com/softloud/onetimetrophybitch
+date: 09-06-2020
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+  # html_document:
+  #   number_sections: true
+  #   toc: true
+  #   toc_float: true
+  #   code_folding: show
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+ cache = TRUE,
+  echo = TRUE)
+```
+
+
+```{r message=FALSE}
+# packages used in this blogpost
+
+# general purpose
+library(tidyverse) 
+library(kableExtra) # tables
+library(skimr) # summary
+library(patchwork) # vis + vis
+
+# toolchain walkthrough
+library(multinma) # network meta-analysis
+library(nmathresh) # threshold analysis
+library(metafor) # for (non network) meta-analysis
+
+# special purpose
+library(fdrtool) # for halfnormal distribution
+library(simeta) # borrowing some handy functions 
+# note: should port these to my helper functions pkg
+
+# for reproducibility
+set.seed(40)
+
+```
+
+# Introduction
+
+Network meta-analysis is a statistical method for aggregating multiple pairwise comparisons on a response of interest. For example, perhaps three studies propose different treatments for a particular medical condition, network meta-analysis enables us to indirectly compare the treatments' effect. Network meta-analysis is a technique for identifying _which_ treatments are more effective than others, rather than _whether_ a treatment is effective [@harrer_doingmetaanalysis_2019]. 
+
+There are several vignettes provided by the package `multinma::` [@phillippo_multilevelnetworkmetaregression_2020], prompting many questions. What different techniques do the vignettes demonstrate? How to perform an nma? And what is the underlying theory?
+
+However, as this is a first deep dive into network meta-analysis, I will restrict myself to the goals:
+
+1. Provide an opinionated toolchain walkthrough of network meta-analysis.
+2. Interpret the results using threshold analysis.
+
+# Thinking through the theory
+
+
+In order to interpret the results produced by the algorithms provided by the packages investigated in this post, I need to ensure I have the conceptual understanding of the computational output. In particular, `multinma::` uses a Bayesian network meta-analysis approach, so I need to understand the structure of the model before I interpret my results. 
+
+## Meta-analysis
+
+Meta-analysis is a ultimately a form of regression, finding a line of best fit through the data. How this equation is solved is not the focus here, but, instead, unpacking the equational structure of a network meta-analysis, starting from linear regression. 
+
+We assume we are solving some set of equations
+$$
+\boldsymbol Y = \boldsymbol {\beta X} + \boldsymbol\varepsilon 
+$$
+where $\varepsilon \sim N(0, \sigma^2)$, that is, we assume the following model form.
+$$
+\boldsymbol Y \sim N(\boldsymbol{\beta X}, \sigma)
+$$
+In a random effects meta-analysis, we are interested in a specific effect $\mu$ and the magnitude of random variation $\gamma_k$ attributed to the $k$th study's deviance from $\mu$, as well as any number of covariates, $\boldsymbol{\beta X}$. So that
+$$
+y_k \sim N(\mu + \gamma_k + \beta X, \sigma_k)\\
+\gamma_k \sim N(0, \tau^2)
+$$
+where $\tau^2$ is the variability of the studies' deviance from $\mu$.
+
+## Network meta-analysis
+
+Now, in network meta-analysis we have more than one treatment. The general idea is that we combine pairwise direct comparisons to form an indirect comparison. 
+
+Starting with the simplest case of combining two pairwise comparisons, a think of this is with treatments A, B, and C [@lumley_networkmetaanalysisindirect_2002]. We denote $\delta_{XY}$ as the comparison between X and Y, with a positive value of $\delta$ indicating a higher outcome for Y than X, and a negative value of $\delta$ indicates a lower outcome for Y than X. If we have direct comparisons $\delta_{AC}$ and $\delta_{CB}$, we can construct an indirect comparison of differences.
+$$
+\delta_{AB} = \delta_{AC} + \delta_{CB}
+$$
+Continuing along with Lumley, we let $i$ and $j$ denote treatments compared by $Y_{ij}$. Since $i$ and $j$ have average true effects $\mu_i$ and $\mu_j$, we have $\delta_{ij} = \mu_i - \mu_j$. Where there was one random effect for the heterogeneity of treatment effect in a standard meta-analysis, there are now two random effects, $\eta_{ik}$ and $\eta_{jk}$ with variance $\tau^2$, for the difference betwteen the average effects of treatments $i$ and $j$ in this study. Another random effect $\zeta_{ij}$ is added to capture 'the inconsistency of this pair of treatments with the rest of the evidence'. The *incoherence* of the network is $\omega = \text{var}(\zeta)$. With these we have the formal model.
+
+\[
+\begin{array}{rcl}
+Y_{ijk} &\sim& \text{N}(\mu_i - \mu_j + \eta_{ik} + \eta_{jk} + \zeta_{ij}, \sigma^2_{ijk})\\
+\eta_{ij} &\sim& N(0, \tau^2)\\
+\zeta_{ij} &\sim& N(0, \omega)
+\end{array}
+\]
+
+Now, this is for an indirect comparison between two treatments, $i$ and $j$. It doesn't seem a great leap to infer that for $n$ treatments, there would be $n-1$ measures of difference $\mu$, and random effects associated with each of the pairwise components $\eta$, as will as a measure of inconsistency of this pair of treatments with $\zeta$ with the rest of the evidence. Certainly we have that the results is interpretated as a linear combination of treatment effects[@harrer_doingmetaanalysis_2019].
+
+## Bayesian network meta-analysis
+
+Since `multinma::` provides tools for Bayesian network meta-analysis [@phillippo_multilevelnetworkmetaregression_2020], we have the following model structure
+$$
+\boldsymbol y_{\cdot jk} = \pi_\text{Agg}(\boldsymbol\theta_{\cdot jk}),\\
+g(\boldsymbol\theta_{\cdot jk}) = \boldsymbol\mu_j + \boldsymbol\delta_{jk}
+$$
+
+where
+
+- $k$ denotes treatment, and $j$ denotes study
+- The subscript '$\cdot$' denotes an aggregate-level value.
+- $\boldsymbol y_{\cdot j k}$ denotes the summary outcomes
+- $\pi_\text{Agg}(\theta_{\cdot jk})$ denotes "suitable" likelhood for aggregate value $\theta_{\cdot jk}$
+- $\theta_{\cdot jk}$ is the expected summary outcome of treatment $k$ in the study $k$
+- the expected summary is linear transformed by the link function $g(\cdot)$
+- $\boldsymbol \mu_j$ represent the study-specific intercepts 
+- $\delta_{jk}$ is the study-specific relative effect of treatment $k$ versus treatment 1, for the $j$th study.
+
+Turning to Rethinking [@statrethinkingbook], we note that for parameter of interest $\theta$ observed for data observed $x$, we have the expected value of the posterior in terms of the likelihood and the prior, standardised by the expected value of $P(x|\theta)$, the probability of observing the data, given a value for the parameter $\theta$ we solve for the posterior distribution $P(\theta|x)$, 
+\[
+\begin{array}{rrcl}
+&\text{posterior}  &=& \frac{\text{likelihood}\ \times\ \text{prior}}{\text{Average likelihood}}\\
+\equiv &P(\theta|x) &=& \frac{P(x|\theta) P(x)}{P(\theta)}
+\end{array}
+\]
+where
+$$
+P(\theta) = E[P(x|\theta)] = \int P(x|\theta)P(\theta)dp
+$$
+
+
+# Example: Mean off-time reduction in Parkinson’s disease
+
+Now, for an example of a dataset that has network with at least three nodes.
+
+```{r eval=FALSE}
+vignette("example_parkinsons", "multinma")
+
+```
+
+Find out how many nodes are in this network.
+
+```{r}
+parkinsons %>%
+  # extract treatment variable
+  pull(trtn) %>% 
+  # count distinct treatment types
+  n_distinct()
+```
+
+
+# Parkisons dataset
+
+This vignette uses the `parkinsons` dataset.
+
+```{r}
+# take a look at the data
+parkinsons %>% head()
+
+# summary of the variables provided by these data
+parkinsons %>% str()
+
+```
+
+From `?parkinsons` documentation, we know we have a study variable `studyn`, a treatment variable `trtn`, a measure of effect `y`, and standard error of the effect, `se`, sample size `n`.
+
+There is also the mean difference of the treatment in the reference arm `diff`, and the standard error of the mean difference `se_diff`. This provides three ways of meta-analysing the data.
+
+> This dataset may be analysed using either an arm-based likelihood using y and se, or a contrast-based likelihood using diff and se_diff (or a combination of the two across different studies) [@phillippo_multilevelnetworkmetaregression_2020].
+
+Our objective is to identify the 
+
+# Network meta-analysis model on Parkinsons data
+
+- [ ] intro
+- [ ] computationally do, easy bit
+- [ ] what does it mean?
+- [ ] what does it do?
+
+We have seven studies' results for pairwise comparisons of five treatments of interest for our continuous response measure, 
+
+> the mean off-time reduction in patients given dopamine agonists as adjunct therapy in Parkinson's disease from 7 trials comparing four active drugs and placebo [`?parkinsons` documentation; @phillippo_multilevelnetworkmetaregression_2020; data source @dias2011nice].
+
+We wish to synthesise the direct evidence we have to create indirect comparisons, allowing us to compare all treatments. 
+
+In the following sections, I attempt to apply the theory to this particular problem, then compute the model, and, finally, use threshold analysis to generate a sense of confidence in the results.
+
+Since our response variable in this case is continuous, the link function $g(\theta_{\cdot jk})$ is simply the identity. So we have 
+$$
+g(\theta_{\cdot jk}) = \mu_j + \delta_{jk} = \theta_{\cdot jk}
+$$
+with the response expected to follow a normally distributed outcome, then
+$$
+y_{\cdot jk} \sim \text{normal}(\mu_j + \delta_{jk}, \sigma_k^2)\\
+\mu_j \sim \text{normal}(0, 100^2) \qquad \text{not sure about this}\\
+\delta_{jk} \sim \text{normal}(0, \tau^2) \qquad \text{or this}\\
+\tau \sim \text{halfnormal}(5)
+$$
+
+> Not sure if this is correct. Don't feel confident connecting the Bayesian structure in Rethinking. 
+
+# Computing the model
+
+For an arm-based network meta-analysis, begin by converting the raw data to a network object. 
+
+```{r}
+arm_net <-
+  set_agd_arm(
+    parkinsons,
+    study = studyn,
+    trt = trtn,
+    y = y,
+    se = se,
+    sample_size = n
+  )
+
+# this is a network object
+class(arm_net)
+
+# take a look
+arm_net
+
+```
+
+Now that we have a network object, we can inspect the relationships between the treatments where studies provide comparisons. Here we see there are pairwise comparisons between many of the treatments. In particular, treatment 3 and treatment 5 have not been compared directly, nor have treatment 2 and treatment 3. 
+
+```{r fig.height=5}
+
+plot(arm_net)
+
+```
+
+> The number of studies measure must be relational. But what does it mean, inspect the documentation. 
+
+We fit a random effects model with assumptions $\textrm{normal}(0, 100^2)$ prior distributions for the treatment effect $d_k$ and study-specific intercepts $\mu_j$, we use $\textrm{halfnormal(5^2)}$. The ranges of these prior distributions can be examined.
+
+```{r}
+summary(normal(scale = 100))
+summary(half_normal(scale = 5))
+
+```
+
+
+
+
+```{r message=FALSE,eval=FALSE}
+# now to fit the random-effects model
+arm_fit_RE <- nma(arm_net, 
+                  seed = 379394727,
+                  trt_effects = "random",
+                  prior_intercept = normal(scale = 100),
+                  prior_trt = normal(scale = 100),
+                  prior_het = half_normal(scale = 5),
+                  adapt_delta = 0.99)
+
+```
+
+```{r echo=FALSE}
+# now to fit the random-effects model
+# this is a hack because I can't fix how chatty the chunk is
+arm_fit_RE <- nma(arm_net, 
+                  seed = 379394727,
+                  trt_effects = "random",
+                  prior_intercept = normal(scale = 100),
+                  prior_trt = normal(scale = 100),
+                  prior_het = half_normal(scale = 5),
+                  adapt_delta = 0.99)
+
+```
+
+
+A warning is generated, 
+
+```
+Warning messages:
+1: There were 15 divergent transitions after warmup. Increasing adapt_delta above 0.99 may help. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup 
+2: Examine the pairs() plot to diagnose sampling problems
+ 
+```
+prompting us to examine the pairwise fits.
+
+```{r}
+pairs(arm_fit_RE, pars = c("mu[4]", "d[3]", "delta[4: 3]", "tau"))
+```
+
+There are some "divergent transition errors", indicated by red crosses, in the posterior distribution. 
+
+
+```{r}
+
+# show treatment estimates
+arm_fit_RE
+```
+
+
+```{r}
+plot_prior_posterior(arm_fit_RE)
+```
+
+We can investigate the impact of these divergences by checking the model fit. 
+
+```{r}
+# 
+dic_RE <- dic(arm_fit_RE)
+
+dic_RE
+```
+
+Parkinson's vignette indicates that as the posterior mean residual deviance is close to the number of data points [@phillippo_multinmanetworkmetaanalysis_2020], and so this model is a good fit for the data.
+<aside>
+It would be nice to look into why.
+</aside>
+
+
+# Threshold analysis of network model
+
+- [x] intro
+- [ ] computationally do, easy bit
+- [ ] what does it mean?
+- [ ] what does it do?
+
+Threshold analysis provides a more robust method of assessing confidence in recommendations based on network meta-analysis than the widely-used GRADE framework [@phillippo_thresholdanalysisalternative_2019]. The typical results of a network meta-analysis is a 'consistent set of treatment estimates so that coherent recommendations may be made', however there are many reasons we may question the strength of the evidence. In the case of the Parkinsons dataset, we have an estimate of the laudifference of a particular treatment on the mean off-time reduction in patients given dopamine agonists as adjunct therapy, from the default treatment.
+
+> Threshold analysis quantifies precisely how
+much the evidence could change (for any reason, such as potential biases or simply sampling
+variation) before the recommendation changes, and what the revised recommendation would be. If
+it is judged that the evidence could not plausibly change by more than this amount then the recommendation is considered robust, otherwise the recommendation is sensitive to plausible
+changes in the evidence [@phillippo_thresholdanalysisalternative_2019].
+
+Threshold analyses are performed at both study level and at contrast level, in either case the result is a set of thresholds that show how much the data point can change before the recommendation changes. We will do a contrast-level threshold analysis on the Parkinsons dataset. 
+
+
+# References
+

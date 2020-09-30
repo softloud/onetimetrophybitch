@@ -43,7 +43,7 @@
 
 <!--/radix_placeholder_meta_tags-->
   
-  <meta name="citation_reference" content="citation_title=Multilevel network meta-regression for population-adjusted treatment comparisons;citation_publication_date=2020;citation_volume=183;citation_doi=10.1111/rssa.12579;citation_issn=1467-985X;citation_author=David M. Phillippo;citation_author=Sofia Dias;citation_author=A. E. Ades;citation_author=Mark Belger;citation_author=Alan Brnabic;citation_author=Alexander Schacht;citation_author=Daniel Saure;citation_author=Zbigniew Kadziola;citation_author=Nicky J. Welton"/>
+  <meta name="citation_reference" content="citation_title=Doing Meta-Analysis in R;citation_publication_date=2019;citation_author=Mathias Harrer;citation_author=Prof Dr Pim Cuijpers²;citation_author=Prof Dr Toshi A. Furukawa³;citation_author=Assoc Prof Dr David D. Ebert²"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
@@ -52,7 +52,7 @@
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["nma_files/bowser-1.9.3/bowser.min.js","nma_files/distill-2.2.21/template.v2.js","nma_files/figure-html/norm plots-1.png","nma_files/figure-html/prior plots-1.png","nma_files/figure-html/prior plots-2.png","nma_files/figure-html/priorpost-1.png","nma_files/figure-html/unnamed-chunk-10-1.png","nma_files/figure-html/unnamed-chunk-11-1.png","nma_files/figure-html/unnamed-chunk-12-1.png","nma_files/figure-html/unnamed-chunk-12-2.png","nma_files/figure-html/unnamed-chunk-6-1.png","nma_files/figure-html/unnamed-chunk-9-1.png","nma_files/figure-html5/norm plots-1.png","nma_files/figure-html5/priorpost-1.png","nma_files/figure-html5/unnamed-chunk-10-1.png","nma_files/figure-html5/unnamed-chunk-11-1.png","nma_files/figure-html5/unnamed-chunk-12-1.png","nma_files/figure-html5/unnamed-chunk-12-2.png","nma_files/figure-html5/unnamed-chunk-6-1.png","nma_files/figure-html5/unnamed-chunk-8-1.png","nma_files/figure-html5/unnamed-chunk-9-1.png","nma_files/header-attrs-2.3/header-attrs.js","nma_files/jquery-1.11.3/jquery.min.js","nma_files/webcomponents-2.0.0/webcomponents.js","references.bib"]}
+  {"type":"character","attributes":{},"value":["nma_files/bowser-1.9.3/bowser.min.js","nma_files/distill-2.2.21/template.v2.js","nma_files/figure-html/norm plots-1.png","nma_files/figure-html/prior plots-1.png","nma_files/figure-html/prior plots-2.png","nma_files/figure-html/priorpost-1.png","nma_files/figure-html/unnamed-chunk-10-1.png","nma_files/figure-html/unnamed-chunk-11-1.png","nma_files/figure-html/unnamed-chunk-12-1.png","nma_files/figure-html/unnamed-chunk-12-2.png","nma_files/figure-html/unnamed-chunk-6-1.png","nma_files/figure-html/unnamed-chunk-9-1.png","nma_files/figure-html5/norm plots-1.png","nma_files/figure-html5/priorpost-1.png","nma_files/figure-html5/unnamed-chunk-10-1.png","nma_files/figure-html5/unnamed-chunk-11-1.png","nma_files/figure-html5/unnamed-chunk-12-1.png","nma_files/figure-html5/unnamed-chunk-12-2.png","nma_files/figure-html5/unnamed-chunk-3-1.png","nma_files/figure-html5/unnamed-chunk-4-1.png","nma_files/figure-html5/unnamed-chunk-6-1.png","nma_files/figure-html5/unnamed-chunk-7-1.png","nma_files/figure-html5/unnamed-chunk-8-1.png","nma_files/figure-html5/unnamed-chunk-9-1.png","nma_files/header-attrs-2.3/header-attrs.js","nma_files/jquery-1.11.3/jquery.min.js","nma_files/webcomponents-2.0.0/webcomponents.js","nma-3rd-draft_files/figure-html/unnamed-chunk-2-1.png","nma-3rd-draft_files/figure-html/unnamed-chunk-6-1.png","references.bib"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 
@@ -1339,20 +1339,17 @@ presentations
 <h3 class="d-toc-header">Table of Contents</h3>
 <nav class="d-toc" id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#thinking-through-the-theory">Thinking through the theory</a>
+<li><a href="#network-meta-analysis">network meta-analysis</a></li>
+<li><a href="#thinking-through-the-theory">thinking through the theory</a>
 <ul>
-<li><a href="#meta-analysis">Meta-analysis</a></li>
-<li><a href="#network-meta-analysis">Network meta-analysis</a></li>
+<li><a href="#linear-regression">linear regression</a></li>
+<li><a href="#meta-regression">meta-regression</a></li>
 <li><a href="#bayesian-network-meta-analysis">Bayesian network meta-analysis</a></li>
 </ul></li>
-<li><a href="#example-mean-off-time-reduction-in-parkinsons-disease">Example: Mean off-time reduction in Parkinson’s disease</a></li>
-<li><a href="#parkisons-dataset">Parkisons dataset</a></li>
-<li><a href="#network-meta-analysis-model-on-parkinsons-data">Network meta-analysis model on Parkinsons data</a></li>
-<li><a href="#understanding-the-parkinsons-model">Understanding the Parkinsons model</a></li>
-<li><a href="#computing-the-model">Computing the model</a></li>
-<li><a href="#threshold-analysis-of-network-model">Threshold analysis of network model</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#example-dataset-parkinsons">example dataset: parkinsons</a></li>
+<li><a href="#network-meta-analysis-1">network meta-analysis</a></li>
+<li><a href="#threshold-analysis">threshold analysis</a></li>
+<li><a href="#references">references</a></li>
 </ul>
 </nav>
 <hr class="d-toc-separator"/>
@@ -1379,141 +1376,59 @@ library(simeta) # borrowing some handy functions
 # for reproducibility
 set.seed(40)</code></pre>
 </div>
-<h1 id="introduction">Introduction</h1>
+<h1 id="network-meta-analysis">network meta-analysis</h1>
 <p>Network meta-analysis is a statistical method for aggregating multiple pairwise comparisons on a response of interest. For example, perhaps three studies propose different treatments for a particular medical condition, network meta-analysis enables us to indirectly compare the treatments’ effect. Network meta-analysis is a technique for identifying <em>which</em> treatments are more effective than others, rather than <em>whether</em> a treatment is effective <span class="citation" data-cites="harrer_doingmetaanalysis_2019">(Harrer et al. <a href="#ref-harrer_doingmetaanalysis_2019" role="doc-biblioref">2019</a>)</span>.</p>
-<p>There are several vignettes provided by the package <code>multinma::</code> <span class="citation" data-cites="phillippo_multilevelnetworkmetaregression_2020">(Phillippo et al. <a href="#ref-phillippo_multilevelnetworkmetaregression_2020" role="doc-biblioref">2020</a>)</span>, prompting many questions. What different techniques do the vignettes demonstrate? How to perform an nma? And what is the underlying theory?</p>
-<p>However, as this is a first deep dive into network meta-analysis, I will restrict myself to the goals:</p>
-<ol type="1">
-<li>Provide an opinionated toolchain walkthrough of network meta-analysis.</li>
-<li>Interpret the results using threshold analysis.</li>
-</ol>
-<h1 id="thinking-through-the-theory">Thinking through the theory</h1>
-<p>In order to interpret the results produced by the algorithms provided by the packages investigated in this post, I need to ensure I have the conceptual understanding of the computational output. In particular, <code>multinma::</code> uses a Bayesian network meta-analysis approach, so I need to understand the structure of the model before I interpret my results.</p>
-<h2 id="meta-analysis">Meta-analysis</h2>
-<p>Meta-analysis is a ultimately a form of regression, finding a line of best fit through the data. How this equation is solved is not the focus here, but, instead, unpacking the equational structure of a network meta-analysis, starting from linear regression.</p>
-<p>We assume we are solving some set of equations <span class="math display">\[
-\boldsymbol Y = \boldsymbol {\beta X} + \boldsymbol\varepsilon 
-\]</span> where <span class="math inline">\(\varepsilon \sim N(0, \sigma^2)\)</span>, that is, we assume the following model form. <span class="math display">\[
-\boldsymbol Y \sim N(\boldsymbol{\beta X}, \sigma)
-\]</span> In a random effects meta-analysis, we are interested in a specific effect <span class="math inline">\(\mu\)</span> and the magnitude of random variation <span class="math inline">\(\gamma_k\)</span> attributed to the <span class="math inline">\(k\)</span>th study’s deviance from <span class="math inline">\(\mu\)</span>, as well as any number of covariates, <span class="math inline">\(\boldsymbol{\beta X}\)</span>. So that <span class="math display">\[
-y_k \sim N(\mu + \gamma_k + \beta X, \sigma)\\
-\gamma_k \sim N(0, \tau^2)
-\]</span> where <span class="math inline">\(\tau^2\)</span> is the variability of the studies’ deviance from <span class="math inline">\(\mu\)</span>.</p>
-<h2 id="network-meta-analysis">Network meta-analysis</h2>
-<p>Now, in network meta-analysis we have more than one treatment. The general idea is that we combine pairwise direct comparisons to form an indirect comparison.</p>
-<p>Starting with the simplest case of combining two pairwise comparisons, a think of this is with treatments A, B, and C <span class="citation" data-cites="lumley_networkmetaanalysisindirect_2002">(Lumley <a href="#ref-lumley_networkmetaanalysisindirect_2002" role="doc-biblioref">2002</a>)</span>. We denote <span class="math inline">\(\delta_{XY}\)</span> as the comparison between X and Y, with a positive value of <span class="math inline">\(\delta\)</span> indicating a higher outcome for Y than X, and a negative value of <span class="math inline">\(\delta\)</span> indicates a lower outcome for Y than X. If we have direct comparisons <span class="math inline">\(\delta_{AC}\)</span> and <span class="math inline">\(\delta_{CB}\)</span>, we can construct an indirect comparison of differences. <span class="math display">\[
-\delta_{AB} = \delta_{AC} + \delta_{CB}
-\]</span> Continuing along with Lumley, we let <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> denote treatments compared by <span class="math inline">\(Y_{ij}\)</span>. Since <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> have average true effects <span class="math inline">\(\mu_i\)</span> and <span class="math inline">\(\mu_j\)</span>, we have <span class="math inline">\(\delta_{ij} = \mu_i - \mu_j\)</span>. Where there was one random effect for the heterogeneity of treatment effect in a standard meta-analysis, there are now two random effects, <span class="math inline">\(\eta_{ik}\)</span> and <span class="math inline">\(\eta_{jk}\)</span> with variance <span class="math inline">\(\tau^2\)</span>, for the difference betwteen the average effects of treatments <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> in this study. Another random effect <span class="math inline">\(\zeta_{ij}\)</span> is added to capture ‘the inconsistency of this pair of treatments with the rest of the evidence’. The <em>incoherence</em> of the network is <span class="math inline">\(\omega = \text{var}(\zeta)\)</span>. With these we have the formal model.</p>
+<p>In this toolchain walkthrough [cite], I computationally step through the packages <code>multinma::</code> and <code>nnathresh</code> for a network meta-analysis with threshold analysis.</p>
+<h1 id="thinking-through-the-theory">thinking through the theory</h1>
+<p>Lots of puzzle pieces. Bayesian network meta-analysis is a form of meta-analysis, and meta-analysis is form of linear regression. We solve for a line of best fit. How do we describe this particular line?</p>
+<h2 id="linear-regression">linear regression</h2>
 <p><span class="math display">\[
-\begin{array}{rcl}
-Y_{ijk} &amp;\sim&amp; \text{N}(\mu_i - \mu_j + \eta_{ik} + \eta_{jk} + \zeta_{ij}, \sigma^2_{ijk})\\
-\eta_{ij} &amp;\sim&amp; N(0, \tau^2)\\
-\zeta_{ij} &amp;\sim&amp; N(0, \omega)
-\end{array}
+y \sim \text{normal}(BX, \sigma^2)
 \]</span></p>
-<p>Now, this is for an indirect comparison between two treatments, <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>. It doesn’t seem a great leap to infer that for <span class="math inline">\(n\)</span> treatments, there would be <span class="math inline">\(n-1\)</span> measures of difference <span class="math inline">\(\mu\)</span>, and random effects associated with each of the pairwise components <span class="math inline">\(\eta\)</span>, as will as a measure of inconsistency of this pair of treatments with <span class="math inline">\(\zeta\)</span> with the rest of the evidence. Certainly we have that the results is interpretated as a linear combination of treatment effects<span class="citation" data-cites="harrer_doingmetaanalysis_2019">(Harrer et al. <a href="#ref-harrer_doingmetaanalysis_2019" role="doc-biblioref">2019</a>)</span>.</p>
+<h2 id="meta-regression">meta-regression</h2>
+<p>For the <span class="math inline">\(k\)</span>th study’s effect, for a random effects model, we assume</p>
+<p><span class="math display">\[
+y_k \sim \text{normal}(\mu + u_k, \sigma_k^2)\\
+u_k \sim \text{normal}(0, \tau^2)
+\]</span></p>
 <h2 id="bayesian-network-meta-analysis">Bayesian network meta-analysis</h2>
-<p>Since <code>multinma::</code> provides tools for Bayesian network meta-analysis <span class="citation" data-cites="phillippo_multilevelnetworkmetaregression_2020">(Phillippo et al. <a href="#ref-phillippo_multilevelnetworkmetaregression_2020" role="doc-biblioref">2020</a>)</span>, we have the following model structure <span class="math display">\[
-\boldsymbol y_{\cdot jk} = \pi_\text{Agg}(\boldsymbol\theta_{\cdot jk}),\\
-g(\boldsymbol\theta_{\cdot jk}) = \boldsymbol\mu_j + \boldsymbol\delta_{jk}
+<p>Since <code>multinma::</code> provides tools for Bayesian network meta-analysis, our computational model solves for the posterior, providing the probability of the parameter of interest, <span class="math inline">\(\theta\)</span>, given the data, <span class="math inline">\(x\)</span>, <span class="math display">\[
+P(\theta|x) = \frac{P(x|\theta)P(\theta)}{P(x)}.
+\]</span> And, using the nomeclature of the documentation in <code>::nma_thresh</code>, for random-effects model, we have priors <span class="math display">\[
+d \sim \text{normal}(d_0, \Sigma_d)\\
+\mu \sim \text{normal}(\mu_0, \Sigma_\mu)\\
+\]</span> and likelihood <span class="math display">\[
+y\ |\ d,\mu, \tau^2 \sim \text{normal}(L\delta + M\mu, V)\\
+\]</span> with random effect <span class="math display">\[
+\delta \sim \text{normal}(Xd, \tau^2)
 \]</span></p>
-<p>where</p>
-<ul>
-<li><span class="math inline">\(k\)</span> denotes treatment, and <span class="math inline">\(j\)</span> denotes study</li>
-<li>The subscript ‘<span class="math inline">\(\cdot\)</span>’ denotes an aggregate-level value.</li>
-<li><span class="math inline">\(\boldsymbol y_{\cdot j k}\)</span> denotes the summary outcomes</li>
-<li><span class="math inline">\(\pi_\text{Agg}(\theta_{\cdot jk})\)</span> denotes “suitable” likelhood for aggregate value <span class="math inline">\(\theta_{\cdot jk}\)</span></li>
-<li><span class="math inline">\(\theta_{\cdot jk}\)</span> is the expected summary outcome of treatment <span class="math inline">\(k\)</span> in the study <span class="math inline">\(k\)</span></li>
-<li>the expected summary is linear transformed by the link function <span class="math inline">\(g(\cdot)\)</span></li>
-<li><span class="math inline">\(\boldsymbol \mu_j\)</span> represent the study-specific intercepts</li>
-<li><span class="math inline">\(\delta_{jk}\)</span> is the study-specific relative effect of treatment <span class="math inline">\(k\)</span> versus treatment 1, for the <span class="math inline">\(j\)</span>th study.</li>
-</ul>
-<p>Turning to Rethinking <span class="citation" data-cites="statrethinkingbook">(McElreath <a href="#ref-statrethinkingbook" role="doc-biblioref">2016</a>)</span>, we note that for parameter of interest <span class="math inline">\(\theta\)</span> observed for data observed <span class="math inline">\(x\)</span>, we have the expected value of the posterior in terms of the likelihood and the prior, standardised by the expected value of <span class="math inline">\(P(x|\theta)\)</span>, the probability of observing the data, given a value for the parameter <span class="math inline">\(\theta\)</span> <span class="math display">\[
-P(\theta) = E[P(x|\theta)] = \int P(x|\theta)P(\theta)dp
-\]</span></p>
-<h1 id="example-mean-off-time-reduction-in-parkinsons-disease">Example: Mean off-time reduction in Parkinson’s disease</h1>
-<p>Now, for an example of a dataset that has network with at least three nodes.</p>
+<p>Now to explore this theory in action with an example network meta-analysis.</p>
+<h1 id="example-dataset-parkinsons">example dataset: parkinsons</h1>
+<p>We’ll use an example dataset from <code>multinma::</code> with seven studies’ results for pairwise comparisons of five treatments of interest for our continuous response measure,</p>
+<blockquote>
+<p>the mean off-time reduction in patients given dopamine agonists as adjunct therapy in Parkinson’s disease from 7 trials comparing four active drugs and placebo <span class="citation" data-cites="phillippo_multilevelnetworkmetaregression_2020 dias2011nice">(<code>?parkinsons</code> documentation; Phillippo et al. <a href="#ref-phillippo_multilevelnetworkmetaregression_2020" role="doc-biblioref">2020</a>; data source Dias et al. <a href="#ref-dias2011nice" role="doc-biblioref">2011</a>)</span>.</p>
+</blockquote>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-vignette(&quot;example_parkinsons&quot;, &quot;multinma&quot;)</code></pre>
-</div>
-<p>Find out how many nodes are in this network.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-parkinsons %&gt;%
-  # extract treatment variable
-  pull(trtn) %&gt;% 
-  # count distinct treatment types
-  n_distinct()</code></pre>
-<pre><code>
-[1] 5</code></pre>
-</div>
-<h1 id="parkisons-dataset">Parkisons dataset</h1>
-<p>This vignette uses the <code>parkinsons</code> dataset.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# take a look at the data
-parkinsons %&gt;% head()</code></pre>
+parkinsons %&gt;% 
+  head(3)</code></pre>
 <pre><code>
   studyn trtn     y    se   n  diff se_diff
 1      1    1 -1.22 0.504  54    NA   0.504
 2      1    3 -1.53 0.439  95 -0.31   0.668
-3      2    1 -0.70 0.282 172    NA   0.282
-4      2    2 -2.40 0.258 173 -1.70   0.382
-5      3    1 -0.30 0.505  76    NA   0.505
-6      3    2 -2.60 0.510  71 -2.30   0.718</code></pre>
-<pre class="r"><code>
-# summary of the variables provided by these data
-parkinsons %&gt;% str()</code></pre>
-<pre><code>
-&#39;data.frame&#39;:   15 obs. of  7 variables:
- $ studyn : int  1 1 2 2 3 3 3 4 4 5 ...
- $ trtn   : num  1 3 1 2 1 2 4 3 4 3 ...
- $ y      : num  -1.22 -1.53 -0.7 -2.4 -0.3 -2.6 -1.2 -0.24 -0.59 -0.73 ...
- $ se     : num  0.504 0.439 0.282 0.258 0.505 0.51 0.478 0.265 0.354 0.335 ...
- $ n      : num  54 95 172 173 76 71 81 128 72 80 ...
- $ diff   : num  NA -0.31 NA -1.7 NA -2.3 -0.9 NA -0.35 NA ...
- $ se_diff: num  0.504 0.668 0.282 0.382 0.505 0.718 0.695 0.265 0.442 0.335 ...</code></pre>
+3      2    1 -0.70 0.282 172    NA   0.282</code></pre>
 </div>
 <p>From <code>?parkinsons</code> documentation, we know we have a study variable <code>studyn</code>, a treatment variable <code>trtn</code>, a measure of effect <code>y</code>, and standard error of the effect, <code>se</code>, sample size <code>n</code>.</p>
-<p>There is also the mean difference of the treatment in the reference arm <code>diff</code>, and the standard error of the mean difference <code>se_diff</code>. This provides three ways of meta-analysing the data.</p>
-<blockquote>
-<p>This dataset may be analysed using either an arm-based likelihood using y and se, or a contrast-based likelihood using diff and se_diff (or a combination of the two across different studies) <span class="citation" data-cites="phillippo_multilevelnetworkmetaregression_2020">(Phillippo et al. <a href="#ref-phillippo_multilevelnetworkmetaregression_2020" role="doc-biblioref">2020</a>)</span>.</p>
-</blockquote>
-<h1 id="network-meta-analysis-model-on-parkinsons-data">Network meta-analysis model on Parkinsons data</h1>
-<p>We have seven studies’ results for pairwise comparisons of five treatments of interest for our continuous response measure,</p>
-<blockquote>
-<p>the mean off-time reduction in patients given dopamine agonists as adjunct therapy in Parkinson’s disease from 7 trials comparing four active drugs and placebo <span class="citation" data-cites="phillippo_multilevelnetworkmetaregression_2020 dias2011nice">(<code>?parkinsons</code> documentation; Phillippo et al. <a href="#ref-phillippo_multilevelnetworkmetaregression_2020" role="doc-biblioref">2020</a>; data source Dias et al. <a href="#ref-dias2011nice" role="doc-biblioref">2011</a>)</span>.</p>
-</blockquote>
-<h1 id="understanding-the-parkinsons-model">Understanding the Parkinsons model</h1>
-<p>Since our response variable in this case is continuous, the link function <span class="math inline">\(g(\theta_{\cdot jk})\)</span> is simply the identity. So we have <span class="math display">\[
-g(\theta_{\cdot jk}) = \mu_j + \delta_{jk} = \theta_{\cdot jk}
-\]</span> with the response expected to follow a normally distributed outcome, then <span class="math display">\[
-y_{\cdot jk} \sim \text{normal}(\mu_j + \delta_{jk}, \sigma^2)\\
-\mu_j \sim \text{normal}(0, 100^2)\\
-\delta_{jk} \sim \text{normal}(0, \tau^2)\\
-\tau \sim \text{halfnormal}(5)
-\]</span></p>
-<h1 id="computing-the-model">Computing the model</h1>
-<p>For an arm-based network meta-analysis, begin by converting the raw data to a network object.</p>
+<p>First step is to convert the raw data to a network object.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-arm_net &lt;-
-  set_agd_arm(
-    parkinsons,
-    study = studyn,
-    trt = trtn,
-    y = y,
-    se = se,
-    sample_size = n
-  )
-
-# this is a network object
-class(arm_net)</code></pre>
-<pre><code>
-[1] &quot;nma_data&quot;</code></pre>
-<pre class="r"><code>
-# take a look
+# set up the model
+arm_net &lt;- set_agd_arm(parkinsons, 
+                      study = studyn,
+                      trt = trtn,
+                      y = y, 
+                      se = se,
+                      sample_size = n)
 arm_net</code></pre>
 <pre><code>
 A network with 7 AgD studies (arm-based).
@@ -1535,161 +1450,82 @@ Total number of studies: 7
 Reference treatment is: 4
 Network is connected</code></pre>
 </div>
-<p>Now that we have a network object, we can inspect the relationships between the treatments where studies provide comparisons. Here we see there are pairwise comparisons between many of the treatments. In particular, treatment 3 and treatment 5 have not been compared directly, nor have treatment 2 and treatment 3.</p>
+<p>Now we’ve converted our data to a network object, we can inspect the direct and indirect evidence we have. That is which treatments have a pairwise comparison in at least one study.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-plot(arm_net)</code></pre>
-<p><img src="nma_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+plot(arm_net, weight_edges = FALSE)</code></pre>
+<p><img src="nma_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
 </div>
-<blockquote>
-<p>The number of studies measure must be relational. But what does it mean, inspect the documentation.</p>
-</blockquote>
-<p>We fit a random effects model with assumptions <span class="math inline">\(\textrm{normal}(0, 100^2)\)</span> prior distributions for the treatment effect <span class="math inline">\(d_k\)</span> and study-specific intercepts <span class="math inline">\(\mu_j\)</span>, we use <span class="math inline">\(\textrm{halfnormal(5^2)}\)</span>. The ranges of these prior distributions can be examined.</p>
+<p>We can see the model will be creating indirect comparisons between treatments such 2 and 3, using the direct evidence in studies that compare 1 and 3, as well as 1 and 2.</p>
+<h1 id="network-meta-analysis-1">network meta-analysis</h1>
+<p>The code to fit the</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-summary(normal(scale = 100))</code></pre>
-<pre><code>
-A Normal prior distribution: location = 0, scale = 100.
-50% of the prior density lies between -67.45 and 67.45.
-95% of the prior density lies between -196 and 196.</code></pre>
-<pre class="r"><code>
-summary(half_normal(scale = 5))</code></pre>
-<pre><code>
-A half-Normal prior distribution: location = 0, scale = 5.
-50% of the prior density lies between 0 and 3.37.
-95% of the prior density lies between 0 and 9.8.</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# now to fit the racchendom-effects model
-arm_fit_RE &lt;- nma(arm_net, 
+arm_fit_re &lt;- nma(arm_net, 
                   seed = 379394727,
                   trt_effects = &quot;random&quot;,
                   prior_intercept = normal(scale = 100),
                   prior_trt = normal(scale = 100),
                   prior_het = half_normal(scale = 5),
                   adapt_delta = 0.99)</code></pre>
-<pre><code>
-SAMPLING FOR MODEL &#39;normal&#39; NOW (CHAIN 1).
-Chain 1: 
-Chain 1: Gradient evaluation took 3.9e-05 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.39 seconds.
-Chain 1: Adjust your expectations accordingly!
-Chain 1: 
-Chain 1: 
-Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 1: 
-Chain 1:  Elapsed Time: 0.756232 seconds (Warm-up)
-Chain 1:                0.788362 seconds (Sampling)
-Chain 1:                1.54459 seconds (Total)
-Chain 1: 
-
-SAMPLING FOR MODEL &#39;normal&#39; NOW (CHAIN 2).
-Chain 2: 
-Chain 2: Gradient evaluation took 1.5e-05 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.15 seconds.
-Chain 2: Adjust your expectations accordingly!
-Chain 2: 
-Chain 2: 
-Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 2: 
-Chain 2:  Elapsed Time: 0.767323 seconds (Warm-up)
-Chain 2:                0.525132 seconds (Sampling)
-Chain 2:                1.29245 seconds (Total)
-Chain 2: 
-
-SAMPLING FOR MODEL &#39;normal&#39; NOW (CHAIN 3).
-Chain 3: 
-Chain 3: Gradient evaluation took 1.3e-05 seconds
-Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.13 seconds.
-Chain 3: Adjust your expectations accordingly!
-Chain 3: 
-Chain 3: 
-Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 3: 
-Chain 3:  Elapsed Time: 0.714943 seconds (Warm-up)
-Chain 3:                0.629105 seconds (Sampling)
-Chain 3:                1.34405 seconds (Total)
-Chain 3: 
-
-SAMPLING FOR MODEL &#39;normal&#39; NOW (CHAIN 4).
-Chain 4: 
-Chain 4: Gradient evaluation took 4.5e-05 seconds
-Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.45 seconds.
-Chain 4: Adjust your expectations accordingly!
-Chain 4: 
-Chain 4: 
-Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 4: 
-Chain 4:  Elapsed Time: 0.923916 seconds (Warm-up)
-Chain 4:                1.16821 seconds (Sampling)
-Chain 4:                2.09213 seconds (Total)
-Chain 4: </code></pre>
 </div>
-<p>A warning is generated, prompting us to</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>We assume a prior distribution on <span class="math inline">\(k = 1, \dots, 5\)</span> treatment effects <span class="math display">\[
+d_k \sim \text{normal}(d_4, 100^2) 
+\]</span> &gt; Is the expected value of <span class="math inline">\(d_k\)</span> now <span class="math inline">\(d_4\)</span> because the default treatment is set to 4 by the model?</p>
+<p>and, similarly, a prior for the study-specific intercepts, <span class="math inline">\(\mu_j\)</span>, so that, for <span class="math inline">\(j = 1, \dots, 7\)</span> studies,<br />
+<span class="math display">\[
+\mu_j \sim \text{normal}(0, 100^2),
+\]</span> and one more prior, on the measure of heterogeneity between studies, <span class="math display">\[
+\tau \sim \text{halfnormal}(5^2).
+\]</span> Since we assume a likelihood <span class="math display">\[
+y\ |\ d,\mu, \tau^2 \sim \text{normal}(L\delta + M\mu, V)\\
+\]</span> with random effect <span class="math display">\[
+\delta \sim \text{normal}(Xd, \tau^2)
+\]</span> our model will give us estimates of <span class="math inline">\(X\)</span>, <span class="math inline">\(L\)</span>, and <span class="math inline">\(M\)</span>.</p>
+<p>In this case, as we are comparing treatments’s effects, we are especially interested in <span class="math inline">\(X\)</span>, as well as the measure of heterogeneity between the studies, <span class="math inline">\(\tau\)</span>. This is reflected in the print output of the nma model.</p>
+<blockquote>
+<p>I assume this is the standardised mean difference of <span class="math inline">\(d_k\)</span> from treatment effect <span class="math inline">\(d_4\)</span>?</p>
+</blockquote>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-pairs(arm_fit_RE, pars = c(&quot;mu[4]&quot;, &quot;d[3]&quot;, &quot;delta[4: 3]&quot;, &quot;tau&quot;))</code></pre>
-<p><img src="nma_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
+arm_fit_re </code></pre>
+<pre><code>
+A random effects NMA with a normal likelihood (identity link).
+Inference for Stan model: normal.
+4 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=4000.
+
+       mean se_mean   sd   2.5%    25%    50%    75% 97.5% n_eff Rhat
+d[1]   0.54    0.02 0.62  -0.67   0.15   0.53   0.92  1.83  1559 1.00
+d[2]  -1.30    0.02 0.71  -2.61  -1.74  -1.30  -0.87  0.07  1253 1.00
+d[3]   0.03    0.01 0.48  -0.90  -0.25   0.03   0.31  1.02  1261 1.00
+d[5]  -0.30    0.02 0.48  -1.23  -0.51  -0.30  -0.08  0.65   795 1.01
+lp__ -12.74    0.10 3.60 -20.54 -14.99 -12.40 -10.19 -6.50  1226 1.00
+tau    0.40    0.02 0.40   0.01   0.13   0.28   0.54  1.51   598 1.00
+
+Samples were drawn using NUTS(diag_e) at Wed Sep 30 19:57:53 2020.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).</code></pre>
 </div>
-<h1 id="threshold-analysis-of-network-model">Threshold analysis of network model</h1>
-<h1 class="unnumbered" id="references" class="unnumbered">References</h1>
+<p>When we plot the posteriors and with their priors, we see estimates for <span class="math inline">\(M\)</span>, the coefficient for study terms, <span class="math inline">\(\mu\)</span>, and as well as <span class="math inline">\(X\)</span>, the coefficient for treatment effects, and the measure of heterogeneity between studies, <span class="math inline">\(\tau\)</span>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+plot_prior_posterior(arm_fit_re)</code></pre>
+<p><img src="nma_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
+</div>
+<p>This is measure a mean off-time <em>reduction</em>, so I assume a negative value is a bad thing. Then we note that <span class="math inline">\(d_1\)</span> has the largest mean off-time reduction. However, to assess these results more robustly, we turn to a threshold analysis.</p>
+<h1 id="threshold-analysis">threshold analysis</h1>
+<h1 class="unnumbered" id="references" class="unnumbered">references</h1>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-dias2011nice">
 <p>Dias, Sofia, Nicky J Welton, Alex J Sutton, and AE Ades. 2011. “NICE Dsu Technical Support Document 2: A Generalised Linear Modelling Framework for Pairwise and Network Meta-Analysis of Randomised Controlled Trials.”</p>
 </div>
 <div id="ref-harrer_doingmetaanalysis_2019">
 <p>Harrer, Mathias, Prof Dr Pim Cuijpers², Prof Dr Toshi A. Furukawa³, and Assoc Prof Dr David D. Ebert². 2019. <em>Doing Meta-Analysis in R</em>. <a href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/">https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/</a>.</p>
-</div>
-<div id="ref-lumley_networkmetaanalysisindirect_2002">
-<p>Lumley, Thomas. 2002. “Network Meta-Analysis for Indirect Treatment Comparisons.” <em>Statistics in Medicine</em> 21 (16): 2313–24. <a href="https://doi.org/10.1002/sim.1201">https://doi.org/10.1002/sim.1201</a>.</p>
-</div>
-<div id="ref-statrethinkingbook">
-<p>McElreath, Richard. 2016. <em>Statistical Rethinking: A Bayesian Course with Examples in R and Stan</em>. CRC Press. <a href="http://xcelab.net/rm/statistical-rethinking/">http://xcelab.net/rm/statistical-rethinking/</a>.</p>
 </div>
 <div id="ref-phillippo_multilevelnetworkmetaregression_2020">
 <p>Phillippo, David M., Sofia Dias, A. E. Ades, Mark Belger, Alan Brnabic, Alexander Schacht, Daniel Saure, Zbigniew Kadziola, and Nicky J. Welton. 2020. “Multilevel Network Meta-Regression for Population-Adjusted Treatment Comparisons.” <em>Journal of the Royal Statistical Society: Series A (Statistics in Society)</em> 183 (3): 1189–1210. <a href="https://doi.org/10.1111/rssa.12579">https://doi.org/10.1111/rssa.12579</a>.</p>
@@ -1801,6 +1637,36 @@ pairs(arm_fit_RE, pars = c(&quot;mu[4]&quot;, &quot;d[3]&quot;, &quot;delta[4: 3
   year={2011},
   publisher={National Institute for Health and Clinical Excellence}
 }
+
+
+@article{phillippo_thresholdanalysisalternative_2019,
+  title = {Threshold {{Analysis}} as an {{Alternative}} to {{GRADE}} for {{Assessing Confidence}} in {{Guideline Recommendations Based}} on {{Network Meta}}-Analyses},
+  author = {Phillippo, David M. and Dias, Sofia and Welton, Nicky J. and Caldwell, Deborah M. and Taske, Nichole and Ades, A.e.},
+  date = {2019-03-26},
+  journaltitle = {Annals of Internal Medicine},
+  shortjournal = {Annals of Internal Medicine},
+  volume = {170},
+  pages = {538--546},
+  publisher = {{American College of Physicians}},
+  issn = {0003-4819},
+  doi = {10.7326/M18-3542},
+  url = {https://www.acpjournals.org/doi/10.7326/M18-3542},
+  urldate = {2020-09-02},
+  file = {/home/cantabile/Zotero/storage/BSEY65F8/Phillippo et al. - 2019 - Threshold Analysis as an Alternative to GRADE for .pdf;/home/cantabile/Zotero/storage/4WZBJWFJ/M18-3542.html},
+  number = {8}
+}
+
+
+@manual{phillippo_multinmanetworkmetaanalysis_2020,
+  title = {Multinma: {{Network}} Meta-Analysis of Individual and Aggregate Data in Stan},
+  author = {Phillippo, David M.},
+  date = {2020},
+  doi = {10.5281/zenodo.3904454},
+  url = {http://github.com/dmphillippo/multinma},
+  type = {manual}
+}
+
+
 </script>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
