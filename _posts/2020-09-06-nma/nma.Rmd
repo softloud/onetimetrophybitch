@@ -213,10 +213,6 @@ This is measure a mean off-time _reduction_, so I assume a negative value is a b
 `::nma_thresh` for random effects model require 
 
 1. the posterior means `means.dk` of the basic treatment parameters $d_k$, 
-2. a likelihood `lhood` covariance matrix,
-3. the posterior covariance matrix `post`, posterior covariance mtrix of the vector $(\delta^T, \sigma^T, \mu^T)^T$
-4. a design matrix `mu.design` for additional covariates,
-5. a design matrix `delta.design` for random effects terms.
 
 ```{r posterior means}
 post_means <- 
@@ -226,18 +222,8 @@ post_means <-
 
 ```
 
+2. a likelihood `lhood` covariance matrix,
 
-```{r mudesign}
-
-# a design matrix for mu.design
-M <- matrix(0, nrow = nrow(parkinsons), ncol = 7)
-
-for (i in 1:nrow(parkinsons)) {
-  if (parkinsons$trtn[i]) M[i, parkinsons$studyn[i]] <- 1
-}
-
-
-```
 
 ```{r likelihood cov}
 # for lhood
@@ -247,6 +233,8 @@ likelihood_cov <-
 ```
 
 
+
+3. the posterior covariance matrix `post`, posterior covariance mtrix of the vector $(\delta^T, \sigma^T, \mu^T)^T$
 
 ```{r}
 # for posterior
@@ -262,6 +250,22 @@ post_cov <-
 ```
 
 
+4. a design matrix `mu.design` for additional covariates,
+
+```{r mudesign}
+
+# a design matrix for mu.design
+M <- matrix(0, nrow = nrow(parkinsons), ncol = 7)
+
+for (i in 1:nrow(parkinsons)) {
+  if (parkinsons$trtn[i]) M[i, parkinsons$studyn[i]] <- 1
+}
+
+
+```
+
+5. a design matrix `delta.design` for random effects terms.
+
 ```{r}
 # construct the design mtrix for eazch contrast
 X <- matrix(0, nrow = 15, ncol = 6)
@@ -276,8 +280,12 @@ for (i in 1:15){
 
 ```
 
+With these inputs, we construct a threshold object.
 
 ```{r error=TRUE}
+
+# unfortunately this code throws an error
+# indicating the construction of the posterior covariance matrix is not correct
 thresh <- 
   nma_thresh(
     mean.dk = post_means,
