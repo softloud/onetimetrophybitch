@@ -76,7 +76,14 @@ y_k \sim \text{normal}(\mu + u_k, \sigma_k^2)\\
 u_k \sim \text{normal}(0, \tau^2)
 $$
 
+
+
 ## Bayesian network meta-analysis
+
+A network meta-analysis relies on a transitivity assumption whereby indirect comparisons can be constructed from direct comparisons. That is, if we have direct comparisons $\delta_{AC}$ and $\delta_{CB}$, we can construct an indirect comparison of differences [@lumley_networkmetaanalysisindirect_2002].
+$$
+\delta_{AB} = \delta_{AC} + \delta_{CB}
+$$
 
 Since `multinma::` provides tools for Bayesian network meta-analysis, our computational model solves for the posterior, providing the probability of the parameter of interest, $\theta$, given the data, $x$,
 $$
@@ -202,6 +209,91 @@ plot_prior_posterior(arm_fit_re)
 This is measure a mean off-time _reduction_, so I assume a negative value is a bad thing. Then we note that $d_1$ has the largest mean off-time reduction. However, to assess these results more robustly, we turn to a threshold analysis. 
 
 # threshold analysis
+
+`::nma_thresh` for random effects model require 
+
+1. the posterior means `means.dk` of the basic treatment parameters $d_k$, 
+2. a likelihood `lhood` covariance matrix,
+3. the posterior covariance matrix `post`, posterior covariance mtrix of the vector $(\delta^T, \sigma^T, \mu^T)^T$
+4. a design matrix `mu.design` for additional covariates,
+5. a design matrix `delta.design` for random effects terms.
+
+```{r posterior means}
+post_means <- 
+  summary(arm_fit_re, pars=c("d")) %>% 
+  as.data.frame() %>%
+  pull("mean")
+
+```
+
+
+```{r mudesign}
+
+# a design matrix for mu.design
+M <- matrix(0, nrow = nrow(parkinsons), ncol = 7)
+
+for (i in 1:nrow(parkinsons)) {
+  if (parkinsons$trtn[i]) M[i, parkinsons$studyn[i]] <- 1
+}
+
+
+```
+
+```{r likelihood cov}
+# for lhood
+likelihood_cov <- 
+  diag(parkinsons$se^2)
+
+```
+
+
+
+```{r}
+# for posterior
+post_cov <-
+  summary(arm_fit_re, pars = c("d")) %>% 
+  as.data.frame() %>% 
+  pull("sd") %>% 
+  as.numeric() %>% 
+  map_dbl(.f = function(x){x^2}) %>% 
+  diag()
+
+
+```
+
+
+```{r}
+# construct the design mtrix for eazch contrast
+X <- matrix(0, nrow = 15, ncol = 6)
+
+for (i in 1:15){
+  X[i, parkinsons$trtn[i]-1] <- 1
+  if (parkinsons$studyn[i] != 4){
+    X[i, parkinsons$studyn[i]-1] <- -1
+  }
+}
+
+
+```
+
+
+```{r error=TRUE}
+thresh <- 
+  nma_thresh(
+    mean.dk = post_means,
+    lhood = likelihood_cov,
+    post= post_cov,
+    mu.design = M,
+    delta.design = X,
+    nmatype = "random"
+  )
+
+
+```
+
+
+
+
 
 # references
 

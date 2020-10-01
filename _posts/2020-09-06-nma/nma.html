@@ -43,6 +43,7 @@
   <!--/radix_placeholder_meta_tags-->
   
   <meta name="citation_reference" content="citation_title=Doing Meta-Analysis in R;citation_publication_date=2019;citation_author=Mathias Harrer;citation_author=Prof Dr Pim Cuijpers²;citation_author=Prof Dr Toshi A. Furukawa³;citation_author=Assoc Prof Dr David D. Ebert²"/>
+  <meta name="citation_reference" content="citation_title=Network meta-analysis for indirect treatment comparisons;citation_publication_date=2002;citation_volume=21;citation_doi=10.1002/sim.1201;citation_issn=1097-0258;citation_author=Thomas Lumley"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
@@ -1032,6 +1033,9 @@ y_k \sim \text{normal}(\mu + u_k, \sigma_k^2)\\
 u_k \sim \text{normal}(0, \tau^2)
 \]</span></p>
 <h2 id="bayesian-network-meta-analysis">Bayesian network meta-analysis</h2>
+<p>A network meta-analysis relies on a transitivity assumption whereby indirect comparisons can be constructed from direct comparisons. That is, if we have direct comparisons <span class="math inline">\(\delta_{AC}\)</span> and <span class="math inline">\(\delta_{CB}\)</span>, we can construct an indirect comparison of differences <span class="citation" data-cites="lumley_networkmetaanalysisindirect_2002">(Lumley <a href="#ref-lumley_networkmetaanalysisindirect_2002" role="doc-biblioref">2002</a>)</span>. <span class="math display">\[
+\delta_{AB} = \delta_{AC} + \delta_{CB}
+\]</span></p>
 <p>Since <code>multinma::</code> provides tools for Bayesian network meta-analysis, our computational model solves for the posterior, providing the probability of the parameter of interest, <span class="math inline">\(\theta\)</span>, given the data, <span class="math inline">\(x\)</span>, <span class="math display">\[
 P(\theta|x) = \frac{P(x|\theta)P(\theta)}{P(x)}.
 \]</span> And, using the nomeclature of the documentation in <code>::nma_thresh</code>, for random-effects model, we have priors <span class="math display">\[
@@ -1159,6 +1163,73 @@ plot_prior_posterior(arm_fit_re)</code></pre>
 </div>
 <p>This is measure a mean off-time <em>reduction</em>, so I assume a negative value is a bad thing. Then we note that <span class="math inline">\(d_1\)</span> has the largest mean off-time reduction. However, to assess these results more robustly, we turn to a threshold analysis.</p>
 <h1 id="threshold-analysis">threshold analysis</h1>
+<p><code>::nma_thresh</code> for random effects model require</p>
+<ol type="1">
+<li>the posterior means <code>means.dk</code> of the basic treatment parameters <span class="math inline">\(d_k\)</span>,</li>
+<li>a likelihood <code>lhood</code> covariance matrix,</li>
+<li>the posterior covariance matrix <code>post</code>, posterior covariance mtrix of the vector <span class="math inline">\((\delta^T, \sigma^T, \mu^T)^T\)</span></li>
+<li>a design matrix <code>mu.design</code> for additional covariates,</li>
+<li>a design matrix <code>delta.design</code> for random effects terms.</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+post_means &lt;- 
+  summary(arm_fit_re, pars=c(&quot;d&quot;)) %&gt;% 
+  as.data.frame() %&gt;%
+  pull(&quot;mean&quot;)</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+# a design matrix for mu.design
+M &lt;- matrix(0, nrow = nrow(parkinsons), ncol = 7)
+
+for (i in 1:nrow(parkinsons)) {
+  if (parkinsons$trtn[i]) M[i, parkinsons$studyn[i]] &lt;- 1
+}</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+# for lhood
+likelihood_cov &lt;- 
+  diag(parkinsons$se^2)</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+# for posterior
+post_cov &lt;-
+  summary(arm_fit_re, pars = c(&quot;d&quot;)) %&gt;% 
+  as.data.frame() %&gt;% 
+  pull(&quot;sd&quot;) %&gt;% 
+  as.numeric() %&gt;% 
+  map_dbl(.f = function(x){x^2}) %&gt;% 
+  diag()</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+# construct the design mtrix for eazch contrast
+X &lt;- matrix(0, nrow = 15, ncol = 6)
+
+for (i in 1:15){
+  X[i, parkinsons$trtn[i]-1] &lt;- 1
+  if (parkinsons$studyn[i] != 4){
+    X[i, parkinsons$studyn[i]-1] &lt;- -1
+  }
+}</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+thresh &lt;- 
+  nma_thresh(
+    mean.dk = post_means,
+    lhood = likelihood_cov,
+    post= post_cov,
+    mu.design = M,
+    delta.design = X,
+    nmatype = &quot;random&quot;
+  )</code></pre>
+<pre><code>
+Error in nma_thresh(mean.dk = post_means, lhood = likelihood_cov, post = post_cov, : Posterior covariance matrix should be n.delta+m+K-1 square.</code></pre>
+</div>
 <h1 class="unnumbered" id="references" class="unnumbered">references</h1>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-dias2011nice">
@@ -1166,6 +1237,9 @@ plot_prior_posterior(arm_fit_re)</code></pre>
 </div>
 <div id="ref-harrer_doingmetaanalysis_2019">
 <p>Harrer, Mathias, Prof Dr Pim Cuijpers², Prof Dr Toshi A. Furukawa³, and Assoc Prof Dr David D. Ebert². 2019. <em>Doing Meta-Analysis in R</em>. <a href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/">https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/</a>.</p>
+</div>
+<div id="ref-lumley_networkmetaanalysisindirect_2002">
+<p>Lumley, Thomas. 2002. “Network Meta-Analysis for Indirect Treatment Comparisons.” <em>Statistics in Medicine</em> 21 (16): 2313–24. <a href="https://doi.org/10.1002/sim.1201">https://doi.org/10.1002/sim.1201</a>.</p>
 </div>
 <div id="ref-phillippo_multilevelnetworkmetaregression_2020">
 <p>Phillippo, David M., Sofia Dias, A. E. Ades, Mark Belger, Alan Brnabic, Alexander Schacht, Daniel Saure, Zbigniew Kadziola, and Nicky J. Welton. 2020. “Multilevel Network Meta-Regression for Population-Adjusted Treatment Comparisons.” <em>Journal of the Royal Statistical Society: Series A (Statistics in Society)</em> 183 (3): 1189–1210. <a href="https://doi.org/10.1111/rssa.12579">https://doi.org/10.1111/rssa.12579</a>.</p>
