@@ -1,0 +1,3 @@
+t.1	t.2	y.2	se.2	n_arms	textID
+1	5	0	0.663	2	"Silberstein 2013"
+6	3	-0.1	0.41	2	"Dodick 2009"

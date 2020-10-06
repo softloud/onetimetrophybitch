@@ -10,6 +10,7 @@ output:
   distill::distill_article:
     self_contained: false
     toc: true
+    code_folding: show
   # html_document:
   #   number_sections: true
   #   toc: true
@@ -23,6 +24,11 @@ knitr::opts_chunk$set(
  cache = TRUE,
   echo = TRUE)
 
+```
+
+```{r}
+# last updated
+Sys.Date()
 ```
 
 
@@ -53,13 +59,13 @@ set.seed(40)
 
 # network meta-analysis
 
-Network meta-analysis is a statistical method for aggregating multiple pairwise comparisons on a response of interest. For example, perhaps three studies propose different treatments for a particular medical condition, network meta-analysis enables us to indirectly compare the treatments' effect. Network meta-analysis is a technique for identifying _which_ treatments are more effective than others, rather than _whether_ a treatment is effective [@harrer_doingmetaanalysis_2019]. 
+Network meta-analysis is a statistical method for aggregating multiple pairwise comparisons on a response of interest [@higgins2019cochrane]. For example, perhaps three studies propose different treatments for a particular medical condition, network meta-analysis enables us to directly and indirectly compare the treatments' effects. Network meta-analysis is a technique for identifying _which_ treatments are more effective than others, rather than _whether_ a treatment is effective [@harrer_doingmetaanalysis_2019]. 
 
-In this toolchain walkthrough [cite], I computationally step through the packages `multinma::` and `nnathresh` for a network meta-analysis with threshold analysis.  
+In this toolchain walkthrough, an opinionated documentation of a scientific workflow [@gray_codeproofprepare_2019], I computationally step through the packages `multinma::` [@phillippo_multinmanetworkmetaanalysis_2020] and `nnathresh` [@phillippo_sensitivitytreatmentrecommendations_2018] for a network meta-analysis with threshold analysis.  
 
 # thinking through the theory
 
-Lots of puzzle pieces. Bayesian network meta-analysis is a form of meta-analysis, and meta-analysis is form of linear regression. We solve for a line of best fit. How do we describe this particular line? 
+Bayesian network meta-analysis is a form of meta-analysis, and meta-analysis is form of linear regression. We solve for a line of best fit. How do we describe this particular line? 
 
 ## linear regression
 
@@ -76,7 +82,7 @@ y_k \sim \text{normal}(\mu + u_k, \sigma_k^2)\\
 u_k \sim \text{normal}(0, \tau^2)
 $$
 
-
+where $\mu$ represents the effect of interest and $u_k$ the heterogeneity of the studies, with spread $\tau^2$.
 
 ## Bayesian network meta-analysis
 
@@ -85,22 +91,25 @@ $$
 \delta_{AB} = \delta_{AC} + \delta_{CB}
 $$
 
-Since `multinma::` provides tools for Bayesian network meta-analysis, our computational model solves for the posterior, providing the probability of the parameter of interest, $\theta$, given the data, $x$,
+Using this, analogously to $BX$ a coefficients are found for all treatment effects, relative to a control or placebo. 
+
+Since `multinma::` provides tools for Bayesian network meta-analysis, our computational model solves for the posterior [@statrethinkingbook], providing the probability of the parameter of interest, $\theta$, given the data, $x$,
 $$
 P(\theta|x) = \frac{P(x|\theta)P(\theta)}{P(x)}.
 $$
-And, using the nomeclature of the documentation in `::nma_thresh`, for  random-effects model, we have priors
+We get the distributions of the mean value of the parameters, the non-data bits, of the model. 
+
+And, using the nomeclature of the documentation in `::nma_thresh`, for  a fixed-effect model, we have prior
 $$
 d \sim \text{normal}(d_0, \Sigma_d)\\
-\mu \sim \text{normal}(\mu_0, \Sigma_\mu)\\
 $$
 and likelihood
 $$
-y\ |\ d,\mu, \tau^2 \sim \text{normal}(L\delta + M\mu, V)\\
+y\ |\ d \sim \text{normal}(\delta, V)\\
 $$
-with random effect
+with fixed effect
 $$
-\delta \sim \text{normal}(Xd, \tau^2)
+\delta = Xd + M\mu.
 $$
 
 Now to explore this theory in action with an example network meta-analysis. 
@@ -113,6 +122,7 @@ We'll use an example dataset from `multinma::` with seven studies' results for p
 
 
 ```{r}
+# peek at the data
 parkinsons %>% 
   head(3)
 ```
@@ -122,15 +132,16 @@ From `?parkinsons` documentation, we know we have a study variable `studyn`, a t
 First step is to convert the raw data to a network object.
 
 ```{r}
-# set up the model
+# create network object
 arm_net <- set_agd_arm(parkinsons, 
                       study = studyn,
                       trt = trtn,
                       y = y, 
                       se = se,
                       sample_size = n)
-arm_net
 
+# this is a network object
+arm_net
 
 ```
 
@@ -147,68 +158,80 @@ We can see the model will be creating indirect comparisons between treatments su
 We run the following code to fit a random-effects network meta-analysis model. 
 
 ```{r eval=FALSE}
-arm_fit_re <- nma(arm_net, 
-                  seed = 379394727,
-                  trt_effects = "random",
+nma_results <- nma(arm_net, 
+                  trt_effects = "fixed",
                   prior_intercept = normal(scale = 100),
-                  prior_trt = normal(scale = 100),
-                  prior_het = half_normal(scale = 5),
-                  adapt_delta = 0.99)
+                  prior_trt = normal(scale = 10))
 ```
 
-```{r echo=FALSE}
-arm_fit_re <- nma(arm_net, 
-                  seed = 379394727,
-                  trt_effects = "random",
+```{r include=FALSE}
+nma_results <- nma(arm_net, 
+                  trt_effects = "fixed",
                   prior_intercept = normal(scale = 100),
-                  prior_trt = normal(scale = 100),
-                  prior_het = half_normal(scale = 5),
-                  adapt_delta = 0.99)
+                  prior_trt = normal(scale = 10))
 ```
-
 
 We assume a prior distribution on $k = 1, \dots, 5$ treatment effects 
 $$
 d_k \sim \text{normal}(d_4, 100^2) 
 $$
-> Is the expected value of $d_k$ now $d_4$ because the default treatment is set to 4 by the model? 
-
-and, similarly, a prior for the study-specific intercepts, $\mu_j$, so that, for $j = 1, \dots, 7$ studies,   
-$$
-\mu_j \sim \text{normal}(0, 100^2),
-$$
-and one more prior, on the measure of heterogeneity between studies,
-$$
-\tau \sim \text{halfnormal}(5^2).
-$$
 Since we assume a likelihood
 $$
-y\ |\ d,\mu, \tau^2 \sim \text{normal}(L\delta + M\mu, V)\\
+y\ |\ d \sim \text{normal}(\delta, V)\\
 $$
-with random effect
+with fixed effect
 $$
-\delta \sim \text{normal}(Xd, \tau^2)
+\delta = Xd + M\mu
 $$
-our model will give us estimates of $X$, $L$, and $M$. 
+our model will give us estimates of $d$, $mu$ and $V$. 
 
-In this case, as we are comparing treatments's effects, we are especially interested in $X$, as well as the measure of heterogeneity between the studies, $\tau$. This is reflected in the print output of the nma model.
-
-> I assume this is the standardised mean difference of $d_k$ from treatment effect $d_4$?  
 
 ```{r}
-arm_fit_re 
+nma_results 
 ```
 
-
-When we plot the posteriors and with their priors, we see estimates for $M$, the coefficient for study terms, $\mu$, and as well as $X$, the coefficient for treatment effects, and the measure of heterogeneity between studies, $\tau$.  
+When we plot the posteriors and with their priors, we see estimates for $M$, the coefficient for study terms, $\mu$, and as well as $X$, the coefficient for treatment effects.  
 
 ```{r}
-plot_prior_posterior(arm_fit_re)
+plot_prior_posterior(nma_results)
 ```
 
 This is measure a mean off-time _reduction_, so I assume a negative value is a bad thing. Then we note that $d_1$ has the largest mean off-time reduction. However, to assess these results more robustly, we turn to a threshold analysis. 
 
+# cochrane reporting
+
+Now, we have the a network meta-anlaysis, we turn to [11.6 of Cochrane handbook](https://training.cochrane.org/handbook/current/chapter-11#section-11-6-4) for how to inspect the results of the model [@higgins2019cochrane].  
+
+## contribution 
+
+
+## intervention effects
+
+
+
+## ranking
+
+```{r}
+posterior_rank_probs(nma_results) %>% 
+  plot()
+
+```
+
+##  incoherence
+
+
+
 # threshold analysis
+
+Phillipo _et al._ claim threshold analysis provides a more robust method of assessing confidence in recommendations based on network meta-analysis than the widely-used [] GRADE framework [@phillippo_thresholdanalysisalternative_2019]. The typical results of a network meta-analysis is a 'consistent set of treatment estimates so that coherent recommendations may be made', however there are many reasons we may question the strength of the evidence. In the case of the Parkinsons dataset, we have an estimate of the laudifference of a particular treatment on the mean off-time reduction in patients given dopamine agonists as adjunct therapy, from the default treatment.
+
+> Threshold analysis quantifies precisely how
+much the evidence could change (for any reason, such as potential biases or simply sampling
+variation) before the recommendation changes, and what the revised recommendation would be. If
+it is judged that the evidence could not plausibly change by more than this amount then the recommendation is considered robust, otherwise the recommendation is sensitive to plausible
+changes in the evidence [@phillippo_thresholdanalysisalternative_2019].
+
+Threshold analyses are performed at both study level and at contrast level, in either case the result is a set of thresholds that show how much the data point can change before the recommendation changes. We will do a contrast-level threshold analysis on the Parkinsons dataset. 
 
 `::nma_thresh` for random effects model require 
 
@@ -216,7 +239,7 @@ This is measure a mean off-time _reduction_, so I assume a negative value is a b
 
 ```{r posterior means}
 post_means <- 
-  summary(arm_fit_re, pars=c("d")) %>% 
+  summary(nma_results, pars=c("d")) %>% 
   as.data.frame() %>%
   pull("mean")
 
@@ -239,7 +262,7 @@ likelihood_cov <-
 ```{r}
 # for posterior
 post_cov <-
-  summary(arm_fit_re, pars = c("d")) %>% 
+  summary(nma_results, pars = c("d")) %>% 
   as.data.frame() %>% 
   pull("sd") %>% 
   as.numeric() %>% 
@@ -299,7 +322,38 @@ thresh <-
 
 ```
 
+It will take some more study to figure out how to do a threshold analysis. So, I'll toolchain walkthrough, an opinionated documentation of a scientific workflow [@gray_codeproofprepare_2019], through the vignette for threshold analysis, and try to connect it to the structure of the model as mathematical objects. Already I can see the dimensions of the matrices I constructed are not correct.
 
+# the math of `::nma_thresh`
+
+Prior:
+
+$$
+d \sim N(d_0, \Sigma_d)
+$$
+Likelihood:
+$$
+y | d \sim N(\delta, V)
+$$
+FE model:
+$$
+\delta = Xd + M\mu
+$$
+Which components of these do we need for the threshold analysis?
+
+1. the posterior means `means.dk` of the basic treatment parameters $d_k$
+
+> So that would be the $d$ in $\delta = Xd + M\mu$? 
+
+2. 
+
+# `nmathresh::` example: social anxiety 
+
+In this section, I toolchain walkthrough through the code provided as an example in Phillipo _et al._'s threshold analysis manuscript [@phillippo_thresholdanalysisalternative_2019]. 
+
+The data provided are from a network meta-analysis of social anxiety with 41 treatments in 17 classes over 100 studies. 
+
+1. the posterior means `means.dk` of the basic treatment parameters $d_k$, 
 
 
 
