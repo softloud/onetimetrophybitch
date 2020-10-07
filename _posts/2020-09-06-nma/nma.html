@@ -1001,7 +1001,7 @@
 <li><a href="#results">results</a>
 <ul>
 <li><a href="#intervention-effects">intervention effects</a></li>
-<li><a href="#ranking">ranking</a></li>
+<li><a href="#rankograms">rankograms</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#threshold-analysis">threshold analysis</a></li>
@@ -1178,10 +1178,30 @@ plot_prior_posterior(nma_results)</code></pre>
 <h1 id="cochrane-reporting">cochrane reporting</h1>
 <p>Now, we have the a network meta-anlaysis, we turn to <a href="https://training.cochrane.org/handbook/current/chapter-11#section-11-6-4">11.6 of Cochrane handbook</a> for how to inspect the results of the model <span class="citation" data-cites="higgins2019cochrane">(Higgins et al. <a href="#ref-higgins2019cochrane" role="doc-biblioref">2019</a>)</span>.</p>
 <h2 id="evidence-base-and-network-structure">evidence base and network structure</h2>
-<p>For networks that do not have an overabundance of nodes, that is treatments, a plot of the network, as shown in Figure <a href="#fig:network">1</a> is enough.</p>
-<blockquote>
-<p>todo: table of xs</p>
-</blockquote>
+<p>For networks that do not have an overabundance of nodes, that is treatments, a plot of the network, as shown in Figure <a href="#fig:network">1</a> is enough. We can also inspect the network with a table.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+parkinsons_net</code></pre>
+<pre><code>
+A network with 7 AgD studies (contrast-based).
+
+---------------------------------------- AgD studies (contrast-based) ---- 
+ Study   Treatments              
+ study_1 2: trt_1 | trt_3        
+ study_2 2: trt_1 | trt_2        
+ study_3 3: trt_1 | trt_2 | trt_4
+ study_4 2: trt_3 | trt_4        
+ study_5 2: trt_3 | trt_4        
+ study_6 2: trt_4 | trt_5        
+ study_7 2: trt_4 | trt_5        
+
+ Outcome type: continuous
+--------------------------------------------------------------------------
+Total number of treatments: 5
+Total number of studies: 7
+Reference treatment is: trt_4
+Network is connected</code></pre>
+</div>
 <h2 id="flow-of-evidence">flow of evidence</h2>
 <p>Another way of summarising the evidence base of a network meta-analysis is a <strong>contribution matrix</strong>, as described in 11.6.3, however I have as yet to find this.</p>
 <h3 id="contribution-matrix">contribution matrix</h3>
@@ -1194,7 +1214,7 @@ plot_prior_posterior(nma_results)</code></pre>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 plot(nma_results)</code></pre>
-<p><img src="nma_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+<p><img src="nma_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
 </div>
 <p>This would suggest the second treatment has the greatest effect. A table is also a useful summary.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1213,25 +1233,25 @@ d[trt_3]  0.05    0.01 0.32 -0.59 -0.17  0.05  0.27  0.68  2688    1
 d[trt_5] -0.30    0.00 0.20 -0.69 -0.43 -0.30 -0.16  0.11  3552    1
 lp__     -3.09    0.03 1.41 -6.61 -3.79 -2.76 -2.04 -1.36  1807    1
 
-Samples were drawn using NUTS(diag_e) at Wed Oct  7 20:51:25 2020.
+Samples were drawn using NUTS(diag_e) at Wed Oct  7 20:56:12 2020.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
 </div>
-<h3 id="ranking">ranking</h3>
+<h3 id="rankograms">rankograms</h3>
 <p>Another recommendation is to provide the ranking distributions of the different treatments.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 posterior_rank_probs(nma_results) %&gt;% 
   plot()</code></pre>
-<p><img src="nma_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+<p><img src="nma_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
 </div>
 <p>A nice feature of <code>multinma::</code> is that it provides cumulative ranking plots, which I think are bit easier to interpret. Here we see the second treatment has the greatest likelihood to be ranked the best treatment.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 posterior_rank_probs(nma_results, cumulative = TRUE) %&gt;% 
   plot()</code></pre>
-<p><img src="nma_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
+<p><img src="nma_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
 </div>
 <h1 id="threshold-analysis">threshold analysis</h1>
 <blockquote>

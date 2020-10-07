@@ -221,9 +221,12 @@ Now, we have the a network meta-anlaysis, we turn to [11.6 of Cochrane handbook]
 
 ##  evidence base and network structure
 
-For networks that do not have an overabundance of nodes, that is treatments, a plot of the network, as shown in Figure \@ref(fig:network) is enough. 
+For networks that do not have an overabundance of nodes, that is treatments, a plot of the network, as shown in Figure \@ref(fig:network) is enough. We can also inspect the network with a table.
 
-> todo: table of xs
+```{r}
+parkinsons_net
+```
+
 
 ## flow of evidence
 
@@ -250,7 +253,7 @@ nma_results
 
 ```
 
-### ranking
+### rankograms
 
 Another recommendation is to provide the ranking distributions of the different treatments. 
 
