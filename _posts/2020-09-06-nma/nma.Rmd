@@ -10,7 +10,6 @@ output:
   distill::distill_article:
     self_contained: false
     toc: true
-    code_folding: show
   # html_document:
   #   number_sections: true
   #   toc: true
@@ -21,7 +20,7 @@ bibliography: references.bib
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
- cache = TRUE,
+ cache = FALSE,
   echo = TRUE)
 
 ```
@@ -93,6 +92,15 @@ $$
 
 Using this, analogously to $BX$ a coefficients are found for all treatment effects, relative to a control or placebo. 
 
+Lumley characterises the structure of the model for three treatments [@lumley_networkmetaanalysisindirect_2002]. For the $k$th study's treatments $i$ and $j$, measured by $Y_{ijk}$, true average effects $\mu$ and $\eta$ capturing the heterogeneity of the treatment effect, with $\zeta$ denoting a change in the effect of treatment $i$ when it is compared to $j$  
+$$
+Y_{ijk} \sim \text{normal}(\mu_i - \mu_j + \eta_{ik} + \eta_{jk} + \zeta_{ij}, \sigma^2_{ijk})\\
+\eta_{ij} \sim \text{normal}(0, \tau^2)\\
+\zeta_{ij} \sim \text{normal}(0, \omega^2)
+$$
+This statement lays out the basic structure clearest for me, especially where heterogeneity $\tau^2$ and incoherence $\omega$ sit in the structure.
+
+
 Since `multinma::` provides tools for Bayesian network meta-analysis, our computational model solves for the posterior [@statrethinkingbook], providing the probability of the parameter of interest, $\theta$, given the data, $x$,
 $$
 P(\theta|x) = \frac{P(x|\theta)P(\theta)}{P(x)}.
@@ -109,46 +117,58 @@ y\ |\ d \sim \text{normal}(\delta, V)\\
 $$
 with fixed effect
 $$
-\delta = Xd + M\mu.
+\delta = Xd 
 $$
 
 Now to explore this theory in action with an example network meta-analysis. 
 
-# example dataset: parkinsons
+# example dataset: parkinsons_dat
 
 We'll use an example dataset from `multinma::` with seven studies' results for pairwise comparisons of five treatments of interest for our continuous response measure, 
 
 > the mean off-time reduction in patients given dopamine agonists as adjunct therapy in Parkinson's disease from 7 trials comparing four active drugs and placebo [`?parkinsons` documentation; @phillippo_multilevelnetworkmetaregression_2020; data source @dias2011nice].
 
 
-```{r}
+```{r parkinsons_dat}
 # peek at the data
 parkinsons %>% 
   head(3)
+
+# just gon' tweak it a li'l so I can keep track of the variables
+parkinsons_dat <- 
+  parkinsons %>% 
+  mutate(
+    studyn = str_c("study_", studyn),
+    trtn = str_c("trt_", trtn)
+  )
+
 ```
 
 From `?parkinsons` documentation, we know we have a study variable `studyn`, a treatment variable `trtn`, a measure of effect `y`, and standard error of the effect, `se`, sample size `n`.
 
-First step is to convert the raw data to a network object.
+First step is to convert the raw data to a network object for contrast analysis.
 
-```{r}
+```{r network object}
 # create network object
-arm_net <- set_agd_arm(parkinsons, 
-                      study = studyn,
-                      trt = trtn,
-                      y = y, 
-                      se = se,
-                      sample_size = n)
+parkinsons_net <-
+  set_agd_contrast(
+    parkinsons_dat,
+    study = studyn,
+    trt = trtn,
+    y = diff,
+    se = se_diff,
+    sample_size = n
+  )
 
 # this is a network object
-arm_net
+parkinsons_net
 
 ```
 
 Now we've converted our data to a network object, we can inspect the direct and indirect evidence we have. That is which treatments have a pairwise comparison in at least one study.  
 
-```{r}
-plot(arm_net, weight_edges = FALSE)
+```{r network, fig.cap="This network of 7 studies contains direct and indirect (via transitivity) effects, with respect to treatment 4."}
+plot(parkinsons_net, weight_edges = FALSE)
 ```
 
 We can see the model will be creating indirect comparisons between treatments such 2 and 3, using the direct evidence in studies that compare 1 and 3, as well as 1 and 2. 
@@ -157,18 +177,19 @@ We can see the model will be creating indirect comparisons between treatments su
 
 We run the following code to fit a random-effects network meta-analysis model. 
 
-```{r eval=FALSE}
-nma_results <- nma(arm_net, 
-                  trt_effects = "fixed",
-                  prior_intercept = normal(scale = 100),
-                  prior_trt = normal(scale = 10))
+```{r nma not run, eval=FALSE}
+nma_results <-
+  nma(parkinsons_net,
+      trt_effects = "fixed",
+      prior_trt = normal(scale = 100))
+
 ```
 
-```{r include=FALSE}
-nma_results <- nma(arm_net, 
-                  trt_effects = "fixed",
-                  prior_intercept = normal(scale = 100),
-                  prior_trt = normal(scale = 10))
+```{r nma run, include=FALSE}
+nma_results <-
+  nma(parkinsons_net,
+      trt_effects = "fixed",
+      prior_trt = normal(scale = 100))
 ```
 
 We assume a prior distribution on $k = 1, \dots, 5$ treatment effects 
@@ -181,35 +202,57 @@ y\ |\ d \sim \text{normal}(\delta, V)\\
 $$
 with fixed effect
 $$
-\delta = Xd + M\mu
+\delta = Xd
 $$
 our model will give us estimates of $d$, $mu$ and $V$. 
 
 
-```{r}
-nma_results 
-```
-
-When we plot the posteriors and with their priors, we see estimates for $M$, the coefficient for study terms, $\mu$, and as well as $X$, the coefficient for treatment effects.  
+When we plot the posteriors and with their priors, we see estimates for the comparative difference of treatments from the placebo, treatment 4.
 
 ```{r}
 plot_prior_posterior(nma_results)
 ```
 
-This is measure a mean off-time _reduction_, so I assume a negative value is a bad thing. Then we note that $d_1$ has the largest mean off-time reduction. However, to assess these results more robustly, we turn to a threshold analysis. 
+We consider two ways of assessing the results of the model, the standards outlined in Cochrane's _Handbook_ [@higgins2019cochrane] and threshold analysis [@phillippo_multinmanetworkmetaanalysis_2020]. 
 
 # cochrane reporting
 
 Now, we have the a network meta-anlaysis, we turn to [11.6 of Cochrane handbook](https://training.cochrane.org/handbook/current/chapter-11#section-11-6-4) for how to inspect the results of the model [@higgins2019cochrane].  
 
-## contribution 
+##  evidence base and network structure
 
+For networks that do not have an overabundance of nodes, that is treatments, a plot of the network, as shown in Figure \@ref(fig:network) is enough. 
 
-## intervention effects
+> todo: table of xs
 
+## flow of evidence
 
+Another way of summarising the evidence base of a network meta-analysis is a **contribution matrix**, as described in 11.6.3, however I have as yet to find this. 
 
-## ranking
+### contribution matrix
+
+> Haven't found a tool for this. Might need to code one.
+
+## results
+
+### intervention effects
+
+The credible intervals for each of the comparative treatment effects is of most interest, which we can inspect with a forest plot. 
+
+```{r}
+plot(nma_results)
+```
+
+This would suggest the second treatment has the greatest effect. A table is also a useful summary.
+
+```{r}
+nma_results
+
+```
+
+### ranking
+
+Another recommendation is to provide the ranking distributions of the different treatments. 
 
 ```{r}
 posterior_rank_probs(nma_results) %>% 
@@ -217,13 +260,19 @@ posterior_rank_probs(nma_results) %>%
 
 ```
 
-##  incoherence
+A nice feature of `multinma::` is that it provides cumulative ranking plots, which I think are bit easier to interpret. Here we see the second treatment has the greatest likelihood to be ranked the best treatment.
 
+```{r}
+posterior_rank_probs(nma_results, cumulative = TRUE) %>% 
+  plot()
 
+```
 
 # threshold analysis
 
-Phillipo _et al._ claim threshold analysis provides a more robust method of assessing confidence in recommendations based on network meta-analysis than the widely-used [] GRADE framework [@phillippo_thresholdanalysisalternative_2019]. The typical results of a network meta-analysis is a 'consistent set of treatment estimates so that coherent recommendations may be made', however there are many reasons we may question the strength of the evidence. In the case of the Parkinsons dataset, we have an estimate of the laudifference of a particular treatment on the mean off-time reduction in patients given dopamine agonists as adjunct therapy, from the default treatment.
+> Work in progress.
+
+Phillipo _et al._ claim threshold analysis provides a more robust method of assessing confidence in recommendations based on network meta-analysis than the widely-used [] GRADE framework [@phillippo_thresholdanalysisalternative_2019]. The typical results of a network meta-analysis is a 'consistent set of treatment estimates so that coherent recommendations may be made', however there are many reasons we may question the strength of the evidence. In the case of the parkinsons_dat dataset, we have an estimate of the laudifference of a particular treatment on the mean off-time reduction in patients given dopamine agonists as adjunct therapy, from the default treatment.
 
 > Threshold analysis quantifies precisely how
 much the evidence could change (for any reason, such as potential biases or simply sampling
@@ -231,7 +280,7 @@ variation) before the recommendation changes, and what the revised recommendatio
 it is judged that the evidence could not plausibly change by more than this amount then the recommendation is considered robust, otherwise the recommendation is sensitive to plausible
 changes in the evidence [@phillippo_thresholdanalysisalternative_2019].
 
-Threshold analyses are performed at both study level and at contrast level, in either case the result is a set of thresholds that show how much the data point can change before the recommendation changes. We will do a contrast-level threshold analysis on the Parkinsons dataset. 
+Threshold analyses are performed at both study level and at contrast level, in either case the result is a set of thresholds that show how much the data point can change before the recommendation changes. We will do a contrast-level threshold analysis on the parkinsons_dat dataset. 
 
 `::nma_thresh` for random effects model require 
 
@@ -245,13 +294,16 @@ post_means <-
 
 ```
 
+
+
+
 2. a likelihood `lhood` covariance matrix,
 
 
 ```{r likelihood cov}
 # for lhood
 likelihood_cov <- 
-  diag(parkinsons$se^2)
+  diag(parkinsons_dat$se^2)
 
 ```
 
@@ -275,13 +327,13 @@ post_cov <-
 
 4. a design matrix `mu.design` for additional covariates,
 
-```{r mudesign}
+```{r mudesign, eval=FALSE}
 
 # a design matrix for mu.design
-M <- matrix(0, nrow = nrow(parkinsons), ncol = 7)
+M <- matrix(0, nrow = nrow(parkinsons_dat), ncol = 7)
 
-for (i in 1:nrow(parkinsons)) {
-  if (parkinsons$trtn[i]) M[i, parkinsons$studyn[i]] <- 1
+for (i in 1:nrow(parkinsons_dat)) {
+  if (parkinsons_dat$trtn[i]) M[i, parkinsons_dat$studyn[i]] <- 1
 }
 
 
@@ -289,14 +341,14 @@ for (i in 1:nrow(parkinsons)) {
 
 5. a design matrix `delta.design` for random effects terms.
 
-```{r}
+```{r eval=FALSE}
 # construct the design mtrix for eazch contrast
 X <- matrix(0, nrow = 15, ncol = 6)
 
 for (i in 1:15){
-  X[i, parkinsons$trtn[i]-1] <- 1
-  if (parkinsons$studyn[i] != 4){
-    X[i, parkinsons$studyn[i]-1] <- -1
+  X[i, parkinsons_dat$trtn[i]-1] <- 1
+  if (parkinsons_dat$studyn[i] != 4){
+    X[i, parkinsons_dat$studyn[i]-1] <- -1
   }
 }
 
@@ -314,9 +366,8 @@ thresh <-
     mean.dk = post_means,
     lhood = likelihood_cov,
     post= post_cov,
-    mu.design = M,
-    delta.design = X,
-    nmatype = "random"
+    X = X,
+    nmatype = "fixed"
   )
 
 
