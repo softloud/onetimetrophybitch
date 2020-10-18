@@ -409,6 +409,19 @@ The data provided are from a network meta-analysis of social anxiety with 41 tre
 
 1. the posterior means `means.dk` of the basic treatment parameters $d_k$, 
 
+```{r}
+trt.dat %>% 
+    select(-n.arms) %>% 
+    mutate(treatments = pmap(list(t.1, t.2, t.3, t.4, t.5), 
+           .f = function(...){
+        which(!is.na(c(...)))
+    })) %>% 
+    select(treatments) %>% 
+    distinct()
+
+```
+
+
 
 
 # references

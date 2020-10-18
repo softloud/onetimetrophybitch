@@ -1,0 +1,156 @@
+---
+title: "network meta-analysis"
+subtitle: "toolchain walkthrough"
+author: "Charles T. Gray"
+date: "Wednesday 21 October 2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE
+    )
+```
+
+## objective
+
+- provide a **toolchain walkthrough** of a network meta-analysis
+- demonstrate what I would bring and what I would learn from this project
+
+### definition
+
+**toolchain walkthrough** := an _opinionated_ documentation of a scientific workflow
+
+> _The [tidyverse](https://www.tidyverse.org/) is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures._
+
+> 
+
+## load packages
+
+```{r packages}
+
+# toolchain walkthrough
+library(multinma) # network meta-analysis
+library(nmathresh) # threshold analysis
+
+# additional packages used in this walkthrough
+library(tidyverse) # general purpose
+library(kableExtra) # tables
+
+
+```
+
+
+## example data
+
+```{r eval=FALSE}
+# from data documentation
+?parkinsons
+
+```
+
+
+> mean off-time reduction in patients given dopamine agonists as adjunct therapy in Parkinson's disease from 7 trials comparing four active drugs and placebo
+
+```{r}
+parkinsons %>%
+    # display top values
+    head(3)
+
+```
+
+## create network object
+
+```{r}
+contr_net <-
+    set_agd_contrast(
+        parkinsons,
+        study = studyn,
+        trt = trtn,
+        y = diff,
+        se = se_diff,
+        sample_size = n
+    )
+
+```
+
+## network meta-analysis model | prior
+
+```{r}
+# prior
+summary(normal(scale = 100))
+
+```
+
+an example of an area I would like to learn more about; selection of priors. 
+
+## network meta-analysis model | `::nma`
+
+
+```{r}
+# fit model to network object
+parkinsons_nma <-
+    nma(
+        # network object
+        contr_net, 
+        
+        # fixed; for brevity w sensitivity
+        trt_effects = "fixed", 
+        
+        # set prior on treatment contrast with placebo
+        prior_trt = normal(scale = 100))
+
+```
+
+# cochrane reporting | flow of evidence
+
+## network
+
+## contribution matrix
+
+# cochrane reporting | results
+
+## intervention effects
+
+```{r}
+# todo: forest plot
+# todo: table
+```
+
+
+## ranking
+
+```{r}
+# rank plots
+# cumulative rank plots
+```
+
+## incoherence
+
+# sensitivity
+
+## leave one out
+
+## leave one out | distributions
+
+## threshold analysis | arguments
+
+- posterior mean estimates
+- likelihood covariance matrix
+- posterior covariance matrix
+- design matrix of contrasts
+
+## threshold analysis | posterior mean estimates
+
+```{r}
+# get posterior mean estimates
+post_means <- 
+  summary(parkinsons_nma, pars=c("d")) %>% 
+  as.data.frame() %>%
+  pull("mean")
+
+# print values
+post_means
+
+```
+

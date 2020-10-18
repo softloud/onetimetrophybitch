@@ -56,7 +56,7 @@ where
 A typical dataset.
 
 ```{r, echo=FALSE}
-varameta::pinheiro_data %>% 
+varameta::pinheiro_dat %>% 
   filter(centre == "mean") %>% 
   select(-centre, -spread, -s_t, -s_c) %>% 
   rename(mean_t = m_t, 
@@ -73,7 +73,7 @@ varameta::pinheiro_data %>%
 
 ```{r eval=FALSE}
 # meta-analysis of D-dimer levels in preeclampsia 
-?varameta::pinheiro_data
+?varameta::pinheiro_dat
 ```
 
 
@@ -89,7 +89,7 @@ class: inverse, bottom
 ## what if the study reports medians?
 
 ```{r}
-varameta::pinheiro_data %>% # example pre-eclampsia dataset  
+varameta::pinheiro_dat %>% # example pre-eclampsia dataset  
   select(-s_c_d, -s_t_d) %>% # drop duplicated numeric spread values
   rename( # rename columns to be human interpretable
     centre_t = m_t, centre_c = m_c, spread_t = s_t, spread_c = s_c

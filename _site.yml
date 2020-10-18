@@ -13,4 +13,6 @@ navbar:
       menu:
       - text: "hlf"
         href: talks/hlf/hlf-2019-xaringan.html
+      - text: "nma"
+        href: talks/newcastle-nma/newcastle-nma.html
 output: distill::distill_article
