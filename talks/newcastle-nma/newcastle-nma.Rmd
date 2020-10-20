@@ -343,9 +343,9 @@ rankings <-
 
 ```{r echo=FALSE, fig.height=5, fig.align="center"}
 rankings %>%
-  filter(k != 7#, 
-         # !str_detect(parameter, "4")
-         ) %>%
+  # filter(k != 7#, 
+  #        # !str_detect(parameter, "4")
+  #        ) %>%
   mutate(rank = as_factor(rank)) %>% 
   ggplot(aes(x = parameter, fill = rank)) +
            geom_bar(alpha = 0.6) +
@@ -354,11 +354,14 @@ rankings %>%
   facet_wrap(~k) +
   coord_flip() +
   labs(
-    title = "network meta-analysis ranking distributions", 
-    subtitle = str_wrap("on treatments for all subsets of the available 7 studies", 80),
-    x = "number of combinations for k studies",
-    caption = str_wrap("Bar plots are grouped by k, then number of studies.", 60)
-  )
+    title = "network meta-analysis study subset ranking distributions", 
+    subtitle = str_wrap("on treatments for all subsets of 3 or greater of the available 7 studies", 80),
+    y = "number of combinations of k studies that measure treatment",
+    caption = str_wrap("Bar plots are grouped by k, the number of studies.", 60),
+    x = "treatment"
+  ) +
+  scale_fill_manual(guide = guide_legend(reverse = TRUE),
+                    values = palette(rockthemes::nodoubt_pal()))
 
 ```
 
