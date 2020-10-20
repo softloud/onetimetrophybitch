@@ -241,7 +241,7 @@ study_to_filter
 
 ```
 
-## leave m out 
+## leave m out {.flexbox}
 
 ```{r combinations, include=FALSE,warning=FALSE}
 # get combinations of treatments
@@ -341,27 +341,24 @@ rankings <-
 
 ```
 
-```{r echo=FALSE, fig.height=5, fig.align="center"}
+```{r echo=FALSE, fig.height=5.5, fig.width=10, fig.align="center"}
 rankings %>%
-  # filter(k != 7#, 
-  #        # !str_detect(parameter, "4")
-  #        ) %>%
   mutate(rank = as_factor(rank)) %>% 
   ggplot(aes(x = parameter, fill = rank)) +
-           geom_bar(alpha = 0.6) +
-  ggthemes::theme_economist_white() +
-  rockthemes::scale_fill_nodoubt() +
+           geom_bar(alpha = 0.5, width = 0.5) +
+  ggthemes::theme_hc() +
+  rockthemes::scale_fill_nodoubt(
+    guide = guide_legend(reverse = TRUE)
+  ) +
   facet_wrap(~k) +
   coord_flip() +
   labs(
-    title = "network meta-analysis study subset ranking distributions", 
-    subtitle = str_wrap("on treatments for all subsets of 3 or greater of the available 7 studies", 80),
-    y = "number of combinations of k studies that measure treatment",
+    title = str_wrap("network meta-analysis study subset ranking distributions", 100), 
+    subtitle = str_wrap("on treatments for all subsets of 3 or greater of the available 7 studies", 100),
+    y = "number of subsets of size k from the 7 studies that measure treatment",
     caption = str_wrap("Bar plots are grouped by k, the number of studies.", 60),
     x = "treatment"
-  ) +
-  scale_fill_manual(guide = guide_legend(reverse = TRUE),
-                    values = palette(rockthemes::nodoubt_pal()))
+  )
 
 ```
 
