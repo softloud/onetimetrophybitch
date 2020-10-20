@@ -5,8 +5,7 @@ author: "Charles T. Gray"
 date: "Wednesday 21 October 2020"
 bibliography: references.bib 
 output: 
-  ioslides_presentation:
-    widescreen: true
+  ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
