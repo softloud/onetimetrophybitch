@@ -3,45 +3,76 @@ title: "network meta-analysis"
 subtitle: "toolchain walkthrough"
 author: "Charles T. Gray"
 date: "Wednesday 21 October 2020"
-output: ioslides_presentation
+bibliography: references.bib 
+output: 
+  ioslides_presentation:
+    widescreen: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-    echo = TRUE
+    echo = TRUE, 
+    cache = TRUE,
+    fig.align = "center"
     )
 ```
 
-## objective
+<div class="notes">
 
-- provide a **toolchain walkthrough** of a network meta-analysis
-- demonstrate what I would bring and what I would learn from this project
+objective
+
+- toolchain walkthrough
+- learn/bring
+
+</div>
+
+## toolchain walkthrough 
 
 ### definition
 
-**toolchain walkthrough** := an _opinionated_ documentation of a scientific workflow
+**toolchain walkthrough** := an _opinionated_ [@parker_opinionated_2017] documentation of a scientific workflow [@gray_codeproofprepare_2019]
 
-> _The [tidyverse](https://www.tidyverse.org/) is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures._
+
+### opinionated usage
+
+> _The [tidyverse](https://www.tidyverse.org/) [@wickham_tidyverse_2017] is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures._
+
+### publication
+
+Gray, C. T. (2019). code::proof: Prepare for Most Weather Conditions. Statistics and Data Science, 22–41. https://doi.org/10.1007/978-981-15-1960-4_2
 
 > 
 
 ## load packages
 
-```{r packages}
+```{r packages,message=FALSE}
 
 # toolchain walkthrough
 library(multinma) # network meta-analysis
 library(nmathresh) # threshold analysis
 
-# additional packages used in this walkthrough
-library(tidyverse) # general purpose
-library(kableExtra) # tables
 
 
 ```
 
+```{r include=FALSE}
+conflicted::conflict_prefer("filter", "dplyr")
 
-## example data
+parkinsons_dat <- parkinsons %>% 
+  mutate(
+          studyn = str_c("study_", studyn),
+          trtn = str_c("trt_", trtn)
+  )
+
+# additional packages used in this walkthrough
+library(tidyverse) # general purpose
+library(kableExtra) # tables
+library(patchwork)
+
+```
+
+
+## example data | Parkinson's disease
 
 ```{r eval=FALSE}
 # from data documentation
@@ -53,16 +84,39 @@ library(kableExtra) # tables
 > mean off-time reduction in patients given dopamine agonists as adjunct therapy in Parkinson's disease from 7 trials comparing four active drugs and placebo
 
 ```{r}
-parkinsons %>%
+parkinsons_dat%>%
     # display top values
     head(3)
 
 ```
 
+
+
+## network meta-analysis model
+
+### meta-analysis
+
+$$
+\boldsymbol y \sim \text{normal}(\mu + \boldsymbol \theta, \boldsymbol \sigma^2)\\
+\boldsymbol \theta \sim \text{normal}(0, \tau^2)
+$$
+
+### bayesian network meta-analysis
+
+\[
+\left.
+\begin{array}{c r c l}
+\text{prior} & \boldsymbol d & \sim & \text{normal}(\boldsymbol d_0, \boldsymbol \Sigma_d)\\
+\text{likelihood} & \boldsymbol y | \boldsymbol d & \sim & \text{normal}(\boldsymbol \delta, \boldsymbol V)\\
+\text{fixed effects model} &  \boldsymbol \delta &=& \boldsymbol{Xd}
+\end{array}
+\right\}
+\]
+
 ## create network object
 
 ```{r}
-contr_net <-
+parkinsons_net <-
     set_agd_contrast(
         parkinsons,
         study = studyn,
@@ -73,6 +127,8 @@ contr_net <-
     )
 
 ```
+
+
 
 ## network meta-analysis model | prior
 
@@ -86,13 +142,12 @@ an example of an area I would like to learn more about; selection of priors.
 
 ## network meta-analysis model | `::nma`
 
-
 ```{r}
 # fit model to network object
 parkinsons_nma <-
     nma(
         # network object
-        contr_net, 
+        parkinsons_net, 
         
         # fixed; for brevity w sensitivity
         trt_effects = "fixed", 
@@ -102,36 +157,212 @@ parkinsons_nma <-
 
 ```
 
-# cochrane reporting | flow of evidence
+# cochrane reporting 
 
-## network
-
-## contribution matrix
-
-# cochrane reporting | results
-
-## intervention effects
+## cochrane reporting | network
 
 ```{r}
-# todo: forest plot
-# todo: table
+plot(parkinsons_net, weight_edges = FALSE)
+
+```
+
+## cochrane reporting |  intervention effects
+
+```{r fig.height=3.5}
+plot(parkinsons_nma)
+
+```
+
+## cochrane reporting |  intervention effects
+
+```{r fig.height=3.5}
+plot_prior_posterior(parkinsons_nma)
+
 ```
 
 
-## ranking
+## cochrane reporting | ranking {.smaller}
 
-```{r}
-# rank plots
-# cumulative rank plots
+```{r fig.width=10, fig.height = 4, fig.align="center"}
+posterior_rank_probs(parkinsons_nma) %>% plot() + 
+  posterior_rank_probs(parkinsons_nma, cumulative = TRUE) %>% plot()
+
 ```
-
-## incoherence
 
 # sensitivity
 
-## leave one out
+## leave one out | exclude a random study from the network meta-analysis
 
-## leave one out | distributions
+```{r include=FALSE}
+# choose a random study
+study_to_filter <- 
+  parkinsons_dat%>% 
+  pull(studyn) %>% 
+  unique() %>% 
+  sample(1)
+
+leave_one_out_plot <-
+parkinsons_dat%>% 
+  filter(studyn != study_to_filter) %>% 
+     set_agd_contrast(
+       # data
+       .,
+        study = studyn,
+        trt = trtn,
+        y = diff,
+        se = se_diff,
+        sample_size = n
+    ) %>% 
+      nma(
+        # network object
+        .,
+        
+        # fixed; for brevity w sensitivity
+        trt_effects = "fixed", 
+        
+        # set prior on treatment contrast with placebo
+        prior_trt = normal(scale = 100)) %>% 
+  plot()
+
+
+```
+
+
+
+```{r echo=FALSE, fig.height=3,fig.align="center"}
+leave_one_out_plot
+
+```
+
+
+```{r}
+# excluding study
+study_to_filter
+
+```
+
+## leave m out 
+
+```{r combinations, include=FALSE,warning=FALSE}
+# get combinations of treatments
+# ::combn w ::t might be useful
+all_trt_comb <-
+  parkinsons_dat%>%
+  select(studyn, trtn)
+
+trt_comb <- 
+all_trt_comb %>%
+  pull(studyn) %>%
+  unique() %>%
+  map_df(
+    .f = function(study) {
+      all_trt_comb %>%
+        filter(studyn == study) %>%
+        pull(trtn) %>%
+        combn(2) %>%
+        t() %>%
+        as_tibble()
+    }
+  ) %>%
+  distinct() %>% 
+  filter(V1 == 2)
+
+
+```
+
+```{r include=FALSE}
+
+
+
+# trial function
+
+trial <- function(studies_to_include) {
+  
+  trial_model <-
+  parkinsons_dat%>% 
+    filter(studyn %in% studies_to_include) %>% 
+     set_agd_contrast(
+       # data
+       .,
+        study = studyn,
+        trt = trtn,
+        y = diff,
+        se = se_diff,
+        sample_size = n
+    ) %>% 
+      nma(
+        # network object
+        .,
+        
+        # fixed; for brevity w sensitivity
+        trt_effects = "fixed", 
+        
+        # set prior on treatment contrast with placebo
+        prior_trt = normal(scale = 100))
+  
+  summary(trial_model, par = "d") %>% 
+    as_tibble() %>% 
+    select(parameter, mean) %>% 
+    arrange(mean) %>%
+    mutate(rank = row_number(),
+           k = length(studies_to_include)) %>% 
+    select(-mean)
+
+}
+
+# extract study combinations
+studies <-
+  parkinsons_dat%>% 
+  pull(studyn) %>% 
+  unique() 
+
+study_inclusions <-
+  3:length(studies) %>% 
+  map_df(.f = function(k){
+  combn(
+    x = studies,
+    m = k,
+    simplify = FALSE
+  ) %>% 
+      tibble(
+        k = k,
+        included_studies = .
+      )
+  }) 
+
+
+```
+
+```{r include=FALSE}
+rankings <-
+  study_inclusions %>%
+  pull(included_studies) %>% 
+  map_df(trial) 
+
+```
+
+```{r echo=FALSE, fig.height=5, fig.align="center"}
+rankings %>%
+  filter(k != 7#, 
+         # !str_detect(parameter, "4")
+         ) %>%
+  mutate(rank = as_factor(rank)) %>% 
+  ggplot(aes(x = parameter, fill = rank)) +
+           geom_bar(alpha = 0.6) +
+  ggthemes::theme_economist_white() +
+  rockthemes::scale_fill_nodoubt() +
+  facet_wrap(~k) +
+  coord_flip() +
+  labs(
+    title = "network meta-analysis ranking distributions", 
+    subtitle = str_wrap("on treatments for all subsets of the available 7 studies", 80),
+    x = "number of combinations for k studies",
+    caption = str_wrap("Bar plots are grouped by k, then number of studies.", 60)
+  )
+
+```
+
+
 
 ## threshold analysis | arguments
 
@@ -154,3 +385,45 @@ post_means
 
 ```
 
+
+## threshold analysis | design matrix {.smaller .columns-2}
+
+
+```{r height = 5,echo=FALSE}
+plot(parkinsons_net, weight_edges = FALSE)
+
+```
+
+
+```{r echo=FALSE}
+#
+
+
+X <- matrix(data = c(-1, 0, 1, 0,
+              -1, 1, 0, 0,
+              1, 0, 0, 0,
+              0, 0, 1, 0,
+              0, 0, 0, 1),
+            byrow = TRUE,
+            nrow = 5,
+            ncol = 4)
+
+X
+```
+
+
+</div>
+
+## threshold | posterior likelihood
+
+```{r}
+
+Sigma_d <- 
+  diag(rep(100^2, length(post_means)))
+
+
+
+```
+
+
+## references
