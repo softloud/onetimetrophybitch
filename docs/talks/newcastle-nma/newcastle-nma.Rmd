@@ -17,14 +17,9 @@ knitr::opts_chunk$set(
     )
 ```
 
-<div class="notes">
+## set up {.vcenter}
 
-objective
-
-- toolchain walkthrough
-- learn/bring
-
-</div>
+### press f, o, w keys for best viewing 
 
 ## toolchain walkthrough 
 
@@ -49,7 +44,6 @@ Gray, C. T. (2019). code::proof: Prepare for Most Weather Conditions. Statistics
 
 # toolchain walkthrough
 library(multinma) # network meta-analysis
-library(nmathresh) # threshold analysis
 
 
 
