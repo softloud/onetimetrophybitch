@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 ## set up {.vcenter}
 
-### press `o` and `w` keys for best viewing 
+### press `o` and `f` keys for best viewing 
 
 ## toolchain walkthrough 
 
@@ -78,7 +78,7 @@ library(patchwork)
 > mean off-time reduction in patients given dopamine agonists as adjunct therapy in Parkinson's disease from 7 trials comparing four active drugs and placebo
 
 ```{r}
-parkinsons_dat%>%
+parkinsons_dat %>%
     # display top values
     head(3)
 
