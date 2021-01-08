@@ -9,6 +9,10 @@ navbar:
       href: index.html
     - text: "trophybitch"
       href: about.html
+    - text: "rethinking"
+      menu: 
+      - text: "chapter-1"
+        href: rethinking/chapter-2.html
     - text: "presentations"
       menu:
       - text: "hlf"

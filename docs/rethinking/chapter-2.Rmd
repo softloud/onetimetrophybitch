@@ -1,0 +1,149 @@
+---
+title: "chapter 2"
+description: |
+  exercises from chapter 2 statistical rethinking
+date: "`r Sys.Date()`"
+output: 
+    distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## easy
+
+## medium
+
+### 2M1
+
+> Compute and plot the grid approximate posterior distribution for each of the following sets of observations. In each case, assume a uniform prior for **p**.
+
+1. WWW
+2. WWWL
+3. LWWLWWW
+
+We assume 
+$$
+\begin{array}
+\\W & \sim & \text{binomial}(N, p)\\
+p & \sim & \text{uniform}(0, 1)
+\end{array}
+$$
+where $W$ is the number of water observations and $N = L + W$ is the total number of water and land observations. We only know $p$ is a proportion, so we know that it falls in $[0,1]$.
+
+We are interested in finding
+$$
+P(p|W,L) = P(W,L|p)P(p)/P(W,L)
+$$
+where $P(p|W,L)$ is the posterior, $P(W,L|p)$ is the probability of the data, $P(W,L)$ is the prior.
+
+> And this is Bayes' theorem. It says the the probability of any particular value of $p$, considering the data is equal to the product of the relative plausibility of the data, conditional on $p$, and the prior plausibility of $p$, divided by the average probability of the data. 
+
+$$
+\text{Posterior} = \frac{
+\text{Probability of the data} \times \text{Prior}
+}{
+\text{Average probability of the data}
+}
+$$
+```{r WWW, eval=TRUE}
+
+library(tidyverse)
+
+n <- 10
+
+www <- 
+    tibble(
+        # define grid
+        p = seq(0, 1, length.out = n),
+        # compute prior at each parameter value
+        prior = 1
+    ) %>% 
+    mutate(
+        # compute the likelihood at each parameter value
+        plausibility = dbinom(3, size = 3, prob = p),
+        # comput the unstandardised posterior
+        unstd_post = plausibility * prior,
+        # standardise the posterior
+        posterior = unstd_post / sum(unstd_post)
+    )
+
+```
+
+```{r}
+
+grid_plot <- function(post_df, title_text) {
+post_df %>% 
+    ggplot(
+        aes(
+            x = p,
+            y = posterior
+        )
+    ) +
+    geom_line(alpha = 0.4) +
+    geom_point(alpha = 0.8) + 
+    labs(title = title_text) + 
+        ggthemes::theme_tufte()
+    
+}
+
+
+
+```
+
+It makes sense that for `www` observation, we have a monotonically increasing posterior. Higher values of $p$ are more likely, given we have _only_ observed water.
+
+
+```{r}
+grid_plot(www, "w w w")
+```
+
+Now for the second set of observations, `wwwl`. This should be slightly more interesting, as there is one land observation, so we know with certainty that $p \neq 1$, whereas in `www`, this was the most plausible value for $p$.
+
+```{r}
+
+wwwl <- 
+    tibble(
+        # define grid
+        p = seq(0, 1, length.out = n),
+        # compute prior at each parameter value
+        prior = 1
+    ) %>% 
+    mutate(
+        # compute the likelihood at each parameter value
+        plausibility = dbinom(3, size = 4, prob = p),
+        # comput the unstandardised posterior
+        unstd_post = plausibility * prior,
+        # standardise the posterior
+        posterior = unstd_post / sum(unstd_post)
+    )
+
+grid_plot(wwwl, "w w w l")
+
+```
+
+```{r}
+lwwlwww <- 
+    tibble(
+        # define grid
+        p = seq(0, 1, length.out = n),
+        # compute prior at each parameter value
+        prior = 1
+    ) %>% 
+    mutate(
+        # compute the likelihood at each parameter value
+        plausibility = dbinom(5, size = 7, prob = p),
+        # comput the unstandardised posterior
+        unstd_post = plausibility * prior,
+        # standardise the posterior
+        posterior = unstd_post / sum(unstd_post)
+    )
+
+grid_plot(lwwlwww, "l w w l w w")
+
+
+```
+
+
+## hard
