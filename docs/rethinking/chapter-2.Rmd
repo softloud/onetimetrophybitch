@@ -145,5 +145,6 @@ grid_plot(lwwlwww, "l w w l w w")
 
 ```
 
+### 2M2
 
 ## hard
