@@ -51,8 +51,10 @@ $$
 
 library(tidyverse)
 
+# set number of points for the grid 
 n <- 10
 
+# create a grid approximation tableT
 www <- 
     tibble(
         # define grid
@@ -146,5 +148,76 @@ grid_plot(lwwlwww, "l w w l w w")
 ```
 
 ### 2M2
+
+We now assume a prior for $p$ such that 
+$$
+P: [0,1] \to \{0, \theta\}: p \mapsto 
+\begin{cases}
+0 & p < 0.5\\
+\theta & p \geqslant 0.5
+\end{cases}
+$$
+where $\theta \in \mathbb R^+$, and again compute the grid approximations as in 2M1.
+
+Now I've got the general idea of each line of the grid approximation, I'll now functionalise it. 
+
+```{r grid approx}
+grid_theta <- function(w, sample_size) {
+  # get a random positive value
+  theta <- runif(1, 1, 10000)
+  
+  # return tibble of grid approx
+     tibble(
+        # define grid
+        p = seq(0, 1, length.out = n),
+        # compute prior at each parameter value
+        prior = if_else(p < 0.5, 0, theta)
+    ) %>% 
+    mutate(
+        # compute the likelihood at each parameter value
+        plausibility = dbinom(w, size = sample_size, prob = p),
+        # comput the unstandardised posterior
+        unstd_post = plausibility * prior,
+        # standardise the posterior
+        posterior = unstd_post / sum(unstd_post)
+    )
+}
+  
+```
+
+```{r}
+# www
+
+grid_theta(3, 3) %>% 
+  grid_plot("w w w, prior = 0 for p < 0.5")
+
+```
+```{r}
+# wwwl
+
+grid_theta(3, 4) %>% 
+  grid_plot("w w w l, prior = 0 for p < 0.5")
+
+```
+
+```{r}
+# lwwlwww
+grid_theta(5, 7) %>% 
+  grid_plot("l w w l w w w, prior = 0 for p < 0.5")
+
+
+```
+
+Since 
+$$
+\text{Posterior} = \frac{
+\text{Probability of the data} \times \text{Prior}
+}{
+\text{Average probability of the data}
+}
+$$
+In all three questions, for $p< 0.5$, the posterior is 0.
+
+Since the numerator is a product of the probability of the data and the prior, which is set to 0 for $p < 0.5$, and any product containing zero is zero, we have a posterior of 0 for all values $p < 0.5$. That is, where the prior is 0, this will *always* produce a posterior of 0, regardless of the value of the probability of the data.  
 
 ## hard

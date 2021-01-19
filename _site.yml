@@ -11,7 +11,7 @@ navbar:
       href: about.html
     - text: "rethinking"
       menu: 
-      - text: "chapter-1"
+      - text: "chapter-2"
         href: rethinking/chapter-2.html
     - text: "presentations"
       menu:

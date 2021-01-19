@@ -85,26 +85,38 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>measured.</title>
+  <title>measured.: trophybitch</title>
 
+  <meta property="description" itemprop="description" content="a one-time trophy bitch screams into the void"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="measured."/>
+  <meta property="og:title" content="measured.: trophybitch"/>
   <meta property="og:type" content="article"/>
+  <meta property="og:description" content="a one-time trophy bitch screams into the void"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="measured."/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="measured."/>
+  <meta property="twitter:title" content="measured.: trophybitch"/>
+  <meta property="twitter:description" content="a one-time trophy bitch screams into the void"/>
 
   <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Truth, Proof, and Reproducibility: There’s no counter-attack for the codeless;citation_publication_date=2019;citation_author=Charles T. Gray;citation_author=Ben Marwick"/>
+  <meta name="citation_reference" content="citation_title=The Homomorphism Lattice Induced by a Finite Algebra;citation_publication_date=2018;citation_volume=35;citation_doi=10.1007/s11083-017-9426-3;citation_issn=1572-9273;citation_author=Brian A. Davey;citation_author=Charles T. Gray;citation_author=Jane G. Pitkethly"/>
+  <meta name="citation_reference" content="citation_title=EviAtlas: A tool for visualising evidence synthesis databases;citation_publication_date=2019;citation_volume=8;citation_doi=10.1186/s13750-019-0167-1;citation_issn=2047-2382;citation_author=Neal R. Haddaway;citation_author=Andrew Feierman;citation_author=Matthew J. Grainger;citation_author=Charles T. Gray;citation_author=Ezgi Tanriver-Ayder;citation_author=Sanita Dhaubanjar;citation_author=Martin J. Westgate"/>
+  <meta name="citation_reference" content="citation_title=Truth, Proof, and Reproducibility: There’s no counter-attack for the codeless;citation_publication_date=2019;citation_author=Charles T. Gray;citation_author=Ben Marwick"/>
+  <meta name="citation_reference" content="citation_title=Truth, Proof, and Reproducibility: There’s no counter-attack for the codeless;citation_publication_date=2019;citation_author=Charles T. Gray;citation_author=Ben Marwick"/>
+  <meta name="citation_reference" content="citation_title=Coding of Kindness: Let’s figure out how to be better humans to each other;citation_publication_date=2019;citation_publisher=https://softloud.github.io/codingofkindness/;citation_author=Charles T. Gray;citation_author=Ben Marwick;citation_author=Jen Richmond;citation_author=Emily Kothe;citation_author=Mathew Ling;citation_author=Brian Knaus"/>
+  <meta name="citation_reference" content="citation_title=Coding of Kindness: Let’s figure out how to be better humans to each other;citation_publication_date=2019;citation_publisher=https://softloud.github.io/codingofkindness/;citation_author=Charles T. Gray;citation_author=Ben Marwick;citation_author=Jen Richmond;citation_author=Emily Kothe;citation_author=Mathew Ling;citation_author=Brian Knaus"/>
+  <meta name="citation_reference" content="citation_title=: Prepare for &lt;i&gt;Most&lt;/i&gt; weather conditions;citation_publication_date=2019;citation_author=Charles T. Gray"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site","listing"]}},"value":[{"type":"character","attributes":{},"value":["measured."]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"character","attributes":{},"value":["posts"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","bibliography"]}},"value":[{"type":"character","attributes":{},"value":["trophybitch"]},{"type":"character","attributes":{},"value":["a one-time trophy bitch screams into the void\n"]},{"type":"character","attributes":{},"value":["references.bib"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2044,12 +2056,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 </head>
 
-<body class="layout-listing">
+<body>
 
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"measured.","authors":[]}
+{"title":"trophybitch","description":"a one-time trophy bitch screams into the void","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2092,393 +2104,123 @@ presentations
 <!--/radix_placeholder_navigation_before_body-->
 <!--radix_placeholder_site_before_body-->
 <!--/radix_placeholder_site_before_body-->
-<!--radix_placeholder_article_listing-->
-
-
-<script type="application/javascript">
-
-function init_posts_list() {
-
-  function load_image(img) {
-    var src = $(img).attr('data-src');
-    if (src) {
-      $(img).attr('src', src);
-      $(img).load(function() {
-        img.removeAttribute('data-src');
-      });
-    }
-  }
-
-  function set_posts_visible(posts, visible) {
-    if (visible) {
-
-      // show bottom border by default
-      $(posts).removeClass('post-preview-last');
-
-      // apply limits if need be
-      var max_posts = 25;
-      var apply_limits = $('.posts-container').hasClass('posts-apply-limit');
-      if (apply_limits && posts.length > max_posts) {
-        posts = $(posts).slice(0, max_posts);
-      } else {
-        $('.posts-more a').addClass('hidden');
-      }
-
-      // apply last style
-      $(posts.slice(-1)[0]).addClass('post-preview-last');
-
-      $(posts).removeClass('hidden');
-      $(posts).find('img[data-src]').each(function(i, img) {
-        load_image(img);
-      });
-    } else {
-      $(posts).addClass('hidden');
-    }
-  }
-
-  function apply_hash_filter() {
-
-    // clear active state
-    $('.categories .active').removeClass('active');
-
-    // mark all posts invisible to start
-    set_posts_visible($('.posts-list').children('a'), false);
-
-    // if we have a hash filter
-    if (window.location.hash && window.location.hash.startsWith("#category:")) {
-
-      // mark posts that match the category visible
-      var page_category = window.location.hash.replace(/^#category:/, "");
-      var posts = $('.post-metadata').map(function(idx, script) {
-        var metadata = $.parseJSON($(script).html());
-        var post = null;
-        $.each(metadata.categories, function(idx, category) {
-          category = category.replace(/ /g,"_");
-          if ((page_category || '').toLowerCase() === "articles" || category === page_category) {
-            post = $(script).parent().get();
-            return false;
-          }
-        });
-        return post;
-      });
-      set_posts_visible(posts, true);
-
-      // mark the hash active
-      $('.categories li>a[href="' + window.location.hash + '"]').addClass('active');
-
-      // update the list_caption
-      var list_caption = $('.posts-list-caption');
-      var caption = (page_category || '').toLowerCase() === "articles"
-        ? list_caption.attr('data-caption')
-        : ('Category: ' + page_category.replace(/_/g," "));
-      list_caption.text(caption);
-
-    } else {
-
-      // no hash filter, make all posts visible (subject to max display)
-      set_posts_visible($('.posts-list').children(), true);
-
-      // reset list caption
-      var list_caption = $('.posts-list-caption');
-      list_caption.text(list_caption.attr('data-caption'));
-
-
-    }
-  }
-
-  // more articles
-  function apply_post_limits(apply) {
-    if (apply) {
-      $('.posts-container').addClass('posts-apply-limit');
-      $('.posts-more a').removeClass('hidden');
-    } else {
-      $('.posts-container').removeClass('posts-apply-limit');
-      $('.posts-more a').addClass('hidden');
-    }
-  }
-
-  // click handling for tags
-  $('.dt-tag').click(function(ev) {
-    window.location.hash = '#category:' + $(this).text().replace(/ /g, "_");
-    return false;
-  })
-
-  // hash filter handling
-  apply_hash_filter();
-  $(window).on('hashchange',function() {
-    apply_post_limits(true);
-    apply_hash_filter();
-  });
-
-  // more articles link
-  $('.posts-more a').click(function(e) {
-    e.preventDefault();
-    apply_post_limits(false);
-    apply_hash_filter();
-    return false;
-  });
-
-}
-
-</script>
-
-
-
-<div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
-<div class="posts-list">
-<h1 class="posts-list-caption" data-caption="measured.">measured.</h1>
-<a href="posts/2020-09-06-nma/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
-<div class="metadata">
-<div class="publishedDate">Sept. 6, 2020</div>
-<div class="dt-authors">
-<div class="dt-author">Charles T. Gray</div>
-</div>
-</div>
-<div class="thumbnail">
-<img src="posts/2020-09-06-nma/nma_files/figure-html5/network-1.png"/>
-</div>
-<div class="description">
-<h2>nma</h2>
-<div class="dt-tags"></div>
-<p>Work in progress.</p>
-</div>
-</a>
-<a href="posts/2019-10-24-incorrigible-tidyvert/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["music"]}</script>
-<div class="metadata">
-<div class="publishedDate">Oct. 24, 2019</div>
-<div class="dt-authors">
-<div class="dt-author">Charles T. Gray</div>
-</div>
-</div>
-<div class="thumbnail">
-<img src="posts/2019-10-24-incorrigible-tidyvert/pipe-logo.png"/>
-</div>
-<div class="description">
-<h2>incorrigible tidy::vert</h2>
-<div class="dt-tags">
-<div class="dt-tag">music</div>
-</div>
-<p>a song with %&gt;% references</p>
-</div>
-</a>
-<a href="posts/2019-03-30-batpigday/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["batpigday","debugging","dev"]}</script>
-<div class="metadata">
-<div class="publishedDate">March 30, 2019</div>
-<div class="dt-authors">
-<div class="dt-author">Charles T. Gray</div>
-</div>
-</div>
-<div class="thumbnail">
-<img src="https://images.gr-assets.com/hostedimages/1496299559ra/22898103.gif"/>
-</div>
-<div class="description">
-<h2>batpigday</h2>
-<div class="dt-tags">
-<div class="dt-tag">batpigday</div>
-<div class="dt-tag">debugging</div>
-<div class="dt-tag">dev</div>
-</div>
-<p>a batpigday is the coding equivalent of  groundhogday</p>
-</div>
-</a>
-<a href="posts/2019-03-28-quack-quack-said-the-duck/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["dev"]}</script>
-<div class="metadata">
-<div class="publishedDate">March 28, 2019</div>
-<div class="dt-authors">
-<div class="dt-author">cantabile</div>
-</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>quack! quack! said the duck</h2>
-<div class="dt-tags">
-<div class="dt-tag">dev</div>
-</div>
-<p>making sense of methods in R</p>
-</div>
-</a>
-<a href="posts/2019-02-19-wrangling-errors/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["wrangling","error handling","debugging"]}</script>
-<div class="metadata">
-<div class="publishedDate">Feb. 19, 2019</div>
-<div class="dt-authors">
-<div class="dt-author">Charles T. Gray</div>
-</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>wrangling errors</h2>
-<div class="dt-tags">
-<div class="dt-tag">wrangling</div>
-<div class="dt-tag">error handling</div>
-<div class="dt-tag">debugging</div>
-</div>
-<p>filtering a list by type</p>
-</div>
-</a>
-<a href="posts/2019-02-03-fuzz-testing/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["testing"]}</script>
-<div class="metadata">
-<div class="publishedDate">Feb. 3, 2019</div>
-<div class="dt-authors">
-<div class="dt-author">Charles T. Gray</div>
-</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>fuzz testing</h2>
-<div class="dt-tags">
-<div class="dt-tag">testing</div>
-</div>
-<p>a neat testing concept</p>
-</div>
-</a>
-<a href="posts/2019-01-05-its-not-not-the-math-its-the-code/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["error handling","testing"]}</script>
-<div class="metadata">
-<div class="publishedDate">Jan. 14, 2019</div>
-<div class="dt-authors">
-<div class="dt-author">Charles T. Gray</div>
-</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>it's not the maths, it's the code</h2>
-<div class="dt-tags">
-<div class="dt-tag">error handling</div>
-<div class="dt-tag">testing</div>
-</div>
-<p>how testing has changed my workflow</p>
-</div>
-</a>
-<a href="posts/2019-01-13-curiousity-science-letter/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["community"]}</script>
-<div class="metadata">
-<div class="publishedDate">Jan. 13, 2019</div>
-<div class="dt-authors">
-<div class="dt-author">Charles T. Gray</div>
-</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>curiousity science letter</h2>
-<div class="dt-tags">
-<div class="dt-tag">community</div>
-</div>
-<p>Curiosity Science asked me to write a letter</p>
-</div>
-</a>
-<a href="posts/2018-11-27-scientific-lit-review/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
-<div class="metadata">
-<div class="publishedDate">Nov. 27, 2018</div>
-<div class="dt-authors">
-<div class="dt-author">Charles T. Gray</div>
-</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>writing a scientific literature review</h2>
-<div class="dt-tags"></div>
-<p>What makes a _good enough_ literature review?</p>
-</div>
-</a>
-<a href="posts/2018-11-12-testing-as-debugging/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["testing","debugging"]}</script>
-<div class="metadata">
-<div class="publishedDate">July 1, 2018</div>
-<div class="dt-authors">
-<div class="dt-author">Charles T. Gray</div>
-</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>testing as debugging</h2>
-<div class="dt-tags">
-<div class="dt-tag">testing</div>
-<div class="dt-tag">debugging</div>
-</div>
-<p>Thoughts on writing my first tests.</p>
-</div>
-</a>
-</div>
-<div class="posts-sidebar">
-<div class="sidebar-section categories">
-<h3>Categories</h3>
-<ul>
-<li>
-<a href="#category:articles">articles</a>
-<span class="category-count">(10)</span>
-</li>
-<li>
-<a href="#category:batpigday">batpigday</a>
-<span class="category-count">(1)</span>
-</li>
-<li>
-<a href="#category:community">community</a>
-<span class="category-count">(1)</span>
-</li>
-<li>
-<a href="#category:debugging">debugging</a>
-<span class="category-count">(3)</span>
-</li>
-<li>
-<a href="#category:dev">dev</a>
-<span class="category-count">(2)</span>
-</li>
-<li>
-<a href="#category:error_handling">error handling</a>
-<span class="category-count">(2)</span>
-</li>
-<li>
-<a href="#category:music">music</a>
-<span class="category-count">(1)</span>
-</li>
-<li>
-<a href="#category:testing">testing</a>
-<span class="category-count">(3)</span>
-</li>
-<li>
-<a href="#category:wrangling">wrangling</a>
-<span class="category-count">(1)</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="posts-more">
-<a href="#">More articles &raquo;</a>
-</div>
-</div>
-<!--/radix_placeholder_article_listing-->
 
 <div class="d-title">
-<h1>measured.</h1>
+<h1>trophybitch</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-
+<p><p>a one-time trophy bitch screams into the void</p></p>
 </div>
 
 
 <div class="d-article">
+<h1 id="publications">publications</h1>
+<p>See <a href="#references">references</a> at bottom of this page for citation details.</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 14%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>title</th>
+<th>discipline</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://arxiv.org/abs/1910.06964"><code>code::proof</code>: Prepare for <em>most</em> weather conditions</a><span class="citation" data-cites="gray2019textttcodeproof">(<a href="#ref-gray2019textttcodeproof" role="doc-biblioref">Gray 2019</a>)</span></td>
+<td>metaprogramming</td>
+<td>second paper from thesis, accepted to springer computer science proceedings something something, metaprogramming</td>
+</tr>
+<tr class="even">
+<td><a href="https://arxiv.org/abs/1907.05947">Truth, Proof, and Reproducibility: There’s no counter-attack for the codeless</a></td>
+<td>metamathematics</td>
+<td>first paper from current thesis has been accepted into springer computer proceedings something something, metamathematics<span class="citation" data-cites="gray_truth_2019">(<a href="#ref-gray_truth_2019" role="doc-biblioref">Gray and Marwick 2019</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><a href="https://link.springer.com/epdf/10.1007/s11083-017-9426-3?author_access_token=Tx3I0PNwg5dFrahH71DncPe4RwlQNchNByi7wbcMAY5xivQFAeypeZYbpkYiIm56ubi44Xeb3jQJh6Y2LL8MDMMBjFNWvxCIzyDBkmDI7ZtY6XFcn9qUBg5X3MB3WdDpzOfXDt4InQo_9PdfLHknPw==">The Homomorphism Lattice Induced by a Finite Algebra</a></td>
+<td>abstract algebra</td>
+<td>The publication of my honours (masters-level) thesis in abstract algebra. Authorship is alphabetical and equal in mathematics. Brian and Jane did a great deal of work on the final paper. But in my thesis, the proofs were all (but two small introductory proofs Brian wrote for completeness) my own. <span class="citation" data-cites="davey_homomorphism_2018">(<a href="#ref-davey_homomorphism_2018" role="doc-biblioref">Davey, Gray, and Pitkethly 2018</a>)</span></td>
+</tr>
+<tr class="even">
+<td>Profiling for Profit</td>
+<td>marketing</td>
+<td>oddly enough, an award-winning consumer behaviour paper, best in the business ethics track <span class="citation" data-cites="harrison_ethical_2010 harrison_profiling_2012">(<a href="#ref-harrison_ethical_2010" role="doc-biblioref">Harrison and Gray 2010</a>; <a href="#ref-harrison_profiling_2012" role="doc-biblioref">Harrison and Gray 2012</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><code>eviatlas::</code></td>
+<td>ecology</td>
+<td>wrote one paragraph and contributed to discussion on this ecology project<span class="citation" data-cites="haddaway_eviatlas_2019">(<a href="#ref-haddaway_eviatlas_2019" role="doc-biblioref">Haddaway et al. 2019</a>)</span></td>
+</tr>
+<tr class="even">
+<td>todo:look up</td>
+<td>psychology</td>
+<td>spent two deep-dive days conjuring a package out of an equation for the Misinformation Lab, and two co-authored papers are submitted</td>
+</tr>
+<tr class="odd">
+<td><a href="https://softloud.github.io/codingofkindness/">Coding of Kindness</a><span class="citation" data-cites="gray_coding_2019">(<a href="#ref-gray_coding_2019" role="doc-biblioref">Gray et al. 2019</a>)</span></td>
+<td>open science</td>
+<td>a rephrasing of the Code of Conduct, which did not win over the people I was trying to communicate with, but did mean that other survivors reached out, and that was quite lovely</td>
+</tr>
+</tbody>
+</table>
+<h1 id="some-other-cool-shit-i-did">some other cool shit i did</h1>
+<h3 id="heidelberg-laureate-forum">heidelberg laureate forum</h3>
+<p>It was a delight to participate in the opening of the <a href="https://www.heidelberg-laureate-forum.org/">Heidelberg Laureate Forum</a>, where the laureates of mathematics and computer science meet the next generation.</p>
+<p>I’ve cued this video to my presentation on the algebra of composition.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lJtdOsjy59A?start=2119" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<p>There’s no Nobel prize in mathematics and computer science. Instead, there is the Turing award, the Fields medal, and the Abel prize. Each year the Heidelberg Laureate Forum Foundation gathers these laureates of mathematics and computing, along with two hundred talented early-career researchers, and science writers, for a week of lectures, workshops, and events designed to foster conversation and ideas.</p>
+<p>It was a gift to present at the opening ceremony and have that introduction; I wasn’t in want of conversation for the entire event. I got to meet so many interesting people.</p>
+<p>Slides for the presentation can be found <a href="https://softloud.github.io/onetimetrophybitch/talks/hlf/hlf-2019-xaringan.html#1">here</a>.</p>
+<h3 id="code-like-a-girl-tour">code like a girl tour</h3>
+<ul>
+<li>check out <a href="https://twitter.com/i/moments/1027200380600348673">twitter reel</a> from the tour</li>
+<li>and the <a href="https://codelikeagirl.org/states/act/2018/september/data-storytelling-with-charles-gray-launch-event/">event</a></li>
+</ul>
+<p><img src="figs/code-like-a-girl.jpg" /></p>
+<h3 id="user-workshop">useR! workshop</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/AmqxVDlfKQY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<h3 id="mathbassador-gray">mathbassador gray</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/o0Rqz8Hgacc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-davey_homomorphism_2018" class="csl-entry" role="doc-biblioentry">
+Davey, Brian A., Charles T. Gray, and Jane G. Pitkethly. 2018. <span>“The <span>Homomorphism Lattice Induced</span> by a <span>Finite Algebra</span>.”</span> <em>Order</em> 35 (2): 193–214. <a href="https://doi.org/10.1007/s11083-017-9426-3">https://doi.org/10.1007/s11083-017-9426-3</a>.
+</div>
+<div id="ref-gray2019textttcodeproof" class="csl-entry" role="doc-biblioentry">
+Gray, Charles T. 2019. <span>“: <span>Prepare</span> for <span><em>Most</em></span> Weather Conditions.”</span> <a href="http://arxiv.org/abs/1910.06964">http://arxiv.org/abs/1910.06964</a>.
+</div>
+<div id="ref-gray_truth_2019" class="csl-entry" role="doc-biblioentry">
+Gray, Charles T., and Ben Marwick. 2019. <span>“Truth, <span>Proof</span>, and <span>Reproducibility</span>: <span>There</span>’s No Counter-Attack for the Codeless.”</span> <em>arXiv:1907.05947 [Math]</em>, July. <a href="http://arxiv.org/abs/1907.05947">http://arxiv.org/abs/1907.05947</a>.
+</div>
+<div id="ref-gray_truth_2019" class="csl-entry" role="doc-biblioentry">
+———. 2019. <span>“Truth, <span>Proof</span>, and <span>Reproducibility</span>: <span>There</span>’s No Counter-Attack for the Codeless.”</span> <em>arXiv:1907.05947 [Math]</em>, July. <a href="http://arxiv.org/abs/1907.05947">http://arxiv.org/abs/1907.05947</a>.
+</div>
+<div id="ref-gray_truth_2019" class="csl-entry" role="doc-biblioentry">
+———. 2019. <span>“Truth, <span>Proof</span>, and <span>Reproducibility</span>: <span>There</span>’s No Counter-Attack for the Codeless.”</span> <em>arXiv:1907.05947 [Math]</em>, July. <a href="http://arxiv.org/abs/1907.05947">http://arxiv.org/abs/1907.05947</a>.
+</div>
+<div id="ref-gray_coding_2019" class="csl-entry" role="doc-biblioentry">
+Gray, Charles T., Ben Marwick, Jen Richmond, Emily Kothe, Mathew Ling, and Brian Knaus. 2019. <span>“Coding of <span>Kindness</span>: <span>Let</span>’s Figure Out How to Be Better Humans to Each Other.”</span> <em>Coding of Kindness</em>. https://softloud.github.io/codingofkindness/.
+</div>
+<div id="ref-gray_coding_2019" class="csl-entry" role="doc-biblioentry">
+———. 2019. <span>“Coding of <span>Kindness</span>: <span>Let</span>’s Figure Out How to Be Better Humans to Each Other.”</span> <em>Coding of Kindness</em>. https://softloud.github.io/codingofkindness/.
+</div>
+<div id="ref-haddaway_eviatlas_2019" class="csl-entry" role="doc-biblioentry">
+Haddaway, Neal R., Andrew Feierman, Matthew J. Grainger, Charles T. Gray, Ezgi Tanriver-Ayder, Sanita Dhaubanjar, and Martin J. Westgate. 2019. <span>“<span>EviAtlas</span>: A Tool for Visualising Evidence Synthesis Databases.”</span> <em>Environmental Evidence</em> 8 (1): 22. <a href="https://doi.org/10.1186/s13750-019-0167-1">https://doi.org/10.1186/s13750-019-0167-1</a>.
+</div>
+<div id="ref-harrison_ethical_2010" class="csl-entry" role="doc-biblioentry">
+Harrison, Paul, and Charles Gray. 2010. <span>“The Ethical and Policy Implications of Profiling <span>‘Vulnerable’</span> Customers: <span>Implications</span> of Customer Profiling.”</span> <em>International Journal of Consumer Studies</em> 34 (4): 437–42. <a href="https://doi.org/10.1111/j.1470-6431.2010.00873.x">https://doi.org/10.1111/j.1470-6431.2010.00873.x</a>.
+</div>
+<div id="ref-harrison_profiling_2012" class="csl-entry" role="doc-biblioentry">
+Harrison, Paul, and Charles Ti Gray. 2012. <em>Profiling for Profit : A Report on Target Marketing and Profiling Practices in the Credit Industry</em>. <span>Consumer Action Law Centre</span>.
+</div>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2490,7 +2232,10 @@ function init_posts_list() {
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->
