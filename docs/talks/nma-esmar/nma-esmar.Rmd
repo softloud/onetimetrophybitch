@@ -224,7 +224,7 @@ website + email
 
 github issues public discussion forum
 
-### intrepid pdoc scholar
+### intrepid pdoc (that's me!)
 
 maintainer
 
@@ -256,7 +256,7 @@ pr_finish()
 
 ## manuscript | Thoughts, comments, and contributions welcome
 
-- this talk is fully [reproducible]() 
+- this talk is fully [reproducible](https://github.com/softloud/onetimetrophybitch/blob/master/talks/nma-esmar/nma-esmar.Rmd) 
 - [manuscript pdf](https://github.com/softloud/nmareporting/blob/master/manuscript/draft/nmarep-ms.pdf)
 - [reproducible](https://github.com/softloud/nmareporting/blob/master/manuscript/draft/nmarep-ms.Rnw) source for manuscript
 
