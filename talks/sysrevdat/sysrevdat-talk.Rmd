@@ -1,18 +1,108 @@
 ---
-title: "Structuring Data for Systematic Review"
-output: ioslides_presentation
+title: "Structuring Data" 
+subtitle: "for Systematic Review"
+author: "Charles T. Gray, Matthew Grainger, & Neal Haddaway"
+output: 
+    ioslides_presentation:
+        widescreen: true
+bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+
+library(sysrevdata)
+library(kableExtra)
+
 ```
 
-# Interoperable and open systematic review
+## Interoperable and open | Systematic review
 
-# Human-readable 
+### the problem of too many systematic reviews
 
-# Machine-readable
+88 days after WHO named Covid-19 
 
-# Toolchains
+88 systematic reviews on Covid-19 [@naumann_too_2021]
 
-# Contributing
+### the solution
+
+Cochrane's Covid-19 [living evidence synthesis](https://covid-nma.com/the-project/) [@boutron_covid-nma_2020]  
+
+### practical obstacle
+
+sharing data for future & living evidence synthesis
+
+## Human-readable 
+
+```{r}
+farming_prod <-
+  bufferstrips %>%
+  # choose the desired columns
+  select(short_title, contains("farmingproductionsystem")) %>%
+  # condense variableal
+  unite(# name condensed column
+    col = "farming_production_system",
+    # columns to condense
+    contains("farmingproductionsystem"),
+    # set separator
+    sep = " ||| ",
+    # remove NAs
+    na.rm = TRUE)
+
+farming_prod %>%
+  # count types of farming production system
+    count(farming_production_system) %>%
+  # order by the count
+  arrange(desc(n)) %>%
+  head(10) %>% 
+    kbl() %>% 
+    kable_styling()
+    
+```
+
+## Machine-readable
+
+```{r}
+pivoted_bufferstrips <-
+pivot_longer(
+  data = bufferstrips,
+  cols = -c(1:12, 15, 16),
+  names_to = c("category", "subcategory"),
+  names_sep = "_",
+  values_drop_na = TRUE
+) %>%
+  select(-value) %>%
+  janitor::clean_names()
+
+pivoted_bufferstrips %>%
+  select(1,2,3,15, 16)
+
+```
+
+
+## Toolchains
+
+```{r eval=FALSE,echo=TRUE}
+pivoted_bufferstrips <-
+pivot_longer(
+  data = bufferstrips,
+  cols = -c(1:12, 15, 16),
+  names_to = c("category", "subcategory"),
+  names_sep = "_",
+  values_drop_na = TRUE
+) %>%
+  select(-value) %>%
+  janitor::clean_names()
+
+pivoted_bufferstrips %>%
+  select(1,2,3,15, 16)
+```
+
+
+## Contributing
+
+- [sysrevdata living resource of toolchains](https://softloud.github.io/sysrevdata/)
+- [sysrevdata repository](https://github.com/softloud/sysrevdata)
+- [make suggestions, join the discussion: issues](https://github.com/softloud/sysrevdata)
+
+## References
