@@ -13,10 +13,11 @@ knitr::opts_chunk$set(echo = FALSE)
 
 library(sysrevdata)
 library(kableExtra)
+library(tidyverse)
 
 ```
 
-## Interoperable and open | Systematic review
+## Interoperable and open | Systematic review {.smaller}
 
 ### the problem of too many systematic reviews
 
@@ -31,6 +32,8 @@ Cochrane's Covid-19 [living evidence synthesis](https://covid-nma.com/the-projec
 ### practical obstacle
 
 sharing data for future & living evidence synthesis
+
+lack of standardisation of databases
 
 ## Human-readable 
 
