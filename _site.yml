@@ -15,10 +15,12 @@ navbar:
         href: rethinking/chapter-2.html
     - text: "presentations"
       menu:
-      - text: "sysrevdata"
+      - text: "esmar 2021 nmareporting::"
+        href: talks/nma-esmar/nma-esmar.html
+      - text: "esmar 2021 sysrevdata::"
         href: talks/sysrevdat/sysrevdat-talk.html
       - text: "hlf"
         href: talks/hlf/hlf-2019-xaringan.html
-      - text: "nma"
+      - text: "nma pdoc application"
         href: talks/newcastle-nma/newcastle-nma.html
 output: distill::distill_article
