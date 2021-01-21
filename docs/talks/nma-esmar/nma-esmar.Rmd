@@ -1,7 +1,7 @@
 ---
 title: "nmareporting::"
 subtitle: "a computational way station for network meta-anaysis reporting" 
-author: "Charles T. Gray"
+author: "Charles T. Gray </br> from Gavin Stewart's Evidence Synthesis Lab, Newcastle University UK </br> (remote from the Australian bush)"
 date: "Friday 22 January 2021"
 output: 
     ioslides_presentation:
