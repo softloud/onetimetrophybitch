@@ -6,7 +6,7 @@ It's good enough to fail at reproducible science
 
 ## presenter
 
-Charles T. Gray
+Dr Charles T. Gray
 
 ## audience
 
@@ -22,4 +22,4 @@ As scientists, it's desirable to demonstrate to others (including our future sel
 
 ## bio
 
-Charles T. Gray is a postdoc with the evidence synthesis lab at Newcastle University in the UK. She is currently specialising in Bayesian network meta-analysis in Cochrane intervention reviews. She has three degrees: arts, music, and mathematics. None of these prepared her for her interdisciplinary computational metascience doctoral thesis in R.   
+Charles T. Gray is a postdoc with the evidence synthesis lab at Newcastle University in the UK. She is currently specialising in Bayesian network meta-analysis in Cochrane intervention reviews. She has three degrees: arts, music, and mathematics. None of these prepared her for writing a dissertation in interdisciplinary computational metascience doctoral thesis in R.   
