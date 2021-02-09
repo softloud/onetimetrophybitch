@@ -15,6 +15,8 @@ navbar:
         href: rethinking/chapter-2.html
     - text: "presentations"
       menu:
+      - text: "r-ladies freiberg"
+        href: talks/reproducibility-fail/repro-fail.html
       - text: "esmar 2021 nmareporting::"
         href: talks/nma-esmar/nma-esmar.html
       - text: "esmar 2021 sysrevdata::"

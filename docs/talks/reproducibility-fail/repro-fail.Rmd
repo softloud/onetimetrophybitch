@@ -1,0 +1,354 @@
+---
+title: "It's good enough to fail at reproducible science"
+author: "Charles T. Gray"
+date: "Wednesday 3 March 2021"
+subtitle: "R-Ladies Freiberg"
+output: 
+    ioslides_presentation:
+        widescreen: true
+        transition: slower
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = FALSE,
+    message = FALSE)
+```
+
+
+```{r }
+# packages used
+library(tidyverse) 
+library(sysrevdata) 
+library(gt)
+library(glue)
+
+# for reproducbility
+set.seed(40)
+
+```
+
+<style>
+div.footnotes {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+  width: 80%;
+  font-size: 0.6em;
+}
+</style>
+
+
+# failing | at good enough scientific practice in R 
+
+## binomial joke - todo 
+
+for every x successes there are y failures
+
+## standard structure | phd in statistical science
+
+<center>
+$\color{darkgreen}{\text{mathematics}}$ $\to$ 
+
+code $\to$ 
+
+paper $\to$ 
+
+tool
+</center>
+<div class="notes">
+
+### standard training
+
+mathematics
+
+### not in standard training
+
+code, paper, tool
+
+</div>
+
+## {data-background=thesis-title-page.png data-background-position=right}
+
+### failing at all the things 
+
+*the nature of interdisciplinary research*
+
+$\color{darkred}{\times}$ mathematics $\not\to$
+
+$\color{darkred}{\times}$ code $\not\to$
+
+
+$\color{darkred}{\times}$ paper $\not\to$
+
+
+$\color{darkred}{\times}$ tool
+
+
+<div class="notes">
+### rescoping for success
+
+- RSE-X research software engineering
+
+- EB-X evidence-based decisions
+
+</div> 
+
+## [CRAPL](http://matt.might.net/articles/crapl/) | the Community Research and Academic Programming License
+
+<div class="notes">
+This is the bit that really jumped out at me.
+</div>
+
+An open source license for academics has additional needs: 
+
+1. it should require that source and modifications used to validate scientific claims be released with those claims; and 
+2. *more importantly*, it should absolve authors of shame, embarrassment and ridicule for ugly code. 
+
+Recommended by [\@DrVeronikaCH](https://twitter.com/DrVeronikaCH) whose [How I Fail](https://veronikach.com/failure/) blog is well worth checking out
+
+## failing is the best we can do | at reproducible science
+
+```{r fig.align='center', out.width="60%"}
+knitr::include_graphics("elle.gif")
+
+```
+
+<div class="notes">
+
+If you failed, it means you tried. 
+
+You'll never get everything right in computational science.
+
+Trying is the best you can do. You will fail. You find useful workflows.
+</div>
+
+# reproducible scientific analysis in R
+
+```{r}
+
+talk_sections <-
+tibble(
+ sections_in_this_talk = c(   
+"**.Rmd**-driven development",
+"**functions**",
+"**documentation** of functions",
+"**git** and version control",
+"**testing** of functions and data",
+"reproducible **document** for publication"
+)) 
+```
+
+```{r}
+talk_sections 
+```
+
+
+
+## reproducible scientific analysis in R
+
+
+```{r fig.align='right'}
+talk_sections %>% 
+    rename(sections = sections_in_this_talk) %>% 
+    gt() %>% 
+    fmt_markdown(columns=TRUE) 
+ 
+```
+
+### for each section
+
+1. my fails
+2. key resources
+3. your fails
+
+
+
+# .Rmd-driven development
+
+## failing at | .Rmd-driven development {.smaller}
+
+<font size ="2">
+
+<div class="columns-2">
+
+
+Suppose we're interested in the 5 most frequent observations in farming production systems considered in this `r dim(bufferstrips)`  systematic review.
+
+```{r }
+# extract
+bufferstrips %>%
+    select(short_title,
+         contains("farmingproduction")) %>%
+    head(3) %>%
+    select(1:4)
+
+```
+
+These data can be analysed and formatted nicely in document.
+
+```{r echo=TRUE}
+bufferstrips %>%
+    select(short_title,
+         contains("farmingproduction")) %>%
+    pivot_longer(
+        cols = contains("farming"),
+        names_to = "production_system",
+        values_to = "system_value",
+        values_drop_na = TRUE
+    ) %>%
+    separate(col = production_system,
+             into = c("farming", "system")) %>%
+    filter(system_value != "Not described",
+           !str_detect(system_value, "Other")) %>%
+    count(system) %>%
+    arrange(desc(n)) %>%
+    head(5) %>%
+    gt()
+```
+</div>
+</font>
+
+## some helpful resources | .Rmd-driven development
+
+```{r}
+refs_rmd <- read_csv("refs-rmd.csv")
+
+refs_clean <- function(refs_df, topic) {
+    refs_df %>%
+        select("Item Type", "Author", "Title", "Date", "Url") %>%
+        mutate(Title = glue('[{Title}]({Url})'),
+               Topic = topic) %>%
+        select(-"Url")  
+}
+
+refs_output <- function(cleaned_refs) {
+    
+    resources_topics <- 
+        cleaned_refs %>% 
+        pull(Topic) %>% 
+        unique()
+        
+    cleaned_refs %>% 
+        gt() %>% 
+        fmt_markdown(columns = "Title") %>% 
+        tab_header(title = "Some Useful Resources",
+                   subtitle = resources_topics) %>% 
+        tab_source_note(md(glue("This is not intended to be a definitive list; these are the resources that helped me the most when I was failing at {resources_topics}. Share the resources that worked for you via [@R-Ladies Freiburg](https://twitter.com/RLadiesFreiburg) on twitter, or in the chapter's slack group." )))
+    
+}
+    
+refs_clean(refs_rmd, ".Rmd") %>% refs_output()
+
+```
+
+
+## .Rmd fails | tell me your stories {.smaller}
+
+
+```{r fig.align='center'}
+knitr::include_graphics("katherine.gif")
+
+```
+
+<div class="footnote">
+NB: It's easy for anecdote to become advice, which may not be relevant for everyone. In this workshop, let's focus on finding affinity in how we all fail at reproducible science. If you have advice or resources, please share by twitter or in the chapter's slack. 
+
+</div>
+
+# git 
+
+
+## failing | at git
+
+
+
+## resources | git
+
+```{r}
+refs_git <- read_csv('refs-git.csv')
+
+refs_clean(refs_git, 'git') %>% 
+    refs_output()
+
+
+```
+
+
+## git fails | tell me your stories
+
+
+```{r fig.align='center'}
+knitr::include_graphics("vivien.gif")
+
+```
+
+# functions
+
+## function fails | tell me your stories
+
+
+```{r fig.align='center', out.width="60%"}
+knitr::include_graphics("bette.gif")
+
+```
+
+
+
+# documentation 
+
+
+
+## document fails | tell me your stories
+
+
+```{r fig.align='center',out.width="40%"}
+knitr::include_graphics("judy.gif")
+
+```
+
+
+
+# testing
+
+## testing fails | tell me your stories
+
+
+```{r fig.align='center', out.width="60%"}
+knitr::include_graphics("norma.gif")
+
+```
+
+
+
+
+# manuscript
+
+## reproducible manuscript fails | tell me your stories
+
+
+```{r fig.align='center', out.width="60%"}
+knitr::include_graphics("rebecca.gif")
+
+```
+
+
+
+# unexpected
+
+
+
+## failing is the best we can do | at reproducible science
+
+```{r fig.align='center', out.width="60%"}
+knitr::include_graphics("elle.gif")
+
+```
+
+If you failed, it means you tried. 
+
+You'll never get everything right in computational science.
+
+Trying is the best you can do. You will fail. You find useful workflows.
+
+# references
