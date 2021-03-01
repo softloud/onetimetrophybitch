@@ -1,12 +1,13 @@
 ---
 title: "It's good enough to fail at reproducible science"
-author: "Charles T. Gray"
+author: "Dr Charles T. Gray recently completed her PhD in interdisciplinary computational metascience."
 date: "Wednesday 3 March 2021"
 subtitle: "R-Ladies Freiberg"
 output: 
     ioslides_presentation:
         widescreen: true
         transition: slower
+    # html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -41,9 +42,30 @@ div.footnotes {
 
 # failing | at good enough scientific practice in R 
 
-## binomial joke - todo 
+## more failures than success {.smaller}
 
-for every x successes there are y failures
+### For every $\varphi$ successes, there are $\theta$ failures. 
+
+Proportion of success 
+
+$$
+\frac{\varphi}{\varphi + \theta}
+$$
+
+All trials
+
+$$
+\varphi + \theta
+$$
+
+We often think of science as a function of success
+
+$$
+\varphi \sim \text{Binomial}\left( \varphi + \theta,\, \frac{\varphi}{\varphi + \theta}\right)
+$$
+
+### today, let's talk about $\theta$
+
 
 ## standard structure | phd in statistical science
 
@@ -94,6 +116,23 @@ $\color{darkred}{\times}$ tool
 
 </div> 
 
+## Good enough scientific programming 
+
+
+### 2014 
+1. Wilson G, Aruliah DA, Brown CT, et al. [Best Practices for Scientific Computing](https://dx.plos.org/10.1371/journal.pbio.1001745). Eisen JA, ed. PLoS Biology. 2014;12(1):e1001745. doi:10.1371/journal.pbio.1001745
+
+### 2017
+
+2. Wilson G, Bryan J, Cranston K, Kitzes J, Nederbragt L, Teal TK. [Good enough practices in scientific computing](http://dx.plos.org/10.1371/journal.pcbi.1005510). Ouellette F, ed. PLOS Computational Biology. 2017;13(6):e1005510. doi:10.1371/journal.pcbi.1005510
+
+<div class = "notes">
+Term is also used in psychology
+
+Good enough parenting
+Good enough friend
+</div>
+
 ## [CRAPL](http://matt.might.net/articles/crapl/) | the Community Research and Academic Programming License
 
 <div class="notes">
@@ -105,7 +144,7 @@ An open source license for academics has additional needs:
 1. it should require that source and modifications used to validate scientific claims be released with those claims; and 
 2. *more importantly*, it should absolve authors of shame, embarrassment and ridicule for ugly code. 
 
-Recommended by [\@DrVeronikaCH](https://twitter.com/DrVeronikaCH) whose [How I Fail](https://veronikach.com/failure/) blog is well worth checking out
+Recommended by [\@DrVeronikaCH](https://twitter.com/DrVeronikaCH) whose [How I Fail](https://veronikach.com/failure/) blog is well worth checking out.
 
 ## failing is the best we can do | at reproducible science
 
@@ -251,17 +290,43 @@ knitr::include_graphics("katherine.gif")
 
 ```
 
-<div class="footnote">
-NB: It's easy for anecdote to become advice, which may not be relevant for everyone. In this workshop, let's focus on finding affinity in how we all fail at reproducible science. If you have advice or resources, please share by twitter or in the chapter's slack. 
-
-</div>
 
 # git 
 
 
 ## failing | at git
 
+<div class="columns-2">
 
+### working on your own
+
+Set up with Happy Git to R
+
+Create repository on GitHub
+
+```{r out.height="300%"}
+knitr::include_graphics("version-proj.png")
+```
+
+```{r eval=FALSE, echo=TRUE}
+# pr helpers
+
+pr_init(branch = "idea")
+
+# make changes
+
+# commit
+
+pr_push()
+
+# wait for merge
+
+pr_finish()
+
+```
+
+
+</div>
 
 ## resources | git
 
