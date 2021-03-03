@@ -336,7 +336,7 @@ knitr::include_graphics("vivien.gif")
 
 ```
 
-# functions and documentations
+# functions and documentation
 
 ## failing at writing functions and documentation
 
