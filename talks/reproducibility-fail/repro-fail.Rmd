@@ -14,6 +14,8 @@ output:
 knitr::opts_chunk$set(
     echo = FALSE,
     message = FALSE)
+
+# nb: to enable presenter mode add ?presentme=true to end of url
 ```
 
 
@@ -133,19 +135,6 @@ Good enough parenting
 Good enough friend
 </div>
 
-## [CRAPL](http://matt.might.net/articles/crapl/) | the Community Research and Academic Programming License
-
-<div class="notes">
-This is the bit that really jumped out at me.
-</div>
-
-An open source license for academics has additional needs: 
-
-1. it should require that source and modifications used to validate scientific claims be released with those claims; and 
-2. *more importantly*, it should absolve authors of shame, embarrassment and ridicule for ugly code. 
-
-Recommended by [\@DrVeronikaCH](https://twitter.com/DrVeronikaCH) whose [How I Fail](https://veronikach.com/failure/) blog is well worth checking out.
-
 ## failing is the best we can do | at reproducible science
 
 ```{r fig.align='center', out.width="60%"}
@@ -173,7 +162,7 @@ tibble(
 "**functions**",
 "**documentation** of functions",
 "**git** and version control",
-"**testing** of functions and data",
+"**testing** and **workflow** of functions and data",
 "reproducible **document** for publication"
 )) 
 ```
@@ -201,6 +190,34 @@ talk_sections %>%
 2. key resources
 3. your fails
 
+<div class="notes">
+Why do we care about reproducibility? 
+
+So we can validate our results. 
+
+So others can extend.
+
+We use multiple tools to achieve these aims, which we may refer to collectively as reproducible computing. 
+
+Different techniques provide different solutions to diferent aspects of reproducible science. From accessibility of code, functions, to understanding functions' purpose. 
+
+Examples of what each of the techniques solve.
+</div>
+
+## [CRAPL](http://matt.might.net/articles/crapl/) | the Community Research and Academic Programming License
+
+<div class="notes">
+This is the bit that really jumped out at me.
+
+It is in this spirit that we shall investigate the various techniques of reproducibility. 
+</div>
+
+An open source license for academics has additional needs: 
+
+1. it should require that source and modifications used to validate scientific claims be released with those claims; and 
+2. *more importantly*, it should absolve authors of shame, embarrassment and ridicule for ugly code. 
+
+Recommended by [\@DrVeronikaCH](https://twitter.com/DrVeronikaCH) whose [How I Fail](https://veronikach.com/failure/) blog is well worth checking out.
 
 
 # .Rmd-driven development
@@ -340,7 +357,7 @@ refs_clean(refs_git, 'git') %>%
 ```
 
 
-## git fails | tell me your stories
+## tell me your stories | git
 
 
 ```{r fig.align='center'}
@@ -349,6 +366,11 @@ knitr::include_graphics("vivien.gif")
 ```
 
 # functions
+
+## failing at writing functions 
+
+## function fails | resources
+
 
 ## function fails | tell me your stories
 
@@ -362,8 +384,6 @@ knitr::include_graphics("bette.gif")
 
 # documentation 
 
-
-
 ## document fails | tell me your stories
 
 
@@ -373,10 +393,13 @@ knitr::include_graphics("judy.gif")
 ```
 
 
+# testing and workflow
 
-# testing
+## failing at testing and workflow
 
-## testing fails | tell me your stories
+## testing and workflow fails | resources
+
+## testing and workflow fails | tell me your stories
 
 
 ```{r fig.align='center', out.width="60%"}
@@ -384,8 +407,7 @@ knitr::include_graphics("norma.gif")
 
 ```
 
-
-
+todo: get visnet & paper
 
 # manuscript
 
