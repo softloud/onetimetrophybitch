@@ -423,6 +423,10 @@ todo: get visnet & paper
 
 # unexpected perks of failing
 
+## code resurrection
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Installed one package and managed to run <a href="https://twitter.com/DrVeronikaCH?ref_src=twsrc%5Etfw">@DrVeronikaCH</a>&#39;s shiny app locally--- how often does that happen?!<br><br>Her first repo on GH, first R project, and it&#39;s from 5 years ago! <br><br>Installed one 📦then runApp() -- and it just works 😮<br><br>Heroic reproducibility! 🥐🥐🥐 <a href="https://t.co/JIOzfOejch">pic.twitter.com/JIOzfOejch</a></p>&mdash; Dr Charles T. Gray ⚔🦋 (@cantabile) <a href="https://twitter.com/cantabile/status/1364684273362423809?ref_src=twsrc%5Etfw">February 24, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
 ## failing is the best we can do | at reproducible science
 
 <div class = "notes">
