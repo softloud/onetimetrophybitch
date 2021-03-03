@@ -25,6 +25,7 @@ library(tidyverse)
 library(sysrevdata) 
 library(gt)
 library(glue)
+library(knitr)
 
 # for reproducbility
 set.seed(40)
@@ -212,91 +213,54 @@ This is the bit that really jumped out at me.
 It is in this spirit that we shall investigate the various techniques of reproducibility. 
 </div>
 
+<div class = "columns-2">
+
 An open source license for academics has additional needs: 
 
 1. it should require that source and modifications used to validate scientific claims be released with those claims; and 
 2. *more importantly*, it should absolve authors of shame, embarrassment and ridicule for ugly code. 
 
-Recommended by [\@DrVeronikaCH](https://twitter.com/DrVeronikaCH) whose [How I Fail](https://veronikach.com/failure/) blog is well worth checking out.
+###  Recommended by [\@DrVeronikaCH](https://twitter.com/DrVeronikaCH)
 
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">How I Fail S02E10: Charles T. Gray (PhD&#39;21, Interdisciplinary Computational Metascience) interview with <a href="https://twitter.com/cantabile?ref_src=twsrc%5Etfw">@cantabile</a> <a href="https://twitter.com/hashtag/AcademicTwitter?src=hash&amp;ref_src=twsrc%5Etfw">#AcademicTwitter</a> <a href="https://twitter.com/hashtag/CVofFailures?src=hash&amp;ref_src=twsrc%5Etfw">#CVofFailures</a> <a href="https://t.co/d7hbHMxSqX">https://t.co/d7hbHMxSqX</a></p>&mdash; Dr Veronika Cheplygina (@DrVeronikaCH) <a href="https://twitter.com/DrVeronikaCH/status/1366795610234499079?ref_src=twsrc%5Etfw">March 2, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+<\div>
 
 # .Rmd-driven development
 
 ## failing at | .Rmd-driven development {.smaller}
 
-<font size ="2">
+<div class = "columns-2">
 
-<div class="columns-2">
+### before
 
-
-Suppose we're interested in the 5 most frequent observations in farming production systems considered in this `r dim(bufferstrips)`  systematic review.
-
-```{r }
-# extract
-bufferstrips %>%
-    select(short_title,
-         contains("farmingproduction")) %>%
-    head(3) %>%
-    select(1:4)
-
-```
-
-These data can be analysed and formatted nicely in document.
-
-```{r echo=TRUE}
-bufferstrips %>%
-    select(short_title,
-         contains("farmingproduction")) %>%
-    pivot_longer(
-        cols = contains("farming"),
-        names_to = "production_system",
-        values_to = "system_value",
-        values_drop_na = TRUE
-    ) %>%
-    separate(col = production_system,
-             into = c("farming", "system")) %>%
-    filter(system_value != "Not described",
-           !str_detect(system_value, "Other")) %>%
-    count(system) %>%
-    arrange(desc(n)) %>%
-    head(5) %>%
-    gt()
-```
-</div>
-</font>
-
-## some helpful resources | .Rmd-driven development
+[dumpsterfire.pdf](https://github.com/softloud/measureofcodeproof) 
 
 ```{r}
-refs_rmd <- read_csv("refs-rmd.csv")
-
-refs_clean <- function(refs_df, topic) {
-    refs_df %>%
-        select("Item Type", "Author", "Title", "Date", "Url") %>%
-        mutate(Title = glue('[{Title}]({Url})'),
-               Topic = topic) %>%
-        select(-"Url")  
-}
-
-refs_output <- function(cleaned_refs) {
-    
-    resources_topics <- 
-        cleaned_refs %>% 
-        pull(Topic) %>% 
-        unique()
-        
-    cleaned_refs %>% 
-        gt() %>% 
-        fmt_markdown(columns = "Title") %>% 
-        tab_header(title = "Some Useful Resources",
-                   subtitle = resources_topics) %>% 
-        tab_source_note(md(glue("This is not intended to be a definitive list; these are the resources that helped me the most when I was failing at {resources_topics}. Share the resources that worked for you via [@R-Ladies Freiburg](https://twitter.com/RLadiesFreiburg) on twitter, or in the chapter's slack group." )))
-    
-}
-    
-refs_clean(refs_rmd, ".Rmd") %>% refs_output()
+include_graphics("horror.gif")
 
 ```
+
+
+### after
+
+[waystation paper](https://github.com/softloud/happypillpain/blob/master/manuscript/RSM/nmareporting.pdf)
+
+</div>
+
+<div class = "notes">
+
+show files that make up the dumpsterfire
+
+</div>
+
+## .Rmd fails | resources
+
+1. Grolemund YX JJ Allaire, Garrett. R Markdown: The Definitive Guide.; 2020. Accessed February 7, 2021. https://bookdown.org/yihui/rmarkdown/
+
+2. Riederer E. RMarkdown Driven Development (RmdDD). Emily Riederer. Published May 4, 2019. Accessed January 30, 2020. https://emilyriederer.netlify.com/post/rmarkdown-driven-development/
+
+3. Knitr with LaTeX. Accessed March 3, 2021. http://kbroman.org/knitr_knutshell/pages/latex.html
 
 
 ## .Rmd fails | tell me your stories {.smaller}
@@ -311,7 +275,13 @@ knitr::include_graphics("katherine.gif")
 # git 
 
 
-## failing | at git
+## failing at git
+
+<div class = "notes">
+
+show thesis, dumpsterfire repos search result on github
+
+</div>
 
 <div class="columns-2">
 
@@ -345,19 +315,20 @@ pr_finish()
 
 </div>
 
-## resources | git
+## git fails | resources
 
-```{r}
-refs_git <- read_csv('refs-git.csv')
+1. Bryan J. Excuse Me, Do You Have a Moment to Talk About Version Control? The American Statistician. 2018;72(1):20-27. doi:10.1080/00031305.2017.1399928
 
-refs_clean(refs_git, 'git') %>% 
-    refs_output()
+2. various. Git - Reference.; 2021. Accessed February 7, 2021. https://git-scm.com/docs
+
+3. various. GitHub CLI Manual.; 2021. Accessed February 7, 2021. https://cli.github.com/manual/index
+
+4. Bryan J. Happy Git with R.; 2019. https://happygitwithr.com/resources.html
+
+5. Pull request helpers • usethis. Accessed March 3, 2021. https://usethis.r-lib.org/articles/articles/pr-functions.html
 
 
-```
-
-
-## tell me your stories | git
+## git fails | tell me your stories
 
 
 ```{r fig.align='center'}
@@ -365,14 +336,40 @@ knitr::include_graphics("vivien.gif")
 
 ```
 
-# functions
+# functions and documentations
 
-## failing at writing functions 
+## failing at writing functions and documentation
 
-## function fails | resources
+<div class = "notes">
+discuss how the functions need to be structured around the things that will change in the analysis
+
+not always the most obvious in terms of code, how to structure
+
+where expert opinion is needed
+
+</div>
+
+### before
+
+[`varameta::`](https://github.com/softloud/varameta/blob/master/vignettes/pinheiro.Rmd)
+
+[`simeta::`](https://github.com/softloud/simeta)
 
 
-## function fails | tell me your stories
+### after 
+
+[happypillpain](https://github.com/softloud/happypillpain)
+
+## function & documentation fails | resources
+
+- `vignette("rd")`
+
+1. Wickham H. Advanced R. 1 edition. Routledge; 2014.
+
+2. Wickham H. R Packages: Organize, Test, Document, and Share Your Code. O’Reilly Media; 2015. https://books.google.com.au/books?id=DqSxBwAAQBAJ
+
+
+## function & documentation fails | tell me your stories
 
 
 ```{r fig.align='center', out.width="60%"}
@@ -380,24 +377,39 @@ knitr::include_graphics("bette.gif")
 
 ```
 
-
-
-# documentation 
-
-## document fails | tell me your stories
-
-
-```{r fig.align='center',out.width="40%"}
-knitr::include_graphics("judy.gif")
-
-```
-
-
 # testing and workflow
+
 
 ## failing at testing and workflow
 
+
+<div class="notes">
+Discuss how the tests ended up becoming more work than the problems they fixed
+
+Lost interest because testing was too onerous
+
+Show visnetwork in happypill pain.
+</div>p
+
+<div class= "columns-2">
+### before
+
+[`simeta::` tests](https://github.com/softloud/simeta/tree/master/tests/testthat)
+
+### after
+
+```{r out.width="100%"}
+include_graphics("targets.png")
+```
+
+</div>
+
 ## testing and workflow fails | resources
+
+1. Landau W, Company CEL and. Chapter 2 Walkthrough | The Targets R Package User Manual. Accessed March 3, 2021. https://books.ropensci.org/targets
+
+2. Wickham H. R Packages: Organize, Test, Document, and Share Your Code. O’Reilly Media; 2015. https://books.google.com.au/books?id=DqSxBwAAQBAJ
+
 
 ## testing and workflow fails | tell me your stories
 
@@ -409,23 +421,13 @@ knitr::include_graphics("norma.gif")
 
 todo: get visnet & paper
 
-# manuscript
-
-## reproducible manuscript fails | tell me your stories
-
-
-```{r fig.align='center', out.width="60%"}
-knitr::include_graphics("rebecca.gif")
-
-```
-
-
-
-# unexpected
-
-
+# unexpected perks of failing
 
 ## failing is the best we can do | at reproducible science
+
+<div class = "notes">
+Expect the unexpected.
+</div>
 
 ```{r fig.align='center', out.width="60%"}
 knitr::include_graphics("elle.gif")
@@ -438,4 +440,4 @@ You'll never get everything right in computational science.
 
 Trying is the best you can do. You will fail. You find useful workflows.
 
-# references
+
