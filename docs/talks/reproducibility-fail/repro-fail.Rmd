@@ -389,7 +389,7 @@ Discuss how the tests ended up becoming more work than the problems they fixed
 Lost interest because testing was too onerous
 
 Show visnetwork in happypill pain.
-</div>p
+</div>
 
 <div class= "columns-2">
 ### before

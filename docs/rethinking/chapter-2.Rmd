@@ -13,6 +13,45 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## easy
 
+### 2E1
+
+> Which of the expressions below correspond to the statement: the probability of rain on Monday?
+
+1. P(rain)
+2. P(rain|Monday)
+3. P(Monday|rain)
+4. P(rain, Monday) / P(Monday)
+
+Adapting the equation on p. 37 to a more generalised statement, for a parameter of interest $\theta$ and observations $y$ dependent on that parameter, we have
+
+$$
+P(\theta | y) = \frac{P(y|\theta)P(\theta)}{P(y)} = P(\theta, y)/P(y)
+$$
+
+Then P(rain|Monday) = P(rain, Monday) / P(Monday).
+
+So, I conclude that 1. and 4. correspond to the statement.
+
+### 2E2
+
+The following statement corresponds to the expression P(Monday|rain):
+
+3. The probability that it is Monday, given that it is raining. 
+
+### 2E3
+
+> The probability that it is Monday given that it is raining.
+
+Can be expressed
+
+
+P(Monday|rain) = P(rain|Monday)P(Monday)/P(rain)
+
+So, the following statements correspond.
+
+1. P(Monday|rain)
+4. P(rain|Monday)P(Monday)/P(rain)
+
 ## medium
 
 ### 2M1
