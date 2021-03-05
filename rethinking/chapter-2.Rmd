@@ -11,6 +11,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Checking solutions with this [helpful discussion](https://sr2-solutions.wjakethompson.com/bayesian-inference.html#exercises).
+
 ## easy
 
 ### 2E1
@@ -50,7 +52,7 @@ P(Monday|rain) = P(rain|Monday)P(Monday)/P(rain)
 So, the following statements correspond.
 
 1. P(Monday|rain)
-4. P(rain|Monday)P(Monday)/P(rain)
+and 4. P(rain|Monday)P(Monday)/P(rain)
 
 ## medium
 
