@@ -30,7 +30,7 @@ $$
 
 Then P(rain|Monday) = P(rain, Monday) / P(Monday).
 
-So, I conclude that 1. and 4. correspond to the statement.
+So, I conclude that 2. and 4. correspond to the statement.
 
 ### 2E2
 
