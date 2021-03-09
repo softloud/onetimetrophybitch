@@ -26,6 +26,16 @@ todo:look up | psychology | spent two deep-dive days conjuring a package out of 
 
 # some other cool shit i did 
 
+Most recent first.
+
+### reprofail seminar - long version
+
+[readme](https://github.com/softloud/onetimetrophybitch/tree/master/talks/reproducibility-fail) for talk with abstract
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yOGV2OaFjP8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
 ### heidelberg laureate forum 
 
 It was a delight to participate in the opening of the [Heidelberg Laureate Forum](https://www.heidelberg-laureate-forum.org/), where the laureates of mathematics and computer science meet the next generation. 
