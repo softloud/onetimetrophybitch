@@ -4,14 +4,17 @@ description: |
   exercises from chapter 2 statistical rethinking
 date: "`r Sys.Date()`"
 output: 
-    distill::distill_article
+    distill::distill_article:
+      toc: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Checking solutions with this [helpful discussion](https://sr2-solutions.wjakethompson.com/bayesian-inference.html#exercises).
+Checking solutions with this [helpful discussion](https://sr2-solutions.wjakethompson.com/bayesian-inference.html#exercises) and [this other set of solutions](https://jmgirard.com/statistical-rethinking-ch2/). Yay for open learning. 
+
+Last updated: `r Sys.Date()`.
 
 ## easy
 
@@ -53,6 +56,12 @@ So, the following statements correspond.
 
 1. P(Monday|rain)
 and 4. P(rain|Monday)P(Monday)/P(rain)
+
+### 2E4
+
+> The Bayesian statistician Finetti began his book on probablity theory with the declaration: "PROBABILITY DOES NOT EXIST". What he meant is that probability is a device for describing uncertainty from the perspective ofg an observer with limited knowledge; it has no objective reality. What does it mean to say, "the probability of water is 0.7"?
+
+Based on the observations we have of water and land from globe tossing, the most credible proportion of the globe is approximately 0.7. 
 
 ## medium
 
@@ -260,5 +269,70 @@ $$
 In all three questions, for $p< 0.5$, the posterior is 0.
 
 Since the numerator is a product of the probability of the data and the prior, which is set to 0 for $p < 0.5$, and any product containing zero is zero, we have a posterior of 0 for all values $p < 0.5$. That is, where the prior is 0, this will *always* produce a posterior of 0, regardless of the value of the probability of the data.  
+
+### 2M3
+
+> Suppose there are two globes, one for Earth and one for Mars. The Earth globe is 70% covered in water. The Mars globe is 100% land.
+
+So, P(water|Earth) = 0.7 and P(land|Mars) = 1.0.
+
+> Further suppose that one of these globes - you don't know which - was tossed in the air and produced a land observation. Assume each globe was equally likely to be tossed. 
+
+So, P(Earth) = 0.5 and P(Mars) = 0.5.
+
+> Show that the posterior probability that the globe was Earth conditional on seeing land is 0.23, that is, P(Earth|land) = 0.23. 
+
+We wish to show that P(Earth|land) = 0.23. 
+
+Well, Bayes' theorem gives us,
+
+P(Earth|land) = P(land|Earth)P(Earth)/P(land). 
+
+So we need to find P(land|Earth), P(Earth), and P(land).
+
+We know P(Earth) = 0.5.
+
+Now P(water|Earth) = 0.7, so P(land|Earth) = 0.3, since there are only two possibilities on Earth. 
+
+Finally, for P(land), we note that, going back to the original generalised notation,
+$$
+P(y) = E(P(y|\theta)) = \int P(y|\theta)P(\theta)d\theta
+$$
+so, since in this example we are dealing with discrete possibilities,
+
+P(land) = E(P(land|Planet)) = $\displaystyle\sum_{\text{Planet } \in \{\text{Earth},\text{Mars}\}}$ P(land|Planet)P(planet) = P(land|Earth) P(Earth) + P(land|Mars) P(Mars).
+
+Then P(land) is
+
+```{r}
+0.3 * 0.5 + 1 * 0.5
+
+```
+
+So, we have P(land|Earth), by Bayes' theorem, is
+
+```{r}
+(0.3 * 0.5)/(0.3 * 0.5 + 1 * 0.5)
+```
+
+### 2M4 
+
+> Suppose you have a deck with only three cards. 
+
+Let $X$ denote the set of three cards, so $|X|=3$.
+
+> And each side is either black or white. One card has two black sides. The second card has one black and one white side. The third card has two white sides. 
+
+So, we could say $X = \{BB, BW, WW\}$. 
+
+> Someone pulls out a card and places it flat on a table. A black side is shown facing up, but you don't know the colour of the side facing down. 
+
+Let $y$ denote the observation $B$. Now, clearly $P(B|WW) = 0$. 
+
+> Use the counting method from Section 2. This means counting up the ways that each card could produce the observed data. 
+
+> Show that the probability that the other side is also black is 2/3. 
+
+
 
 ## hard

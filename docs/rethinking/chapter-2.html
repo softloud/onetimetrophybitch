@@ -91,8 +91,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2021-03-05" />
-  <meta property="article:created" itemprop="dateCreated" content="2021-03-05" />
+  <meta property="article:published" itemprop="datePublished" content="2021-03-09" />
+  <meta property="article:created" itemprop="dateCreated" content="2021-03-09" />
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="chapter 2" />
@@ -109,7 +109,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","output"]}},"value":[{"type":"character","attributes":{},"value":["chapter 2"]},{"type":"character","attributes":{},"value":["exercises from chapter 2 statistical rethinking\n"]},{"type":"character","attributes":{},"value":["2021-03-05"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","output"]}},"value":[{"type":"character","attributes":{},"value":["chapter 2"]},{"type":"character","attributes":{},"value":["exercises from chapter 2 statistical rethinking\n"]},{"type":"character","attributes":{},"value":["2021-03-09"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1453,7 +1453,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"chapter 2","description":"exercises from chapter 2 statistical rethinking","authors":[],"publishedDate":"2021-03-05T00:00:00.000+00:00"}
+{"title":"chapter 2","description":"exercises from chapter 2 statistical rethinking","authors":[],"publishedDate":"2021-03-09T00:00:00.000+00:00"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1471,7 +1471,30 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <div class="d-article">
-<p>Checking solutions with this <a href="https://sr2-solutions.wjakethompson.com/bayesian-inference.html#exercises">helpful discussion</a>.</p>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#easy">easy</a>
+<ul>
+<li><a href="#e1">2E1</a></li>
+<li><a href="#e2">2E2</a></li>
+<li><a href="#e3">2E3</a></li>
+<li><a href="#e4">2E4</a></li>
+</ul></li>
+<li><a href="#medium">medium</a>
+<ul>
+<li><a href="#m1">2M1</a></li>
+<li><a href="#m2">2M2</a></li>
+<li><a href="#m3">2M3</a></li>
+<li><a href="#m4">2M4</a></li>
+</ul></li>
+<li><a href="#hard">hard</a></li>
+</ul>
+</nav>
+</div>
+<p>Checking solutions with this <a href="https://sr2-solutions.wjakethompson.com/bayesian-inference.html#exercises">helpful discussion</a> and <a href="https://jmgirard.com/statistical-rethinking-ch2/">this other set of solutions</a>. Yay for open learning.</p>
+<p>Last updated: 2021-03-09.</p>
 <h2 id="easy">easy</h2>
 <h3 id="e1">2E1</h3>
 <blockquote>
@@ -1504,6 +1527,11 @@ P(\theta | y) = \frac{P(y|\theta)P(\theta)}{P(y)} = P(\theta, y)/P(y)
 <ol type="1">
 <li>P(Monday|rain) and 4. P(rain|Monday)P(Monday)/P(rain)</li>
 </ol>
+<h3 id="e4">2E4</h3>
+<blockquote>
+<p>The Bayesian statistician Finetti began his book on probablity theory with the declaration: “PROBABILITY DOES NOT EXIST”. What he meant is that probability is a device for describing uncertainty from the perspective ofg an observer with limited knowledge; it has no objective reality. What does it mean to say, “the probability of water is 0.7”?</p>
+</blockquote>
+<p>Based on the observations we have of water and land from globe tossing, the most credible proportion of the globe is approximately 0.7.</p>
 <h2 id="medium">medium</h2>
 <h3 id="m1">2M1</h3>
 <blockquote>
@@ -1704,8 +1732,65 @@ p \mapsto
 }
 \]</span> In all three questions, for <span class="math inline">\(p&lt; 0.5\)</span>, the posterior is 0.</p>
 <p>Since the numerator is a product of the probability of the data and the prior, which is set to 0 for <span class="math inline">\(p &lt; 0.5\)</span>, and any product containing zero is zero, we have a posterior of 0 for all values <span class="math inline">\(p &lt; 0.5\)</span>. That is, where the prior is 0, this will <em>always</em> produce a posterior of 0, regardless of the value of the probability of the data.</p>
+<h3 id="m3">2M3</h3>
+<blockquote>
+<p>Suppose there are two globes, one for Earth and one for Mars. The Earth globe is 70% covered in water. The Mars globe is 100% land.</p>
+</blockquote>
+<p>So, P(water|Earth) = 0.7 and P(land|Mars) = 1.0.</p>
+<blockquote>
+<p>Further suppose that one of these globes - you don’t know which - was tossed in the air and produced a land observation. Assume each globe was equally likely to be tossed.</p>
+</blockquote>
+<p>So, P(Earth) = 0.5 and P(Mars) = 0.5.</p>
+<blockquote>
+<p>Show that the posterior probability that the globe was Earth conditional on seeing land is 0.23, that is, P(Earth|land) = 0.23.</p>
+</blockquote>
+<p>We wish to show that P(Earth|land) = 0.23.</p>
+<p>Well, Bayes’ theorem gives us,</p>
+<p>P(Earth|land) = P(land|Earth)P(Earth)/P(land).</p>
+<p>So we need to find P(land|Earth), P(Earth), and P(land).</p>
+<p>We know P(Earth) = 0.5.</p>
+<p>Now P(water|Earth) = 0.7, so P(land|Earth) = 0.3, since there are only two possibilities on Earth.</p>
+<p>Finally, for P(land), we note that, going back to the original generalised notation, <span class="math display">\[
+P(y) = E(P(y|\theta)) = \int P(y|\theta)P(\theta)d\theta
+\]</span> so, since in this example we are dealing with discrete possibilities,</p>
+<p>P(land) = E(P(land|Planet)) = <span class="math inline">\(\displaystyle\sum_{\text{Planet } \in \{\text{Earth},\text{Mars}\}}\)</span> P(land|Planet)P(planet) = P(land|Earth) P(Earth) + P(land|Mars) P(Mars).</p>
+<p>Then P(land) is</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class="fl">0.3</span> <span class="op">*</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">*</span> <span class="fl">0.5</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.65</code></pre>
+</div>
+<p>So, we have P(land|Earth), by Bayes’ theorem, is</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class="op">(</span><span class="fl">0.3</span> <span class="op">*</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">0.3</span> <span class="op">*</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">*</span> <span class="fl">0.5</span><span class="op">)</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.2307692</code></pre>
+</div>
+<h3 id="m4">2M4</h3>
+<blockquote>
+<p>Suppose you have a deck with only three cards.</p>
+</blockquote>
+<p>Let <span class="math inline">\(X\)</span> denote the set of three cards, so <span class="math inline">\(|X|=3\)</span>.</p>
+<blockquote>
+<p>And each side is either black or white. One card has two black sides. The second card has one black and one white side. The third card has two white sides.</p>
+</blockquote>
+<p>So, we could say <span class="math inline">\(X = \{BB, BW, WW\}\)</span>.</p>
+<blockquote>
+<p>Someone pulls out a card and places it flat on a table. A black side is shown facing up, but you don’t know the colour of the side facing down.</p>
+</blockquote>
+<p>Let <span class="math inline">\(y\)</span> denote the observation <span class="math inline">\(B\)</span>. Now, clearly <span class="math inline">\(P(B|WW) = 0\)</span>.</p>
+<blockquote>
+<p>Use the counting method from Section 2. This means counting up the ways that each card could produce the observed data.</p>
+</blockquote>
+<blockquote>
+<p>Show that the probability that the other side is also black is 2/3.</p>
+</blockquote>
 <h2 id="hard">hard</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
