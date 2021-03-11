@@ -335,4 +335,5 @@ Let $y$ denote the observation $B$. Now, clearly $P(B|WW) = 0$.
 
 
 
+
 ## hard
