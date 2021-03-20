@@ -333,6 +333,12 @@ Let $y$ denote the observation $B$. Now, clearly $P(B|WW) = 0$.
 
 > Show that the probability that the other side is also black is 2/3. 
 
+### 2M5
+
+Now suppose there are four cards $\{BB, BW, WW, BB\}$. 
+
+Again calculate the probability the other side is black. 
+
 
 
 

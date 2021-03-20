@@ -205,6 +205,14 @@ Different techniques provide different solutions to diferent aspects of reproduc
 Examples of what each of the techniques solve.
 </div>
 
+## please interrupt
+
+```{r}
+include_graphics("boat.gif")
+
+```
+
+
 ## [CRAPL](http://matt.might.net/articles/crapl/) | the Community Research and Academic Programming License
 
 <div class="notes">
