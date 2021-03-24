@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## currently working on
 
-```{r fig.height=8, echo=TRUE}
+```{r fig.height=10, echo=TRUE}
 library(pandan)
 
 pandan_view(distill=TRUE)

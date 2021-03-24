@@ -8,13 +8,10 @@ It's good enough to fail at reproducible science
 
 Dr Charles T. Gray
 
-## audience
+## audience + date
 
-R-Ladies Freiberg
-
-## date
-
-Wednesday 3 March 2021
+R-Ladies Freiberg - Wednesday 3 March 2021
+University of Glasgow - Wednesday 24 March 2021
 
 ## abstract
 

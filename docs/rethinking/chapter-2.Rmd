@@ -10,11 +10,25 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+
 ```
+
+```{r pkgs}
+# packages used
+library(tidyverse)
+library(gt)
+
+```
+
 
 Checking solutions with this [helpful discussion](https://sr2-solutions.wjakethompson.com/bayesian-inference.html#exercises) and [this other set of solutions](https://jmgirard.com/statistical-rethinking-ch2/). Yay for open learning. 
 
-Last updated: `r Sys.Date()`.
+```{r}
+pandan::pandan_view(project = "rethinking", distill = TRUE, update = FALSE)
+
+
+```
 
 ## easy
 
@@ -333,13 +347,71 @@ Let $y$ denote the observation $B$. Now, clearly $P(B|WW) = 0$.
 
 > Show that the probability that the other side is also black is 2/3. 
 
+We wish to show that $P(BB|B) = 2/3$. 
+
+```{r echo=TRUE}
+
+tibble(
+  # possible cards
+  conjecture = c("BB", "BW", "WW"),
+  # probability of each card
+  p = rep(1 / 3, 3),
+  # ways the card can produce the observation B
+  ways = c(2, 1, 0)
+) %>%
+  # calculate the plausibility
+  mutate(prod = p * ways,
+         plausibility = prod / sum(prod)) %>%
+  gt() %>%
+  cols_label(
+    conjecture = "possible cards",
+    p = "likelihood of drawing card",
+    ways = "ways card can produce B",
+    prod = "p x ways",
+    plausibility = "plausbility - p x ways/sum(p x ways)"
+  ) %>% 
+  data_color(
+    columns = vars(plausibility),
+    colors = scales::col_bin(
+      palette = c("#93a1a1", "white"),
+      bins = 2,
+      domain = NULL,
+      reverse = TRUE
+    )
+  ) %>% 
+  data_color(
+    columns = vars(conjecture),
+    colors = scales::col_factor(
+      palette = c("#93a1a1", "white", "white"),
+      domain = NULL
+    )
+  )
+
+```
+
+
 ### 2M5
 
 Now suppose there are four cards $\{BB, BW, WW, BB\}$. 
 
 Again calculate the probability the other side is black. 
 
+### 2M6
 
+> Imagine the black ink is heavy, and so cards with black sides are heavier than cards with white sides. 
 
+So, P(B) < P(W).
+
+> Again assume there are three cards $\{BB, BW, WW\}$. After experimenting a number of times, you conclude that for every way to pull the $BB$ card from the bag, there are 2 ways to pull the BW card, and 3 ways to pull the WW card. Again suppose that a card is pulled and a black side appears face up. Show that the probability the other side is black is now 0.5. Use the counting method, as before. 
+
+### 2M7
+
+> Assume againt he original card problem, with a single card showing a black side face up. Before looking at the other side, we draw another card from the bag and lay it face up on the table. The face that is shown on the new card is white. Show that the probability that the first card, the one showing a black side, has black on its other side is now 0.45. Using the counting method, if you can. Hint: Treat this like the sequence of globe tosses, counting all the ways to see each observation, for each possible first card. 
 
 ## hard
+
+### 2H1 
+
+> Suppose there are two species of panda bear. Both are equally common in the wild and live int he sampe places. The look exactly alide and eat the same food, and there is yet no geneetic assay capable of telling them apart. They differ however in their family sizes. Specias A gives bith to twins 10% of the time, otherwise birthing a single infant. Species B births twins 20% of the time, otherwise birhting singleton infants. Assume these numbers are known with certainty, from many years of field research. 
+
+> Now suppose you are managing a captive panda breeding program. You have a new female panda of unknown species, and she has just given birth to twins. What is the probability that her next birth will also be twins?
