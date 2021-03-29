@@ -1,0 +1,100 @@
+---
+title: "list and unlist"
+description: |
+  In which I continue to be confused about ::unlist, but manage to join two lists, as required
+author:
+  - name: Charles T. Gray
+    url: https://github.com/softloud/onetimetrophybitch
+date: 03-29-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r pkgs}
+# pkgs used
+library(tidyverse)
+```
+
+
+```{r}
+
+
+first_list <-
+  list(
+    a = letters[1:3],
+    b = "mittens",
+    c = c(TRUE, FALSE),
+    d = rnorm(4)
+  )
+
+second_list <- 
+  list(
+    e = "buttons",
+    f = letters[1:5],
+    g = runif(2)
+  )
+  
+
+# if I have a list(list, list) how do I get list of the elmenets of hte list? 
+# Elements of first list as elements,
+# and elements of second list as elements?
+
+unlist(first_list, second_list) %>% 
+  dim()
+
+# huh dim?
+
+unlist(first_list, second_list) %>% 
+  class()
+
+# character?!
+
+unlist(first_list, second_list)
+
+# oh it made everything flat, that's not what I want. I still want the elements 
+# to remain lists, what about this recursive argument?
+
+unlist(first_list, second_list, recursive = FALSE) 
+
+# okay, maybe I'm overthinking this, what happens if I make a list of two lists
+list(first_list, second_list)
+
+# ugh, no I think I ended up with a list of 2 lists
+list(first_list, second_list) %>% 
+  str()
+
+# see I have a list of 4 and a list of 3, I want a list of 7, not a list of 2 
+# comprising 4 and 3 ugh
+
+# can I use map to extract the elements?
+map(first_list, 1)
+
+# how is this different from first list?
+first_list
+
+# oh that's not what I want
+# fuck me, I'm going to look this up on the tubes now.
+
+```
+
+And switch to a post. This is proving to be more involved than I thought. 
+
+This [post on stackoverflow](https://stackoverflow.com/questions/14848172/appending-a-list-to-a-list-of-lists-in-r) suggests using `::append`, despite the function saying it is for vectors. Worth a try.
+
+```{r}
+append(first_list, second_list)
+
+# compare with 
+first_list
+second_list
+
+```
+
+Huh, well, there you go. So a base function to the rescue. 
+

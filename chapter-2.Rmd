@@ -396,6 +396,28 @@ Now suppose there are four cards $\{BB, BW, WW, BB\}$.
 
 Again calculate the probability the other side is black. 
 
+This time I'll use TeX so I can see how I worked it on paper.
+
+\[
+\begin{array}{cccc}
+\text{possible card} & \text{chance of card} & \text{ways card produces B} & \text{chance} \times \text{ways} & \text{plausibility (product / $\Sigma$)}\\
+\hline
+BB & 1/2 & 2 & 1 & 4/5\\
+BW & 1/4 & 1 & 1/4 & 1/5\\
+WW & 1/4 & 0 & 0 & 0\\
+\hline
+&&&\Sigma = 5/4
+\end{array}
+\]
+
+So, the probability the other side is black is
+
+```{r}
+4/5
+```
+
+
+
 ### 2M6
 
 > Imagine the black ink is heavy, and so cards with black sides are heavier than cards with white sides. 
@@ -415,3 +437,15 @@ So, P(B) < P(W).
 > Suppose there are two species of panda bear. Both are equally common in the wild and live int he sampe places. The look exactly alide and eat the same food, and there is yet no geneetic assay capable of telling them apart. They differ however in their family sizes. Specias A gives bith to twins 10% of the time, otherwise birthing a single infant. Species B births twins 20% of the time, otherwise birhting singleton infants. Assume these numbers are known with certainty, from many years of field research. 
 
 > Now suppose you are managing a captive panda breeding program. You have a new female panda of unknown species, and she has just given birth to twins. What is the probability that her next birth will also be twins?
+
+### 2H2 
+
+> Recall all the facts from the problem above. 
+
+> Now compute the probability that the panda we have is from species A, assuming we have observed only the first birth and that it was twins. 
+
+### 2H3 
+
+> Continuing on from the previous problem, suppose the same panda mother has a second birth and that it is not twins, but a singleton infant. 
+
+> Compute the posterior probability that this panda is species A. 

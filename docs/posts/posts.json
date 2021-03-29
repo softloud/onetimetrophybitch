@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-03-29-lists/",
+    "title": "list and unlist",
+    "description": "In which I continue to be confused about ::unlist, but manage to join two lists, as required",
+    "author": [
+      {
+        "name": "Charles T. Gray",
+        "url": "https://github.com/softloud/onetimetrophybitch"
+      }
+    ],
+    "date": "2021-03-29",
+    "categories": [],
+    "contents": "\n\n\n# pkgs used\nlibrary(tidyverse)\n\n\n\n\n\nfirst_list <-\n  list(\n    a = letters[1:3],\n    b = \"mittens\",\n    c = c(TRUE, FALSE),\n    d = rnorm(4)\n  )\n\nsecond_list <- \n  list(\n    e = \"buttons\",\n    f = letters[1:5],\n    g = runif(2)\n  )\n  \n\n# if I have a list(list, list) how do I get list of the elmenets of hte list? \n# Elements of first list as elements,\n# and elements of second list as elements?\n\nunlist(first_list, second_list) %>% \n  dim()\n\n\nNULL\n\n# huh dim?\n\nunlist(first_list, second_list) %>% \n  class()\n\n\n[1] \"character\"\n\n# character?!\n\nunlist(first_list, second_list)\n\n\n                  a1                   a2                   a3 \n                 \"a\"                  \"b\"                  \"c\" \n                   b                   c1                   c2 \n           \"mittens\"               \"TRUE\"              \"FALSE\" \n                  d1                   d2                   d3 \n \"0.833767247228463\" \"-0.167355330762412\"  \"-1.82556524465232\" \n                  d4 \n \"0.494671860922375\" \n\n# oh it made everything flat, that's not what I want. I still want the elements \n# to remain lists, what about this recursive argument?\n\nunlist(first_list, second_list, recursive = FALSE) \n\n\n                  a1                   a2                   a3 \n                 \"a\"                  \"b\"                  \"c\" \n                   b                   c1                   c2 \n           \"mittens\"               \"TRUE\"              \"FALSE\" \n                  d1                   d2                   d3 \n \"0.833767247228463\" \"-0.167355330762412\"  \"-1.82556524465232\" \n                  d4 \n \"0.494671860922375\" \n\n# okay, maybe I'm overthinking this, what happens if I make a list of two lists\nlist(first_list, second_list)\n\n\n[[1]]\n[[1]]$a\n[1] \"a\" \"b\" \"c\"\n\n[[1]]$b\n[1] \"mittens\"\n\n[[1]]$c\n[1]  TRUE FALSE\n\n[[1]]$d\n[1]  0.8337672 -0.1673553 -1.8255652  0.4946719\n\n\n[[2]]\n[[2]]$e\n[1] \"buttons\"\n\n[[2]]$f\n[1] \"a\" \"b\" \"c\" \"d\" \"e\"\n\n[[2]]$g\n[1] 0.6132758 0.8301499\n\n# ugh, no I think I ended up with a list of 2 lists\nlist(first_list, second_list) %>% \n  str()\n\n\nList of 2\n $ :List of 4\n  ..$ a: chr [1:3] \"a\" \"b\" \"c\"\n  ..$ b: chr \"mittens\"\n  ..$ c: logi [1:2] TRUE FALSE\n  ..$ d: num [1:4] 0.834 -0.167 -1.826 0.495\n $ :List of 3\n  ..$ e: chr \"buttons\"\n  ..$ f: chr [1:5] \"a\" \"b\" \"c\" \"d\" ...\n  ..$ g: num [1:2] 0.613 0.83\n\n# see I have a list of 4 and a list of 3, I want a list of 7, not a list of 2 \n# comprising 4 and 3 ugh\n\n# can I use map to extract the elements?\nmap(first_list, 1)\n\n\n$a\n[1] \"a\"\n\n$b\n[1] \"mittens\"\n\n$c\n[1] TRUE\n\n$d\n[1] 0.8337672\n\n# how is this different from first list?\nfirst_list\n\n\n$a\n[1] \"a\" \"b\" \"c\"\n\n$b\n[1] \"mittens\"\n\n$c\n[1]  TRUE FALSE\n\n$d\n[1]  0.8337672 -0.1673553 -1.8255652  0.4946719\n\n# oh that's not what I want\n# fuck me, I'm going to look this up on the tubes now.\n\n\n\nAnd switch to a post. This is proving to be more involved than I thought.\nThis post on stackoverflow suggests using ::append, despite the function saying it is for vectors. Worth a try.\n\n\nappend(first_list, second_list)\n\n\n$a\n[1] \"a\" \"b\" \"c\"\n\n$b\n[1] \"mittens\"\n\n$c\n[1]  TRUE FALSE\n\n$d\n[1]  0.8337672 -0.1673553 -1.8255652  0.4946719\n\n$e\n[1] \"buttons\"\n\n$f\n[1] \"a\" \"b\" \"c\" \"d\" \"e\"\n\n$g\n[1] 0.6132758 0.8301499\n\n# compare with \nfirst_list\n\n\n$a\n[1] \"a\" \"b\" \"c\"\n\n$b\n[1] \"mittens\"\n\n$c\n[1]  TRUE FALSE\n\n$d\n[1]  0.8337672 -0.1673553 -1.8255652  0.4946719\n\nsecond_list\n\n\n$e\n[1] \"buttons\"\n\n$f\n[1] \"a\" \"b\" \"c\" \"d\" \"e\"\n\n$g\n[1] 0.6132758 0.8301499\n\nHuh, well, there you go. So a base function to the rescue.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-03-29T18:33:17+01:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2020-09-06-nma/",
     "title": "nma",
     "description": "Work in progress.",
