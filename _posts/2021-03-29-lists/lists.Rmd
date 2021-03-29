@@ -4,7 +4,7 @@ description: |
   In which I continue to be confused about ::unlist, but manage to join two lists, as required
 author:
   - name: Charles T. Gray
-    url: https://github.com/softloud/onetimetrophybitch
+    url: https://softloud.github.io/onetimetrophybitch/about.html
 date: 03-29-2021
 output:
   distill::distill_article:

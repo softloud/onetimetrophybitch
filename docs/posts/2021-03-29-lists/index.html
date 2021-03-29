@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["list and unlist"]},{"type":"character","attributes":{},"value":["In which I continue to be confused about ::unlist, but manage to join two lists, as required"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Charles T. Gray"]},{"type":"character","attributes":{},"value":["https://github.com/softloud/onetimetrophybitch"]}]}]},{"type":"character","attributes":{},"value":["03-29-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["list and unlist"]},{"type":"character","attributes":{},"value":["In which I continue to be confused about ::unlist, but manage to join two lists, as required"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Charles T. Gray"]},{"type":"character","attributes":{},"value":["https://softloud.github.io/onetimetrophybitch/about.html"]}]}]},{"type":"character","attributes":{},"value":["03-29-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2061,7 +2061,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"list and unlist","description":"In which I continue to be confused about ::unlist, but manage to join two lists, as required","authors":[{"author":"Charles T. Gray","authorURL":"https://github.com/softloud/onetimetrophybitch","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-03-29T00:00:00.000+01:00","citationText":"Gray, 2021"}
+{"title":"list and unlist","description":"In which I continue to be confused about ::unlist, but manage to join two lists, as required","authors":[{"author":"Charles T. Gray","authorURL":"https://softloud.github.io/onetimetrophybitch/about.html","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-03-29T00:00:00.000+01:00","citationText":"Gray, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2115,7 +2115,7 @@ presentations
 </div>
 
 <div class="d-byline">
-  Charles T. Gray <a href="https://github.com/softloud/onetimetrophybitch" class="uri">https://github.com/softloud/onetimetrophybitch</a> 
+  Charles T. Gray <a href="https://softloud.github.io/onetimetrophybitch/about.html" class="uri">https://softloud.github.io/onetimetrophybitch/about.html</a> 
   
 <br/>03-29-2021
 </div>
@@ -2174,9 +2174,9 @@ presentations
                    b                   c1                   c2 
            &quot;mittens&quot;               &quot;TRUE&quot;              &quot;FALSE&quot; 
                   d1                   d2                   d3 
- &quot;0.833767247228463&quot; &quot;-0.167355330762412&quot;  &quot;-1.82556524465232&quot; 
+ &quot;-1.20947091456218&quot;   &quot;1.52082554433268&quot;   &quot;1.03434620939979&quot; 
                   d4 
- &quot;0.494671860922375&quot; </code></pre>
+&quot;0.0879782218362556&quot; </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># oh it made everything flat, that's not what I want. I still want the elements </span>
 <span class='co'># to remain lists, what about this recursive argument?</span>
@@ -2189,9 +2189,9 @@ presentations
                    b                   c1                   c2 
            &quot;mittens&quot;               &quot;TRUE&quot;              &quot;FALSE&quot; 
                   d1                   d2                   d3 
- &quot;0.833767247228463&quot; &quot;-0.167355330762412&quot;  &quot;-1.82556524465232&quot; 
+ &quot;-1.20947091456218&quot;   &quot;1.52082554433268&quot;   &quot;1.03434620939979&quot; 
                   d4 
- &quot;0.494671860922375&quot; </code></pre>
+&quot;0.0879782218362556&quot; </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># okay, maybe I'm overthinking this, what happens if I make a list of two lists</span>
 <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>first_list</span>, <span class='va'>second_list</span><span class='op'>)</span>
@@ -2208,7 +2208,7 @@ presentations
 [1]  TRUE FALSE
 
 [[1]]$d
-[1]  0.8337672 -0.1673553 -1.8255652  0.4946719
+[1] -1.20947091  1.52082554  1.03434621  0.08797822
 
 
 [[2]]
@@ -2219,7 +2219,7 @@ presentations
 [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;
 
 [[2]]$g
-[1] 0.6132758 0.8301499</code></pre>
+[1] 0.1928586 0.6157950</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># ugh, no I think I ended up with a list of 2 lists</span>
 <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>first_list</span>, <span class='va'>second_list</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2231,11 +2231,11 @@ presentations
   ..$ a: chr [1:3] &quot;a&quot; &quot;b&quot; &quot;c&quot;
   ..$ b: chr &quot;mittens&quot;
   ..$ c: logi [1:2] TRUE FALSE
-  ..$ d: num [1:4] 0.834 -0.167 -1.826 0.495
+  ..$ d: num [1:4] -1.209 1.521 1.034 0.088
  $ :List of 3
   ..$ e: chr &quot;buttons&quot;
   ..$ f: chr [1:5] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...
-  ..$ g: num [1:2] 0.613 0.83</code></pre>
+  ..$ g: num [1:2] 0.193 0.616</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># see I have a list of 4 and a list of 3, I want a list of 7, not a list of 2 </span>
 <span class='co'># comprising 4 and 3 ugh</span>
@@ -2254,7 +2254,7 @@ $c
 [1] TRUE
 
 $d
-[1] 0.8337672</code></pre>
+[1] -1.209471</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># how is this different from first list?</span>
 <span class='va'>first_list</span>
@@ -2270,7 +2270,7 @@ $c
 [1]  TRUE FALSE
 
 $d
-[1]  0.8337672 -0.1673553 -1.8255652  0.4946719</code></pre>
+[1] -1.20947091  1.52082554  1.03434621  0.08797822</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># oh that's not what I want</span>
 <span class='co'># fuck me, I'm going to look this up on the tubes now.</span>
@@ -2294,7 +2294,7 @@ $c
 [1]  TRUE FALSE
 
 $d
-[1]  0.8337672 -0.1673553 -1.8255652  0.4946719
+[1] -1.20947091  1.52082554  1.03434621  0.08797822
 
 $e
 [1] &quot;buttons&quot;
@@ -2303,7 +2303,7 @@ $f
 [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;
 
 $g
-[1] 0.6132758 0.8301499</code></pre>
+[1] 0.1928586 0.6157950</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># compare with </span>
 <span class='va'>first_list</span>
@@ -2319,7 +2319,7 @@ $c
 [1]  TRUE FALSE
 
 $d
-[1]  0.8337672 -0.1673553 -1.8255652  0.4946719</code></pre>
+[1] -1.20947091  1.52082554  1.03434621  0.08797822</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>second_list</span>
 </code></pre>
@@ -2331,7 +2331,7 @@ $f
 [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;
 
 $g
-[1] 0.6132758 0.8301499</code></pre>
+[1] 0.1928586 0.6157950</code></pre>
 </div>
 <p>Huh, well, there you go. So a base function to the rescue.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
