@@ -25,7 +25,7 @@ library(gt)
 Checking solutions with this [helpful discussion](https://sr2-solutions.wjakethompson.com/bayesian-inference.html#exercises) and [this other set of solutions](https://jmgirard.com/statistical-rethinking-ch2/). Yay for open learning. 
 
 ```{r}
-pandan::pandan_view(project = "rethinking", distill = TRUE, update = FALSE)
+# pandan::pandan_view(project = "rethinking", distill = TRUE, update = FALSE)
 
 
 ```

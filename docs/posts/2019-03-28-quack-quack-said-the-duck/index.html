@@ -18,6 +18,73 @@
  <!--radix_placeholder_import_source-->
  <!--/radix_placeholder_import_source-->
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
   <!--radix_placeholder_meta_tags-->
 <title>measured.: quack! quack! said the duck</title>
 
@@ -1974,7 +2041,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
@@ -2037,7 +2110,12 @@ presentations
 
 <div class="d-title">
 <h1>quack! quack! said the duck</h1>
-<p>making sense of methods in R</p>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+  <a href="../../index.html#category:dev" class="dt-tag">dev</a>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>making sense of methods in R</p></p>
 </div>
 
 <div class="d-byline">
@@ -2047,18 +2125,20 @@ presentations
 </div>
 
 <div class="d-article">
-<h3 class="d-toc-header">Table of Contents</h3>
-<nav class="d-toc" id="TOC">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
 <ul>
 <li><a href="#after-a-cursory-look-at-usemethod-documentation">after a cursory look at <code>UseMethod</code> documentation</a></li>
 <li><a href="#make-a-duck-quack-with-a-little-help-from-josiah">make a duck quack, with a little help from Josiah</a></li>
 <li><a href="#stuff-i-still-dont-get">stuff I still don’t get</a></li>
-<li><a href="#meritget">meritget</a><ul>
+<li><a href="#meritget">meritget</a>
+<ul>
 <li><a href="#a-duck-for-maelle">a duck for maelle</a></li>
 </ul></li>
 </ul>
 </nav>
-<hr class="d-toc-separator"/>
+</div>
 <p>Some time back, @<a href="https://twitter.com/malco_barrett">malco_barrett</a> and I discovered we both had <code>tidyverse::</code>-integrated functions in development for meta-analysis models, specifically models produced by <code>metafor::rma</code>.</p>
 <p>We started to discuss how to bring together the work we’d done, and then, speaking for myself, I got busy and overwhelmed last year with the general craziness that doing a doctorate is, and this slipped way back on the backburner.</p>
 <p>Last week, however, one of the creators of the <code>broom::</code> package <a href="https://github.com/malcolmbarrett/tidymeta/issues/2">got in touch with Malcolm</a> about porting the code. And, with the <a href="https://evidencesynthesishackathon.com/">Evidence Synthesis Hackathon</a> imminent, it seems as if the time is nigh. If I’m going to be able to collaborate on this, that means finally getting around to learning about methods in R.</p>
@@ -2088,37 +2168,43 @@ Once I realized that myfun &lt;- function(x, …) UseMethod(“myfun”) is the 
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# i guess i need an object for my function to act on
-fluffyduck &lt;- &quot;i am a duck&quot;
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># i guess i need an object for my function to act on</span>
+<span class='va'>fluffyduck</span> <span class='op'>&lt;-</span> <span class='st'>"i am a duck"</span>
 
-# i wonder if you can define your own class?
-class(fluffyduck) &lt;- &quot;duck&quot;
-class(fluffyduck)</code></pre>
-<pre><code>
-[1] &quot;duck&quot;</code></pre>
-<pre class="r"><code>
-# the UseMethod documentation said the method needs to act on an object
-is.object(fluffyduck)</code></pre>
-<pre><code>
-[1] TRUE</code></pre>
-<pre class="r"><code>
-# make a function 
-firstquack &lt;- function() {cat(&quot;quack&quot;)}
+<span class='co'># i wonder if you can define your own class?</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>fluffyduck</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"duck"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>fluffyduck</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;duck&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># the UseMethod documentation said the method needs to act on an object</span>
+<span class='fu'><a href='https://rdrr.io/r/base/is.object.html'>is.object</a></span><span class='op'>(</span><span class='va'>fluffyduck</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># make a function </span>
+<span class='va'>firstquack</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"quack"</span><span class='op'>)</span><span class='op'>}</span>
 
-# see if it works
-firstquack()</code></pre>
-<pre><code>
-quack</code></pre>
+<span class='co'># see if it works</span>
+<span class='fu'>firstquack</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>quack</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# but this throws an error
-UseMethod(&quot;firstquack&quot;, duck)</code></pre>
-<pre><code>
-Error in eval(expr, envir, enclos): object &#39;duck&#39; not found</code></pre>
-<pre class="r"><code>
-# okay, time to look to the tubes for help</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># but this throws an error</span>
+<span class='kw'><a href='https://rdrr.io/r/base/UseMethod.html'>UseMethod</a></span><span class='op'>(</span><span class='st'>"firstquack"</span>, <span class='va'>duck</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Error in eval(expr, envir, enclos): object &#39;duck&#39; not found</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># okay, time to look to the tubes for help</span>
+</code></pre>
+</div>
 </div>
 <h1 id="make-a-duck-quack-with-a-little-help-from-josiah">make a duck quack, with a little help from Josiah</h1>
 <blockquote class="twitter-tweet" data-lang="en">
@@ -2130,82 +2216,92 @@ This! I wrote a post about it and used my PR to janitor as an example. <a href="
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <p>Josiah’s <a href="http://josiahparry.com/post/function-methods/#the-generic-method">post</a> was most helpful, indeed. These are my notes.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# start by creating a &quot;generic&quot; function
-quack &lt;- function(says_the_duck, greeting = &quot;quack!&quot;) {
-  UseMethod(&quot;quack&quot;)
-}</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># start by creating a "generic" function</span>
+<span class='va'>quack</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>says_the_duck</span>, <span class='va'>greeting</span> <span class='op'>=</span> <span class='st'>"quack!"</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/UseMethod.html'>UseMethod</a></span><span class='op'>(</span><span class='st'>"quack"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
 </div>
 <p>The generic function seems like an instantiation step. I read this as, I will create a function called this that I can control how it behaves for different classes.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-quack() # okay, same error as josiah&#39;s, so far so good</code></pre>
-<pre><code>
-Error in UseMethod(&quot;quack&quot;): no applicable method for &#39;quack&#39; applied to an object of class &quot;NULL&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>quack</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># okay, same error as josiah's, so far so good</span>
+</code></pre>
+</div>
+<pre><code>Error in UseMethod(&quot;quack&quot;): no applicable method for &#39;quack&#39; applied to an object of class &quot;NULL&quot;</code></pre>
 </div>
 <p>Sidenote, <a href="https://github.com/rstudio/rmarkdown/issues/149">set chunk option</a> <code>error=TRUE</code> to display code and output for an error.</p>
 <p>Makes sense that this throws an error, we haven’t told it how to behave for anything yet.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# set up a default method
-quack.default &lt;-
-  function(says_the_duck = &quot;quack!&quot;,           greeting = &quot;quack! &quot;) {
-    print(paste0(greeting, says_the_duck))
-    cat(&quot;said the duck&quot;)
-  }
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># set up a default method</span>
+<span class='va'>quack.default</span> <span class='op'>&lt;-</span>
+  <span class='kw'>function</span><span class='op'>(</span><span class='va'>says_the_duck</span> <span class='op'>=</span> <span class='st'>"quack!"</span>,           <span class='va'>greeting</span> <span class='op'>=</span> <span class='st'>"quack! "</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>greeting</span>, <span class='va'>says_the_duck</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"said the duck"</span><span class='op'>)</span>
+  <span class='op'>}</span>
 
-# check this default works for anything
-quack(NULL) # yay! it quacked on NULL</code></pre>
-<pre><code>
-[1] &quot;quack! &quot;
+<span class='co'># check this default works for anything</span>
+<span class='fu'>quack</span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span> <span class='co'># yay! it quacked on NULL</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;quack! &quot;
 said the duck</code></pre>
-<pre class="r"><code>
-quack() # and no argument?</code></pre>
-<pre><code>
-[1] &quot;quack! quack!&quot;
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>quack</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># and no argument?</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;quack! quack!&quot;
 said the duck</code></pre>
-<pre class="r"><code>
-quack(&quot;i&#39;m a duck&quot;) # a string?</code></pre>
-<pre><code>
-[1] &quot;quack! i&#39;m a duck&quot;
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>quack</span><span class='op'>(</span><span class='st'>"i'm a duck"</span><span class='op'>)</span> <span class='co'># a string?</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;quack! i&#39;m a duck&quot;
 said the duck</code></pre>
-<pre class="r"><code>
-# now to make a fluffyduck-class object
-fluffyduck &lt;- &quot;i am fluffy&quot; # create an object
-class(fluffyduck) &lt;- &quot;fluffyduck&quot; # set class of object
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># now to make a fluffyduck-class object</span>
+<span class='va'>fluffyduck</span> <span class='op'>&lt;-</span> <span class='st'>"i am fluffy"</span> <span class='co'># create an object</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>fluffyduck</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"fluffyduck"</span> <span class='co'># set class of object</span>
 
-# trying this before referring back to the post
-quack.fluffyduck &lt;- function(says_the_duck, greeting = &quot;quack! &quot;) {
-  print(paste0(greeting, says_the_duck))
-  cat(&quot;said the fluffy duck\n&quot;)
-}
+<span class='co'># trying this before referring back to the post</span>
+<span class='va'>quack.fluffyduck</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>says_the_duck</span>, <span class='va'>greeting</span> <span class='op'>=</span> <span class='st'>"quack! "</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>greeting</span>, <span class='va'>says_the_duck</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"said the fluffy duck\n"</span><span class='op'>)</span>
+<span class='op'>}</span>
 
-# does the duck quack?
-quack(fluffyduck)</code></pre>
-<pre><code>
-[1] &quot;quack! i am fluffy&quot;
+<span class='co'># does the duck quack?</span>
+<span class='fu'>quack</span><span class='op'>(</span><span class='va'>fluffyduck</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;quack! i am fluffy&quot;
 said the fluffy duck</code></pre>
-<pre class="r"><code>
-# try another object
-another_fluffy_duck &lt;- &quot;i am the fluffiest!&quot;
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># try another object</span>
+<span class='va'>another_fluffy_duck</span> <span class='op'>&lt;-</span> <span class='st'>"i am the fluffiest!"</span>
 
-# test default
-quack(another_fluffy_duck)</code></pre>
-<pre><code>
-[1] &quot;quack! i am the fluffiest!&quot;
+<span class='co'># test default</span>
+<span class='fu'>quack</span><span class='op'>(</span><span class='va'>another_fluffy_duck</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;quack! i am the fluffiest!&quot;
 said the duck</code></pre>
-<pre class="r"><code>
-# but this duck is also fluffy!
-class(another_fluffy_duck) &lt;- &quot;fluffyduck&quot;
-quack(another_fluffy_duck)</code></pre>
-<pre><code>
-[1] &quot;quack! i am the fluffiest!&quot;
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># but this duck is also fluffy!</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>another_fluffy_duck</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"fluffyduck"</span>
+<span class='fu'>quack</span><span class='op'>(</span><span class='va'>another_fluffy_duck</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;quack! i am the fluffiest!&quot;
 said the fluffy duck</code></pre>
-<pre class="r"><code>
-# now to test changing my default greeting, to understand how to parse other arguments
-quack(another_fluffy_duck, greeting = &quot;a most fluffy day to you, &quot;)</code></pre>
-<pre><code>
-[1] &quot;a most fluffy day to you, i am the fluffiest!&quot;
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># now to test changing my default greeting, to understand how to parse other arguments</span>
+<span class='fu'>quack</span><span class='op'>(</span><span class='va'>another_fluffy_duck</span>, greeting <span class='op'>=</span> <span class='st'>"a most fluffy day to you, "</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;a most fluffy day to you, i am the fluffiest!&quot;
 said the fluffy duck</code></pre>
 </div>
 <h1 id="stuff-i-still-dont-get">stuff I still don’t get</h1>
@@ -2226,23 +2322,25 @@ Fluffy duck! :) <a href="https://t.co/9HUPVaXAL4">pic.twitter.com/9HUPVaXAL4</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <h2 id="a-duck-for-maelle">a duck for maelle</h2>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# a duck for maelle!
-maelles_duck &lt;- &quot;je suis une cane&quot;
-class(maelles_duck) &lt;- &quot;frenchduck&quot;
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># a duck for maelle!</span>
+<span class='va'>maelles_duck</span> <span class='op'>&lt;-</span> <span class='st'>"je suis une cane"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>maelles_duck</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"frenchduck"</span>
 
-# french ducks speak in french
-quack.frenchduck &lt;- function(says_the_duck, greeting = &quot;coin! &quot;) {
-  print(paste0(greeting, says_the_duck))
-  cat(&quot;dit la cane\n&quot;)
-}
+<span class='co'># french ducks speak in french</span>
+<span class='va'>quack.frenchduck</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>says_the_duck</span>, <span class='va'>greeting</span> <span class='op'>=</span> <span class='st'>"coin! "</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>greeting</span>, <span class='va'>says_the_duck</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"dit la cane\n"</span><span class='op'>)</span>
+<span class='op'>}</span>
 
-# coin?
-quack(maelles_duck)</code></pre>
-<pre><code>
-[1] &quot;coin! je suis une cane&quot;
+<span class='co'># coin?</span>
+<span class='fu'>quack</span><span class='op'>(</span><span class='va'>maelles_duck</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;coin! je suis une cane&quot;
 dit la cane</code></pre>
 </div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

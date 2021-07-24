@@ -18,6 +18,73 @@
  <!--radix_placeholder_import_source-->
  <!--/radix_placeholder_import_source-->
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
   <!--radix_placeholder_meta_tags-->
 <title>measured.: incorrigible tidy::vert</title>
 
@@ -43,8 +110,6 @@
 
 <!--/radix_placeholder_meta_tags-->
   
-  <meta name="citation_reference" content="citation_title=R for Data Science;citation_publication_date=2017;citation_author=Garrett Grolemund;citation_author=Hadley Wickham"/>
-  <meta name="citation_reference" content="citation_title=Magrittr: A forward-pipe operator for R;citation_publication_date=2014;citation_author=Stefan Milton Bache;citation_author=Hadley Wickham"/>
   <meta name="citation_reference" content="citation_title=Tidyverse: Easily Install and Load the ’Tidyverse’;citation_publication_date=2017;citation_author=Hadley Wickham"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
@@ -54,7 +119,7 @@
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["incorrigible-tidyvert_files/bowser-1.9.3/bowser.min.js","incorrigible-tidyvert_files/distill-2.2.21/template.v2.js","incorrigible-tidyvert_files/jquery-1.11.3/jquery.min.js","incorrigible-tidyvert_files/webcomponents-2.0.0/webcomponents.js","lyrics-handwritten.jpeg","magritte-pipe.jpg","pipe-logo.png","references.bib"]}
+  {"type":"character","attributes":{},"value":["incorrigible-tidyvert_files/anchor-4.2.2/anchor.min.js","incorrigible-tidyvert_files/bowser-1.9.3/bowser.min.js","incorrigible-tidyvert_files/distill-2.2.21/template.v2.js","incorrigible-tidyvert_files/header-attrs-2.9/header-attrs.js","incorrigible-tidyvert_files/jquery-1.11.3/jquery.min.js","incorrigible-tidyvert_files/popper-2.6.0/popper.min.js","incorrigible-tidyvert_files/tippy-6.2.7/tippy-bundle.umd.min.js","incorrigible-tidyvert_files/tippy-6.2.7/tippy-light-border.css","incorrigible-tidyvert_files/tippy-6.2.7/tippy.css","incorrigible-tidyvert_files/tippy-6.2.7/tippy.umd.min.js","incorrigible-tidyvert_files/webcomponents-2.0.0/webcomponents.js","lyrics-handwritten.jpeg","magritte-pipe.jpg","pipe-logo.png","references.bib"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -1978,7 +2043,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
@@ -2041,7 +2112,12 @@ presentations
 
 <div class="d-title">
 <h1>incorrigible tidy::vert</h1>
-<p>a song with %&gt;% references</p>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+  <a href="../../index.html#category:music" class="dt-tag">music</a>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>a song with %&gt;% references</p></p>
 </div>
 
 <div class="d-byline">
@@ -2051,11 +2127,13 @@ presentations
 </div>
 
 <div class="d-article">
-<h3 class="d-toc-header">Table of Contents</h3>
-<nav class="d-toc" id="TOC">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
 <ul>
 <li><a href="#incorrigible-tidyvert-exegesis">incorrigible tidy::vert <code>%&gt;%  exegesis()</code></a></li>
-<li><a href="#the-operator-in-the-r-language">the <code>%&gt;%</code> operator in the R language</a><ul>
+<li><a href="#the-operator-in-the-r-language">the <code>%&gt;%</code> operator in the R language</a>
+<ul>
 <li><a href="#what-is-an-operator">What is an operator?</a></li>
 <li><a href="#what-is-a-composite">What is a composite?</a></li>
 </ul></li>
@@ -2064,7 +2142,7 @@ presentations
 <li><a href="#iphone-balanced-on-music-stand-quality-recording">iphone balanced on music stand quality recording</a></li>
 </ul>
 </nav>
-<hr class="d-toc-separator"/>
+</div>
 <h2 id="incorrigible-tidyvert-exegesis">incorrigible tidy::vert <code>%&gt;%  exegesis()</code></h2>
 <blockquote>
 <p>This post will be adapted for inclusion in a joint publication of mathematically-informed artworks engaging with Magritte’s pipe, an icon of surrealism. This forthcoming publication is from a working group of researchers who met at the 2019 <a href="https://www.heidelberg-laureate-forum.org/">Heidelberg Laureate Forum</a>.</p>
@@ -2075,12 +2153,11 @@ presentations
 <p>In his 1929 surrealist painting, <em>The Treachery of Images</em>, René Magritte declares <em>Ceci n’est pas une pipe</em> (<em>This is not a pipe</em>). In so doing, he highlights this is but an <em>image</em>, a representation, of a pipe, not truly a pipe itself.</p>
 <center>
 <figure>
-<img src="magritte-pipe.jpg" alt="The Treachery of Images, René Magritte, 1929. Image source: wikipedia." style="width:50.0%" /><figcaption><em>The Treachery of Images</em>, René Magritte, 1929. <a href="https://upload.wikimedia.org/wikipedia/en/b/b9/MagrittePipe.jpg">Image source: wikipedia.</a></figcaption>
+<img src="magritte-pipe.jpg" style="width:50.0%" alt="The Treachery of Images, René Magritte, 1929. Image source: wikipedia." /><figcaption aria-hidden="true"><em>The Treachery of Images</em>, René Magritte, 1929. <a href="https://upload.wikimedia.org/wikipedia/en/b/b9/MagrittePipe.jpg">Image source: wikipedia.</a></figcaption>
 </figure>
 </center>
-<p>I recently wrote a song with lots of references to R and the <code>tidyverse::</code> metapackage<span class="citation" data-cites="wickham_tidyverse_2017">(Wickham <a href="#ref-wickham_tidyverse_2017">2017</a>)</span>.</p>
-<pre><code>
-I didn&#39;t mean to %&gt;% your bubble
+<p>I recently wrote a song with lots of references to R and the <code>tidyverse::</code> metapackage<span class="citation" data-cites="wickham_tidyverse_2017">(<a href="#ref-wickham_tidyverse_2017" role="doc-biblioref">Wickham 2017</a>)</span>.</p>
+<pre><code>I didn&#39;t mean to %&gt;% your bubble
 I&#39;m just an incorrigible tidy::vert</code></pre>
 <p>In this post, I’ll unpack the <a href="https://magrittr.tidyverse.org/"><em>pipe</em></a> operator, <code>%&gt;%</code>, that features throughout the lyrics.</p>
 <h2 id="the-operator-in-the-r-language">the <code>%&gt;%</code> operator in the R language</h2>
@@ -2092,24 +2169,26 @@ Figure 1: <a href="https://github.com/tidyverse/magrittr/blob/master/man/figures
 </p>
 </div>
 </div>
-<p>The <code>%&gt;%</code> pipe operator is the first major concept introduced in the programming section, following exploratory data analysis and data wrangling, of Wickham’s <em>R for Data Science</em> <span class="citation" data-cites="grolemund_r_2017">(Grolemund and Wickham <a href="#ref-grolemund_r_2017">2017</a>)</span>.</p>
-<p>With Stefan Milton Bache’s <code>magrittr::</code><span class="citation" data-cites="bache_magrittr_2014">(Bache and Wickham <a href="#ref-bache_magrittr_2014">2014</a>)</span> package,</p>
+<p>The <code>%&gt;%</code> pipe operator is the first major concept introduced in the programming section, following exploratory data analysis and data wrangling, of Wickham’s <em>R for Data Science</em> <span class="citation" data-cites="grolemund_r_2017">(<a href="#ref-grolemund_r_2017" role="doc-biblioref">Grolemund and Wickham 2017</a>)</span>.</p>
+<p>With Stefan Milton Bache’s <code>magrittr::</code><span class="citation" data-cites="bache_magrittr_2014">(<a href="#ref-bache_magrittr_2014" role="doc-biblioref">Bache and Wickham 2014</a>)</span> package,</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# f(x) is equivalent to x %&gt;% f() with magrittr::
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># f(x) is equivalent to x %&gt;% f() with magrittr::</span>
 
-library(magrittr)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://magrittr.tidyverse.org'>magrittr</a></span><span class='op'>)</span>
 
-# f(x)
-round(3.1)</code></pre>
-<pre><code>
-[1] 3</code></pre>
-<pre class="r"><code>
-# is equivalent to x %&gt;% f()
+<span class='co'># f(x)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fl'>3.1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 3</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># is equivalent to x %&gt;% f()</span>
 
-3.1 %&gt;% round()</code></pre>
-<pre><code>
-[1] 3</code></pre>
+<span class='fl'>3.1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 3</code></pre>
 </div>
 <h3 id="what-is-an-operator">What is an operator?</h3>
 <p>We often forget that operators are, themselves, functions.</p>
@@ -2130,44 +2209,42 @@ round(3.1)</code></pre>
 <h2 id="why-do-i-love-to">Why do I love to <code>%&gt;%</code>?</h2>
 <p>Here is an example with three functions: <span class="math inline">\((h \circ g \circ f)(x) := h(g(f(x))).\)</span></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-set.seed(39)
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>39</span><span class='op'>)</span>
 
-# get a random sample size between 20 &amp; 100
-sample(seq(20, 100), 1) %&gt;% # this f(x) goes into
-  # generate sample from normal distribution with 
-  # mean 50 &amp; sd 0.5
-rnorm(., 50, 0.5) %&gt;% # g, so, now g(f(x), which goes into
-  # calculate mean of that sample
-  mean() # h, so h(g(f(x)))</code></pre>
-<pre><code>
-[1] 49.94228</code></pre>
+<span class='co'># get a random sample size between 20 &amp; 100</span>
+<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>100</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># this f(x) goes into</span>
+  <span class='co'># generate sample from normal distribution with </span>
+  <span class='co'># mean 50 &amp; sd 0.5</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='fl'>50</span>, <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># g, so, now g(f(x), which goes into</span>
+  <span class='co'># calculate mean of that sample</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'># h, so h(g(f(x)))</span>
+</code></pre>
+</div>
+<pre><code>[1] 49.94228</code></pre>
 </div>
 <p>To see how this is the <span class="math inline">\((h \circ g \circ f)(x)\)</span> instantiation, reading from right to left, we take a look at the <span class="math inline">\(h(g(f(x)))\)</span> instantiation of the same code.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-# this line of code is equivalent to above
-# h(g(f(x))) is less text
-# but the algorithm is harder to ascertain 
-mean(rnorm(sample(seq(20, 100), 1), 50, 0.5))</code></pre>
-<pre><code>
-[1] 49.98828</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># this line of code is equivalent to above</span>
+<span class='co'># h(g(f(x))) is less text</span>
+<span class='co'># but the algorithm is harder to ascertain </span>
+<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>100</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>50</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 49.98828</code></pre>
 </div>
 <p>The reader is invited to consider if they agree with the author that it is harder to read the symbols so close together, in this <span class="math inline">\(h(g(f(x)))\)</span> instantiation of the code. Also, arguably more importantly, one does not have the ability to comment each component of the algorithm.</p>
 <p>There is a downside to the <code>%&gt;%</code>, however. The longer a composite becomes, the more difficult it is to identify errors.</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre class="eval"><code>
- 
+<pre data-eval="FALSE"><code> 
 On the the train Leipzig with snow falling
 And my %&gt;%s are getting too long
 </code></pre>
-</div>
 <h2 id="incorrigible-tidyvert-lyrics">incorrigible tidy::vert <code>%&gt;%  lyrics()</code></h2>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="lyrics-handwritten.jpeg" /><!-- --></p>
 </div>
-<pre><code>
-Caught the train to Leipzig, snow is falling
+<pre><code>Caught the train to Leipzig, snow is falling
 But I am not nearly done
 Rube Goldberging this algorithm
 But the sampling is off.
@@ -2215,15 +2292,16 @@ I&#39;m just an incorrible tidy::vert
 <p>Don’t say I didn’t warn you about the sound quality.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dDRBrmth2YI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
-<div id="refs" class="references">
-<div id="ref-bache_magrittr_2014">
-<p>Bache, Stefan Milton, and Hadley Wickham. 2014. “Magrittr: A Forward-Pipe Operator for R.”</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-bache_magrittr_2014" class="csl-entry" role="doc-biblioentry">
+Bache, Stefan Milton, and Hadley Wickham. 2014. <span>“Magrittr: <span>A</span> Forward-Pipe Operator for <span>R</span>.”</span>
 </div>
-<div id="ref-grolemund_r_2017">
-<p>Grolemund, Garrett, and Hadley Wickham. 2017. <em>R for Data Science</em>.</p>
+<div id="ref-grolemund_r_2017" class="csl-entry" role="doc-biblioentry">
+Grolemund, Garrett, and Hadley Wickham. 2017. <em>R for <span>Data Science</span></em>.
 </div>
-<div id="ref-wickham_tidyverse_2017">
-<p>Wickham, Hadley. 2017. “Tidyverse: Easily Install and Load the ’Tidyverse’.”</p>
+<div id="ref-wickham_tidyverse_2017" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley. 2017. <span>“Tidyverse: <span>Easily Install</span> and <span>Load</span> the ’<span>Tidyverse</span>’.”</span>
 </div>
 </div>
 <!--radix_placeholder_article_footer-->
