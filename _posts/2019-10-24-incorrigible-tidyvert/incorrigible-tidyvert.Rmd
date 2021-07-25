@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## incorrigible tidy::vert  `%>%  exegesis()`
 
-> This post will be adapted for inclusion in a joint publication of mathematically-informed artworks engaging with Magritte's pipe, an icon of surrealism. This forthcoming publication is from a working group of researchers who met at the 2019 [Heidelberg Laureate Forum](https://www.heidelberg-laureate-forum.org/).
+> This post was adapted for inclusion in a [joint publication](https://arxiv.org/abs/2009.14084) of mathematically-informed artworks engaging with Magritte's pipe, an icon of surrealism. This manuscript is from a working group of researchers who met at the 2019 [Heidelberg Laureate Forum](https://www.heidelberg-laureate-forum.org/).
 
 > Thank you, [Laura Ación](https://twitter.com/_lacion_), [Hao Ye](https://twitter.com/Hao_and_Y), and [James Goldie](https://twitter.com/rensa_co) for checking the maths, and for the reflections on `%>%`. 
 
