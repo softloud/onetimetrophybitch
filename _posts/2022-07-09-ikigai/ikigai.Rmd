@@ -26,6 +26,7 @@ Having graduated with a thesis in film musicology first, and then a PhD in mathe
 
 ```{r}
 # get parameters for plot
+# devtools::install_github("softloud/parameterpal")
 library(parameterpal)
 
 discipline_a <- beta_pal(0.6, 0.3, 0.8)
@@ -110,7 +111,8 @@ plotdat  %>%
     theme(
         legend.direction = "horizontal",
         legend.position = "top",
-        axis.text.y = element_blank()
+        axis.text.y = element_blank(),
+        panel.grid = element_blank()
     ) +
     scale_color_viridis(
         direction = -1,

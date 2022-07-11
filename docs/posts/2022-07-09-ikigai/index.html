@@ -2193,6 +2193,7 @@ Show code
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># get parameters for plot</span></span>
+<span><span class='co'># devtools::install_github("softloud/parameterpal")</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>parameterpal</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>discipline_a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/parameterpal/man/beta_pal.html'>beta_pal</a></span><span class='op'>(</span><span class='fl'>0.6</span>, <span class='fl'>0.3</span>, <span class='fl'>0.8</span><span class='op'>)</span></span>
@@ -2281,7 +2282,8 @@ Show code
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span></span>
 <span>        legend.direction <span class='op'>=</span> <span class='st'>"horizontal"</span>,</span>
 <span>        legend.position <span class='op'>=</span> <span class='st'>"top"</span>,</span>
-<span>        axis.text.y <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>        axis.text.y <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span>        panel.grid <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span>    <span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://sjmgarnier.github.io/viridis/reference/scale_viridis.html'>scale_color_viridis</a></span><span class='op'>(</span></span>
 <span>        direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>,</span>
@@ -2413,7 +2415,7 @@ opportunities in some disciplines</h2>
 simply were no postdoctoral positions in the field. Similiarly, when I
 asked the one public service department that had been known to hire
 algebraists when there would be postdoctoral positions, they could not
-say. For some disciplines there are far more graduates than there are
+say. For some disciplines, there are far more graduates than there are
 positions, and only some of the top outliers get through.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
