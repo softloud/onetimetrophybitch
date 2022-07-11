@@ -1,0 +1,320 @@
+---
+title: "Discipline matters more than effort" 
+description: |
+    Data visualisations that jostle in my mind hearing the usual early career advice
+author:
+  - name: Dr. Charles T. Gray
+    url: https://softloud.github.io/onetimetrophybitch/about.html
+date: 2022-07-09
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    code_folding: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Advice to early career researchers is variously given along the lines of: publish as much as possible; contribute to the discipline's community; participate in the department with teaching and seminars. Also consider internships, consulting, writing blogposts, and communicating research to the public. 
+
+What is often skimmed over, if addressed at all, is the extraordinarily wide disparity of opportunity between disciplines against a backdrop of worsening working conditions for everyone. 
+
+Having graduated with a thesis in film musicology first, and then a PhD in mathematical science, I have been through both experiences illustrated in the following visualisation. 
+
+```{r}
+# get parameters for plot
+library(parameterpal)
+
+discipline_a <- beta_pal(0.6, 0.3, 0.8)
+discipline_b <- beta_pal(0.2, 0.1, 0.8)
+
+```
+
+
+```{r}
+# plot function
+set.seed(42)
+library(tidyverse)
+library(viridis)
+
+obs <- 100
+
+
+
+simdat <- 
+    tibble(
+        x = rbeta(obs, discipline_a[[1]], discipline_a[[2]]),
+        discipline = "A"
+    ) %>%   
+    bind_rows(
+        tibble(
+            x = rbeta(obs, discipline_b[[1]], discipline_b[[2]]),
+            discipline = "B"
+        ) 
+    ) 
+
+quants <-    
+    simdat %>% 
+    group_by(discipline) %>% 
+    summarise(
+        first = quantile(x, 0.25),
+        second = quantile(x, 0.5),
+        third = quantile(x, 0.75)
+    )
+
+
+disc_plot <- 
+    function(simdat, quants) {
+
+
+
+plotdat <- 
+    simdat %>% 
+    left_join(quants) %>% 
+    mutate(
+        effort = case_when(
+            x > third ~ "Publishes, teaches, seminars, blog, & service" %>% 
+                str_wrap(25),
+            x > second ~ "Publishes & teaches",
+            x > first ~ "Publishes",
+            TRUE ~ "Graduates"
+        )
+    )
+
+
+
+
+plotdat  %>%
+    rename(Effort = effort) %>% 
+    ggplot(aes(x = discipline, y = x)) +
+    geom_boxplot(
+        alpha = 0.4
+    ) +
+    geom_jitter(aes(colour = Effort), alpha = 0.7) +
+    labs(
+       
+        x = "Made up disciplines (these are randomly generated data)" %>% 
+            str_wrap(30),
+        y = "Totally made up probability of obtaining a domain position" %>% 
+            str_wrap(30)
+        
+    ) +
+    ylim(0, 1) +
+    theme_minimal(
+        base_size = 18,
+        base_family = "serif"
+    ) +
+    theme(
+        legend.direction = "horizontal",
+        legend.position = "top",
+        axis.text.y = element_blank()
+    ) +
+    scale_color_viridis(
+        direction = -1,
+        discrete = TRUE,
+        guide =
+    guide_legend(
+        ncol = 2
+    )
+    )         
+    }
+
+
+
+```
+
+
+```{r fig.height=10}
+
+disc_plot(simdat, quants) +
+    labs(
+         title = "Discipline matters more than effort",
+        subtitle = "Opportunities vary more between domains of interest than in terms of effort" %>% 
+            str_wrap(45),
+        caption = "Think of each point as a person; an aspiring scholar with a passion. No matter how hard a scholar in Discipline B optimises within discipline, according to various advice provided by mentors (e.g., teach, publish, contribute to community), that scholar will at best achieve the opportunities available to the lowest quartile of Discipline A." %>% 
+            str_wrap(80)
+    )
+
+
+```
+
+### what was true then, ain't necessarily so, now
+
+I was told a lot of things that did not hold true: a high distinction guarantees PhD scholarship; recruiters would contact so much it would be annoying; an undergraduate degree from a reputable university should provide the foundation of a comfortable middle-class life. I think, however, these things *were* true for the people who said these things. 
+
+Why have things changed? So many reasons. For example, in Australia, universities are financially incentivised to produce postgraduates, effectively regardless of career outcomes. The result is a lot more postgraduates; "Ah, the PhD bubble", commented a professor to me in the tea room one day.
+
+If I assume the things I've been told were true, then there was not only higher likelihood of obtaining a position, but also less of a penalty between disciplines, when the person providing this advice formed their opinions.
+
+
+```{r}
+
+# adjustment for opportunity 
+time_a <- beta_pal(0.6 + 0.1, 0.2, 0.6)
+time_b <- beta_pal(0.2 + 0.5, 0.1, 0.8)
+
+# randomly generate some data
+timedat <- 
+    tibble(
+        x = rbeta(obs, time_a[[1]], time_a[[2]]),
+        discipline = "A",
+        timepoint = "Some decades ago"
+    ) %>%   
+    bind_rows(
+        tibble(
+            x = rbeta(obs, time_b[[1]], time_b[[2]]),
+            discipline = "B",
+        timepoint = "Some decades ago"
+        ) 
+    ) 
+
+time_quants <-
+        timedat %>% 
+    group_by(discipline) %>% 
+    summarise(
+        first = quantile(x, 0.25),
+        second = quantile(x, 0.5),
+        third = quantile(x, 0.75)
+    )
+
+
+# combine with original dataset
+
+time_obs <-
+    simdat %>% 
+    mutate(
+        timepoint = "Now" 
+    ) %>% 
+    bind_rows(timedat) %>% 
+    mutate(
+        timepoint = fct_relevel(timepoint, "Some decades ago")
+        
+    )
+    
+
+time_quants <-
+    time_obs %>% 
+     group_by(discipline, timepoint) %>% 
+    summarise(
+        first = quantile(x, 0.25),
+        second = quantile(x, 0.5),
+        third = quantile(x, 0.75)
+    )
+
+    
+
+```
+
+
+```{r fig.height=8}
+    disc_plot(time_obs, time_quants) +
+    facet_wrap(~ timepoint) +
+    labs(
+        title = "There are more PhD graduates now",
+        subtitle = "Opportunity was greater for some fields, some decades ago, and opportunity was more balanced between disciplines" %>% 
+            str_wrap(55)
+    )
+
+```
+
+## years between opportunities in some disciplines
+
+A friend found, on graduating from a PhD in literature, that there simply were no postdoctoral positions in the field. Similiarly, when I asked the one public service department that had been known to hire algebraists when there would be postdoctoral positions, they could not say. For some disciplines, there are far more graduates than there are positions, and only some of the top outliers get through.
+
+
+
+```{r}
+# set parameters for discipline with almost no opportunity
+discipline_c <- beta_pal(0.05, 0.2, 0.8)
+
+disc_c_obs <-
+tibble(
+        x = rbeta(obs, discipline_c[[1]], discipline_c[[2]]),
+        discipline = "C"
+    ) %>% 
+    bind_rows(simdat)
+
+disc_c_quants <- 
+    disc_c_obs %>% 
+    group_by(discipline) %>% 
+ summarise(
+        first = quantile(x, 0.25),
+        second = quantile(x, 0.5),
+        third = quantile(x, 0.75)
+    )
+
+
+
+```
+
+```{r fig.height=8}
+disc_plot(disc_c_obs, disc_c_quants) +
+    labs(
+        title = "No matter how hard you try",
+        subtitle = "In some disciplines, there is almost no chance of obtaining a domain position" %>% 
+            str_wrap(45)
+    )
+
+
+```
+
+In addition, administrative procedures often cause delays, even when grants have been approved and everyone is in agreement. It is exceedingly difficult to weather these economic troughs without family members to fall back on. Harder still, creeping self doubt. 
+
+
+## precarious academic employment is still a privilege
+
+Until my current position, academia had **best working conditions** I have ever experienced. My postdoctoral position, last year, was the first time in my life I had a **wage**. I turned **42** recently. First time in my life I have had **paid sick leave**. First time I didn't have to **work every weekend**. The sessional work I did in academia, prior to finishing my studies, was better than casual work I could obtain otherwise. And casual work, dear reader, was all I could get. 
+
+The opportunities to mingle with fascinating people with fascinating stories about science were unparalleled. Travel was such a gift; I'd never much been able to afford to leave the country, or stay in hotels. All in all, I loved my time in academia. I sought a position in consulting because I need greater stability than academia can afford to manage complex post-traumatic stress disorder. 
+
+I am not saying that working conditions for early career researchers are good. I tend to gesture at the slow demise of neoliberalism, how it is causing tectonic shifts in working conditions that are stratifying society into two classes: those who are serviced; and those who provide services. Another might point to the pandemic, or other drivers. Point is what used to be comfortable occupations have shifted into the precariat class. Eroding working conditions for academics are in a context of eroding working conditions for most occupations.  
+
+## i'm a pragmatist
+
+I'm certainly not the cleverest mathematician, nor a programmer with a deep understanding of technique. I find research anxiety inducing. I need to be pragmatic about where my energy levels are at for effort, and consider where this will place me in the quartiles of my chosen discipline. Suppose my effort is in the middle; I certainly don't feel I've optimised being an early career researcher.  
+
+I didn't choose to what I'm good at, nor what I loved. I switched from pure mathematics to statistics to data science as I formed the perception of opportunity illustrated in the visualisations in this post. I knew I could not weather being without income. I am also tired and do not wish to reinvent myself again anytime soon. I had to ensure my postgraduate studies would lead to employment using the domain I was trained in.  
+
+```{r}
+
+# suppose i am in the second quartile of effort
+me <- 
+simdat %>% 
+    left_join(quants) %>% 
+    filter(
+        x > (first + 0.05), 
+            x < (second - 0.05), 
+            discipline == "A") %>% 
+    sample_n(1) %>% 
+    select(x, discipline) %>% 
+    mutate(label = "Me")
+
+```
+
+```{r fig.height=8}
+disc_plot(simdat, quants) +
+    geom_text(
+        data = me,
+        aes(label = label),
+        size = 5,
+        family = "serif"
+    ) + 
+    labs(
+        title = "I'm no outlier",
+        subtitle = "Suppose I'm somewhere in the middle when it comes to effort" %>% str_wrap(45)
+    )
+
+
+```
+
+
+## [ikigai](https://en.wikipedia.org/wiki/Ikigai?oldformat=true)
+
+Although this post might sound like one of necessary gloom; for me, there is little gloom because I optimised along these paths. I didn't set out to work in data science, I began with an interest in mathematics. It is in data science, however, I've been able to indulge so many other unexpected interests; I use my writing skills more than I expected, for example. I don't think my job description will stay fixed; am approaching with curiosity about where my postgraduate studies will take me next. 
+
+The lesson, for me, was to embrace not defining myself as any one thing, and not to focus on what I think I'm good at. I am not a mathematician, nor a programmer, nor a piano teacher. Today I aspire to be a mathematical scientist, but who knows what I'll aspire to be tomorrow. 
+
+Maybe I'll never know what I'm good at, but I hope I continue to surprise myself.

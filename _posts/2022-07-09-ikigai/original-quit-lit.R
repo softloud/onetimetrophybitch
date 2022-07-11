@@ -1,0 +1,51 @@
+There's an abundance of quit lit, to be sure. I've had many passing thoughts, half-formed tweets, but much has been said. Perhaps all of what I have to say about leaving academia has been said before. I find, however, that I need to organise my thoughts on this. 
+
+## precarious academia is still privilege 
+
+Until my current position, academia had **best working conditions** I have ever experienced. My postdoctoral position, last year, was the first time in my life I had a **wage**. I turned **42** recently. First time in my life I have had **paid sick leave**. First time I didn't have to **work every weekend**. The sessional work I did in academia, prior to finishing my studies, was better than casual work I could obtain otherwise. And casual work, dear reader, was all I could get. 
+
+The opportunities to mingle with fascinating people with fascinating stories about science were unparalleled. Travel was such a gift; I'd never much been able to afford to leave the country, or stay in hotels. All in all, I loved my time in academia.  
+
+I am not saying that working conditions for early career researchers are good. I tend to gesture at the slow demise of neoliberalism, how it is causing tectonic shifts in working conditions that are stratifying society into two classes: those who are serviced; and those who provide services. Another might point to the pandemic, or other drivers. Point is what used to be comfortable occupations have shifted into the precariat class. Eroding working conditions for academics are in a context of eroding working conditions for most occupations.  
+
+I have three bachelor degrees, two honours-level theses, a diploma in jazz piano, and a goddamned PhD. It's not for lack of trying to attain stability, but there was **key information I didn't have**. And that's because advice came by people older than me (born before 1980), and working conditions and opportunities were dramatically different for them. 
+
+This post is about what I wish I'd known when I started to consider a career in academia, and how what I know now has informed my choices.  
+
+## it's what you do, not how you do it, that matters
+
+Turning now to knowledge I wish I'd had at the start of postgraduate research studies. 
+
+
+
+
+
+
+## why i left
+
+When I started this crazy gambit of *what if I practice maths like music?* my wildest dreams were: live in Scandinavia; do mathematical science for work; dance by night. That's how I live right now. Academia was one possible pathway to the lifestyle I wanted, not the objective in and of itself. 
+
+It's hard to convey how ripple effects of starting out in life at fifteen, completely cut off from everyone, everything, and every support network you've ever known. It is, however, well documented how many shared experiences there are for *homies*. 
+
+> [Forgotten Australians reported to the Senate Inquiry that as adults they had suffered depression, social anxieties, phobias, recurring nightmares, anger, shame, and were fearful and distrustful of others leading to an inability to form and maintain relationships. Many detailed drug and alcohol dependence, homelessness, unemployment and imprisonment.](https://www.wikiwand.com/en/Forgotten_Australians#/Long-term_impacts)  
+                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                    Managing complex post-traumatic stress disorder is a fundamental feature of my daily existence. Malesic's [The End of Burnout](https://www.ucpress.edu/book/9780520391529/the-end-of-burnout) is where I ultimately found the most affinity for how I was feeling, and it was halfway through this text I resolved to leave academia. I determined it was not feasible for me to manage CPTSD effectively and remain in academia. 
+
+
+
+In my case, I don't believe it was the working conditions so much as failing to find mentorship for my nexus of programming and statistical science skills. I became exhausted by loneliness and isolation. Combining this with short-term contracts and moving countries, I came to question if an academic career was worth the extra mental load on top of managing chronic trauma symptoms. 
+                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                    But this time I optimised my choice of discipline and could easily carve another path. 
+                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                    ## unorganised notes
+                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                    - plots
+                                                                                                                                                                                                                                                                                                                                                                    - discipline counts
+                                                                                                                                                                                                                                                                                                                                                                    - data
+                                                                                                                                                                                                                                                                                                                                                                    - my working life now

@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,12 +77,34 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
 </style>
 
   <!--radix_placeholder_meta_tags-->
@@ -108,6 +130,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   
   <meta name="citation_reference" content="citation_title=Truth, Proof, and Reproducibility: There’s no counter-attack for the codeless;citation_publication_date=2019;citation_author=Charles T. Gray;citation_author=Ben Marwick"/>
   <meta name="citation_reference" content="citation_title=The Homomorphism Lattice Induced by a Finite Algebra;citation_publication_date=2018;citation_volume=35;citation_doi=10.1007/s11083-017-9426-3;citation_issn=1572-9273;citation_author=Brian A. Davey;citation_author=Charles T. Gray;citation_author=Jane G. Pitkethly"/>
+  <meta name="citation_reference" content="citation_title=The ethical and policy implications of profiling “vulnerable” customers: Implications of customer profiling;citation_publication_date=2010;citation_volume=34;citation_doi=10.1111/j.1470-6431.2010.00873.x;citation_issn=14706423, 14706431;citation_author=Paul Harrison;citation_author=Charles Gray"/>
+  <meta name="citation_reference" content="citation_title=Profiling for profit : A report on target marketing and profiling practices in the credit industry;citation_publication_date=2012;citation_publisher=Consumer Action Law Centre;citation_author=Paul Harrison;citation_author=Charles Ti Gray"/>
   <meta name="citation_reference" content="citation_title=EviAtlas: A tool for visualising evidence synthesis databases;citation_publication_date=2019;citation_volume=8;citation_doi=10.1186/s13750-019-0167-1;citation_issn=2047-2382;citation_author=Neal R. Haddaway;citation_author=Andrew Feierman;citation_author=Matthew J. Grainger;citation_author=Charles T. Gray;citation_author=Ezgi Tanriver-Ayder;citation_author=Sanita Dhaubanjar;citation_author=Martin J. Westgate"/>
   <meta name="citation_reference" content="citation_title=Truth, Proof, and Reproducibility: There’s no counter-attack for the codeless;citation_publication_date=2019;citation_author=Charles T. Gray;citation_author=Ben Marwick"/>
   <meta name="citation_reference" content="citation_title=Truth, Proof, and Reproducibility: There’s no counter-attack for the codeless;citation_publication_date=2019;citation_author=Charles T. Gray;citation_author=Ben Marwick"/>
@@ -464,7 +488,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1871,7 +1895,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2042,7 +2069,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
