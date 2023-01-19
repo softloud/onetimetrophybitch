@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -1062,10 +1063,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     margin-top: 1.5em;
   }
 
-  .figure img {
-    width: 100%;
-  }
-
   .figure .caption {
     color: rgba(0, 0, 0, 0.6);
     font-size: 12px;
@@ -1895,6 +1892,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+          var fn = $(this).children()[0]
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
           return "<p>" + $('#ref-' + ref).html() + "</p>";
@@ -1909,6 +1912,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -2008,6 +2036,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -2030,7 +2060,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2069,7 +2099,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2145,7 +2175,8 @@ presentations
 
 <div class="d-article">
 <h1 id="publications">publications</h1>
-<p>See <a href="#references">references</a> at bottom of this page for citation details.</p>
+<p>See <a href="#references">references</a> at bottom of this page for
+citation details.</p>
 <table>
 <colgroup>
 <col style="width: 28%" />
@@ -2161,60 +2192,111 @@ presentations
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://arxiv.org/abs/1910.06964"><code>code::proof</code>: Prepare for <em>most</em> weather conditions</a><span class="citation" data-cites="gray2019textttcodeproof">(<a href="#ref-gray2019textttcodeproof" role="doc-biblioref">Gray 2019</a>)</span></td>
+<td><a href="https://arxiv.org/abs/1910.06964"><code>code::proof</code>:
+Prepare for <em>most</em> weather conditions</a><span class="citation"
+data-cites="gray2019textttcodeproof">(<a
+href="#ref-gray2019textttcodeproof" role="doc-biblioref">Gray
+2019</a>)</span></td>
 <td>metaprogramming</td>
-<td>second paper from thesis, accepted to springer computer science proceedings something something, metaprogramming</td>
+<td>second paper from thesis, accepted to springer computer science
+proceedings something something, metaprogramming</td>
 </tr>
 <tr class="even">
-<td><a href="https://arxiv.org/abs/1907.05947">Truth, Proof, and Reproducibility: There’s no counter-attack for the codeless</a></td>
+<td><a href="https://arxiv.org/abs/1907.05947">Truth, Proof, and
+Reproducibility: There’s no counter-attack for the codeless</a></td>
 <td>metamathematics</td>
-<td>first paper from current thesis has been accepted into springer computer proceedings something something, metamathematics<span class="citation" data-cites="gray_truth_2019">(<a href="#ref-gray_truth_2019" role="doc-biblioref">Gray and Marwick 2019</a>)</span></td>
+<td>first paper from current thesis has been accepted into springer
+computer proceedings something something, metamathematics<span
+class="citation" data-cites="gray_truth_2019">(<a
+href="#ref-gray_truth_2019" role="doc-biblioref">Gray and Marwick
+2019</a>)</span></td>
 </tr>
 <tr class="odd">
-<td><a href="https://link.springer.com/epdf/10.1007/s11083-017-9426-3?author_access_token=Tx3I0PNwg5dFrahH71DncPe4RwlQNchNByi7wbcMAY5xivQFAeypeZYbpkYiIm56ubi44Xeb3jQJh6Y2LL8MDMMBjFNWvxCIzyDBkmDI7ZtY6XFcn9qUBg5X3MB3WdDpzOfXDt4InQo_9PdfLHknPw==">The Homomorphism Lattice Induced by a Finite Algebra</a></td>
+<td><a
+href="https://link.springer.com/epdf/10.1007/s11083-017-9426-3?author_access_token=Tx3I0PNwg5dFrahH71DncPe4RwlQNchNByi7wbcMAY5xivQFAeypeZYbpkYiIm56ubi44Xeb3jQJh6Y2LL8MDMMBjFNWvxCIzyDBkmDI7ZtY6XFcn9qUBg5X3MB3WdDpzOfXDt4InQo_9PdfLHknPw==">The
+Homomorphism Lattice Induced by a Finite Algebra</a></td>
 <td>abstract algebra</td>
-<td>The publication of my honours (masters-level) thesis in abstract algebra. Authorship is alphabetical and equal in mathematics. Brian and Jane did a great deal of work on the final paper. But in my thesis, the proofs were all (but two small introductory proofs Brian wrote for completeness) my own. <span class="citation" data-cites="davey_homomorphism_2018">(<a href="#ref-davey_homomorphism_2018" role="doc-biblioref">Davey, Gray, and Pitkethly 2018</a>)</span></td>
+<td>The publication of my honours (masters-level) thesis in abstract
+algebra. Authorship is alphabetical and equal in mathematics. Brian and
+Jane did a great deal of work on the final paper. But in my thesis, the
+proofs were all (but two small introductory proofs Brian wrote for
+completeness) my own. <span class="citation"
+data-cites="davey_homomorphism_2018">(<a
+href="#ref-davey_homomorphism_2018" role="doc-biblioref">Davey, Gray,
+and Pitkethly 2018</a>)</span></td>
 </tr>
 <tr class="even">
 <td>Profiling for Profit</td>
 <td>marketing</td>
-<td>oddly enough, an award-winning consumer behaviour paper, best in the business ethics track <span class="citation" data-cites="harrison_ethical_2010 harrison_profiling_2012">(<a href="#ref-harrison_ethical_2010" role="doc-biblioref">Harrison and Gray 2010</a>; <a href="#ref-harrison_profiling_2012" role="doc-biblioref">Harrison and Gray 2012</a>)</span></td>
+<td>oddly enough, an award-winning consumer behaviour paper, best in the
+business ethics track <span class="citation"
+data-cites="harrison_ethical_2010 harrison_profiling_2012">(<a
+href="#ref-harrison_ethical_2010" role="doc-biblioref">Harrison and Gray
+2010</a>; <a href="#ref-harrison_profiling_2012"
+role="doc-biblioref">Harrison and Gray 2012</a>)</span></td>
 </tr>
 <tr class="odd">
 <td><code>eviatlas::</code></td>
 <td>ecology</td>
-<td>wrote one paragraph and contributed to discussion on this ecology project<span class="citation" data-cites="haddaway_eviatlas_2019">(<a href="#ref-haddaway_eviatlas_2019" role="doc-biblioref">Haddaway et al. 2019</a>)</span></td>
+<td>wrote one paragraph and contributed to discussion on this ecology
+project<span class="citation" data-cites="haddaway_eviatlas_2019">(<a
+href="#ref-haddaway_eviatlas_2019" role="doc-biblioref">Haddaway et al.
+2019</a>)</span></td>
 </tr>
 <tr class="even">
 <td>todo:look up</td>
 <td>psychology</td>
-<td>spent two deep-dive days conjuring a package out of an equation for the Misinformation Lab, and two co-authored papers are submitted</td>
+<td>spent two deep-dive days conjuring a package out of an equation for
+the Misinformation Lab, and two co-authored papers are submitted</td>
 </tr>
 <tr class="odd">
-<td><a href="https://softloud.github.io/codingofkindness/">Coding of Kindness</a><span class="citation" data-cites="gray_coding_2019">(<a href="#ref-gray_coding_2019" role="doc-biblioref">Gray et al. 2019</a>)</span></td>
+<td><a href="https://softloud.github.io/codingofkindness/">Coding of
+Kindness</a><span class="citation" data-cites="gray_coding_2019">(<a
+href="#ref-gray_coding_2019" role="doc-biblioref">Gray et al.
+2019</a>)</span></td>
 <td>open science</td>
-<td>a rephrasing of the Code of Conduct, which did not win over the people I was trying to communicate with, but did mean that other survivors reached out, and that was quite lovely</td>
+<td>a rephrasing of the Code of Conduct, which did not win over the
+people I was trying to communicate with, but did mean that other
+survivors reached out, and that was quite lovely</td>
 </tr>
 </tbody>
 </table>
 <h1 id="some-other-cool-shit-i-did-2">some other cool shit i did 2</h1>
 <p>Most recent first.</p>
-<h3 id="reprofail-seminar---long-version">reprofail seminar - long version</h3>
-<p><a href="https://github.com/softloud/onetimetrophybitch/tree/master/talks/reproducibility-fail">readme</a> for talk with abstract</p>
+<h3 id="reprofail-seminar---long-version">reprofail seminar - long
+version</h3>
+<p><a
+href="https://github.com/softloud/onetimetrophybitch/tree/master/talks/reproducibility-fail">readme</a>
+for talk with abstract</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/yOGV2OaFjP8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
 <h3 id="heidelberg-laureate-forum">heidelberg laureate forum</h3>
-<p>It was a delight to participate in the opening of the <a href="https://www.heidelberg-laureate-forum.org/">Heidelberg Laureate Forum</a>, where the laureates of mathematics and computer science meet the next generation.</p>
-<p>I’ve cued this video to my presentation on the algebra of composition.</p>
+<p>It was a delight to participate in the opening of the <a
+href="https://www.heidelberg-laureate-forum.org/">Heidelberg Laureate
+Forum</a>, where the laureates of mathematics and computer science meet
+the next generation.</p>
+<p>I’ve cued this video to my presentation on the algebra of
+composition.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lJtdOsjy59A?start=2119" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
-<p>There’s no Nobel prize in mathematics and computer science. Instead, there is the Turing award, the Fields medal, and the Abel prize. Each year the Heidelberg Laureate Forum Foundation gathers these laureates of mathematics and computing, along with two hundred talented early-career researchers, and science writers, for a week of lectures, workshops, and events designed to foster conversation and ideas.</p>
-<p>It was a gift to present at the opening ceremony and have that introduction; I wasn’t in want of conversation for the entire event. I got to meet so many interesting people.</p>
-<p>Slides for the presentation can be found <a href="https://softloud.github.io/onetimetrophybitch/talks/hlf/hlf-2019-xaringan.html#1">here</a>.</p>
+<p>There’s no Nobel prize in mathematics and computer science. Instead,
+there is the Turing award, the Fields medal, and the Abel prize. Each
+year the Heidelberg Laureate Forum Foundation gathers these laureates of
+mathematics and computing, along with two hundred talented early-career
+researchers, and science writers, for a week of lectures, workshops, and
+events designed to foster conversation and ideas.</p>
+<p>It was a gift to present at the opening ceremony and have that
+introduction; I wasn’t in want of conversation for the entire event. I
+got to meet so many interesting people.</p>
+<p>Slides for the presentation can be found <a
+href="https://softloud.github.io/onetimetrophybitch/talks/hlf/hlf-2019-xaringan.html#1">here</a>.</p>
 <h3 id="code-like-a-girl-tour">code like a girl tour</h3>
 <ul>
-<li>check out <a href="https://twitter.com/i/moments/1027200380600348673">twitter reel</a> from the tour</li>
-<li>and the <a href="https://codelikeagirl.org/states/act/2018/september/data-storytelling-with-charles-gray-launch-event/">event</a></li>
+<li>check out <a
+href="https://twitter.com/i/moments/1027200380600348673">twitter
+reel</a> from the tour</li>
+<li>and the <a
+href="https://codelikeagirl.org/states/act/2018/september/data-storytelling-with-charles-gray-launch-event/">event</a></li>
 </ul>
 <p><img src="figs/code-like-a-girl.jpg" /></p>
 <h3 id="user-workshop">useR! workshop</h3>
@@ -2223,28 +2305,59 @@ presentations
 <h3 id="mathbassador-gray">mathbassador gray</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/o0Rqz8Hgacc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-davey_homomorphism_2018" class="csl-entry" role="doc-biblioentry">
-Davey, Brian A., Charles T. Gray, and Jane G. Pitkethly. 2018. <span>“The <span>Homomorphism Lattice Induced</span> by a <span>Finite Algebra</span>.”</span> <em>Order</em> 35 (2): 193–214. <a href="https://doi.org/10.1007/s11083-017-9426-3">https://doi.org/10.1007/s11083-017-9426-3</a>.
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
+<div id="ref-davey_homomorphism_2018" class="csl-entry"
+role="doc-biblioentry">
+Davey, Brian A., Charles T. Gray, and Jane G. Pitkethly. 2018.
+<span>“The <span>Homomorphism Lattice Induced</span> by a <span>Finite
+Algebra</span>.”</span> <em>Order</em> 35 (2): 193–214. <a
+href="https://doi.org/10.1007/s11083-017-9426-3">https://doi.org/10.1007/s11083-017-9426-3</a>.
 </div>
-<div id="ref-gray2019textttcodeproof" class="csl-entry" role="doc-biblioentry">
-Gray, Charles T. 2019. <span>“: <span>Prepare</span> for <span><em>Most</em></span> Weather Conditions.”</span> <a href="http://arxiv.org/abs/1910.06964">http://arxiv.org/abs/1910.06964</a>.
+<div id="ref-gray2019textttcodeproof" class="csl-entry"
+role="doc-biblioentry">
+Gray, Charles T. 2019. <span>“: <span>Prepare</span> for
+<span><em>Most</em></span> Weather Conditions.”</span> <a
+href="https://arxiv.org/abs/1910.06964">https://arxiv.org/abs/1910.06964</a>.
 </div>
 <div id="ref-gray_truth_2019" class="csl-entry" role="doc-biblioentry">
-Gray, Charles T., and Ben Marwick. 2019. <span>“Truth, <span>Proof</span>, and <span>Reproducibility</span>: <span>There</span>’s No Counter-Attack for the Codeless.”</span> <em>arXiv:1907.05947 [Math]</em>, July. <a href="http://arxiv.org/abs/1907.05947">http://arxiv.org/abs/1907.05947</a>.
+Gray, Charles T., and Ben Marwick. 2019. <span>“Truth,
+<span>Proof</span>, and <span>Reproducibility</span>:
+<span>There</span>’s No Counter-Attack for the Codeless.”</span>
+<em>arXiv:1907.05947 [Math]</em>, July. <a
+href="https://arxiv.org/abs/1907.05947">https://arxiv.org/abs/1907.05947</a>.
 </div>
 <div id="ref-gray_coding_2019" class="csl-entry" role="doc-biblioentry">
-Gray, Charles T., Ben Marwick, Jen Richmond, Emily Kothe, Mathew Ling, and Brian Knaus. 2019. <span>“Coding of <span>Kindness</span>: <span>Let</span>’s Figure Out How to Be Better Humans to Each Other.”</span> <em>Coding of Kindness</em>. https://softloud.github.io/codingofkindness/.
+Gray, Charles T., Ben Marwick, Jen Richmond, Emily Kothe, Mathew Ling,
+and Brian Knaus. 2019. <span>“Coding of <span>Kindness</span>:
+<span>Let</span>’s Figure Out How to Be Better Humans to Each
+Other.”</span> <em>Coding of Kindness</em>.
+https://softloud.github.io/codingofkindness/.
 </div>
-<div id="ref-haddaway_eviatlas_2019" class="csl-entry" role="doc-biblioentry">
-Haddaway, Neal R., Andrew Feierman, Matthew J. Grainger, Charles T. Gray, Ezgi Tanriver-Ayder, Sanita Dhaubanjar, and Martin J. Westgate. 2019. <span>“<span>EviAtlas</span>: A Tool for Visualising Evidence Synthesis Databases.”</span> <em>Environmental Evidence</em> 8 (1): 22. <a href="https://doi.org/10.1186/s13750-019-0167-1">https://doi.org/10.1186/s13750-019-0167-1</a>.
+<div id="ref-haddaway_eviatlas_2019" class="csl-entry"
+role="doc-biblioentry">
+Haddaway, Neal R., Andrew Feierman, Matthew J. Grainger, Charles T.
+Gray, Ezgi Tanriver-Ayder, Sanita Dhaubanjar, and Martin J. Westgate.
+2019. <span>“<span>EviAtlas</span>: A Tool for Visualising Evidence
+Synthesis Databases.”</span> <em>Environmental Evidence</em> 8 (1): 22.
+<a
+href="https://doi.org/10.1186/s13750-019-0167-1">https://doi.org/10.1186/s13750-019-0167-1</a>.
 </div>
-<div id="ref-harrison_ethical_2010" class="csl-entry" role="doc-biblioentry">
-Harrison, Paul, and Charles Gray. 2010. <span>“The Ethical and Policy Implications of Profiling <span>‘Vulnerable’</span> Customers: <span>Implications</span> of Customer Profiling.”</span> <em>International Journal of Consumer Studies</em> 34 (4): 437–42. <a href="https://doi.org/10.1111/j.1470-6431.2010.00873.x">https://doi.org/10.1111/j.1470-6431.2010.00873.x</a>.
+<div id="ref-harrison_ethical_2010" class="csl-entry"
+role="doc-biblioentry">
+Harrison, Paul, and Charles Gray. 2010. <span>“The Ethical and Policy
+Implications of Profiling <span>‘Vulnerable’</span> Customers:
+<span>Implications</span> of Customer Profiling.”</span>
+<em>International Journal of Consumer Studies</em> 34 (4): 437–42. <a
+href="https://doi.org/10.1111/j.1470-6431.2010.00873.x">https://doi.org/10.1111/j.1470-6431.2010.00873.x</a>.
 </div>
-<div id="ref-harrison_profiling_2012" class="csl-entry" role="doc-biblioentry">
-Harrison, Paul, and Charles Ti Gray. 2012. <em>Profiling for Profit : A Report on Target Marketing and Profiling Practices in the Credit Industry</em>. <span>Consumer Action Law Centre</span>.
+<div id="ref-harrison_profiling_2012" class="csl-entry"
+role="doc-biblioentry">
+Harrison, Paul, and Charles Ti Gray. 2012. <em>Profiling for Profit : A
+Report on Target Marketing and Profiling Practices in the Credit
+Industry</em>. <span>Consumer Action Law Centre</span>.
 </div>
 </div>
 <!--radix_placeholder_article_footer-->

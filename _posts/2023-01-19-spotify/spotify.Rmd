@@ -1,0 +1,434 @@
+--- 
+title: "Spotify API miniboss" 
+description: |
+    Limping through authentication just far enough to analyse number of tracks on the soundtrack to my life playlists over the last couple of years 
+author: 
+   - name: Charles T. Gray 
+     url: https://softloud.github.io/onetimetrophybitch/about.html 
+date: 2023-01-19
+output: 
+    distill::distill_article: 
+        self_contained: false
+        # code_folding: show 
+        toc: true
+categories: 
+    - spotify
+    - vis
+    - engineering
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(echo = TRUE) 
+```
+
+
+```{r pkg}
+# packages used in this blogpost
+library(tidyverse) # all-purpose datasci metapkg
+library(gt) # pretty tables
+library(spotifyr) # for accessing my spotify data
+library(skimr)
+
+```
+
+It occurs^[Nothing like unemployment to inspire a blog post; I was one of eight people
+recently laid off at a neuroscience consultancy in Copenhagen. Life just got spicy.] to me that I now have a dataset of playlists in Spotify , and this dataset is, for a data scientist, *astonishingly* corrupted. If I cannot access anything else data-wise, I can do a string analysis of the names of my playlists and could blogpost on how many mistakes I made with them alone. 
+
+## listening habits 
+
+For twenty years, my primary income was music. I've variously substituted this income with roles in scientific programming over the last decade, transitioning into a fulltime career when I completed my doctorate a year ago. My outlet for the music that used to dominate my life, especially moving countries without a piano, are my Spotify playlists.
+
+Music is a constant soundtrack to my life; I'm a High Fidelity grrl living a future-noir musical in my head, dancing on the metro around Copenhagen like no one can see. 
+
+I have two soundtrack to my life playlists for different purposes at all times, but regularly create new soundtracks to life, at the moment it is every season.
+
+```{r cats}
+# set up playlist dataset
+categories <-
+    tibble(
+        in_this_post = c('lw', 'mct'),
+        playlist = c(
+            "lifes::work",
+            "maybe i'll code today"
+        ),
+        purpose = c(
+            "scientific programming, inspired",
+            "scientific programming when feeling unproductive or sad and travelling about Copenhagen on the magic carpet transport system"
+        )
+    )
+
+gt(categories)
+
+```
+<aside>
+How do I get text to wrap in a code chunk? And, for that matter, .Rmd?
+</aside>
+
+## getting the data
+
+I shall begin this analysis as I begin every new type of analysis, by asking the internet how to do it. 
+
+First few hits mentioned a CRAN package [spotifyr](https://www.rcharlie.com/spotifyr/), which sounds promising, indeed.
+
+```{r eval=FALSE}
+# > (in console)
+install.packages('spotifyr')
+
+```
+
+### authentication
+
+Moments like these I always deeply appreciate the open source community for understanding how little skill I have for dealing with APIs; my entire education was equations on a blackboard. 
+
+- [x] Set up a Dev account with Spotify
+- [ ] Find `Client ID` and `Client Secret` 
+
+```
+> spotifyr::get_spotify_access_token()
+Request failed [400]. Retrying in 1 seconds...
+Request failed [400]. Retrying in 3.1 seconds...
+Error in spotifyr::get_spotify_access_token() : 
+>
+```
+
+What did I misunderstand about the instructions? I searched the site, but this yielded lots of documentation but still no answer. So I tried creating an app, and sure enough, yup, there's the `Client ID`.
+
+
+
+- [x] Find `Client ID` and `Client Secret` 
+- [ ] Set authentication to system environment
+
+
+```{r eval=FALSE}
+# >
+Sys.setenv(SPOTIFY_CLIENT_ID = 'xxxxxxxxxxxxxxxxxxxxx')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = 'xxxxxxxxxxxxxxxxxxxxx')
+
+```
+
+I've made this mistake before; I find it confusing that I need to create something called an application just to give myself authentication to access data. 
+
+Now to try it; browse the package reference. [`get_my_playlists`](https://www.rcharlie.com/spotifyr/reference/get_my_playlists.html) is exactly where I want to start.
+
+```{r eval=FALSE}
+# >
+get_my_playlists()
+
+```
+
+Which redirected me to a site displaying the following text. This is disheartening.
+
+> INVALID_CLIENT: Invalid redirect URI
+
+Did I restart R after updating the System Environment? 
+
+```{}
+> library(spotifyr)
+> get_my_playlists()
+Waiting for authentication in browser...
+
+```
+
+This time the browser page displayed new text.
+
+
+> Missing required parameter: client_id
+
+
+Curiouser and curiouser. Are system environments case sensitive?
+
+First, to check that I have actually stored my system variables.
+
+```{r eval=FALSE}
+# > 
+Sys.getenv()
+```
+
+Can't see them. Will inspect file. 
+
+```{r eval=FALSE}
+# > 
+library(usethis)
+edit_r_environ() # this took me to local
+
+```
+
+Time to try those console commands again. 
+
+```{r eval=FALSE}
+# >
+Sys.setenv(SPOTIFY_CLIENT_ID = 'xxxxxxxxxxxxxxxxxxxxx')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = 'xxxxxxxxxxxxxxxxxxxxx')
+Sys.getenv()
+
+```
+
+And, magically, they are there now. Hopefully does it. Restarting R again. 
+
+```{r eval=FALSE}
+# > 
+library(spotifyr)
+get_my_playlists()
+
+
+```
+
+
+Oh ffs. 
+
+> Missing required parameter: client_id
+
+
+```{r eval=FALSE}
+# > 
+Sys.getenv("SPOTIFY_CLIENT_ID")
+
+
+```
+
+> `[1] ""`
+
+I think I'll just edit my .Renviron myself. Trying again. 
+
+```{r eval=FALSE}
+# > 
+library(spotifyr)
+get_my_playlists()
+
+```
+
+Aha! I needed to see the image in [this post](https://github.com/charlie86/spotifyr/issues/95#issuecomment-557841151) to understand I needed to add a local host to my Spotify dev app's settings. 
+
+Once again, learning the lesson that some things cannot be solved with R.
+
+# analysing my playlist categories
+
+Now that I can access my Spotify data, let's see what I have to work with. 
+
+I have been creating lw and mct playlists for years now. For a while I was sometimes creating a playlist by the month. Currently I have been creating playlists by the season. 
+
+<aside>
+Why am I labelling maybe i'll code today *mtc* in playlist titles? It's not even an intitialism.
+</aside>
+
+
+## questions that don't need answers
+
+I know I have divided playlists into instrumental and indie, broadly, and attempted to tag these playlists by lw and mct categories and when I instantiated the playlist. 
+
+- What are my listening habits over time? 
+- What artists appear the most in my playlists?
+- What are my favourite tracks? 
+
+To further define these questions, I need to find out what variables I have access to. I am assuming I can access my playlist titles, and the tracks in them. 
+
+## finding title variable
+
+```{r eval=FALSE}
+
+# writing file locally so I don't have to fiddle with auth
+library(spotifyr)
+sp_playlists_raw <- get_my_playlists(limit = 50)
+
+write_csv(sp_playlists_raw, 'data/spotdat.csv')
+
+```
+
+
+```{r}
+sp_playlists_raw <- read_csv('../../data/spotdat.csv')
+
+# what variables we have
+
+skim(sp_playlists_raw)
+
+```
+
+There are a number of link variables, and it will take some experimentation to figure out which to use, but that is for formatting into the labels. There are two variables that will be useful for analysis. Happily, I have 47 total playlists on Spotify, and Spotify's API allows for a Maximum of 50.  
+
+
+Inspecting this, as well as running the dataset through a quick `::View`, I see there are two useful variables.
+
+```{r}
+playlist_var <- sp_playlists_raw %>% 
+    select(
+        playlist = name,
+        n_tracks = tracks.total
+    )
+
+playlist_var %>% head() %>% gt()
+
+```
+
+## playlist titles
+
+I'm interested in the playlists with `mtc` which should be `mct`, so will need to search for both, and then there's `lw` which is written as `l::w`. I've always been well aware I'd probably end up doing an analysis on these data at some point, yet I was unable to fix this. Let's take a look at the damage.
+
+```{r}
+# all playlist titles
+playlist_var %>% pull(playlist)
+
+```
+
+I'll start by describing a category variable to filter the dataset. 
+
+```{r}
+
+playlist_counts <- 
+    playlist_var %>% 
+    mutate(
+        category = case_when(
+                    str_detect(playlist, 'mtc') ~ 'mct',
+                    str_detect(playlist, 'mct') ~ 'mct',
+                    str_detect(playlist, 'code') ~ 'mct',
+                    str_detect(playlist, 'l::w') ~ 'lw',
+                    str_detect(playlist, 'lifeswork') ~ 'lw'
+                )) %>% 
+                filter(
+                    !is.na(category)
+                ) %>% group_by(category)
+
+
+gt(playlist_counts)
+
+```
+
+Not sure if I have any playlists labelled with `lw`, but I'll inspect the antijoin to see if I missed anything. 
+
+```{r}
+anti_join(playlist_var, playlist_counts) %>% pull(playlist)
+
+```
+
+Yay, looks good. 
+
+## engineering playlist data
+
+
+```{r}
+playlist_dat <-
+    playlist_counts %>% 
+        # extract variables from playlist titles
+        mutate(year = str_extract(playlist, '\\d{4}') %>% as.integer(),
+               month = str_extract(playlist, '-\\d{2}\\s') %>% 
+                   str_remove('-') %>% 
+                   str_remove('\\s') %>% 
+                   as.integer(),
+               season = case_when(
+                   str_detect(playlist, 'winter') ~ 'winter',
+                   str_detect(playlist, 'summer') ~ 'summer',
+                   str_detect(playlist, 'fall') ~ 'fall',
+                   str_detect(playlist, 'autumn') ~ 'fall',
+                   str_detect(playlist, 'spring') ~ 'spring'
+               ),
+               # assign seasons for month-labelled playlists, using BOM 
+               season = case_when(
+                  is.na(month) ~ season,
+                  month == 12 | month <= 2 ~ 'winter',
+                  month <= 5 ~ 'spring',
+                  month <= 8 ~ 'summer',
+                  month <= 11 ~ 'fall'
+               ) %>% 
+                   fct_relevel('spring', 'summer', 'fall', 'winter'),
+               # interesting, I just realised I've lived three countries over these datasets
+               country = case_when(
+                   # no straya :( 
+                   month <= 3 & year <= 2021 ~ 'straya',
+                   year == 2021 ~ 'uk',
+                   year == 2022 & month < 4 ~ 'uk',
+                   TRUE ~ 'danmark'
+               ) %>% fct_relevel('uk')
+               
+                   ) %>% 
+        # remove empty playlist 
+        filter(n_tracks > 0) %>% 
+        # arrange categories chronologically
+        ungroup() %>%
+        mutate(
+            season_year = if_else(
+                month <= 2 & season == 'winter',
+                as.integer(year - 1),
+                year
+            ),
+            season_year = if_else(is.na(season_year), year, season_year)
+            
+        ) %>% 
+        arrange(category, season_year, season, month) %>% 
+        select(-month) 
+
+# a random sample of rows
+
+sample_n(playlist_dat, 5)
+
+
+```
+
+<aside>
+See now, this is what I'm talking about. Look at these variable names. The sheer variety of ways I've input playlist names, even though I knew I'd want to do this analysis at some point. I can see now seasons are not sufficient, I need to adopt a data input of season-month. 
+</aside>
+
+Alright, I think I've got all the variables I can engineer for the playlist dataset. 
+
+## visualising playlist data
+
+I still want to get the track data, but let's take a look what I have. 
+
+```{r}
+
+season_dat <- 
+playlist_dat %>%
+    group_by(category, season_year, season) %>% 
+    select(playlist, n_tracks, season, season_year) %>% 
+    ungroup() %>% 
+    mutate(
+        season = fct_relevel(season, 'spring', 'summer'),
+        timepoint = str_c(season_year, '-', season)
+    ) %>% 
+    arrange(category, season_year, season) %>%
+    ungroup() 
+
+
+```
+
+
+```{r fig.height=10}
+
+season_dat %>% 
+    rename(year = season_year) %>%
+    left_join(
+        tibble(
+            category = c('mct', 'lw'),
+            genre = c('indie', 'film music')
+        )
+    ) %>% 
+    ggplot(aes(x = season, 
+               weight = n_tracks, 
+               fill = playlist)
+           ) +
+    geom_bar(show.legend = FALSE) +
+    facet_grid(genre ~ year, scales = 'free') +
+    theme_minimal(base_size = 15) +
+    scale_fill_grey() +
+    theme(panel.grid.major.x = element_blank()
+    ) +
+    labs(
+        title = "Number of tracks on the soundtrack to my life over time" %>% str_wrap(35),
+        subtitle = "Colour indicates playlist",
+        x = "",
+        y = "",
+        caption = "Ah, so many stories, even in this first analysis of two playlists I create for programming and everything else at semi-regular intervals; I live every day filled with an anthemic soundtrack for my everyday tasks of coding and travelling around Copenhagen's magic carpet transport system. There's the dip in 2021 when I was never hitting flow hard enough to turn to my focus playlist. Meanwhile, I probably listened to those 20ish indie tracks intensely, one or two to obsessive levels. Winter in the UK a year ago was lonely and I listened to a lot of music for comfort. Summer was a good time in Copenhagen for me, got lots of work done, and put time into curating a good programming playlist. Fall was hard. Winter, of course, is only halfway through, so is necessarily smaller, but my productivity is lifting and playlist growing. " %>% str_wrap(60)
+    ) 
+
+```
+
+
+## engineering track data
+
+> Ha, for a follow-up blog post, I guess.
+
+Lost half the day to authentication. 
+
+
+Also this: 
+
+- [ ] format link variables; figure out href variables
