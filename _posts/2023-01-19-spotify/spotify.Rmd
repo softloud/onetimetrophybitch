@@ -391,8 +391,10 @@ playlist_dat %>%
 ```
 
 
-```{r fig.height=10}
+```{r }
 
+# perhaps storing as an object will help reduce file size
+season_plot <- 
 season_dat %>% 
     rename(year = season_year) %>%
     left_join(
@@ -419,6 +421,11 @@ season_dat %>%
         caption = "Ah, so many stories, even in this first analysis of two playlists I create for programming and everything else at semi-regular intervals; I live every day filled with an anthemic soundtrack for my everyday tasks of coding and travelling around Copenhagen's magic carpet transport system. There's the dip in 2021 when I was never hitting flow hard enough to turn to my focus playlist. Meanwhile, I probably listened to those 20ish indie tracks intensely, one or two to obsessive levels. Winter in the UK a year ago was lonely and I listened to a lot of music for comfort. Summer was a good time in Copenhagen for me, got lots of work done, and put time into curating a good programming playlist. Fall was hard. Winter, of course, is only halfway through, so is necessarily smaller, but my productivity is lifting and playlist growing. " %>% str_wrap(60)
     ) 
 
+```
+
+
+```{r fig.height=10}
+season_plot
 ```
 
 
