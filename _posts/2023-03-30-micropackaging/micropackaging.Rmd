@@ -1,7 +1,7 @@
 --- 
 title: "Explaining research code using reproducibility tools" 
 description: |
-    Simulating meta-analysis data with `simeta` and celebrating a rare moment of avoiding the quagmire of feature creep, the anxiety of past doctoral work, and using data science tools to explain a complex algorithm to a bunch of scientists who have better things to do than go through every line of my code.
+    Simulating meta-analysis data in R with simeta and celebrating a rare moment of avoiding the quagmire of feature creep, the anxiety of past doctoral work, and using data science tools to explain a complex algorithm to a bunch of scientists who have better things to do than go through every line of my code.
 author: 
    - name: Charles T. Gray 
      url: https://softloud.github.io/onetimetrophybitch/about.html 
@@ -32,7 +32,7 @@ library(readr)
 
 Finally a hex-worthy use of code I wrote for my doctoral project! 
 
-```{r fig.align='center', fig.cap="Thank you, [Sarah Romanes](), for package name awesomeness, and mange tak, [@anatomecha](https://github.com/anatomecha/) for the sweet hex.", echo=FALSE}
+```{r fig.align='center', fig.cap="[Package site](https://softloud.github.io/simeta/). Thank you, [Sarah Romanes](), for package name awesomeness, and mange tak, [@anatomecha](https://github.com/anatomecha/) for the sweet hex.", echo=FALSE}
 
 knitr::include_graphics("logo.png")
 ```
@@ -45,7 +45,7 @@ In my world that is *a lot of scientists*; a hex-worthy number of scientists!
 
 Using `simeta` for a new project helped me steer past the houses of cards my ever-empretzled doctoral simulation functions had become. Instead of devolving into paralysed state of anxiousness, obsessing about unit tests failing because the test is old not because the code is bad, and knowing I had a very small group of people I need to communicate my results with, I found I was able to shrug off what had held me back from using this code before, and simply get some science done.  
 
-In my ten years of writing simulation pipelines, explaining what one point in a visualisation, that is, what the extracted and summarised result of one trial is challenging. 
+Over my years of writing simulation pipelines, explaining what one point in a visualisation, that is, what the extracted and summarised result of one trial continues to be the challenge I ruminate on. 
 
 ```{r sim, fig.cap="New simulation study using simeta functions developed for my doctoral project. Even when drafting a visualisation, I try to hold myself to the rule of finishing the sentence *Each point represents...* as it helps me keep track of what the visualisation is truly answering.", layout="l-page", fig.height=6, echo=FALSE}
 
@@ -55,7 +55,7 @@ read_rds("example_plot.rds")
 
 The key lesson I'm taking away from this new version of `simeta` was in fixing in my mind what my collaborators will use this for. It is technically a software package, but my goal is not to create the greatest software, nor to produce the perfect analysis. It's to give them interoperable code they can use or rely on for their new analysis.  
 
-In fact, truth be told, reproducibilty also takes a back seat, to documentation. **How often do my collaborators really run my code?** Instead, collaborators tend to want to fiddle with the parameters and structure of my pipeline, such as sampling distributions or models fit, and I do the dirty work of finding the right line of code to change. 
+In fact, truth be told, reproducibility also takes a back seat, to documentation. **How often do my collaborators really run my code?** Instead, collaborators tend to want to fiddle with the parameters and structure of my pipeline, such as sampling distributions or models fit, and I do the dirty work of finding the right line of code to change. 
 
 In any case, if the simulation study misses the point of their question, which can easily happen when juggling so many parameters, and only having had one preliminary meeting, there's no point spending all day perfecting the software, tests, and reproducibility. 
 
