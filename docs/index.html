@@ -785,6 +785,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1857,15 +1858,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -2064,7 +2071,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2098,16 +2105,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="nav-right">
 <a href="index.html">measured.</a>
 <a href="about.html">trophybitch</a>
-<div class="nav-dropdown">
-<button class="nav-dropbtn">
-rethinking
- 
-<span class="down-arrow">&#x25BE;</span>
-</button>
-<div class="nav-dropdown-content">
-<a href="chapter-2.html">chapter-2</a>
-</div>
-</div>
 <div class="nav-dropdown">
 <button class="nav-dropbtn">
 presentations
@@ -2265,10 +2262,34 @@ function init_posts_list() {
 <div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
 <div class="posts-list">
 <h1 class="posts-list-caption" data-caption="measured.">measured.</h1>
+<a href="posts/2023-03-30-micropackaging/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["simulation","vis","meta-analysis","pipeline","reproducibility","engineering"]}</script>
+<div class="metadata">
+<div class="publishedDate">March 30, 2023</div>
+<div class="dt-authors">
+<div class="dt-author">Charles T. Gray</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/2023-03-30-micropackaging/logo.png"/>
+</div>
+<div class="description">
+<h2>Explaining research code using reproducibility tools</h2>
+<div class="dt-tags">
+<div class="dt-tag">simulation</div>
+<div class="dt-tag">vis</div>
+<div class="dt-tag">meta-analysis</div>
+<div class="dt-tag">pipeline</div>
+<div class="dt-tag">reproducibility</div>
+<div class="dt-tag">engineering</div>
+</div>
+<p>Simulating meta-analysis data with `simeta` and celebrating a rare moment of avoiding the quagmire of feature creep, the anxiety of past doctoral work, and using data science tools to explain a complex algorithm to a bunch of scientists who have better things to do than go through every line of my code.</p>
+</div>
+</a>
 <a href="posts/2023-01-19-spotify/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["spotify","vis","engineering"]}</script>
 <div class="metadata">
-<div class="publishedDate">Jan. 18, 2023</div>
+<div class="publishedDate">Jan. 19, 2023</div>
 <div class="dt-authors">
 <div class="dt-author">Charles T. Gray</div>
 </div>
@@ -2367,7 +2388,7 @@ function init_posts_list() {
 <ul>
 <li>
 <a href="#category:articles">articles</a>
-<span class="category-count">(5)</span>
+<span class="category-count">(6)</span>
 </li>
 <li>
 <a href="#category:codeflow">codeflow</a>
@@ -2379,10 +2400,26 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:engineering">engineering</a>
+<span class="category-count">(2)</span>
+</li>
+<li>
+<a href="#category:meta-analysis">meta-analysis</a>
 <span class="category-count">(1)</span>
 </li>
 <li>
 <a href="#category:music">music</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:pipeline">pipeline</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:reproducibility">reproducibility</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:simulation">simulation</a>
 <span class="category-count">(1)</span>
 </li>
 <li>
@@ -2391,7 +2428,7 @@ function init_posts_list() {
 </li>
 <li>
 <a href="#category:vis">vis</a>
-<span class="category-count">(1)</span>
+<span class="category-count">(2)</span>
 </li>
 </ul>
 </div>
@@ -2411,8 +2448,7 @@ function init_posts_list() {
 
 
 <div class="d-article">
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
