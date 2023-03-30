@@ -32,7 +32,7 @@ library(readr)
 
 Finally a hex-worthy use of code I wrote for my doctoral project! 
 
-```{r fig.align='center', fig.cap="[Package site](https://softloud.github.io/simeta/). Thank you, [Sarah Romanes](), for package name awesomeness, and mange tak, [@anatomecha](https://github.com/anatomecha/) for the sweet hex.", echo=FALSE}
+```{r fig.align='center', fig.cap="[Package site](https://softloud.github.io/simeta/). Thank you, [Sarah Romanes](https://www.linkedin.com/in/sarah-romanes-939a325b?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAzJ7b0BChcqD9Ivd5c8tYFvcs5dFZYalCQ&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BL%2FBJqzO6RF2%2BtqWyxVO4%2Fg%3D%3D), for package name awesomeness, and mange tak, [@anatomecha](https://github.com/anatomecha/) for the sweet hex.", echo=FALSE}
 
 knitr::include_graphics("logo.png")
 ```
