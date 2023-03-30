@@ -37,7 +37,7 @@ Finally a hex-worthy use of code I wrote for my doctoral project!
 knitr::include_graphics("logo.png")
 ```
 
-And, by *hex-worthy*, I mean some other people else has use for it. And by *some other people*, I mean three collaborators, and perhaps some of their collaborators. 
+And, by *hex-worthy*, I mean some other people have use for it. And by *some other people*, I mean three collaborators, and perhaps some of their collaborators. 
 
 In my world that is *a lot of scientists*; a hex-worthy number of scientists!  
 
@@ -95,7 +95,7 @@ With the goal of pushing before Copenhagen's PyData this evening, I'm leaving th
 
 ### Verbal challenges
 
-I try to to complete the phrase *Each point represents...* in each simulation visualisation I create, but it is easy for it the sentence become a combinatorially complicated combinatorially overburdened mash of *for a given*, *for each*, and *with respect to* clauses. 
+I try to to complete the phrase *Each point represents...* in each simulation visualisation I create, but it is easy for it the sentence become a combinatorially complicated, overburdened mash of *for a given*, *for each*, and *with respect to* clauses. 
 
 ### Visual challenges
 
