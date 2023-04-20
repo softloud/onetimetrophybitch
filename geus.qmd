@@ -1,0 +1,218 @@
+---
+title: "GEUS Application"
+subtitle: "Charles T. Gray"
+author: "Ph.D. (Statistics) *Towards a Measure of Codeproof: a toolchain walkthrough for computationally developing a statistical estimator*"
+format: revealjs
+editor: visual
+---
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+#### R Presentation tools
+
+```{r echo=TRUE}
+# tools used to make 
+# this Quarto presentation
+
+# render images
+library(knitr) 
+
+# data science
+library(tidyverse)
+
+# html tables
+library(gt) 
+
+```
+
+:::
+
+::: {.column width="50%"}
+
+#### My tools
+
+```{r eval=FALSE,echo=TRUE}
+
+# install examples  
+library(devtools)
+
+# living analysis
+install_github("spunk") 
+
+# meta-anaysis simulation
+install_github("simeta") 
+
+```
+
+:::
+
+::::
+
+::: aside 
+This fully reproducible and [open source](https://github.com/softloud/onetimetrophybitch/blob/master/geus.qmd) Quarto presentation is deployed on [GitHub Pages]().
+:::
+
+
+# Why did I apply? 
+
+# FAIR and Open Science 
+
+
+## {background-image="figs/spunk.png"}
+
+### spunk package
+#### *Nutritional interventions for male infertility: a systematic review and meta-analysis*
+
+
+## Open spunk data
+
+### [Machine-readable data](https://softloud.github.io/spunk/dataset.html)
+
+```{r echo=TRUE}
+library(spunk)
+
+# data used in previous visualisation
+spunk_dat %>% 
+    filter(outcome == "morphology") %>% 
+    sample_n(5) %>% 
+    gt()
+
+```
+
+
+# Code I'm proud of
+
+## Simulating meta-analysis data
+
+> I have a question about simeta - I need to **simulate meta-analyses with large, medium and small effect sizes and with high, medium and low heterogenity** to illustrate the point about why vote-counting does not work (in all but the most extreme cases - large effect and no heterogenity). Can I do this using the code from simeta?
+
+# Uh, I don't know 
+
+## What I did   
+
+::: {.incremental}
+A brutally honest account.
+
+- Procrastinated about responding
+- Unchecked Bullet Journal task
+- Set a meeting
+- Opened Pandora's Box (cloned repo)
+- Check build
+- Use-cases
+- Meeting codejam
+:::
+
+# [Packaged analysis](https://softloud.github.io/onetimetrophybitch/posts/2023-03-30-micropackaging/): [simeta](https://softloud.github.io/simeta/)
+
+
+
+
+## simeta
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+
+
+```{r}
+include_graphics("figs/simeta_hex.png")
+```
+
+
+Math is in the [manuscript](https://link.springer.com/chapter/10.1007/978-981-15-1960-4_2), *Statistics and Data Science, 2019*
+
+:::
+::: {.column width="70%"}
+
+```{r echo=TRUE}
+library(simeta)
+
+# simulate dataset of 3 studies
+example_meta <- sim_stats(
+  measure = "mean",
+  measure_spread = "sd",
+  n_df = sim_n(), 
+  wide = TRUE, # metafor interoperability
+  rdist = "lnorm",   # sampling distribution
+  par = list(shape = 0.25, scale = 1),
+  tau_sq = 0.4, # between-study error
+  effect_ratio = 1.2 # true effect 
+) 
+# output in html using quarto
+example_meta %>% gt()
+
+```
+
+
+:::
+
+::::
+
+## What is a meta-analysis?
+
+```{r echo=TRUE}
+
+library(metafor)
+
+# random-effects meta-analysis
+rma(
+    data = example_meta,
+    measure = "SMD",
+    m1i = effect_c,
+    sd1i = effect_spread_c,
+    n1i = n_c,
+    m2i = effect_i,
+    sd2i = effect_spread_i,
+    n2i = n_i
+) -> rma_example
+
+
+```
+
+## What is a meta-analysis?
+
+```{r echo=TRUE}
+plot(rma_example)
+
+```
+
+
+## How was simeta implemented? 
+
+```{r pipeline, fig.cap="Pipeline to fit 25K meta-analysis models to simulated data, with parameters of interest extracted into a summarised in a ggplot visualisation."}
+
+
+knitr::include_graphics("figs/example_pipeline.png")
+```
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+- metafor models
+- tidyverse tools
+- roxygen documentation
+:::
+
+::: {.column width="50%"}
+
+- pkgdown site deployed on github pages
+- targets simulation pipeline
+
+:::
+::::
+
+
+## What does it do? 
+
+
+```{r fig.align='center'}
+include_graphics("figs/example_sim.png")
+
+```
+
+# Tak fordi du lyttede
